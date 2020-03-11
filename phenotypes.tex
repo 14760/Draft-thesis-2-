@@ -1,0 +1,83 @@
+\chapter{Phenotypes and the Post synaptic proteome network}
+\section{Phenotypes considered}
+
+
+\section{Intellectual disabilitity}
+Intellectual disability and the genetics of intelligence. 
+\section{Degree and id genes}
+Examining the centrality measures for the 692 ID genes from cite(vissers2016genetic) implicated in intellectual disability,  245 are in the PSP.
+
+
+ The median degree and mean degree are higher but not significantly so (Two sample Wilcoxon rank sum test with continuity correction - Mann-Whitney, W = 454524, p-value = 0.055 calculated in R) although the difference in the betweenness centrality is significant (Wilcoxon rank sum test with continuity correction. W = 467100, p-value = 0.006944, two sided for visser greater than W = 467100, p-value = 0.0032 ) see table \ref{table:degree_visser}, \ref{table:visser_betweenness}. \todo{90 centile degree for different diseases}
+ 
+692 genes were identified from Visser et al 2016 Nature Review Genetics (ref) . The paper states there are ~700 genes and over 700 genes but I cannot identify a precise figure and the supplemental material is in PDF format and not machine readable.
+692 genes were extracted using the python module pdf2text (ref) and confirming the list of genes gene identity in ToppGene (ref). These were stored as a pdf.
+245 synaptic genes were identified. 35.4\% of the genes reported by Visser are synaptic and represent 7\% of the 3457 vertex PSP.  
+There was no significant difference in degree distribution between ID genes and the PSP as a whole 
+(median 10.0 Visser, 8 PSP, Mean 19.24 v 17.64 – Visser, p = 0.054 Wilcoxon test in R)
+There was a significant difference in betweenness centrality (Median 317 v Median 540, p=0.006944 ) higher betweenness centrality. The genes appeared to be underrepresented as articulation points in the PSP (3 of 203)
+Eigenvector similarity appears to be non significant
+
+They are unevenly distributed with spectral clustering. The top group is group 4 with 9 of 31 genes associated. A high ranking GO term for group 4 is peroxisome related (8 genes). 7 of the 9 visser genes were associated with this GO term showing some modularity in function in at least a proportion of cases. Group 5 has 11 genes from Visser (9.2\% of community, slightly more than average of PSP).
+
+Top groups spectral
+\begin{table}[ht]
+\centering
+\begin{tabular}{clll}
+\hline
+ Spectral group &Freq visser& PSP group size &frac of group\\
+              4&           9 &            31&    0.29\\
+          47  &         6   &          27  &  0.222\\
+          19   &        3    &         20   & 0.150\\
+         45    &      15     &       124 &   0.121\\
+           43     &     18      &      150  &  0.120\\
+           22      &     5       &      42   & 0.119\\
+         26       &   13      &      120 &   0.108\\
+        28       &    4     &        38  &  0.105\\
+            5      &    11    &        112   & 0.098\\
+          24     &      7   &          76 &   0.092\\
+\end{tabular}
+\caption{Distribution of ID genes from Visser over spectral groups}
+\label{table:Distribution of ID genesw from Visser over spectral groups}
+\end{table}
+  %from \hyperref{/home/grant/Dropbox/stront_share/PhD_bits/id}
+
+
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Mon Oct  7 13:54:07 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrrr}
+  \hline
+ & Min. & 1st Qu. & Median & Mean & 3rd Qu. & Max. & n\\ 
+  \hline
+all\_synapse & 1.00 & 4.00 & 8.00 & 17.64 & 19.00 & 535.00 &3457\\ 
+  visser synaptic & 1.00 & 4.00 & 10.00 & 19.24 & 22.00 & 263.00 & 245\\ 
+   \hline
+\end{tabular}
+\caption{Difference in degree. PSP genes in cite(vissers2016genetic) p = 0.54}
+\label{table:degree_visser}
+\end{table}
+
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Mon Oct  7 14:08:05 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrrr}
+  \hline
+ & Min. & 1st Qu. & Median & Mean & 3rd Qu. & Max. & n\\ 
+  \hline
+
+
+All PSP & 0.00 & 43.29 & 317.04 & 3421.08 & 1571.57 & 644670.69 & 3457 \\ 
+  Visser genes & 0.00 & 68.94 & 540.62 & 3485.36 & 2761.75 & 85706.61 & 245\\ 
+   \hline
+\end{tabular}
+\caption{Difference in betweenness centrality. PSP genes in citep(vissers2016genetic) p=0.0069}
+\label{table:visser_betweenness}
+\end{table}
+cite(zabaneh2018genome)
+\subsubsection{Essential genes and degree}
+Lek
+Database of essential genes. 
+

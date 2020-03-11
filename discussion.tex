@@ -1,0 +1,107 @@
+\chapter{Discussion}
+
+\section{Discussion}
+One of the issues with the project is the continuing evolution of the synaptic maps and that we can only address two of these while they are in a continuous state of evolution. Indeed the map could be said to change with the outcome of each published synaptic proteomic study. The only way to produce anything was to freeze the data at points. Hopefully the code written to optimise the analysis will make more fluid analysis possible in the future.
+
+Further directions will include looking at the synaptic proteome over the course of time. When moving from a trait such as intelligence to polygenic disorders that have different onsets in time then if we assume these to be synaptopathies we can expect different proteins to be expressed and this to correspond to the critical periods of the emergence of the disorder. For example neurodevelopmental disorders early, schizophrenia we would expect to occur around the time of peak onset of schizophrenia. We also know that the proteome varies across the brain and we will need to take this into account.
+
+Future analyses may also be able to incorporate data on gene expression
+
+One limitation is that we throw away approximately 50\% of the information from SNPs because they do not correspond to protein encoding genes. A way of incorporating genetic variants known to affect genes such as eQTLs would be helpful. 
+
+Ideally given the continuous evolution of the map and the analysis we would have an online resource like the fly brain project that updates the findings in relatively constant times and publications to advise of major changes to the map or interface. 
+
+The genes in the region of the afected groups are subjedt to experiment one could see if they in addition to others had a role in learning.
+
+There are reasons to believe that the synaptic proteome is somewhat different from the general proteom and indeed that its network structure is particularly important as synaptic proteins inherently form modular units with specific functions. More phylogenetically ancient proeteins were not enriched for association for intelligence but the murine and zebrafish proteomes showed greater enrichment than the consensus proteome.
+
+The change in GWAS size in the course of the study and the rapid change in nomenclature (for example the difficulty in translating the output of VEGAS Gene symbols to contemporary entrez show some of the factors that make the reproducibility of studies of this nature over time problematic. I have tried to minimise this by depositing all of the lookup and data information used in this project at the time it was m	EPHB2	EPH receptor B2
+6146	RPL22	ribosomal protein L22
+23557	SNAPIN	SNAP associated protein
+2054	STX2	syntaxin 2
+5127	CDK16	cyclin dependent kinase 16
+2055	CLN8	CLN8 transmembrane ER and ERGIC protein
+6154	RPL26	ribosomal protein L26
+339983	NAT8L	N-acetyltransferase 8 like
+9230	RAB11B	RAB11B, member RAS oncogene family
+11280	SCN11A	sodium voltage-gated channel alpha subunit 11
+2066	ERBB4	erb-b2 receptor tyrosine kinase 4
+5138	PDE2A	phosphodiesterase 2A
+3092	HIP1	huntingtin interacting protein 1
+5142	PDE4B	phosphodiesterase 4B
+83992	CTTNBP2	cortactin binding protein 2
+55327	LIN7C	lin-7 homolog C, crumbs cell polarity complex component
+8224	SYN3	synapsin III
+1056	CEL	carboxyl ester lipase
+9256	TSPOAP1	TSPO associated protein 1
+41	ASIC1	acid sensing ion channel subunit 1
+43	ACHE	acetylcholinesterase (Cartwright blood group)
+11311	VPS45	vacuolar protein sorting 45 homolog
+51248	PDZD11	PDZ domain containing 11
+11315	PARK7	Parkinsonism associated deglycase
+2099	ESR1	estrogen receptor 1
+9267	CYTH1	cytohesin 1
+5173ade (eg the complete entrez info, Pli etc) so that a snapshot of the crossmapping between terms is maintained. 
+
+You also observe the phenomenon where small changes in modularity give rise to quite different graphs. Typically this is a result of the graph having a hierarchical structure and two communities a and b being vcombined. There are a few difficulties with this first it is at present very difficult to represent such a structure using the standard tools of graph visualisation and second if one is treating communuites as units that then undergo statistical tests we have to have some way of choosing the apporirate unit. In the Newman and Givan clustering algorithm the idivision stops when the optimal level of modularity has been achieved. I would sugggest that where a study would give rise to communitiesw which make clear sense in terms of an experiment such as a populatio study where there is only a small change in modularity trhat which gives rise to the mapping that has an additional correspondance to realisty should be preferred so long as the change in modularity is not too great. This therefore results in the question of what is too great. One ansewr might be to optinmise the likelihood of hte graph and the study jointly nand in order to do this one would need a stochastic block model, this would also allow one to incorporate information on other mesoscale generating processes within the graph such as core periphery strcuture.
+
+Does not take into account also dynamic effects e.g. rules based modelling discuss this briefly and also spatial orientation within the larger synapse (functional organisation of post synaptic glutamate receptors MacGillavry
+
+The study provides an outline for a network analysis of GWA studies of neuropsychiatric disorders with synaptic involvement. An analysis of vertex properties with gene level results, an analysis of the site of enrichment core or periphery, community enrichment analysis and topological subgroup analysis. 
+
+Barabasi treats disease entities as homogeneous however the disease module even if it encompasses all genes involved in the disease may represent two or more distinct processes. For example with the exception of disorders where it is possible to identify a causative mutation, organism or tissue diagnosis then a disease is a constellation of physical findings and history and investigations which may arise from more than one albeit closely related source. There are examples where redefining the groups contained within a disease group have yielded better correlation with progression and prognosis. 
+
+One issue with MAGMA GWA is the choice of a background set. In competitive testing we test enrichment against the rest of the genome rather than seeing if the set of genes themselves are associated. The PSP enriches for educational attainment and intelligence so as the sample size of the PSP approximates the size of the PSP the enrichment value will approach this as opposed to no enrichment if the group were to approach the size of the genome. 
+
+
+Choice of clustering method. A wide variety of choices of clustering method were available. Some such as the newman and girvan betweenness method were prohibitively slow with large networks even using a highly parrallelised implementation. Others such as the greedy agglomerative method led to the domination of the clusterings by some large units and many small ones. The spin glass method is also attractive but it is hard to see how one can devise an experiment using it. There is at minimum one tune able parameter and this can take any integer value. This is useful in controlling the size of groups and one can achieve good functional enrichment but the question of the choice of parameter remains an open one. One could try to learn an appropriate hyperparameter but against what is ones objective function. Both CMcC and I(in the pilot study) used grid search with more precision in the case of CMcC but this leads to a combinatorial explosion of possible clusterings and this only takes into account the gamma parameter. I think that this method is much more useful for exploratory data analysis and once one has chosen a good gamma or cooling parameter perhaps based on functional classification then one can go on to ask questions of empirical population data. However there is a problem too with this, we have shown that	EPHB2	EPH receptor B2
+6146	RPL22	ribosomal protein L22
+23557	SNAPIN	SNAP associated protein
+2054	STX2	syntaxin 2
+5127	CDK16	cyclin dependent kinase 16
+2055	CLN8	CLN8 transmembrane ER and ERGIC protein
+6154	RPL26	ribosomal protein L26
+339983	NAT8L	N-acetyltransferase 8 like
+9230	RAB11B	RAB11B, member RAS oncogene family
+11280	SCN11A	sodium voltage-gated channel alpha subunit 11
+2066	ERBB4	erb-b2 receptor tyrosine kinase 4
+5138	PDE2A	phosphodiesterase 2A
+3092	HIP1	huntingtin interacting protein 1
+5142	PDE4B	phosphodiesterase 4B
+83992	CTTNBP2	cortactin binding protein 2
+55327	LIN7C	lin-7 homolog C, crumbs cell polarity complex component
+8224	SYN3	synapsin III
+1056	CEL	carboxyl ester lipase
+9256	TSPOAP1	TSPO associated protein 1
+41	ASIC1	acid sensing ion channel subunit 1
+43	ACHE	acetylcholinesterase (Cartwright blood group)
+11311	VPS45	vacuolar protein sorting 45 homolog
+51248	PDZD11	PDZ domain containing 11
+11315	PARK7	Parkinsonism associated deglycase
+2099	ESR1	estrogen receptor 1
+9267	CYTH1	cytohesin 1
+5173 often it is not the predominant ontology member in a group that is associated with the phenotype but an agglomeration of supporting proteins which often have little in common other than their close interrreaction with the ontology members found to be associated with a phenotype in animal studies. In pursuing a very 'pure' functional enrichment using gene ontology for example as ones objective function using methods that have tunable parameters one misses these associated proteins. 
+
+\subsection{Community structure and choice of algorithm}
+
+Although the summation constraint \todo{look up} may avoid the trivial modularity solution (putting all vertices in one module) it does not avoid the 'near trivial' situation such as cone community with 99\% of the nodes and another with 1\%. Pocklington used visual inspection to fine tune the initial clustering but this is difficult when we have large numbers of vertices and is a potential source of bias if we are doing inference for example using population data. Some clustering modalities such as spin glass allow control over the number of communities with the approximate influence of size but there is the problem of tunable paramaters. Other such as Louvain are heirarchical (CDM is too) but often the implementation does not allow access tro the heirarchy or one is back with the problem of choosing the division that looks right (ie the level in the height of the heurarchy) rather than maximising the modularity or likelihood with consequent problems in inference. 
+
+The best pragmatic solution so far may be to choose a method that gives `pretty good` (with the earlier caveat about problems in looking for too pure a functional enrichment)ideally one without tubale parameters. 
+
+In our experience of the synaptic proteom spectral clustering and Louvain perform well although the groups are rather large with Louvain. In the future especially with access to raw genotype data maximising the joint (improbability) of the population study and clustering may be effective ie we accept a small decrease in modularity if it is associated with a partition that makes sense of the study but then there is the question of how small the change in modularity can be. 
+
+
+
+We need a way in which we can take into account that the pre and post synaptic areas are integrated eg some processes cross them and form cross synaptic modules and also that some genes are present in both compartments. It seems that the isolated post synaptic component is enriched for educational attainment but a number of the most significant genes are those seen in the PSP.
+
+In considering the difference between disease modules and topological groups we must consider two possibilities. First for a complex trait we are looking at a topological area where genetic variation occurs across the population which may lead to a convergent phenotype. This is different from looking at the effects of the perturbation of an area of the graph on neighbouring or more distant nodes for example gene expression in a loss of function mutation. OMIM and Var contain both, genes implicated in disease that are up-regulated or found to have a causative role and those where there are specific germ line changes that predispose to the disease. The modular structure of the synapse and the effects of synaptic protein structure on function make it more likely that differences in neighbouring proteins will impact the overall function of a topological unit or the synapse than in for example a biological pathway where constituents are more separated in time than space and limiting factors may include quantity of reactants. We see in the study of core genes the effects that variations in these have in multi-system disorders, incompatibility with viability or disorders of cell cycle (which is an ancient system conserved from yeast)
+\section{Non obvious takehomes for discussion}
+
+For the presynaptic proteome education phenotypes enrich but the intelligence ones in general do not. 
+
+\section{Further discussion}
+Lack of different intelligence phenotypes e.g. fluid etc in large scale genomic studies compared with Hill et al. where the finding was for a single phenotype
+\section{Further research}
+Missing heritability and the impact of exome data
+Make it easy to use like FUMA
+How findings of GWAS extend to more rare diseases give example of drug induced psychosis or high intelligence

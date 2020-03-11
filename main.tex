@@ -1,0 +1,127 @@
+\documentclass{book}
+\usepackage[utf8]{inputenc}
+
+
+%--------------------
+% Packages
+% -------------------
+%\documentclass[11pt,a4paper]{article}
+%\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+%\usepackage{gentium}
+\usepackage{csquotes}
+\usepackage{mathptmx} % Use Times Font
+\usepackage[sorting=nyt]{biblatex}
+\title{Draft thesis}
+\author{s1476046 }
+\date{\today}
+
+\usepackage[pdftex]{graphicx} % Required for including pictures
+\usepackage[english]{babel} 
+\usepackage[pdftex,linkcolor=black,pdfborder={0 0 0}]{hyperref} % Format links for pdf
+\usepackage{calc} % To reset the counter in the document after title page
+\usepackage{enumitem} % Includes lists
+
+\frenchspacing % No double spacing between sentences
+\linespread{1.2} % Set linespace
+\usepackage[a4paper, lmargin=0.1666\paperwidth, rmargin=0.1666\paperwidth, tmargin=0.1111\paperheight, bmargin=0.1111\paperheight]{geometry} %margins
+%\usepackage{parskip}
+
+\usepackage[all]{nowidow} % Tries to remove widows
+\usepackage[protrusion=true,expansion=true]{microtype} % Improves typography, load after fontpackage is selected
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+
+% Pretty much all of the ams maths packages
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{adjustbox}
+% Allows you to manipulate the page a bit
+\usepackage[a4paper]{geometry}
+% Provides commands to make subfigures (figures with (a), (b) and (c))
+%\usepackage{subfigure}
+\usepackage{subcaption}
+
+% Typesets URLs sensibly - with tt font, clickable in PDFs, and not breaking across lines
+\usepackage{url}
+
+% Makes references hyperlinks in PDF output
+\usepackage{hyperref}
+
+% Provides ways to include syntax-highlighted source code
+\usepackage{listings}
+\setlength{\marginparwidth}{2cm}
+\usepackage{todonotes}
+\lstset{frame=single, basicstyle=\ttfamily}
+
+%\newcommand{\todo}[1] {\textbf{\textcolor{red}{#1}}}
+% Provides good access to colours
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{setspace}
+\usepackage{longtable}
+\usepackage{rotating}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{adjustbox}
+%\usepackage{showframe}
+%Really, really mean here with graphics [H]
+\usepackage{multicol}
+\usepackage{float}
+\graphicspath{{images/}}
+%-----------------------
+% Set pdf information and add title, fill in the fields
+%-----------------------
+\hypersetup{ 	
+pdfsubject = {},
+pdftitle = {},
+pdfauthor = {}
+}
+%\includeonly{pilot}
+%\includeonly{centrality_measures}
+%\includeonly{orthologs}
+%\includeonly{phenotypes}
+%\includeonly{extra_tables}
+%\includeonly{new_century}
+%\addbibresource{references.bib}
+\addbibresource{orthologs.bib}
+%-----------------------
+% Begin document
+%-----------------------
+\doublespacing
+%\linespread{1.6}
+%\bibliographystyle{ieeetr}
+%\bibliographystyle{apalike}
+\begin{document}
+\frontmatter
+\maketitle
+\tableofcontents
+
+\listoftodos
+
+\mainmatter
+\include{introduction}
+%\include{pilot}
+\include{gwas_and_general}
+\include{centrality_measures}
+%\include{findplace}
+%\include{new_century}
+
+
+\include{community_detection}
+%\include{removed_from_paper}
+
+
+
+%\include{core_periphery}
+%\include{phenotypes}
+%\include{orthologs}
+
+%\include{extra_tables}
+\include{discussion}
+
+%\bibliography{references}
+\printbibliography
+\backmatter
+\include{notes}
+\include{supplementary_tables}
+\end{document}

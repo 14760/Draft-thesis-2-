@@ -1,0 +1,438 @@
+\chapter{Find place}
+
+
+
+This chapter at present contains those bits that don't quite fit in where they are
+
+\section{Ideas}
+
+Add a chapter called confirming our findings. After reading Plomin EA3 and Savage are the largest educational attainment and intelligence cohorts. We should therefore validate our findings from the discovery (Discovery and Replication cohort) in these eg enrichment for different phenotypes, subgroup analysis, orthologues, core periphery etc. We don't have access to solely the bits that are new but we can say that our findings hold up for the largest population studies to date including the largest amount of variance. Also add exomes to discussion under future work. 
+
+Sample from neurogenesis gene ontology for sizes similar to our groups and also see if enriched for other cohorts eg Savage
+add this to simulation p levels too. 
+
+\section{Orthologs Keith}
+\textcolor{red}{from centrality}
+See code % RProjects/orthologs mac
+
+from bit with Keith remove ph. See table \ref{tab:orthologs_pseudospokes}
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrrrrl}
+  \hline
+ & species & data\_PSP & data\_ps & ratio\_PSP\_human & ratio\_ps\_human & p post hoc \\ 
+  \hline
+1 & human & 3457 & 104 & 1.00 & 1.00 & NA (test) \\ 
+  2 & mouse & 3351 & 103 & 0.97 & 0.99 & 0.93 \\ 
+  3 & worm & 2180 &  73 & 0.63 & 0.70 & 0.054 \\
+  4 & zebra fish & 2342 &  80 & 0.68 & 0.77 &0.443\\ 
+  5 & yeast & 835 &  49 & 0.24 & 0.47 &0.000195*** \\ 
+  6 & fly & 1923 &  68 & 0.56 & 0.65 &0.3\\ 
+   \hline
+\end{tabular}
+\caption{Presence of orthologs in PSP and amongst pseudohubs. Ratio of number of orthologs to human genes in PSP and pseudohubs. There are a significant excess of yeast orthologs in this group.Pearson's Chi square test pseudospokes ortholog frequency X-squared = 16.841, df =5 , p-value = 0.0048, $\alpha$ bonferroni=0.01.}
+\label{tab:orthologs_pseudospokes}
+\end{table}
+
+\subsection{More orthologs}
+\textcolor{red}{from centrality}
+gmt for orthologs on MAC is at \url{ukbbedortholog_PSP.gmt.sets.out }
+
+Core and periphery
+and add ontology groups
+
+
+
+\section{DIAMonD algo}
+
+On initial testing and on redo the dianmond algorithm does no better than chance the first I think is using my network as I find a shell script in a pycharm project on the mac called diamond).
+
+Basically works no better than chance on either PSD network or supplied network (although some not found (need to include))
+
+Here are the warnings
+
+\footnote{DIAMOnD(): ignoring 5 of 47 seed genes that are not in the network
+
+ results have been saved to 'ctg\_predict.txt' 
+
+DIAMOnD(): ignoring 15 of 99 seed genes that are not in the network
+
+ results have been saved to 'ea2\_predict.txt' 
+
+DIAMOnD(): ignoring 37 of 196 seed genes that are not in the network
+
+ results have been saved to 'ukbb\_int\_predict.txt' 
+
+DIAMOnD(): ignoring 43 of 235 seed genes that are not in the network
+
+ results have been saved to 'ukbbed.txt' }
+
+\subsection{Testing the algorithm}
+ Using 200 predictions from CTG 1 match found in ukbbint and 4 in ukbbed
+ from EA2 1 match in ukbbint and 4 in ukbbed
+ No matches in any other phenotype using ukbbed and ukbbint seed lists.
+ \begin{table}[ht]
+\centering
+\begin{tabular}{rll}
+  \hline
+  SET & n in synapse & total significant\\ 
+  \hline
+ CTG & 16 &47\\
+ EA2 & 25 & 98\\
+ UKBBint & 49 & 193\\
+  UKBBEd & 56 & 232\\
+  \\ 
+ 
+   \hline
+\end{tabular}
+\caption{Significant synaptic genes}
+\label{table:MAGMA_Gene_result_significant synaptic genes}
+\end{table}
+
+ No matches in any other phenotype using ukbbed and ukbbint seed lists.
+ \begin{table}[ht]
+\centering
+\begin{tabular}{lrlll}
+  \hline
+  &CTG & EA2 &UKBBint & UKBBed t\\ 
+  \hline
+ CTG & 16 &1 & \textbf{10}& 6\\
+ EA2 & 1 & 25 & 11 & \textbf{25}\\
+ UKBBint &\textbf{10}  & 11 & 49 & 18\\
+  UKBBEd & 6  & \textbf{25} & 18 & 56\\
+  \\ 
+ 
+   \hline
+\end{tabular}
+\caption{Significant synaptic genes. Shared phenotype in bold. Diagnonal terms equals number of significant (genome wide for gene) genes in phenotype}
+\label{table:MAGMA_Gene_result_significant neighbour overlap synaptic genes}
+\end{table}
+ 
+ The significant genes do not certainly form a cohesive network. The significant genes for UKBiobank Ed were in 52 components, 1 of size 2 and 1 of size 3 the rest were isolated. 
+ 
+ UKBBInt 52 components 2 of size 2 and 1 of size 3.
+ 
+ CTG 16 individual components
+ 
+ EA2 25 individual components. 
+ 
+ Therefore the significant genes do not form a connected group of any significant size.
+ 
+ \todo{?in neighbours}
+ 
+ CTG has 158 direct neighbours,ea2 has 327, ukbbed has 531 and ukbbint has 544
+ 
+ Intersect ctg and ukbbint neighbours 119
+ Intersect ctg and ukbbed 100
+ Insersect ctg and ea2 62
+ 
+ Intersect ea2 and ukbbint 168
+ Intersect ea2 and ukbbed 250
+ 
+ Intersect ukbbint and ukbbed 301
+ 
+  \begin{table}[ht]
+\centering
+\begin{tabular}{lrlll}
+  \hline
+  &CTG & EA2 &UKBBint & UKBBed \\ 
+  \hline
+ CTG & 158 &62 & \textbf{119}& 100\\
+ EA2 & 62 & 327 & 168 & \textbf{250}\\
+ UKBBint &\textbf{119}  & 168 & 544 & 301\\
+  UKBBEd & 100  & \textbf{25} & 301 & 531\\
+  \hline
+\end{tabular}
+\caption{Significant synaptic genes neighbours overlap. Shared phenotype in bold. Diagonal terms equals number of significant (genome wide for gene) genes in phenotype}
+\label{table:MAGMA_Gene_result_significant_synaptic_genes_neighbours_overlap}
+\end{table}
+
+
+ code: \url{('~/RProjects/PhD_graphs/R/induced_subgraph_gene_results_generic.R')}
+ So for very basic simulation:
+ %\url{RProjects\PhD_graphs\sample\subgraphs_GR.R}  
+ Generate connected graphs of approximately the same size as the connected graph of neighbours (lookup average largest component size when random sampling from ids and extracting largest component)
+ 
+ overlap size 158 and 327 expected value 17.59 see
+ 
+%\url{RProjects\PhD_graphs\sample\subgraphs_GR.R}  
+
+\url{RProjects}
+actual  62
+ 
+ UKBB size and UKBBEd size sample 750 expected overlap 103 sd 10.6 actual 301
+ 
+ ctg and ukbbed (will be roughly same as ukbbint as n in these groups same)
+ 27.6 sd 7 (expected) actual ctg ukbbint 119 ukbbed 100
+ 
+ ea2 and ukbb (int and ed as based on sampling and so size based (approx)
+ 
+ ea2 n=327 neighbours so sample approx n=500
+ 
+ Mean overlap EA2 and UKBB int and ed size connected groups 60.45 sd(7.5). Observed 168 (intelligence) and 250 (education)
+ 
+ The significant genes belong to the same neighbourhood in the graph and this appears to be significant. We have shown that the significant genes do not form cohesive groups but that their 1 jump neighbours overlap more than expected by chance therefore they are more collocated in the graph than one would expect by chance.  I will need to decrease the step size in the sampling table below and increase the number of samples to approach exact numbers for each group and confidence intervals \todo{increase accuracy of sampling}
+ 
+ 
+ Example of sampling table:
+ 
+ % latex table generated in R 3.4.4 by xtable 1.8-4 package
+% Wed Oct  9 17:21:05 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrr}
+  \hline
+ & samples & mean\_n\_largest component \\ 
+  \hline
+1 & 200.00 & 70.27 \\ 
+  2 & 250.00 & 106.14 \\ 
+  3 & 300.00 & 144.47 \\ 
+  4 & 350.00 & 187.09 \\ 
+  5 & 400.00 & 229.26 \\ 
+  6 & 450.00 & 274.06 \\ 
+  7 & 500.00 & 319.12 \\ 
+  8 & 550.00 & 365.62 \\ 
+  9 & 600.00 & 412.47 \\ 
+  10 & 650.00 & 461.97 \\ 
+  11 & 700.00 & 511.47 \\ 
+  12 & 750.00 & 558.26 \\ 
+  13 & 800.00 & 608.40 \\ 
+  14 & 850.00 & 659.31 \\ 
+  15 & 900.00 & 710.96 \\ 
+  16 & 950.00 & 763.36 \\ 
+  17 & 1000.00 & 812.00 \\ 
+  18 & 1050.00 & 864.08 \\ 
+  19 & 1100.00 & 915.96 \\ 
+  20 & 1150.00 & 967.44 \\ 
+  21 & 1200.00 & 1021.28 \\ 
+  22 & 1250.00 & 1072.65 \\ 
+  23 & 1300.00 & 1124.88 \\ 
+  24 & 1350.00 & 1178.84 \\ 
+  25 & 1400.00 & 1231.89 \\ 
+  26 & 1450.00 & 1284.51 \\ 
+  27 & 1500.00 & 1338.11 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+\subsection{Diamond algo redo}
+
+Using the diamond algorithms own network to predict future genes we used all significant CTG and EA2 genes to predict UKBBint and ed
+
+170 genes were found in ed but not ea2 and 175 were found in ukbbed but not ea2
+
+200 possible genes were identified of which 1 was found in the intelligence discovery
+
+200 possible genes were identified of which 3 were found in the education discovery
+
+Random sampling of set diff ed 2 sd 1.46
+
+Random sampling of int 1.97 sd 2.43
+
+Other way around
+
+65 genes are significant in both education cohorts. 34 are found in ea2 but not in ukbbed
+
+21 genes are significant in both intelligence cohorts. 26 genes are found in ctg but not in ukbbint. 
+
+I can do this also with our network but have to conclude that diamond does not do better than chance. 
+\subsection{High intelligence}
+\cite{zabaneh2018genome}
+see R project
+1238 subjects from Duke University Talent Identification Program (TIP), given findings in Plomin 2018 the study will be underpowered. However we hypothesise that within the noise will be signal and a number of genes that do not reach significance would if a larger study were available. It is highly unlikely however to get >50,000 individuals with IQ in what is estimated to be the top 0.03\% of intelligence. 
+
+The summary GWAS data does not seem to be available but we do have access to the gene level MAGMA v 1.03 scores. We hypothesise that if the group structure we found in intelligence is valid the top genes in this study will be unevenly distributed over groups. 183 genes were identified from 200 Ensembl Ids. 29 PSP genes were identified within these. Of these 5 were in group 5 our top scoring group. Treating this as a simple over representation analysis we calculate using Fishers exact test 	
+p-value = 0.003314
+alternative hypothesis: true odds ratio is greater than 1
+95 percent confidence interval:
+ 2.060668      Inf
+sample estimates:
+odds ratio 
+  5.709125 
+
+
+
+
+\section{Materials and methods: Revisited the Hill gmx datset}
+
+\subsection{Introduction where to move}
+I think that this would probably go best before the community detection and after the Gene based GWAS results and ontology for them with something like before we turn to community detection whe should check there is a need for it and that previously identified groups are not already satisfactory. 
+
+Probably add the gsa for the gmt from the pilot.
+\todo{Move hill section from tmp findplace}
+\subsection{Introduction}
+Took the original data used in  \todo{citation error}citep(hill2014human). The original G2C website was unavailable so have made up to date entrez ids by translating the gene symbol to entrez id and using a lookup system for synonyms (see code \todo{add code})
+
+Code path in comments unescaped
+
+\url{/home/grant/PycharmProjects/convert_gmx/read_geneinfo_entrez.py} 
+%%/home/grant/PycharmProjects/convert_gmx/read_geneinfo_entrez.py
+
+\subsubsection{ctg}
+\todo{citation error}citep{Sniekers2017a}
+See table~\ref{table:MAGMA_GSA_HILL_SET_SNEIKERS}
+% latex table generated in R 3.4.4 by xtable 1.8-4 package
+% Wed Oct  9 09:56:09 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrrrrr}
+  \hline
+ & SET & NGENES & BETA & BETA\_STD & SE & P \\ 
+  \hline
+1 & PSD\_Consensus22848 & 709 & 0.02 & 0.00 & 0.03 & 0.24 \\ 
+  2 & PSD\_Full22848 & 1382 & 0.05 & 0.01 & 0.02 & 0.02 \\ 
+  3 & AMPA\_RC476 &   6 & -0.46 & -0.01 & 0.39 & 0.88 \\ 
+  4 & mGluR55413 &  49 & 0.18 & 0.01 & 0.12 & 0.08 \\ 
+  5 & NMDA\_RC3983 & 180 & 0.08 & 0.01 & 0.06 & 0.09 \\ 
+   \hline
+\end{tabular}
+\caption{MAGMA GSA Gene set from Hill - CTG intelligence}
+\label{table:MAGMA_GSA_HILL_SET_SNEIKERS}
+\end{table}
+
+\subsection{ea2}
+\todo{citation error}citep{Okbay2016}
+See table~\ref{table:MAGMA_GSA_HILL_SET_Okbay}
+% latex table generated in R 3.4.4 by xtable 1.8-4 package
+% Wed Oct  9 09:58:01 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrrrrr}
+  \hline
+ & SET & NGENES & BETA & BETA\_STD & SE & P \\ 
+  \hline
+1 & PSD\_Consensus22848 & 704 & 0.09 & 0.02 & 0.03 & 0.005 \\ 
+  2 & PSD\_Full22848 & 1375 & 0.04 & 0.01 & 0.02 & 0.03 \\ 
+  3 & AMPA\_RC476 &   6 & 0.03 & 0.00 & 0.44 & 0.47 \\ 
+  4 & mGluR55413 &  49 & -0.07 & -0.00 & 0.14 & 0.70 \\ 
+  5 & NMDA\_RC3983 & 178 & -0.01 & -0.00 & 0.07 & 0.55 \\ 
+   \hline
+\end{tabular}
+\caption{MAGMA GSA Gene set from Hill - UKBB Intelligence}
+\label{table:MAGMA_GSA_HILL_SET_Okbay}
+\end{table}
+
+\subsection{ukbb int}
+\todo{citation error may be duplicate }citep{Hill2018}
+See table~\ref{table:MAGMA_GSA_HILL_SET_UKBBint}
+% latex table generated in R 3.4.4 by xtable 1.8-4 package
+% Wed Oct  9 10:21:07 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrrrrr}
+  \hline
+ & SET & NGENES & BETA & BETA\_STD & SE & P \\ 
+  \hline
+1 & PSD\_Consensus22848 &  708 & 0.106 & 0.021 & 0.038 & 0.002 \\ 
+  2 & PSD\_Full22848 & 1381 & 0.073 & 0.019 & 0.027 & 0.004 \\ 
+  3 & AMPA\_RC476 &    6 & 0.419 & 0.008 & 0.440 & 0.171 \\ 
+  4 & mGluR55413 &   49 & -0.024 & -0.001 & 0.153 & 0.563 \\ 
+  5 & NMDA\_RC3983 &  179 & 0.003 & 0.000 & 0.074 & 0.485 \\ 
+   \hline
+\end{tabular}
+\caption{MAGMA GSA Gene set from Hill - UKBB Intelligence}
+\label{table:MAGMA_GSA_HILL_SET_UKBBint}
+\end{table}
+
+
+\subsection{ukbbed}
+See table~\ref{table:MAGMA_GSA_HILL_SET_UKBBEducation}
+% latex table generated in R 3.4.4 by xtable 1.8-4 package
+% Wed Oct  9 09:59:31 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrrrrr}
+  \hline
+ & SET & NGENES & BETA & BETA\_STD & SE & P \\ 
+  \hline
+1 & PSD\_Consensus22848 & 708 & 0.12 & 0.02 & 0.04 & 0.0009 \\ 
+  2 & PSD\_Full22848 & 1381 & 0.05 & 0.01 & 0.03 & 0.04 \\ 
+  3 & AMPA\_RC476 &   6 & 0.20 & 0.00 & 0.45 & 0.33 \\ 
+  4 & mGluR55413 &  49 & 0.17 & 0.01 & 0.16 & 0.15 \\ 
+  5 & NMDA\_RC3983 & 179 & 0.06 & 0.01 & 0.08 & 0.20 \\ 
+   \hline
+\end{tabular}
+\caption{MAGMA GSA Gene set from Hill - UKBB Education}
+\label{table:MAGMA_GSA_HILL_SET_UKBBEducation}
+\end{table}
+
+\subsection{Savage}
+See table~\ref{table:MAGMA_GSA_HILL_SET_SAVAGE_intelligence}
+% latex table generated in R 3.4.4 by xtable 1.8-4 package
+% Wed Oct  9 10:22:29 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrrrrr}
+  \hline
+ & SET & NGENES & BETA & BETA\_STD & SE & P \\ 
+  \hline
+1 & PSD\_Consensus22848 & 727 & 0.11 & 0.02 & 0.04 & 0.0023 \\ 
+  2 & PSD\_Full22848 & 1414 & 0.10 & 0.03 & 0.03 & 0.0004 \\ 
+  3 & AMPA\_RC476 &   8 & 0.21 & 0.00 & 0.42 & 0.31 \\ 
+  4 & mGluR55413 &  50 & 0.01 & 0.00 & 0.16 & 0.46 \\ 
+  5 & NMDA\_RC3983 & 184 & 0.07 & 0.01 & 0.08 & 0.20 \\ 
+   \hline
+\end{tabular}
+\caption{MAGMA GSA Gene set from Hill - Savage intelligence}
+\label{table:MAGMA_GSA_HILL_SET_SAVAGE_intelligence}
+\end{table}
+
+
+\subsection{Davies2018}
+
+d in R 3.4.4 by xtable 1.8-4 package
+% Wed Oct  9 10:23:56 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrrrrr}
+  \hline
+ & SET & NGENES & BETA& BETA\_STD & SE & P \\
+
+  \hline
+1 & PSD\_Consensus22848 &  707 & 0.100 & 0.019 & 0.041 & 0.008 \\ 
+  2 & PSD\_Full22848 & 1380 & 0.037 & 0.010 & 0.030 & 0.106 \\ 
+  3 & AMPA\_RC476 &    6 & -0.004 & -0.000 & 0.474 & 0.503 \\ 
+  4 & mGluR55413 &   49 & 0.075 & 0.004 & 0.166 & 0.326 \\ 
+  5 & NMDA\_RC3983 &  179 & 0.081 & 0.008 & 0.081 & 0.159 \\ 
+   \hline
+\end{tabular}
+\caption{MAGMA GSA Gene set from Hill - Davies2018 Education}
+\label{table:MAGMA_GSA_HILL_SET_DAVIES_EDUCATION}
+\end{table}
+
+
+
+\subsection{Overview of above}
+See table~\ref{table:MAGMA_GSA_HILL_ALL_EDUCATION} and table ~\ref{table:MAGMA_GSA_HILL_ALL_INT}
+
+% tables
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrrr}
+  \hline
+  SET & NGENES & ea2 & ukbbed & davies  \\ 
+  \hline
+ PSD\_Consensus22848 &  707 & 0.005 & 0.0009 &  0.008\\ 
+  PSD\_Full22848 & 1380 & 0.03 & 0.04 & 0.10  \\ 
+ 
+   \hline
+\end{tabular}
+\caption{MAGMA GSA Gene set from Hill All education}
+\label{table:MAGMA_GSA_HILL_ALL_EDUCATION}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{lrrrr}
+  \hline
+ SET & NGENES & ctg & ukbb int & savage  \\ 
+  \hline
+PSD\_Consensus22848 &  707 & 0.24 & 0.0002 &  0.002\\ 
+  PSD\_Full22848 & 1380 & 0.02 & 0.004 & 0.0004  \\ 
+ 
+   \hline
+\end{tabular}
+\caption{MAGMA GSA Gene set from Hill All intelligence}
+\label{table:MAGMA_GSA_HILL_ALL_INT}
+\end{table}

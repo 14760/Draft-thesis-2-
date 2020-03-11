@@ -1,0 +1,75 @@
+\chapter{Notes}
+
+@article{valente2008correlated,
+  title={How correlated are network centrality measures?},
+  author={Valente, Thomas W and Coronges, Kathryn and Lakon, Cynthia and Costenbader, Elizabeth},
+  journal={Connections (Toronto, Ont.)},
+  volume={28},
+  number={1},
+  pages={16},
+  year={2008},
+  publisher={NIH Public Access}
+}
+
+@inproceedings{koschutzki2004comparison,
+  title={Comparison of centralities for biological networks},
+  author={Kosch{\"u}tzki, Dirk and Schreiber, Falk},
+  booktitle={German Conference on Bioinformatics 2004, GCB 2004},
+  year={2004},
+  organization={Gesellschaft f{\"u}r Informatik eV}
+}
+
+@article{jalili2016evolution,
+  title={Evolution of centrality measurements for the detection of essential proteins in biological networks},
+  author={Jalili, Mahdi and Salehzadeh-Yazdi, Ali and Gupta, Shailendra and Wolkenhauer, Olaf and Yaghmaie, Marjan and Resendis-Antonio, Osbaldo and Alimoghaddam, Kamran},
+  journal={Frontiers in Physiology},
+  volume={7},
+  pages={375},
+  year={2016},
+  publisher={Frontiers}
+}
+
+Wagner and Fell small world
+
+Enrichment of new graph components
+
+
+ MEAN SAMPLE\ SIZE = 250000
+ TOTAL GENES = 18673
+ CONDITIONED INTERNAL = genesize, log genesize, genedensity, log genedensity, inverse mac, log inverse mac
+SET           NGENES       BETA   BETA STD         SE            P
+new in graph    1397     0.0553     0.0145     0.0293     0.029806
+new graph       4414      0.101     0.0427     0.0186   3.1989e-08
+PSD             3414      0.113     0.0436     0.0201   1.0565e-08
+
+
+\section{Readme from Sniekers}
+\label{sec:notes readme from sniekers}
+
+Uses NCBI 37.3 in MAGMA
+
+     Association results of the meta-analysis for intelligence based on 78,308 individuals in 13 cohorts. 
+     Version date: 10-07-2017
+
+  Columns:
+Chromosome: chromosome number
+position: base pair position of the SNP on the chromosome (reported on GRCh37)
+rsid: SNP rs number
+ref: effect allele
+alt: non-effect allele
+N: sample size
+MAF: minor allele frequency in UK Biobank
+Beta: effect size of the effect allele
+SE: standard error of the effect
+Zscore: Z-score computed in METAL by a weighted Z-score method
+p   value: P-value computed in METAL by a weighted Z-score method
+direction: direction of the effect in each of the cohorts, order: CHIC (consisting of 6 cohorts), UKB-wb, UKB-ts, ERF, GENR, HU, MCTFR, STR
+
+Beta/SE were calculated from METAL Z-scores using the formula from Zhu et al (Nature Genetics, 2016):
+
+Beta = Zscore / sqrt( 2 * MAF * ( 1 - MAF) * ( N + $Zscore^2$ ) )
+SE = 1 / sqrt( 2 * MAF * ( 1 - MAF ) * ( N + $Zscore^2$ ) )
+
+\section{Useful papers for methods}
+
+MDD for quoting MAGMA \url{https://www.nature.com/articles/s41467-018-03819-3}

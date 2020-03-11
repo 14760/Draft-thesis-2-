@@ -1,0 +1,962 @@
+\chapter{Pilot}
+\section{Pocklington study}
+Pocklington et al[ref]\todo{Add ref}
+
+Pocklinton identified 105 MASC proteins with binary interactions (248 interactions). 77 proteins did not interact giving a total of 105 +77 = 182 proteins. 222 proteins are given indices in the supplementary methods with an additional 9 composite proteins 223-231 index made up of proteins earlier indexed. The composite proteins index 46 proteins forming complexes (9 composite proteins)
+
+\todo{perhaps just drop the pocklington from the pilot study and keep the other stuff with the hill}
+There are 186 proteins mentioned in the paper. The index including composites runs to 231. There are 9 composite proteins. The composite proteins index 46 proteins. The supplementary materials identify 176 proteins that are not part of a composite protein and 9 composite proteins = 185. It may be that one if the indices was intended to be part of a composite protein and is not recorded in the supplemental material as one of the lines is corrupted and instead of having comma separated values has a float. The clusterings refer to composite indices and singles (ie they don't refer to those in composites by their individual index) \todo{lesson - importance of annotation and easiness with which data is corrupted}
+
+126 unique indices are found in the binary interaction table. The maximum index in the interaction table is 231 the highest index and a composite index. For protein interactions proteins occuring in complexes are recorded by the local study id of their protein complex. 126 proteins took place in binary interactions this included 7 composite proteins 223 225 227 228 229 230   231. Two of the composite proteins are not included but all but one of their components are present (composit index 224 and 226 only 84 of 224 missing (PRKACB) 
+
+The gml made by colin uses the Pocklington indices. All of the composite indices are in the graph. The graph matches the paper in that it has 101 and 246 edges. The reason is none of the group 4 ones that are referred to in the interactions in the supplementary material by their non composite id are present in the graph they all are given composite id. \todo{Don't use composite mappings or mix mappings}.  
+
+
+Largest connected component is 101 proteins linked by 246 interactions. 
+
+101 indices are referenced in 13 clusters and these are confirmed in the R code calculate number of elements in clusters source\url{('~/Rprojects/graph_proteomics2016/R/calculate_n_proteins_from_clusters.R')}
+
+In order to create a gmt file for gsea we only need the cluster allocation of the proteins and can ignore the issue of the number of listed proteins being greater than the number included in the supplementary methods. However two problems remain 1) some of the clusters are composite proteins made up of many different proteins but referred to by their index (there is an error in 
+Composite index 228 G alpha I with the indices recorded as an integer rather than comma separated values in each row of a column. Examining the literature reveals that Gi alpha is composed of 5 proteins Gi1a (GNAI1), Gi2a, GNAI2, Gi3a GNAI3, G0a GNAO1 and Gz alpha GNAZ
+
+The visible components are 199,197,204,195,196 and also total 5 elements we therefore conclude that the trailing 000 000 000 is an error and use these five components. These have been corrected and saved
+
+Gene names are recorded in table 1 but a number of these have changed and some are recorded in the small case characteristic of murine gene names. Human Ensembl Gene Identifiers are also quoted but 4 of these fail to track to any current id.
+
+By using a combination of ensembl gene identifiers and the recorded swiss prot protein identifiers we can obtain contemporary entrez id for all the indices in Pocklington. The code to generate this is found at ..uprade\_protein\_list.py in poc2 in pycharm projects.
+This generates a gmt and csv file which are included in the supplementary materials. There is an entry in the gmt file corresponding to each cluster and also one entry for all of the graph entries and all the entities in NRC\_MASC recorded by Pocklington in the supplementary material. 
+
+One entry index 203 (indexing from 1 per the supplementary material) is not found in uniprot. Its gene name is GNAT3 and lookup using entrez gene finds its entrez id to be 346562
+
+For GSEA we have translated the output of the various CAGES phenotypes to use entrez id as their index. The code for this is at source \url{('~/RProjects/gsea_related/translate_cages.R')}.
+There is no easily practicable way to translate the Pocklington dataset into the gene symbols used at the time of the original Hill study. 
+
+Similarly in order to compare the results of the Hill study with more recent cohorts I have translated the human gene symbols there to contemporary entrez ids. (CODE – called something like convert old stuff)
+
+GSEA using CAGES
+
+\subsection{CAGES description of Cohorts}
+
+\subsection{Correlation between phenotypes}
+
+\subsection{Python convert gmx converts symbol to entrez}
+Hill used the PSD consensus data from the genes2 cognition website at the time of writing these sets (PSD, PSD\_Consensus, AMPA\_RC, metabatropic glutamate receptor (mgluR) and NMDA receptor were not available. I had the gmx file supplied by Hill of these data with the gene represented by gene symbols. I converted these to contemporary entrez id using the python script (\url{/home/grant/PycharmProjects/convert_gm_refactor/convert_gmx/read_geneinfo_entrez.py}.
+This uses the human gene info from entrez gene documenting gene symbols, gene synonyms and entrez id. If a gene symbol is found matching the entrez id the enrez id is substituted, if not an entrez id is then searched for in synonyms. If none is found there a manual search is performed and the terms added to the synonym dictionary. I term in PSD consensus was not found
+
+Missing 1 items: 355    KIAA1045 -> PHF24 Entrez 23349
+
+
+Name: PSD\_Consensus, dtype: object
+Missing 4 items: 120     KIAA1688 -> ARHGAP39 -> 9798
+687     KIAA0174 -> IST1 -> 9798
+695     KIAA1045 -> PHF24 -> Entrez 23349
+1131     RPS17-2 -> RPS17 -> Entrez 6218
+
+This would allow the comparison of the Hill dataset with any subsequent larger cohorts than cages. 
+
+529 cages gene output from VEGAS could not be easily identified only 2 had p < 0.01 of 17743 genes
+
+529 gfq genes 4 had p < 0,01 min 0.001434  num 17741
+
+
+Memory: 531 missing items 5 genes with p < 0.01 min p 0.0008300000000000001 total 17798 genes
+Speed: 535 missing items 15 genes with p < 0.01 min p 0.000173 total 17825 genes 535
+Trans g: 529 missing items 2 genes with p < 0.01 min p 0.00251 total 17740 genes
+
+
+Given these values it is unlikely any significant genes are overlooked \todo{TRY TO LOOKUP PRIORIRT}. I have also checked previous synonyms using David, GeneCards and NCBI37.3. It is possible to make some assessment of what a gene may be eg AMY1B-1
+63            AMY1B-3 most liekly map to amy1B but which value should be used. A large number of the missing files have these suffixes eg SOMETHING -1
+
+Plus they are only relevant if they are in the gene set ie all NMDA\_RC genes for for anything after the pilot study we will be using magma and even for vegas genes not in the synaptic set (here read NMDA)RC) will count as the background set for gsea when running a K\_S so what we need to do is show that none of these genes are in the Pocklington NMDA\_MASC and out of interest if any of them are in the gmx file from david hill (which I doubt)
+\subsection{Repetition of results for Hill}
+\subsection{Clustering results and enrichment for Pocklington}
+\todo{Get pocklington gsa from strontium}
+Pocklington et al
+
+Pocklinton identified 105 MASC proteins with binary interactions (248 interactions). 77 proteins did not interact giving a total of 105 +77 = 182 proteins. 222 proteins are given indices in the supplementary methods with an additional 9 composite proteins 223-231 index made up of proteins earlier indexed. The compositeproteins index 46 proteins forming complexes (9 composite proteins)
+
+126 unique indices are found in the binary interaction table. The maximum index in the interaction table is 231 the highest index and a composite index
+
+Largest connected component is 101 proteins linked by 246 interactions. 
+
+101 indices are referenced in 13 clusters and these are confirmed in the R code calculate number of elements in clusters \url{source('~/Rprojects/graph_proteomics2016/R/calculate_n_proteins_from_clusters.R')}
+
+In order to create a gmt file for gsea we only need the cluster allocation of the proteins and can ignore the issue of the number of listed proteins being greater than the number included in the supplementary methods. However two problems remainproteisn 1) some of the clusters are composite proteins made up of many different proteins but referred to by their index (there is an error in 
+Composite index 228 G alpha I with the indices recorded as an integer rather than comma separated values in each row of a column. Examining the literature reveals that Gi alpha is composed of 5 proteins Gi1a (GNAI1), Gi2a, GNAI2, Gi3a GNAI3, G0a GNAO1 and Gz alpha GNAZ
+
+The visible components are 199,197,204,195,196 and also total 5 elements we therefore conclude that the trailing 000 000 000 is an error and use these five components. These have been corrected and saved
+
+Gene names are recorded in table 1 but a number of these have changed and some are recorded in the small case characteristic of murine gene names. Human Ensembl Gene Identifiers are also quoted but 4 of these fail to track to any current id.
+By using a combination of ensembl gene identifiers and the recorded swiss prot protein identifiers we can obtain contemporary entrez id for all the indices in Pocklington. The code to generate this is found at \url{..uprade_protein_list.py} in poc2 in pycharm projects.
+This generates a gmt and csv file which are included in the supplementary materials. There is an entry in the gmt file corresponding to each cluster and also one entry for all of the graph entries and all the entities in NRC\_MASC recorded by Pocklington in the supplementary material. 
+
+One entry index 203 (indexing from 1 per the supplementary material) is not found in uniprot. Its gene name is GNAT3 and lookup using entrez gene finds its entrez id to be 346562
+
+For GSEA we have translated the output of the various CAGES phenotypes to use entrez id as their index. There is no easily practicable way to translate the Pocklington dataset into the gene symbols used at the time of the original Hill study. 
+
+Similarly in order to compare the results of the Hill study with more recent cohorts I have translated the human gene symbols there to contemporary entrez ids. (CODE – called something like convert old stuff)
+
+GSEA using CAGES
+
+
+
+Crystal
+Table: Gene sets enriched in phenotype na [plain text format]
+
+GS
+follow link to MSigDB
+GS DETAILS
+SIZE
+ES
+NES
+NOM p-val
+FDR q-val
+FWER p-val
+RANK AT MAX
+LEADING EDGE
+1
+1
+Details ...
+22
+0.61
+1.38
+0.030
+0.140
+0.150
+4080
+tags=45%, list=24%, signal=60%
+2
+3
+Details ...
+32
+0.54
+1.25
+0.079
+0.231
+0.432
+4405
+tags=38%, list=26%, signal=50%
+3
+ALL\_MASC\_GRAPH\_AND\_OTHERS
+Details ...
+217
+0.42
+1.07
+0.198
+0.650
+0.934
+4818
+tags=31%, list=28%, signal=43%
+4
+ALL\_MASC\_GRAPH
+Details ...
+135
+0.42
+1.06
+0.255
+0.502
+0.942
+4981
+tags=30%, list=29%, signal=42%
+5
+2
+Details ...
+38
+0.44
+1.05
+0.376
+0.427
+0.953
+4737
+tags=34%, list=28%, signal=47%
+6
+4
+Details ...
+6
+0.47
+0.87
+0.674
+0.789
+1.000
+565
+tags=17%, list=3%, signal=17%
+
+GFQ
+Min 5
+Table: Gene sets enriched in phenotype na [plain text format]
+
+GS
+follow link to MSigDB
+GS DETAILS
+SIZE
+ES
+NES
+NOM p-val
+FDR q-val
+FWER p-val
+RANK AT MAX
+LEADING EDGE
+1
+9
+Details ...
+8
+0.80
+1.56
+0.011
+0.015
+0.015
+2698
+tags=50%, list=16%, signal=59%
+2
+3
+Details ...
+32
+0.65
+1.50
+0.000
+0.015
+0.029
+3404
+tags=44%, list=20%, signal=54%
+3
+4
+Details ...
+6
+0.70
+1.29
+0.105
+0.114
+0.297
+4050
+tags=67%, list=24%, signal=87%
+4
+ALL\_MASC\_GRAPH
+Details ...
+135
+0.52
+1.29
+0.001
+0.086
+0.299
+3573
+tags=30%, list=21%, signal=38%
+5
+ALL\_MASC\_GRAPH\_AND\_OTHERS
+Details ...
+217
+0.49
+1.24
+0.001
+0.113
+0.454
+3573
+tags=28%, list=21%, signal=35%
+6
+2
+Details ...
+38
+0.45
+1.04
+0.395
+0.443
+0.957
+3844
+tags=24%, list=22%, signal=30%
+7
+1
+Details ...
+22
+0.42
+0.93
+0.624
+0.673
+1.000
+7259
+tags=50%, list=42%, signal=87%
+
+
+Memory size 1
+
+
+GS
+follow link to MSigDB
+GS DETAILS
+SIZE
+ES
+NES
+NOM p-val
+FDR q-val
+FWER p-val
+RANK AT MAX
+LEADING EDGE
+1
+10
+Details ...
+2
+-0.89
+-1.46
+0.046
+0.057
+0.061
+1847
+tags=100%, list=11%, signal=112%
+2
+13
+Details ...
+1
+-0.73
+-0.97
+0.552
+0.776
+0.819
+4675
+tags=100%, list=27%, signal=137%
+3
+5
+Details ...
+4
+-0.47
+-0.96
+0.511
+0.526
+0.822
+9125
+tags=100%, list=53%, signal=214%
+
+\subsection{Graph for pilot}
+The code and data to generate the graph for the pilot is in \url{/home/grant/RProjects/pilot_redo/data} this includes the file 
+\url{internal_synaptome_homo_7cols.csv} which I mention in the first year review. The gmt are in the folder \url{/home/grant/RProjects/pilot_redo/data/original_gmt} fyr\_direct.gml (sic) is translated into entrez id and was used in calculating the more recent studies using magma. \url{ newgraphpublisheddirect.gmt} is the original file using gene symbols which was used with the original symbol gsea. Mnetion that the 7 cols was generated by Emilia and Katharina
+
+\todo{Get the original clustering if I can and write out the gmt results}
+
+The original graph can be loaded at \url{source('~/RProjects/pilot_redo/R/get_original_study_gmlt.R')}
+This is equivalent to the full graph in the fyr document. The results from the original study can be replicated by going to 
+\url{~/Programs/gsea} which has acopy of foo emilia. Foo emilia has 96 groups but produces the reults from the pilot. THe number of genes I report in the pilot are the number discovered using the htmkl result viewer in gsea (not the total number in a community
+
+The total number of genes in foo emilia is  6037
+== Full on p54 of first year review
+there are 6308 genes including spec clustering in \url{"data/DICE_gml/g.Emilia.full.spec.annotated.gml"}
+There are also 96 groups in this file 
+
+The files \url{source('~/RProjects/pilot_redo/R/count_genes_in_symbolset.R'} have 4436 genes in the symbol file \url{"data/original_gmt/newgraphpublisheddirect.gmt"} and contain 64 gene sets. This corresponds to the full, new direct published in table 8 of the pilot in fyr p54. The file \url{source('~/RProjects/pilot_redo/R/count_genes_in_set.R')} counts the number of genes in the file \url{"data/original_gmt/fyr_direct.gml"} which are entrez id, 4237 in number and there are 21 groups corresponding to the size filtered direct (size>15) and some loss from translation
+\todo{Add results from} 
+See \url{Pilot_study.docx} at \url{/home/grant/Dropbox/PhD_latex_master/word}
+
+\subsection{Results for enrichment}
+\subsubsection{Foo}
+
+This is a graph made from the first version of the synaptic graph and incompletely filtered interaction data. It is composed of 6038 nodes and 93642 edges. Spectral clustering carried out using the CDM suite reveals 96 groups with a modularity of 0.287.
+
+There are a large number of single groups in the data. Only 27 groups had 15 or more members the default minimum recommended group size for Gene Set Enrichment Analysis. These modules amounted however to 5898 genes or 87.7\% of the first PSP graph genes. Of those modules with less than 15 members, 50 were single, 5 had two genes, 4 had three, 5 had four genes, 3 had six genes and 3 had ten genes (see table~\ref{Table:Foo_modules_with_lessthan_15}). The range of module size was 1-745. The mean group size was 62.25 and the median 1.0. The third quartile was 44.
+
+For modules with size at least 15 the range of sizes was 38-745. Median group size was 155 and mean 218.4.
+\todo{? histogram}
+
+The size of the 27 modules with 15 or more members is shown in table\ref{Table:foo_sizeof_modules with 15 or more members}
+
+\subsection{New graph}
+The spectral clustering for the graph new direct published graph 4506 vertices 16760 edges. Spectral community detection found 120 communities. 63 community modules had 15 or more members, 4365 genes or 96.7\% of the overall graph of 4506 vertices. The size of modules of less than size 15 is shown in table \ref{Table:direct Count of modules with less than 15 members}.
+
+
+
+Code is at \url{'~/RProjects/pilot_redo/R/get_community_size_publsihed_direct.R'}
+
+\todo{We are testing a lot of groups in results for new direct, we will have to work out how to reduce this nuimber as it will decrease power and CAGES is underpowered}
+% latex table generated in R 3.6.2 by xtable 1.8-4 package
+% Tue Dec 31 12:01:57 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{lr}
+  \hline
+Number of genes in module & Number of modules \\ 
+  \hline
+1 &  29 \\ 
+  2 &  13 \\ 
+  3 &   5 \\ 
+  4 &   3 \\ 
+  5 &   1 \\ 
+  6 &   1 \\ 
+  7 &   1 \\ 
+  8 &   1 \\ 
+  9 &   1 \\ 
+  12 &   2 \\ 
+   \hline
+\end{tabular}
+\caption{Modules with less than 15 members} 
+\label{Table:direct Count of modules with less than 15 members}
+\end{table}
+% latex table generated in R 3.6.2 by xtable 1.8-4 package
+% Tue Dec 31 11:08:50 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{lr}
+  \hline
+Number of genes in module & Number of modules \\ 
+  \hline
+1 &  50 \\ 
+  2 &   5 \\ 
+  3 &   4 \\ 
+  4 &   5 \\ 
+  6 &   3 \\ 
+  10 &   3 \\ 
+   \hline
+\end{tabular}
+\caption{Modules with less than 15 members} 
+\label{Table:Foo_modules_with_lessthan_15}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{lr}
+  \hline
+Spectral module & Size of group \\ 
+  \hline
+1 & 155 \\ 
+  3 & 265 \\ 
+  4 & 283 \\ 
+  5 &  58 \\ 
+  11 & 135 \\ 
+  12 & 438 \\ 
+  13 &  85 \\ 
+  15 &  52 \\ 
+  16 &  99 \\ 
+  17 & 745 \\ 
+  18 & 373 \\ 
+  22 &  44 \\ 
+  23 & 200 \\ 
+  25 &  38 \\ 
+  26 & 245 \\ 
+  27 & 307 \\ 
+  33 & 461 \\ 
+  34 & 119 \\ 
+  39 & 121 \\ 
+  42 &  44 \\ 
+  43 & 104 \\ 
+  68 & 520 \\ 
+  69 & 316 \\ 
+  73 & 182 \\ 
+  74 &  96 \\ 
+  75 & 309 \\ 
+  95 & 104 \\ 
+   \hline
+\end{tabular}
+\caption{Size of modules with 15 or more members} 
+\label{Table:foo_sizeof_modules with 15 or more members}
+\end{table}
+
+
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Tue Dec 24 15:37:58 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & NAME & SIZE & NES & NOM.p.val & FDR.q.val & FWER.p.val \\ 
+  \hline
+1 &  73 & 158 & 1.20 & 0.04 & 1.00 & 0.80 \\ 
+  2 &  25 &  33 & 1.10 & 0.27 & 1.00 & 0.97 \\ 
+  3 &  22 &  35 & 1.10 & 0.32 & 1.00 & 0.99 \\ 
+  4 &  74 &  95 & 1.10 & 0.30 & 1.00 & 1.00 \\ 
+  5 &  18 & 343 & 1.10 & 0.17 & 1.00 & 1.00 \\ 
+  6 &  23 & 176 & 1.10 & 0.24 & 1.00 & 1.00 \\ 
+  7 &  34 &  99 & 1.00 & 0.42 & 1.00 & 1.00 \\ 
+  8 &  42 &  35 & 1.00 & 0.46 & 1.00 & 1.00 \\ 
+  9 &  69 & 268 & 1.00 & 0.46 & 1.00 & 1.00 \\ 
+  10 &  75 & 273 & 1.00 & 0.50 & 1.00 & 1.00 \\ 
+  11 &  27 & 267 & 0.99 & 0.54 & 1.00 & 1.00 \\ 
+  12 &  68 & 438 & 0.99 & 0.58 & 1.00 & 1.00 \\ 
+  13 &  43 &  86 & 0.99 & 0.56 & 1.00 & 1.00 \\ 
+  14 &  95 &  94 & 0.98 & 0.58 & 1.00 & 1.00 \\ 
+  15 &  11 & 115 & 0.97 & 0.60 & 1.00 & 1.00 \\ 
+  16 &  39 & 106 & 0.96 & 0.65 & 1.00 & 1.00 \\ 
+  17 &   5 &  44 & 0.96 & 0.60 & 1.00 & 1.00 \\ 
+  18 &  33 & 417 & 0.96 & 0.79 & 0.97 & 1.00 \\ 
+  19 &  12 & 358 & 0.94 & 0.82 & 1.00 & 1.00 \\ 
+  20 &   1 & 123 & 0.94 & 0.73 & 0.96 & 1.00 \\ 
+  21 &  13 &  68 & 0.94 & 0.69 & 0.93 & 1.00 \\ 
+  22 &  16 &  91 & 0.93 & 0.74 & 0.93 & 1.00 \\ 
+  23 &   3 & 218 & 0.90 & 0.91 & 0.96 & 1.00 \\ 
+  24 &   4 & 249 & 0.90 & 0.94 & 0.93 & 1.00 \\ 
+  25 &  15 &  45 & 0.84 & 0.86 & 0.98 & 1.00 \\ 
+  26 &  26 & 210 & 0.83 & 0.99 & 0.95 & 1.00 \\ 
+   \hline
+\end{tabular}
+\caption{GSEA foo emilia 26 groups over 15 cages\_crystal.csv} 
+\label{cages_crystal.csv}
+\end{table}
+\subsection{Graph characteristics}
+
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Tue Dec 24 15:46:17 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & NAME & SIZE & NES & NOM.p.val & FDR.q.val & FWER.p.val \\ 
+  \hline
+1 &  43 &  86 & 1.30 & 0.01 & 0.31 & 0.26 \\ 
+  2 &  39 & 106 & 1.20 & 0.01 & 0.18 & 0.30 \\ 
+  3 &  42 &  35 & 1.20 & 0.13 & 0.39 & 0.70 \\ 
+  4 &  27 & 267 & 1.10 & 0.05 & 0.75 & 0.96 \\ 
+  5 &   1 & 123 & 1.10 & 0.15 & 0.69 & 0.98 \\ 
+  6 &  34 &  99 & 1.10 & 0.17 & 0.62 & 0.99 \\ 
+  7 &  22 &  35 & 1.10 & 0.26 & 0.56 & 0.99 \\ 
+  8 &  15 &  45 & 1.10 & 0.27 & 0.52 & 0.99 \\ 
+  9 &  68 & 438 & 1.10 & 0.05 & 0.53 & 1.00 \\ 
+  10 &  73 & 158 & 1.10 & 0.24 & 0.62 & 1.00 \\ 
+  11 &  75 & 273 & 1.00 & 0.30 & 0.86 & 1.00 \\ 
+  12 &   4 & 249 & 1.00 & 0.36 & 0.84 & 1.00 \\ 
+  13 &   3 & 218 & 1.00 & 0.40 & 0.81 & 1.00 \\ 
+  14 &  95 &  94 & 0.99 & 0.53 & 1.00 & 1.00 \\ 
+  15 &  18 & 343 & 0.98 & 0.62 & 0.99 & 1.00 \\ 
+  16 &  33 & 417 & 0.98 & 0.65 & 0.97 & 1.00 \\ 
+  17 &  74 &  95 & 0.97 & 0.59 & 0.95 & 1.00 \\ 
+  18 &   5 &  44 & 0.97 & 0.57 & 0.91 & 1.00 \\ 
+  19 &  12 & 358 & 0.94 & 0.83 & 1.00 & 1.00 \\ 
+  20 &  23 & 176 & 0.94 & 0.76 & 0.98 & 1.00 \\ 
+  21 &  26 & 210 & 0.91 & 0.89 & 1.00 & 1.00 \\ 
+  22 &  69 & 268 & 0.90 & 0.93 & 1.00 & 1.00 \\ 
+  23 &  16 &  91 & 0.89 & 0.84 & 0.99 & 1.00 \\ 
+  24 &  25 &  33 & 0.88 & 0.75 & 0.96 & 1.00 \\ 
+  25 &  11 & 115 & 0.88 & 0.87 & 0.92 & 1.00 \\ 
+  26 &  13 &  68 & 0.86 & 0.87 & 0.91 & 1.00 \\ 
+   \hline
+\end{tabular}
+\caption{GSEA foo emilia 26 groups over 15 gfq.csv} 
+\label{gfq.csv}
+\end{table}
+
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Tue Dec 24 15:47:42 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & NAME & SIZE & NES & NOM.p.val & FDR.q.val & FWER.p.val \\ 
+  \hline
+1 &  74 &  95 & 1.20 & 0.03 & 0.76 & 0.54 \\ 
+  2 &  73 & 158 & 1.20 & 0.03 & 0.70 & 0.77 \\ 
+  3 &   5 &  44 & 1.10 & 0.18 & 0.79 & 0.92 \\ 
+  4 &  42 &  35 & 1.10 & 0.22 & 0.63 & 0.93 \\ 
+  5 &  22 &  35 & 1.10 & 0.21 & 0.55 & 0.95 \\ 
+  6 &  15 &  45 & 1.10 & 0.26 & 0.65 & 0.99 \\ 
+  7 &  27 & 267 & 1.10 & 0.07 & 0.56 & 0.99 \\ 
+  8 &  13 &  68 & 1.10 & 0.23 & 0.53 & 0.99 \\ 
+  9 &  43 &  86 & 1.10 & 0.24 & 0.57 & 1.00 \\ 
+  10 &  33 & 417 & 1.10 & 0.08 & 0.52 & 1.00 \\ 
+  11 &  16 &  91 & 1.10 & 0.26 & 0.54 & 1.00 \\ 
+  12 &  34 &  99 & 1.00 & 0.38 & 0.77 & 1.00 \\ 
+  13 &  26 & 210 & 1.00 & 0.39 & 0.81 & 1.00 \\ 
+  14 &  68 & 438 & 1.00 & 0.47 & 0.89 & 1.00 \\ 
+  15 &  23 & 176 & 0.99 & 0.54 & 0.95 & 1.00 \\ 
+  16 &  95 &  94 & 0.98 & 0.57 & 0.96 & 1.00 \\ 
+  17 &  12 & 358 & 0.97 & 0.68 & 0.95 & 1.00 \\ 
+  18 &  75 & 273 & 0.97 & 0.68 & 0.92 & 1.00 \\ 
+  19 &   4 & 249 & 0.97 & 0.66 & 0.88 & 1.00 \\ 
+  20 &  18 & 343 & 0.96 & 0.76 & 0.89 & 1.00 \\ 
+  21 &   1 & 123 & 0.96 & 0.67 & 0.84 & 1.00 \\ 
+  22 &   3 & 218 & 0.96 & 0.71 & 0.81 & 1.00 \\ 
+  23 &  69 & 268 & 0.91 & 0.92 & 0.95 & 1.00 \\ 
+  24 &  11 & 115 & 0.89 & 0.88 & 0.95 & 1.00 \\ 
+  25 &  25 &  33 & 0.85 & 0.82 & 0.97 & 1.00 \\ 
+  26 &  39 & 106 & 0.80 & 0.97 & 0.97 & 1.00 \\ 
+   \hline
+\end{tabular}
+\caption{GSEA foo emilia 26 groups over 15 memory.csv} 
+\label{Table:GSEA foo emilia 26 groups over 15 memory.csv}
+\end{table}
+
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Tue Dec 24 15:48:22 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & NAME & SIZE & NES & NOM.p.val & FDR.q.val & FWER.p.val \\ 
+  \hline
+1 &  74 &  95 & 1.40 & 0.00 & 0.07 & 0.07 \\ 
+  2 &  34 &  99 & 1.30 & 0.01 & 0.09 & 0.17 \\ 
+  3 &  43 &  86 & 1.20 & 0.04 & 0.32 & 0.64 \\ 
+  4 &  25 &  33 & 1.20 & 0.16 & 0.38 & 0.82 \\ 
+  5 &  27 & 267 & 1.10 & 0.05 & 0.68 & 0.98 \\ 
+  6 &   5 &  44 & 1.10 & 0.27 & 0.72 & 0.99 \\ 
+  7 &  11 & 115 & 1.10 & 0.18 & 0.62 & 0.99 \\ 
+  8 &  39 & 106 & 1.10 & 0.25 & 0.71 & 1.00 \\ 
+  9 &  22 &  35 & 1.10 & 0.34 & 0.64 & 1.00 \\ 
+  10 &  95 &  94 & 1.10 & 0.28 & 0.63 & 1.00 \\ 
+  11 &  12 & 358 & 1.10 & 0.22 & 0.69 & 1.00 \\ 
+  12 &  26 & 210 & 1.00 & 0.32 & 0.76 & 1.00 \\ 
+  13 &   4 & 249 & 1.00 & 0.43 & 0.89 & 1.00 \\ 
+  14 &  13 &  68 & 1.00 & 0.50 & 0.90 & 1.00 \\ 
+  15 &  68 & 438 & 1.00 & 0.52 & 0.89 & 1.00 \\ 
+  16 &   1 & 123 & 0.99 & 0.54 & 0.90 & 1.00 \\ 
+  17 &  75 & 273 & 0.99 & 0.58 & 0.87 & 1.00 \\ 
+  18 &  16 &  91 & 0.97 & 0.62 & 0.94 & 1.00 \\ 
+  19 &  69 & 268 & 0.96 & 0.72 & 0.92 & 1.00 \\ 
+  20 &  42 &  35 & 0.95 & 0.61 & 0.91 & 1.00 \\ 
+  21 &   3 & 218 & 0.95 & 0.76 & 0.89 & 1.00 \\ 
+  22 &  18 & 343 & 0.94 & 0.83 & 0.86 & 1.00 \\ 
+  23 &  33 & 417 & 0.92 & 0.94 & 0.92 & 1.00 \\ 
+  24 &  23 & 176 & 0.87 & 0.94 & 0.98 & 1.00 \\ 
+  25 &  73 & 158 & 0.86 & 0.95 & 0.96 & 1.00 \\ 
+  26 &  15 &  45 & 0.79 & 0.92 & 0.97 & 1.00 \\ 
+   \hline
+\end{tabular}
+\caption{GSEA foo emilia 26 groups over 15 speed.csv} 
+\label{speed.csv}
+\end{table}
+
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Tue Dec 24 15:48:45 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & NAME & SIZE & NES & NOM.p.val & FDR.q.val & FWER.p.val \\ 
+  \hline
+1 &  42 &  35 & 1.30 & 0.03 & 0.13 & 0.12 \\ 
+  2 &  39 & 106 & 1.20 & 0.01 & 0.20 & 0.34 \\ 
+  3 &  43 &  86 & 1.20 & 0.04 & 0.27 & 0.59 \\ 
+  4 &   1 & 123 & 1.20 & 0.03 & 0.28 & 0.70 \\ 
+  5 &  73 & 158 & 1.10 & 0.15 & 0.93 & 1.00 \\ 
+  6 &  15 &  45 & 1.10 & 0.29 & 0.80 & 1.00 \\ 
+  7 &  22 &  35 & 1.10 & 0.36 & 0.87 & 1.00 \\ 
+  8 &  75 & 273 & 1.10 & 0.17 & 0.77 & 1.00 \\ 
+  9 &  34 &  99 & 1.10 & 0.30 & 0.77 & 1.00 \\ 
+  10 &  68 & 438 & 1.00 & 0.21 & 0.83 & 1.00 \\ 
+  11 &   3 & 218 & 1.00 & 0.48 & 1.00 & 1.00 \\ 
+  12 &  74 &  95 & 0.99 & 0.52 & 1.00 & 1.00 \\ 
+  13 &  33 & 417 & 0.98 & 0.64 & 1.00 & 1.00 \\ 
+  14 &  18 & 343 & 0.98 & 0.64 & 1.00 & 1.00 \\ 
+  15 &  27 & 267 & 0.97 & 0.66 & 1.00 & 1.00 \\ 
+  16 &  26 & 210 & 0.96 & 0.69 & 1.00 & 1.00 \\ 
+  17 &  69 & 268 & 0.93 & 0.84 & 1.00 & 1.00 \\ 
+  18 &   5 &  44 & 0.92 & 0.69 & 1.00 & 1.00 \\ 
+  19 &  23 & 176 & 0.92 & 0.82 & 1.00 & 1.00 \\ 
+  20 &  11 & 115 & 0.92 & 0.82 & 1.00 & 1.00 \\ 
+  21 &  16 &  91 & 0.91 & 0.80 & 1.00 & 1.00 \\ 
+  22 &   4 & 249 & 0.90 & 0.93 & 1.00 & 1.00 \\ 
+  23 &  12 & 358 & 0.90 & 0.95 & 0.97 & 1.00 \\ 
+  24 &  95 &  94 & 0.84 & 0.93 & 1.00 & 1.00 \\ 
+  25 &  25 &  33 & 0.78 & 0.89 & 1.00 & 1.00 \\ 
+  26 &  13 &  68 & 0.78 & 0.96 & 0.97 & 1.00 \\ 
+   \hline
+\end{tabular}
+\caption{GSEA foo emilia 26 groups over 15 trans\_g.csv} 
+\label{tab: trans_g_foo emilia.csv}
+\end{table}
+
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Tue Dec 24 15:57:24 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrrl}
+  \hline
+ & NAME & SIZE & NES & NOM.p.val & FDR.q.val & FWER.p.val & name \\ 
+  \hline
+1 &  73 & 158 & 1.20 & 0.04 & 1.00 & 0.80 & cages\_crystal.csv \\ 
+  11 &  43 &  86 & 1.30 & 0.01 & 0.31 & 0.26 & gfq.csv \\ 
+  2 &  39 & 106 & 1.20 & 0.01 & 0.18 & 0.30 & gfq.csv \\ 
+  4 &  27 & 267 & 1.10 & 0.05 & 0.75 & 0.96 & gfq.csv \\ 
+  9 &  68 & 438 & 1.10 & 0.05 & 0.53 & 1.00 & gfq.csv \\ 
+  12 &  74 &  95 & 1.20 & 0.03 & 0.76 & 0.54 & memory.csv \\ 
+  21 &  73 & 158 & 1.20 & 0.03 & 0.70 & 0.77 & memory.csv \\ 
+  13 &  74 &  95 & 1.40 & 0.00 & 0.07 & 0.07 & speed.csv \\ 
+  22 &  34 &  99 & 1.30 & 0.01 & 0.09 & 0.17 & speed.csv \\ 
+  3 &  43 &  86 & 1.20 & 0.04 & 0.32 & 0.64 & speed.csv \\ 
+  14 &  42 &  35 & 1.30 & 0.03 & 0.13 & 0.12 & trans\_g.csv \\ 
+  23 &  39 & 106 & 1.20 & 0.01 & 0.20 & 0.34 & trans\_g.csv \\ 
+  31 &  43 &  86 & 1.20 & 0.04 & 0.27 & 0.59 & trans\_g.csv \\ 
+  41 &   1 & 123 & 1.20 & 0.03 & 0.28 & 0.70 & trans\_g.csv \\ 
+   \hline
+\end{tabular}
+\caption{GSEA foo emilia 26 groups over 15 combined} 
+\label{combined_foo}
+\end{table}
+
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Tue Dec 24 16:10:43 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrr}
+  \hline
+ & Group & Freq & Namaes \\ 
+  \hline
+1 & 1 &   1 & transg\\ 
+  2 & 27 &   1 & gfq \\ 
+  3 & 34 &   1 & speed  \\ 
+  4 & 39 &   2 & gfq, transg\\
+  5 & 42 &   1 & trans g \\ 
+  6 & 43 &   3 & gfq, speed, transg\\ 
+  7 & 68 &   1 & gfq\\ 
+  8 & 73 &   2 & crystal and memory \\ 
+  9 & 74 &   2 & memory and speed \\ 
+   \hline
+\end{tabular}
+\caption{Cumulative phenotypes for foo emilia in CAGES cohort p$< 0.05$}
+\label{combined_foo_phenotypes}
+\end{table}
+Code for latex tables \url{source('~/RProjects/pilot_redo/R/tables/cumulative_tables.R')}
+\url{source('~/RProjects/pilot_redo/R/tables/foo_memory.R'}
+
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrrlllll}
+  \hline
+  bp\\
+ ID &	Name & 		pValue 	& FDR BH & 	FDR BY &	Bonferroni &	Genes from Input 	&Genes in Annotation\\
+ GO:0000715 &	nucleotide-excision repair, DNA damage recognition  &		$8.1 x 10^-16$ &	1.666E-12 &	1.368E-11 &	1.666E-12 &	9 &	23 \\
+ cc\\
+GO:0008180 &	COP9 signalosome 		&5.812E-12 	&1.651E-9 &	1.028E-8 &	1.651E-9 &	8 &	36\\
+GO:0045240 & 	dihydrolipoyl dehydrogenase complex 	&	1.619E-7 & 	2.299E-5 & 	1.432E-4 &	4.597E-5 & 	4  &	11 \\
+  
+   \hline
+\end{tabular}
+\caption{Group 43 foo GO enrichment}
+\label{group43foogoenrichment}
+\end{table}
+Table \ref{group43foogoenrichment} shows ontology enrichment for the group present in most phenotypes group 43.
+
+\subsubsection{Newpublisheddirect}
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Tue Dec 24 16:46:12 2019
+
+4436 genes in newpublished gmtmatches fyr
+but not all symbols match - taking only matches where there is one suggested in toppgene
+4429 found
+
+x	Duplicated
+KIAA1211	Not Found
+C2orf47	Not Found
+BRE	Not Found
+FAM21A	Not Found
+KIAA1804	Not Found
+NOV	Duplicated
+HN1	Not Found
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & NAME & SIZE & NES & NOM.p.val & FDR.q.val & FWER.p.val \\ 
+  \hline
+1 &  25 &  33 & 1.10 & 0.28 & 1.00 & 0.95 \\ 
+  2 &  23 & 178 & 1.10 & 0.17 & 1.00 & 1.00 \\ 
+  3 &  22 &  35 & 1.10 & 0.33 & 1.00 & 1.00 \\ 
+  4 &  18 & 345 & 1.10 & 0.20 & 1.00 & 1.00 \\ 
+  5 &  34 & 100 & 1.00 & 0.41 & 1.00 & 1.00 \\ 
+  6 &  42 &  35 & 1.00 & 0.50 & 1.00 & 1.00 \\ 
+  7 &  27 & 268 & 0.99 & 0.58 & 1.00 & 1.00 \\ 
+  8 &  11 & 117 & 0.98 & 0.58 & 1.00 & 1.00 \\ 
+  9 &  43 &  87 & 0.98 & 0.57 & 1.00 & 1.00 \\ 
+  10 &   5 &  44 & 0.96 & 0.60 & 1.00 & 1.00 \\ 
+  11 &  33 & 417 & 0.96 & 0.79 & 1.00 & 1.00 \\ 
+  12 &  39 & 108 & 0.96 & 0.66 & 1.00 & 1.00 \\ 
+  13 &   1 & 123 & 0.94 & 0.74 & 1.00 & 1.00 \\ 
+  14 &  13 &  68 & 0.94 & 0.68 & 1.00 & 1.00 \\ 
+  15 &  12 & 361 & 0.94 & 0.87 & 0.99 & 1.00 \\ 
+  16 &  16 &  90 & 0.91 & 0.78 & 1.00 & 1.00 \\ 
+  17 &   3 & 218 & 0.90 & 0.90 & 0.99 & 1.00 \\ 
+  18 &   4 & 249 & 0.89 & 0.94 & 0.95 & 1.00 \\ 
+  19 &  26 & 213 & 0.85 & 0.97 & 0.97 & 1.00 \\ 
+  20 &  15 &  45 & 0.85 & 0.83 & 0.92 & 1.00 \\ 
+   \hline
+\end{tabular}
+\caption{GSEA CAGES newpublisheddirect 20 groups over 15 cages\_crystal.csv} 
+\label{cages_crystal.csv}
+\end{table}
+
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Tue Dec 24 16:47:19 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & NAME & SIZE & NES & NOM.p.val & FDR.q.val & FWER.p.val \\ 
+  \hline
+1 &  43 &  87 & 1.30 & 0.01 & 0.36 & 0.30 \\ 
+  2 &  39 & 108 & 1.20 & 0.01 & 0.23 & 0.37 \\ 
+  3 &  42 &  35 & 1.20 & 0.12 & 0.28 & 0.59 \\ 
+  4 &   1 & 123 & 1.10 & 0.13 & 0.67 & 0.95 \\ 
+  5 &  27 & 268 & 1.10 & 0.04 & 0.54 & 0.95 \\ 
+  6 &  22 &  35 & 1.10 & 0.27 & 0.51 & 0.97 \\ 
+  7 &  15 &  45 & 1.10 & 0.25 & 0.46 & 0.97 \\ 
+  8 &  34 & 100 & 1.10 & 0.16 & 0.41 & 0.97 \\ 
+  9 &   4 & 249 & 1.00 & 0.36 & 0.86 & 1.00 \\ 
+  10 &   3 & 218 & 1.00 & 0.39 & 0.80 & 1.00 \\ 
+  11 &  33 & 417 & 0.98 & 0.66 & 1.00 & 1.00 \\ 
+  12 &  18 & 345 & 0.97 & 0.69 & 1.00 & 1.00 \\ 
+  13 &   5 &  44 & 0.97 & 0.58 & 0.98 & 1.00 \\ 
+  14 &  12 & 361 & 0.94 & 0.87 & 1.00 & 1.00 \\ 
+  15 &  23 & 178 & 0.93 & 0.79 & 1.00 & 1.00 \\ 
+  16 &  16 &  90 & 0.90 & 0.81 & 1.00 & 1.00 \\ 
+  17 &  26 & 213 & 0.90 & 0.89 & 0.99 & 1.00 \\ 
+  18 &  25 &  33 & 0.89 & 0.74 & 0.95 & 1.00 \\ 
+  19 &  11 & 117 & 0.89 & 0.85 & 0.91 & 1.00 \\ 
+  20 &  13 &  68 & 0.87 & 0.85 & 0.90 & 1.00 \\ 
+   \hline
+\end{tabular}
+\caption{GSEA CAGES newpublisheddirect 20 groups over 15 gfq.csv} 
+\label{gfq.csv}
+\end{table}
+
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Tue Dec 24 16:48:03 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & NAME & SIZE & NES & NOM.p.val & FDR.q.val & FWER.p.val \\ 
+  \hline
+1 &   5 &  44 & 1.10 & 0.16 & 1.00 & 0.83 \\ 
+  2 &  42 &  35 & 1.10 & 0.22 & 1.00 & 0.88 \\ 
+  3 &  22 &  35 & 1.10 & 0.25 & 0.87 & 0.94 \\ 
+  4 &  15 &  45 & 1.10 & 0.26 & 0.83 & 0.97 \\ 
+  5 &  27 & 268 & 1.10 & 0.08 & 0.67 & 0.97 \\ 
+  6 &  16 &  90 & 1.10 & 0.19 & 0.58 & 0.97 \\ 
+  7 &  13 &  68 & 1.10 & 0.23 & 0.50 & 0.97 \\ 
+  8 &  33 & 417 & 1.10 & 0.08 & 0.52 & 0.99 \\ 
+  9 &  43 &  87 & 1.10 & 0.27 & 0.50 & 0.99 \\ 
+  10 &  26 & 213 & 1.10 & 0.26 & 0.60 & 1.00 \\ 
+  11 &  34 & 100 & 1.00 & 0.39 & 0.70 & 1.00 \\ 
+  12 &  23 & 178 & 1.00 & 0.49 & 0.85 & 1.00 \\ 
+  13 &  12 & 361 & 0.97 & 0.69 & 0.94 & 1.00 \\ 
+  14 &  18 & 345 & 0.97 & 0.70 & 0.91 & 1.00 \\ 
+  15 &   4 & 249 & 0.96 & 0.70 & 0.88 & 1.00 \\ 
+  16 &   3 & 218 & 0.96 & 0.70 & 0.83 & 1.00 \\ 
+  17 &   1 & 123 & 0.95 & 0.69 & 0.81 & 1.00 \\ 
+  18 &  11 & 117 & 0.88 & 0.89 & 0.97 & 1.00 \\ 
+  19 &  25 &  33 & 0.85 & 0.82 & 0.96 & 1.00 \\ 
+  20 &  39 & 108 & 0.80 & 0.97 & 0.96 & 1.00 \\ 
+   \hline
+\end{tabular}
+\caption{GSEA CAGES newpublisheddirect 20 groups over 15 memory.csv} 
+\label{Table:GSEA CAGESmemory.csv newpublisheddirect 20 groups over 15}
+\end{table}
+
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Tue Dec 24 16:48:23 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & NAME & SIZE & NES & NOM.p.val & FDR.q.val & FWER.p.val \\ 
+  \hline
+1 &  34 & 100 & 1.30 & 0.00 & 0.17 & 0.16 \\ 
+  2 &  43 &  87 & 1.20 & 0.04 & 0.46 & 0.61 \\ 
+  3 &  25 &  33 & 1.20 & 0.17 & 0.47 & 0.78 \\ 
+  4 &   5 &  44 & 1.10 & 0.23 & 0.68 & 0.94 \\ 
+  5 &  27 & 268 & 1.10 & 0.06 & 0.58 & 0.96 \\ 
+  6 &  11 & 117 & 1.10 & 0.16 & 0.56 & 0.98 \\ 
+  7 &  22 &  35 & 1.10 & 0.32 & 0.60 & 1.00 \\ 
+  8 &  39 & 108 & 1.10 & 0.32 & 0.74 & 1.00 \\ 
+  9 &  26 & 213 & 1.10 & 0.25 & 0.66 & 1.00 \\ 
+  10 &  12 & 361 & 1.00 & 0.20 & 0.61 & 1.00 \\ 
+  11 &  13 &  68 & 1.00 & 0.47 & 0.80 & 1.00 \\ 
+  12 &   4 & 249 & 1.00 & 0.42 & 0.75 & 1.00 \\ 
+  13 &   1 & 123 & 0.99 & 0.55 & 0.85 & 1.00 \\ 
+  14 &  16 &  90 & 0.97 & 0.58 & 0.87 & 1.00 \\ 
+  15 &  18 & 345 & 0.95 & 0.79 & 0.93 & 1.00 \\ 
+  16 &  42 &  35 & 0.95 & 0.61 & 0.88 & 1.00 \\ 
+  17 &   3 & 218 & 0.94 & 0.78 & 0.86 & 1.00 \\ 
+  18 &  33 & 417 & 0.92 & 0.94 & 0.89 & 1.00 \\ 
+  19 &  23 & 178 & 0.86 & 0.96 & 0.96 & 1.00 \\ 
+  20 &  15 &  45 & 0.79 & 0.92 & 0.97 & 1.00 \\ 
+   \hline
+\end{tabular}
+\caption{GSEA CAGES newpublisheddirect 20 groups over 15 speed.csv} 
+\label{speed.csv}
+\end{table}
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Tue Dec 24 16:48:52 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & NAME & SIZE & NES & NOM.p.val & FDR.q.val & FWER.p.val \\ 
+  \hline
+1 &  42 &  35 & 1.30 & 0.03 & 0.16 & 0.15 \\ 
+  2 &  39 & 108 & 1.20 & 0.01 & 0.22 & 0.37 \\ 
+  3 &  43 &  87 & 1.20 & 0.04 & 0.26 & 0.55 \\ 
+  4 &   1 & 123 & 1.20 & 0.04 & 0.25 & 0.65 \\ 
+  5 &  15 &  45 & 1.10 & 0.29 & 0.86 & 1.00 \\ 
+  6 &  22 &  35 & 1.10 & 0.37 & 0.97 & 1.00 \\ 
+  7 &  34 & 100 & 1.10 & 0.34 & 0.85 & 1.00 \\ 
+  8 &   3 & 218 & 1.00 & 0.45 & 1.00 & 1.00 \\ 
+  9 &  33 & 417 & 0.98 & 0.65 & 1.00 & 1.00 \\ 
+  10 &  27 & 268 & 0.97 & 0.67 & 1.00 & 1.00 \\ 
+  11 &  26 & 213 & 0.97 & 0.66 & 1.00 & 1.00 \\ 
+  12 &  18 & 345 & 0.97 & 0.73 & 1.00 & 1.00 \\ 
+  13 &  23 & 178 & 0.94 & 0.79 & 1.00 & 1.00 \\ 
+  14 &  11 & 117 & 0.93 & 0.76 & 1.00 & 1.00 \\ 
+  15 &   5 &  44 & 0.93 & 0.68 & 1.00 & 1.00 \\ 
+  16 &  16 &  90 & 0.92 & 0.76 & 0.99 & 1.00 \\ 
+  17 &   4 & 249 & 0.90 & 0.92 & 0.99 & 1.00 \\ 
+  18 &  12 & 361 & 0.89 & 0.96 & 0.95 & 1.00 \\ 
+  19 &  25 &  33 & 0.78 & 0.89 & 1.00 & 1.00 \\ 
+  20 &  13 &  68 & 0.78 & 0.96 & 0.97 & 1.00 \\ 
+   \hline
+\end{tabular}
+\caption{GSEA CAGES newpublisheddirect 20 groups over 15 trans\_g.csv} 
+\label{tab:trans_g.csv new published direct}
+\end{table}
+
+code for tables \url{source('~/RProjects/pilot_redo/R/tables/newpublished_gfq.R')}
+
+% Tue Dec 24 16:51:38 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrrl}
+  \hline
+ & NAME & SIZE & NES & NOM.p.val & FDR.q.val & FWER.p.val & name \\ 
+  \hline
+1 &  43 &  87 & 1.30 & 0.01 & 0.36 & 0.30 & gfq.csv \\ 
+  2 &  39 & 108 & 1.20 & 0.01 & 0.23 & 0.37 & gfq.csv \\ 
+  5 &  27 & 268 & 1.10 & 0.04 & 0.54 & 0.95 & gfq.csv \\ 
+  11 &  34 & 100 & 1.30 & 0.00 & 0.17 & 0.16 & speed.csv \\ 
+  21 &  43 &  87 & 1.20 & 0.04 & 0.46 & 0.61 & speed.csv \\ 
+  12 &  42 &  35 & 1.30 & 0.03 & 0.16 & 0.15 & trans\_g.csv \\ 
+  22 &  39 & 108 & 1.20 & 0.01 & 0.22 & 0.37 & trans\_g.csv \\ 
+  3 &  43 &  87 & 1.20 & 0.04 & 0.26 & 0.55 & trans\_g.csv \\ 
+  4 &   1 & 123 & 1.20 & 0.04 & 0.25 & 0.65 & trans\_g.csv \\ 
+   \hline
+\end{tabular}
+\caption{GSEA new direct published 20 groups over 15 combined} 
+\label{combined_newpublished}
+\end{table}
+
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Tue Dec 24 16:52:58 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrl}
+  \hline
+ & Set & Freq & Name\\ 
+  \hline
+1 & 1 &   1 & transg\\ 
+  2 & 27 &   1 &gfq \\
+  3 & 34 &   1 &speed \\ 
+  4 & 39 &   2 & gfq and transg\\ 
+  5 & 42 &   1 & trans g\\ 
+  6 & 43 &   3 & gfq, speed, transg\\ 
+   \hline
+\end{tabular}
+\caption{GSEA new direct published 20 groups over 15 combined names of phenotypes} 
+\label{combined_newpublished_names}
+\end{table}
+
+GSA still cop signalasaome I suspect I may have subsetted after clustering either that or the clustering is very exact. \todo{\url{source('~/RProjects/pilot_redo/R/count_genes_in_symbolset.R')} loads all the genes for direct interaction source we also have the Kat gmt file found"}
+\subsection*{Subtitle}
+\section{Paths to data}
+
+\url{/afs/inf.ed.ac.uk/user/s14/s1476046/DocSyncUoE/Paper_data_DICE/data/graph/_from_Colin_Clustering_Dec} has the original clustering for the 3457 node PSP \url{PPI_PSD_clean_Published.xls}
+
+\url{ /afs/inf.ed.ac.uk/user/s14/s1476046/DocSyncUoE/Paper_data_DICE/data/graph/_Oksana_synaptic}
+\url{https://ifile.inf.ed.ac.uk/?path=/afs/inf.ed.ac.uk/user/s14/s1476046/DocSyncUoE/Paper_data_DICE/data/graph/_Oksana_synaptic/PSD_clean_Published.txt} has all the data sources
+
+PSD 3457 is almost the same as (almost) unique(union)
+
+\url{"~/Dropbox/Synaptic_proteome_17_05_2019/gene lists/PSDFull_May_2019.txt"}
+\url{"~/Dropbox/Synaptic_proteome_17_05_2019/gene lists/Synaptosome_Published_April19.txt"}
+
+Colin proteome is in 

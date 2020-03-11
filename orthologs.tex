@@ -1,0 +1,2181 @@
+\chapter{Orthologs}
+\todo{Define ortholog}
+\todo{Gene duplication}
+\todo{Implications of barabasi model}
+\section{Introduction}
+Orthologous proteins in different species are those related by variation from the most recent common ancestor of the species \cite{fitch2000homology}. Paralogous genes originate from gene duplication rather than speciation and may occur in the same genome \cite{jensen2001orthologs}.
+
+Hub nodes in orthologs are known to be more commonly associated with lethality \todo{ref} but it may be because of their involvement in processes intrinsic to the cell cycle that yeast nodes as a whole are more likely to be essential. 
+
+The increase in the number of vertebrate synaptic genes following genome duplcation has allowed for greater evolutionary variation in function without lethality one thing that is known is (ref) that the synapse is pretty robust to mutations (ie it does not stop working completely) a source of robustness in addition to gene duplication may be network structure that allows convergent processes to occur. \todo{rephrase}
+ 
+ Yeast mine \url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5753351/}
+ 
+\section{Methods}
+\subsection{BioMart Orthologs}
+Orthologs were extracted from Ensembl-EBI BioMart\cite{kinsella2011ensembl} for Genome Reference Consortium human (GRCh) 37 build equivalent to UCSC hg19. \url{https://grch37.ensembl.org/index.html} \todo{check ref for GRCh37} \cite{ramos2011validated}.
+\url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5753351/}
+Data were downloaded from BioMart mapping Ensembl Gene ids (ENSG) and corresponding Ensembl transcript IDs (ENST)transcript id \url{https://www.ensembl.org/info/genome/genebuild/genome_annotation.html} to Entrez Gene GeneID \cite{maglott2005entrez} and Hugo Gene Name Committee (HGNC) symbol \cite{gray2012genenames}. Entrez Gene 'GeneID' had been used as the primary key when generating the post synaptic proteome network \todo{ref}. Only human genes with an orthogs were downloaded and orthologs from the taxa below were requested. The number of taxa exceeded the maximum in the BioMart portal and ortholog data were combined using a database join on human entrez gene GeneID. Data in \url{/home/grant/RProjects/orthologs2/biomart_37_orthologs}
+
+
+
+
+\todo{Assortativity by ortholog}
+It is suggested that 31\% of human genes have an ortholog in yeast \url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3039837/} although the 
+
+see also \url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4012490/} Saccharomyces cerevisiae \url{https://science.sciencemag.org/content/274/5287/546} 6275 genes of which 5885 protein encoding
+
+The following orthologs were downloaded applying the filter that only human genes with an ortholog would be present in the list (filter from biomart)
+
+The following attributes were obtained for each ortholog and stored as a tsv file.
+
+\begin{enumerate}
+    
+\item{Gene stable ID}
+\item{Gene stable ID version}
+\item{Transcript stable ID}
+\item{Transcript stable ID version}
+\item{other taxa gene stable ID}
+\item{other taxa gene name}
+\item{other taxa protein or transcript stable ID}
+\item{other taxa chromosome/scaffold name}
+\item{other taxa chromosome/scaffold start (bp)}
+\item{other taxa chromosome/scaffold end (bp)}
+\item{Query protein or transcript ID}
+\item{Last common ancestor with other taxa}
+\item{other taxa homology type}
+%id. target other taxa gene identical to query gene
+%id. query gene identical to target other taxa gene
+\item{other taxa Gene-order conservation score}
+\item{other taxa Whole-genome alignment coverage}
+\item{dN with other taxa}
+\item{dS with other taxa}
+\item{other taxa orthology confidence [0 low, 1 high]}
+
+\end{enumerate}
+The following orthologs were downloaded:
+
+\begin{itemize}
+   
+\item{Saccharomyces cerevisiae NCBI:txid4932}
+\item{Caenorhabditis elegans NCBI:txid6239}
+\item{Drosophila melanogaster NCBI:txid7227}
+\item{Zebrafish Danio rerio NCBI:txid7955}
+\item{Mouse Mus Musculus NCBI:txid10090}
+
+\end{itemize}
+
+A data frame mapping between Ensembl Gene id (ENSG), Hugo Gene Nomeclature Committee (HGNC) symbol and Entrez Gene GeneID was edited as follows:
+\url{https://downloads.yeastgenome.org/genomics/homology/pdb_homologs/}
+A dataframe of 233 397 rows was downloaded from BioMart (\url{source('~/RProjects/orthologs2/R/0_ensg2entrezbimap.R')}. The dataframe contained six columns:
+\begin{itemize}
+    \item Gene.stable.ID (ENSG)  
+    \item Gene.stable.ID.version
+    \item Transcipt.stable.ID (ENST)
+    \item Transcript.stable.ID.version
+    \item EntreGene.ID
+    \item{HGNC symbol}
+\end{itemize}           
+
+The number of duplicated Gene.stable.id and Gene.stable.ID.version entries are identical (169720) and so Gene.stable.ID.version column could be dropped.
+
+There were only 18227 duplicated transcript ID so the majority of the duplicated Gene.stable ID occured as a result of one ENSG id mapping to more than one ENST \todo{rephrase}. There were an identical number of duplicated transcript.id.version rows eg 18227 so the mapping of transcript and transcript id is one to one. 
+ 
+As the primary key of the graph is Entrez GeneID all rows lacking Entrez Gene ID (recorded NA) were removed resulting in 190882 entries (42515 removed)\todo{find using entrez db cross ref}. Duplicate Entrez GeneIds were also removed to result in 25788 entries. Some Entrez Gene ID were not recorded by ensembl eg HMGA1P6 ENSG00000233440 is recorded as na but is at \url{https://www.ncbi.nlm.nih.gov/gene?cmd=Retrieve&dopt=full_report&list_uids=100130029} 100130029.It would be impracticable to find all missing. 
+
+A second bimap was made of unique Gene Stable ID  27811, this contains 3358 duplicate entrez ids ie it is a one to many mapping GenestableID to Entrez
+https://www.overleaf.com/project/5e19f349c1efb80001fbe76a
+The unique entrez bimap has 1319 duplicated Gene.stable.ID ie ids that map to more than one entrez id.
+
+These probably represent ids that have been retired at different rates. Looking at the duplicated gene stable id in the entrez bimap there are a number of duplicated gene symbols or missing gene symbols. What is important however is the number of duplicates in translation. As we are dealing with only those genes with orthologs we can check for duplicates
+
+The entrez gene entry also maps to more than one ENSG on occasion. We want for each entrez to find an ortholog. 
+
+\subsection{Methods for intermine}
+Mod Enrichr \cite{kuleshov2019modenrichr} also provides a lookup service API for worm, fly, zebra fish and yeast model organisms based on data extracted from orthodb v 10 \cite{kriventseva2019orthodb} \todo{query add eggNOG} . However no API was apparent on the mod enrichr web site and while one was available for enrichr. The orthodb data consists of several database tables that are too large to fit in memory.
+
+An alternative source of data is from yeast mine \cite{skrzypek2018saccharomyces} and related intermine sites which did not require the construction of a large database.
+
+The PSP graph was annotated for ensembl id using yeast mine. This identified all 3457 genes from entrez id although 215 were not assigned ENSG ids. All were assigned HGNC standard names and all assigned to H. Sapiens taxa. A full descriptive gene name was not provided for 6 genes (look up in intermine \todo{do in R}. Initial annotation of the graph was done in 
+
+
+1861 orthologs were identified in yeast mine for S. cerevisiae in the PSP. Mus  3341, Rattus 3238, Danio rerio 2623, Drosophila 1371, C elegans 1141.
+
+There were 827 least diverged homologs for S.verevisiae. The total data frame including one to many was 6076 see table \ref{Table:Types of PSP orthology yeast mine}. Data is stored as \url{"~/RProjects/orthologs2/data_in/data_depot/ym_yeast_6076_all_ortho.tsv"}. We want to test the hypothesis that the scale free model of the PSP is consistent with the Barabasi-Albert model of network generation. That is that the phylogenetically older genes (most similar to earliest ancesteral forms) will have higher degree. The least diverged identified orthologs is a simplification of the development of the synaptic PSP but seems an  seem an appropriate measure and get round the problem of one to many mappings. 
+
+
+
+\begin{table}{h}
+\centering
+\begin{tabular}{c|c}
+   Homologue Type &	Count    \\
+    \hline
+    	orthologue 	&3,143 \\
+    	homologue 	&1,779 \\
+    	least diverged orthologue 	&827\\
+    	horizontal gene transfer &	312\\
+    	least diverged horizontal gene transfer 	&15\\
+\end{tabular}
+\caption{Types of PSP orthology - yeast mine}
+\label{Table:Types of PSP orthology yeast mine}
+\end{table}
+
+1861 human orthologs are uniquely identified in the table. 1662 unique yeast genes.  
+
+Least diverged 782 unique human gene symbol. 818 homologgenes, 808 homolog standard name.
+
+0 genes in the least diverged category have no HGNC assigned but 76 have no ENSG (these will appear as duplicates of "") \url{source('~/RProjects/orthologs2/R/ym/yeast/parse_yeast_6076.R')}
+
+We only have the network for human so do network interpretation and GSA for the 782  unique
+\subsection{Results intermine}
+785 human genes were identified using topp fun \todo{ref} (some duplicates) see \url{find_missing_yeast_hgnc_symbols.txt} in \url{/home/grant/RProjects/orthologs2/data_in/data_depot} for the PSP genes which had identifiable least diverged homologs in S. cerevisiae. 
+\subsubsection{Graph analysis}
+An induced subgraph on yeast ids makes 782 (removing the inaccurate duplicates). Largest connected subgraph 687. 
+
+Summary stats degree
+
+Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1.00    6.00   13.00   22.32   26.00  396.00 
+   
+   Compared with total 
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1.00    4.00    8.00   17.64   19.00  535.00 
+
+
+The mean and median degree are greater for PSP proteins with identifiable least divergent yeast orthologs. There is a significant difference using a non parametric test of the centrality of the degree distribution (Wilcoxon rank sum test with continuity correction in R W = 1088858, p-value $< 2.2 x 10^{-16}$
+alternative hypothesis: true location shift is not equal to 0). This would be consistent with the Barabasi-Albert hypothesis of preferential attachment with phylogenetically older nodes gaining more connections. The Barabasi-Albert model is a mechanism for the generation of scale free networks. 
+
+
+
+see \url{source('~/RProjects/orthologs2/R/ym/yeast/yeast_subgraph.R')}
+
+\todo{boxplot} 
+
+
+\subsection{GO enrichment}
+\subsection{Biological process}
+Gene ontology enrichment was performed using the GO slim sets for Biological Process, Molecular Function and Cellular Component. Enrichment was calculated for the genes where there was a least divergent orthologue identified against a background of all PSP genes. 
+
+As might be expected yeast orthologues are over-represented in processess such as ribosomal biogenesis.
+
+Signal transduction is relatively under represented. 
+% latex table generated in R 3.6.2 by xtable 1.8-4 package
+% Sat Jan 25 15:21:45 2020
+% latex table generated in R 3.6.2 by xtable 1.8-4 package
+% Sat Jan 25 15:37:26 2020
+\begin{sidewaystable}[ht]
+\centering
+\begin{adjustbox}{width=1\textwidth}
+\small
+\begin{tabular}{lrrrlrrr}
+  \hline
+GO Biological Process & Count PSP & Count yeast ortholog & Expected value & +/- & Fold change & P & FDR \\ 
+  \hline
+organic substance metabolic process (GO:0071704) & 804 & 303 & 199.360 & + & 1.5 & $1.71 \times 10^{-11}$ & $2.72 \times 10^{-8}$ \\ 
+  metabolic process (GO:0008152) & 1031 & 365 & 255.640 & + & 1.4 & $5.20 \times 10^{-11}$ & $4.13 \times 10^{-8}$ \\ 
+  macromolecule metabolic process (GO:0043170) & 520 & 212 & 128.940 & + & 1.6 & $2.47 \times 10^{-10}$ & $9.80 \times 10^{-8}$ \\ 
+  translation (GO:0006412) & 115 & 75 & 28.510 & + & 2.6 & $2.28 \times 10^{-10}$ & $1.21 \times 10^{-7}$ \\ 
+  translational elongation (GO:0006414) & 101 & 65 & 25.040 & + & 2.6 & $7.95 \times 10^{-9}$ & $1.80 \times 10^{-6}$ \\ 
+  translational termination (GO:0006415) & 101 & 65 & 25.040 & + & 2.6 & $7.95 \times 10^{-9}$ & $2.10 \times 10^{-6}$ \\ 
+  formation of translation initiation ternary complex (GO:0001677) & 101 & 65 & 25.040 & + & 2.6 & $7.95 \times 10^{-9}$ & $2.52 \times 10^{-6}$ \\ 
+  gene expression (GO:0010467) & 391 & 151 & 96.950 & + & 1.6 & $2.46 \times 10^{-6}$ & $4.87 \times 10^{-4}$ \\ 
+  ribonucleoprotein complex biogenesis (GO:0022613) & 34 & 27 & 8.430 & + & 3.2 & $1.32 \times 10^{-5}$ & $2.33 \times 10^{-3}$ \\ 
+  cellular localization (GO:0051641) & 345 & 131 & 85.540 & + & 1.5 & $2.54 \times 10^{-5}$ & $3.10 \times 10^{-3}$ \\ 
+  ribosome biogenesis (GO:0042254) & 28 & 24 & 6.940 & + & 3.5 & $2.48 \times 10^{-5}$ & $3.28 \times 10^{-3}$ \\ 
+  protein modification by small protein conjugation (GO:0032446) & 76 & 43 & 18.840 & + & 2.3 & $3.51 \times 10^{-5}$ & $3.72 \times 10^{-3}$ \\ 
+  protein modification by small protein conjugation or removal (GO:0070647) & 76 & 43 & 18.840 & + & 2.3 & $3.51 \times 10^{-5}$ & $3.99 \times 10^{-3}$ \\ 
+  cellular protein localization (GO:0034613) & 313 & 119 & 77.610 & + & 1.5 & $5.79 \times 10^{-5}$ & $5.41 \times 10^{-3}$ \\ 
+  cellular macromolecule localization (GO:0070727) & 313 & 119 & 77.610 & + & 1.5 & $5.79 \times 10^{-5}$ & $5.75 \times 10^{-3}$ \\ 
+  proteasomal protein catabolic process (GO:0010498) & 52 & 32 & 12.890 & + & 2.5 & $8.94 \times 10^{-5}$ & $7.89 \times 10^{-3}$ \\ 
+  protein ubiquitination (GO:0016567) & 72 & 40 & 17.850 & + & 2.2 & $9.91 \times 10^{-5}$ & $8.29 \times 10^{-3}$ \\ 
+  proteasome-mediated ubiquitin-dependent protein catabolic process (GO:0043161) & 48 & 30 & 11.900 & + & 2.5 & $1.43 \times 10^{-4}$ & $1.04 \times 10^{-2}$ \\ 
+  intracellular protein transport (GO:0006886) & 263 & 102 & 65.210 & + & 1.6 & $1.38 \times 10^{-4}$ & $1.04 \times 10^{-2}$ \\ 
+  localization (GO:0051179) & 730 & 235 & 181.010 & + & 1.3 & $1.71 \times 10^{-4}$ & $1.13 \times 10^{-2}$ \\ 
+  ribosomal small subunit biogenesis (GO:0042274) & 17 & 16 & 4.220 & + & 3.8 & $2.00 \times 10^{-4}$ & $1.22 \times 10^{-2}$ \\ 
+  proteolysis involved in cellular protein catabolic process (GO:0051603) & 76 & 39 & 18.840 & + & 2.1 & $3.43 \times 10^{-4}$ & $2.01 \times 10^{-2}$ \\ 
+  cellular protein catabolic process (GO:0044257) & 77 & 39 & 19.090 & + & 2.0 & $3.86 \times 10^{-4}$ & $2.19 \times 10^{-2}$ \\ 
+  ncRNA metabolic process (GO:0034660) & 37 & 24 & 9.170 & + & 2.6 & $5.03 \times 10^{-4}$ & $2.66 \times 10^{-2}$ \\ 
+  RNA metabolic process (GO:0016070) & 65 & 34 & 16.120 & + & 2.1 & $8.03 \times 10^{-4}$ & $3.87 \times 10^{-2}$ \\ 
+  macromolecule catabolic process (GO:0009057) & 92 & 43 & 22.810 & + & 1.9 & $9.43 \times 10^{-4}$ & $4.28 \times 10^{-2}$ \\ 
+  organelle assembly (GO:0070925) & 51 & 28 & 12.650 & + & 2.2 & $9.99 \times 10^{-4}$ & $4.41 \times 10^{-2}$ \\ 
+   \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Gene Ontology Enrichment Slim PSP background for genes with identifiable least diverged yeast ortholog. Over represented terms} 
+\label{Table: Gene Ontology Enrichment PSP background for genes with identifiable recent common ortholog. Over represented} 
+\end{sidewaystable}
+% latex table generated in R 3.6.2 by xtable 1.8-4 package
+% Sat Jan 25 15:52:50 2020
+
+\begin{sidewaystable}[ht]
+\centering
+\begin{adjustbox}{width=1\textwidth}
+\small
+\begin{tabular}{lrrrlrrr}
+
+GO Biological Process & Count PSP & Count yeast ortholog & Expected value & +/- & Fold change & P & FDR \\ 
+  \hline
+multicellular organismal process (GO:0032501) & 380 & 53 & 94.220 & - & 0.6 & $1.89 \times 10^{-5}$ & $3.01 \times 10^{-3}$ \\ 
+  Unclassified (UNCLASSIFIED) & 1736 & 354 & 430.450 & - & 0.8 & $2.46 \times 10^{-5}$ & $3.55 \times 10^{-3}$ \\ 
+  multicellular organism development (GO:0007275) & 189 & 21 & 46.860 & - & 0.5 & $1.35 \times 10^{-4}$ & $1.07 \times 10^{-2}$ \\ 
+  system development (GO:0048731) & 152 & 15 & 37.690 & - & 0.4 & $1.60 \times 10^{-4}$ & $1.11 \times 10^{-2}$ \\ 
+  nervous system development (GO:0007399) & 119 & 10 & 29.510 & - & 0.3 & $1.97 \times 10^{-4}$ & $1.25 \times 10^{-2}$ \\ 
+  regulation of signaling (GO:0023051) & 48 & 1 & 11.900 & - & 0.1 & $4.39 \times 10^{-4}$ & $2.40 \times 10^{-2}$ \\ 
+  modulation of chemical synaptic transmission (GO:0050804) & 45 & 1 & 11.160 & - & 0.1 & $6.67 \times 10^{-4}$ & $3.31 \times 10^{-2}$ \\ 
+  regulation of trans-synaptic signaling (GO:0099177) & 45 & 1 & 11.160 & - & 0.1 & $6.67 \times 10^{-4}$ & $3.42 \times 10^{-2}$ \\ 
+  cell surface receptor signaling pathway (GO:0007166) & 231 & 32 & 57.280 & - & 0.6 & $8.75 \times 10^{-4}$ & $4.09 \times 10^{-2}$ \\ 
+  cell communication (GO:0007154) & 180 & 23 & 44.630 & - & 0.5 & $1.23 \times 10^{-3}$ & $5.00 \times 10^{-2}$ \\ 
+  signal transduction (GO:0007165) & 567 & 102 & 140.590 & - & 0.7 & $1.17 \times 10^{-3}$ & $5.01 \times 10^{-2}$ \\ 
+  cell-cell signaling (GO:0007267) & 180 & 23 & 44.630 & - & 0.5 & $1.23 \times 10^{-3}$ & $5.13 \times 10^{-2}$ \\ 
+   \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Gene Ontology Enrichment PSP background for genes with identifiable recent common ortholog under represented} 
+\end{sidewaystable}
+\todo{Split over and underrepresented and put portrait}
+\subsection{Molecular function}
+Over representation of ribosome and ribosomeal binding see table \ref{Table:Gene Ontology Molecular Function SLIM Enrichment PSP background for genes with identifiable recent common ortholog}
+
+% latex table generated in R 3.6.2 by xtable 1.8-4 package
+% Sat Jan 25 16:36:40 2020
+\begin{table}[ht]
+\centering
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{lrrrlrrr}
+  \hline
+GO Molecular Function & Count PSP & Count yeast ortholog & Expected value & +/- & Fold change & P & FDR \\ 
+  \hline
+structural constituent of ribosome (GO:0003735) & 80 & 64 & 19.840 & + & 3.2 & $1.70 \times 10^{-11}$ & $8.16 \times 10^{-9}$ \\ 
+  structural molecule activity (GO:0005198) & 211 & 98 & 52.320 & + & 1.9 & $3.54 \times 10^{-7}$ & $8.48 \times 10^{-5}$ \\ 
+  RNA binding (GO:0003723) & 193 & 91 & 47.860 & + & 1.9 & $5.86 \times 10^{-7}$ & $9.35 \times 10^{-5}$ \\ 
+  heterocyclic compound binding (GO:1901363) & 409 & 144 & 101.410 & + & 1.4 & $2.10 \times 10^{-4}$ & $2.01 \times 10^{-2}$ \\ 
+  nucleic acid binding (GO:0003676) & 387 & 136 & 95.960 & + & 1.4 & $3.56 \times 10^{-4}$ & $2.84 \times 10^{-2}$ \\ 
+   \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Gene Ontology Molecular Function SLIM Enrichment PSP background for genes with identifiable recent common ortholog} 
+\label{Table:Gene Ontology Molecular Function SLIM Enrichment PSP background for genes with identifiable recent common ortholog}
+\end{table}
+\subsection{Cellular component}
+Over representation of cytosole and ribosome see table \ref{Table:Gene Ontology Cellular Conponent SLIM Enrichment PSP background for genes with identifiable recent common ortholog}
+
+% latex table generated in R 3.6.2 by xtable 1.8-4 package
+% Sat Jan 25 16:35:45 2020
+\begin{table}[ht]
+\centering
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{lrrrlrrr}
+  \hline
+GO Cellular Component & Count PSP & Count yeast ortholog & Expected value & +/- & Fold change & P & FDR \\ 
+  \hline
+cytoplasmic part (GO:0044444) & 758 & 319 & 187.950 & + & 1.7 & $1.52 \times 10^{-17}$ & $6.34 \times 10^{-15}$ \\ 
+  cytosol (GO:0005829) & 303 & 161 & 75.130 & + & 2.1 & $5.32 \times 10^{-15}$ & $1.11 \times 10^{-12}$ \\ 
+  intracellular part (GO:0044424) & 1217 & 435 & 301.760 & + & 1.4 & $2.70 \times 10^{-14}$ & $3.76 \times 10^{-12}$ \\ 
+  cytosolic part (GO:0044445) & 98 & 74 & 24.300 & + & 3.0 & $2.03 \times 10^{-12}$ & $1.69 \times 10^{-10}$ \\ 
+  cytoplasm (GO:0005737) & 1182 & 415 & 293.080 & + & 1.4 & $1.71 \times 10^{-12}$ & $1.79 \times 10^{-10}$ \\ 
+  cytosolic ribosome (GO:0022626) & 72 & 59 & 17.850 & + & 3.3 & $4.19 \times 10^{-11}$ & $2.91 \times 10^{-9}$ \\ 
+   \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Gene Ontology Cellular Conponent SLIM Enrichment PSP background for genes with identifiable recent common ortholog} 
+\label{Table:Gene Ontology Cellular Conponent SLIM Enrichment PSP background for genes with identifiable recent common ortholog}
+\end{table}
+
+\subsection{Yeast murine phenotype}
+
+Given the centrality of yeast orthologs to the cell cycle the PSP genes with orthologs in yeast are enriched for murine lethality embryonic lethality prior to organogenesis  MP:0013292 (Bonferroni $1.94 \times 10^{-28}$). See table \ref{Table:Mouse phenotype yeast ortholog PSPfor Bonferroni < 0.001}
+% latex table generated in R 3.6.2 by xtable 1.8-4 package
+% Sat Jan 25 17:01:27 2020
+\begin{table}[ht]
+\centering
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{llrrrr}
+  \hline
+Name & ID & Hit.Count.in.Query.List & Hit.Count.in.Genome & p.value & q.value.Bonferroni \\ 
+  \hline
+embryonic lethality prior to organogenesis & MP:0013292 & 123 & 875 & $4.94 \times 10^{-32}$ & $1.94 \times 10^{-28}$ \\ 
+  preweaning lethality, complete penetrance & MP:0011100 & 159 & 1375 & $6.95 \times 10^{-32}$ & $2.73 \times 10^{-28}$ \\ 
+  embryonic lethality prior to tooth bud stage & MP:0013293 & 128 & 976 & $2.38 \times 10^{-30}$ & $9.35 \times 10^{-27}$ \\ 
+  embryonic lethality between implantation and placentation & MP:0009850 & 62 & 477 & $2.41 \times 10^{-14}$ & $9.46 \times 10^{-11}$ \\ 
+  embryonic lethality between implantation and somite formation & MP:0006205 & 43 & 323 & $1.39 \times 10^{-10}$ & $5.46 \times 10^{-7}$ \\ 
+  embryonic lethality, complete penetrance & MP:0011092 & 55 & 502 & $6.71 \times 10^{-10}$ & $2.63 \times 10^{-6}$ \\ 
+  embryonic lethality between implantation and somite formation, complete penetrance & MP:0011096 & 36 & 293 & $3.97 \times 10^{-8}$ & $1.56 \times 10^{-4}$ \\ 
+  abnormal embryonic growth/weight/body size & MP:0002088 & 92 & 1205 & $1.96 \times 10^{-7}$ & $7.72 \times 10^{-4}$ \\ 
+  abnormal embryo development & MP:0001672 & 93 & 1226 & $2.24 \times 10^{-7}$ & $8.79 \times 10^{-4}$ \\ 
+  abnormal prenatal growth/weight/body size & MP:0004196 & 103 & 1406 & $2.41 \times 10^{-7}$ & $9.45 \times 10^{-4}$ \\ 
+   \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Mouse phenotype yeast ortholog PSP for Bonferroni $< 0.001$} 
+\label{Table:Mouse phenotype yeast ortholog PSPfor Bonferroni < 0.001}
+\end{table}
+\subsection{Disease phenotype yeast ortholog}
+
+Mitochondrial diseases are over represented bonferroni $2.11 \times 10^{-16}$. Amongst neurological disease Parkinson's disease is over represented  $1.53 \times 10^{-4}$. See table 
+% latex table generated in R 3.6.2 by xtable 1.8-4 package
+% Sat Jan 25 17:06:13 2020
+\begin{table}[ht]
+\centering
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{llrrrr}
+  \hline
+Name & ID & Hit.Count.in.Query.List & Hit.Count.in.Genome & p.value & q.value.Bonferroni \\ 
+  \hline
+Mitochondrial Diseases & C0751651 & 62 & 380 & $4.78 \times 10^{-20}$ & $2.11 \times 10^{-16}$ \\ 
+  Aase Smith syndrome 2 & C2931850 & 15 & 19 & $8.47 \times 10^{-18}$ & $3.74 \times 10^{-14}$ \\ 
+  HIV Coinfection & C4505456 & 25 & 102 & $7.59 \times 10^{-13}$ & $3.35 \times 10^{-9}$ \\ 
+  Anemia, Diamond-Blackfan & C1260899 & 18 & 66 & $1.86 \times 10^{-10}$ & $8.23 \times 10^{-7}$ \\ 
+  Parkinson Disease & C0030567 & 77 & 946 & $3.47 \times 10^{-8}$ & $1.53 \times 10^{-4}$ \\ 
+  Cytopenia & C0010828 & 28 & 206 & $6.13 \times 10^{-8}$ & $2.71 \times 10^{-4}$ \\ 
+  Congenital anemia & C0158995 & 28 & 208 & $7.55 \times 10^{-8}$ & $3.33 \times 10^{-4}$ \\ 
+   \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Disease yeast ortholog PSP showing p Bonferroni $< 0.001$} 
+\label{Table:Disease yeast ortholog PSP showing p Bonferroni < 0.001}
+\end{table}
+
+\section{C elegans - yeast mine}
+
+1141 orthologs are returned representing 1141 unique human genes and 1302 c elegans genes. 
+
+HGNC used to lookup entrez in toppfunn 1120 genes found. 1141 after substitute names identified (no duplicates)
+\todo{Has more neural so need to do enrichment without background to show this ie background of all genome}
+
+\section{Induced subgraph C elegans}
+
+Largest connected component 1016, 126 components all others single N 1141 E 4710 
+
+Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    1.0     5.0    11.0    20.7    24.0   535.0 
+> summary(deg)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1.00    4.00    8.00   17.64   19.00  535.00 
+   
+	Wilcoxon rank sum test with continuity correction
+
+data:  deg and degs
+W = 1748061, p-value = 7.839e-09
+alternative hypothesis: true location shift is not equal to 0
+
+Significant difference in degree
+
+\todo{boxplot}
+
+Enrichment will be similar to yeast but with some neural elements which will show through in all genome. Need to look at diff too. 
+649 entrez in celegans not in yeast
+293 entrez in yeast not celegans
+
+Union of both 1434. Intersection    492 
+
+difference celegans gives abnormal synaptic transmission on toppfunn and seizures \url{source('~/RProjects/orthologs2/R/ym/celegans/get_difference_elegansyeast.R')}
+
+in \url{celegans_yeast_toppfun_diff.txt} in dir \url{/home/grant/RProjects/orthologs2/data_in}
+
+
+\subsection{Drosophila}
+
+1371 genes in yeast mine orthologues
+
+dataframe is 1457
+
+1371 unique human genes with 1449 drosophila genes
+
+1341 genes found from HGNC of data frame (1457 includes duplicates) on first pass
+
+single duplicates found for missing other than Sept2 (Sept2 and Sep6) and MARS MARS and SLA2 will find these correctly when we map back to entrez gene to create subgraph
+
+1372 genes now
+
+to toppfun still overwhelmed by mitochondria and lethality need to check diff and do gene ontology
+
+    in \url{/home/grant/RProjects/orthologs2/data_in}
+    
+    \url{emacs drosphila_misssing_hgnc.txt}
+    and \url{emacs drosphila_entrez_hgnc_from_toppfunn.txt} are missing and duplicates and all ids
+    ? seeing some difference in human phenotype
+    
+\subsubsection{GO}
+
+BP slim vs PSP little
+
+MF all no significant vs PSP
+
+MF slim nil significant fly vs PSP
+
+CC go ER signal transduction
+
+CC go slim ER cytoplasmic part
+
+
+
+
+\subsubsection{Fly graph}
+
+ Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1.00    4.00    8.00   17.64   19.00  535.00 
+   
+  Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1.00    5.00   11.00   19.95   23.00  396.00 
+   
+   Wilcoxon rank sum test with continuity correction
+
+data:  deg and degs
+W = 2133124, p-value = 5.797e-08
+alternative hypothesis: true location shift is not equal to 0
+
+1371 nodes and 6522 edges
+
+Largest connected component 1239. 128 components. 2 of 2, 1 of 1 and 1 of 1239 all rest 124 single. \todo{what are the singletons}
+    
+    1371 genes found from graph (1372 but one is x) - actually the write to clipboard function writes out the x
+    
+
+\subsubsection{Fly diff}
+Diff fly and yeast
+
+Fly not in yeast 786
+Yeast not in fly 197 \todo{This may be from taking least divergent rather than just orthologs}
+
+Union 1568
+Intersection 585 
+
+\subsubsection{Toppfun and go difference}
+
+\textbf{Toppfunn}
+
+More enriched for human hypertonia etc, mouse synaptic transmission and locomotion, cc synapse (toppfun)    bp purine bionucleotide and synaptic transmission
+
+Disease epilepsy encephalopathy, mitochondria, schiz, epilepsy, NAD Co q deficiency
+
+\textbf{GO}
+
+BP diff translation PSP
+MF complete nil significant
+MF slim nil significant
+
+
+
+\todo{pLI and orthologs}
+\todo{Orthologs and coreness, eigenvector and betweeness}
+\todo{Distribution over core periphery}
+
+
+\section{Zebra fish}
+
+Data frame returned from PSP conversion is 2932.
+
+2623 unique human genes from PSP 
+2921 orthologs identified in zebra fish
+
+\section{Initial human orthologs to toppfun}
+HGNC symbol in (output of yeast mine is HGNC, ENSG and orthologue gene identifier. 
+
+2565 unique found on first pass Several not found find id more than one has two id.
+This results in 2625 genes (excess will be mapped back when we use the graph to map entrez id. The txt files from toppfun are in \url{/home/grant/RProjects/orthologs2/data_in}
+    
+\subsection{Graph zebra fish}
+
+PSP graph is 2622 vertices and 19702 edges. 48 components. Largest 2574. 1 component of 2. 46 singles. 
+
+Degree PSP
+
+ Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1.00    4.00    8.00   17.64   19.00  535.00 
+   
+Degree zfish
+   
+  
+  
+Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+1.00    4.00    9.00   18.66   20.00  535.00  
+    
+    No significant difference in degree in zebra fish
+    
+    
+	Wilcoxon rank sum test with continuity correction
+
+data:  deg and degs
+W = 4402876, p-value = 0.05618
+alternative hypothesis: true location shift is not equal to 0
+
+2622 entrez id from graph to toppfun and GO
+\subsection{Differences with others}
+Genes found in zfish not in fly 1384
+
+Genes found in fly not zfish 133
+
+Union 2755
+
+intersection 1238
+
+code to put difference to clipboard \url{source('~/RProjects/orthologs2/R/ym/d_rerio/get_diff_zfish.R')}
+
+1348 genes to toppfun
+
+\subsection{Z fish fly difference toppfun}
+Milder human phenotype on differences. MF cytoskeletal binding protein 
+
+pathway axon guidance
+
+disease ASD top, scz
+
+
+\subsection{GO analysis}
+do go analysis for difference
+
+
+
+    
+
+
+\section{Human fly differences}
+
+There does not seem to be much human fly difference when you do GO analysis against PSP in terms of frequency from groups
+
+Tried it again with yeast and the terms that come up are the purified terms which is why I keep getting ribosomes etc they are over represented in the yeast
+
+No significant go slim BP and human/fly and MF slim is under representation of ribosome
+
+CC slim under representation ribosome human and fly
+
+\todo{Get a set of lists together and ask Colin to do topponto for disease}
+
+\todo {diff rerio and fly}
+
+
+
+
+\section{Results}
+\subsection{Results BioMart}
+There are 4037 Entrez Genes mapped to a yeast ortholog
+
+\url{source('~/RProjects/orthologs2/R/yeast_orthologs.R')} 
+
+
+the variable mart37\_yeast has 4037 levels of gene id suggesting there are 4037 human genes with identified orthologs in yeast in this download.
+
+%and \url{mart37_yeast\$Gene.stable.ID} has 4037 levels.
+%\texttt{mart37_yeastGene.stable.ID} has 4037 levels
+We are also able to characterise by confidence score in biomart (0 low 1 high)
+Yeast
+690 high confidence PSP orthologs 19.96\% of PSP
+\todo{Toppgene and then xtable output}
+\url{source('~/RProjects/graph_analysis/R/make_annotated_gml.R')} has variable dataframe ortho with also booleans for each ortholog
+
+448 low confidence PSP 
+
+Total 1138 32.9\%
+
+The high confidence yeast genes (ie yeast orthologs of PS
+
+p = 0.01P) contain a substantial number of genes (n=101) involved in vesicle organisation BP: GO:0016050 (p Bonferroni = 1.997E-15). Performed in toppgene with backgroun as genome. 
+
+Yeast genes are clearly essential. The top mouse phenotype was embryonic lethality (n= 100, genes MP:0008762, Bonferroni 3.94E-4).
+
+Pathway analysis in reactome revealed that the top two enriched terms were Membrane trafficking ID 1269877, Bonferroni 2.276E-12 n=57 genes and ID 1269876 Vesicle-mediated transport Bonferroni 5.406E-11. The third topic is also of interest in terms of the development of the neurotransmitting mechanisms, 1427858 Reactome clathrin-mediated endocytosis Bonferroni 6.7E-8 n=22
+
+Celegans
+1101 C elegans genes high confidence
+985 low confidence
+2086 total
+
+Molecular function of c elegans is enriched for GO:0032553, ribonucleotide binding, P Bonferroni 1.543E-62 n=305
+
+Recognisable synaptic elements now appear in enrichment analysis of cellular compartment GO:0045202 synapse P Bonferroni 7.203E-75 n=270/1482, 
+GO:0005739 mitochondrion, P Bonferroni 1.019E-74 N=306/1865
+
+
+Mouse phenotype showed more advanced development but still lethality
+
+1 
+MP:0011100 
+preweaning lethality, complete penetrance 
+
+1.243E-15 
+6.591E-12 
+6.034E-11 
+6.591E-12 
+177 
+1374
+
+And abnormalities of synaptic vesicle morphology
+
+
+p = 0.01
+
+2 
+MP:0004769 
+abnormal synaptic vesicle morphology 
+
+8.240E-12
+
+p = 0.01 
+2.186E-8 
+2.001E-7 
+4.372E-8 
+23 
+6
+
+And of synaptic morphology and electrophysiology
+
+
+4 
+MP:0009538 
+abnormal synapse morphology 
+
+4.724E-10 
+5.085E-7 
+4.655E-6 
+2.506E-6 
+45 
+228 
+5 
+MP:0002910 
+abnormal excitatory postsynaptic currents 
+
+4.793E-10 
+5.085E-7 
+4.655E-6 
+2.543E-6 
+35 
+151
+
+
+Gene families were enriched for L and S Ribosomes
+
+
+729 
+L ribosomal proteins 
+genenames.org 
+3.448E-19 
+8.516
+
+p = 0.01E-17 
+5.185E-16 
+8.516E-17 
+23 
+51 
+
+2 
+728 
+S ribosomal proteins 
+genenames.org 
+2.321E-18 
+2.867E-16 
+1.745E-15 
+5.733E-16 
+19 
+34
+
+
+Human diseases included mitochondrial disease and neurodegenerative disorders
+
+
+1 
+C0751651 
+Mitochondrial Diseases 
+DisGeNET Curated 
+1.065E-18 
+6.017E-15 
+5.546E-14 
+6.017E-15 
+73 
+380 
+2 
+C0543888 
+Epileptic encephalopathy 
+DisGeNET Curated 
+8.691E-12 
+2.455E-8 
+2.263E-7 
+4.910E-8 
+68 
+459 
+3 
+C2931850 
+Aase Smith syndrome 2 
+DisGeNET Curated 
+8.786E-11 
+1.655E-7 
+1.525E-6 
+4.964E-7 
+12 
+19 
+4 
+C0524851 
+Neurodegenerative Disorders 
+DisGeNET Curated 
+1.325E-9 
+1.872E-6 
+1.726E-5 
+7.489E-6 
+84 
+695 
+5 
+C0086743 
+Osteoarthrosis Deformans 
+DisGeNET Curated 
+1.024E-8 
+1.157E-5 
+1.066E-4 
+5.784E-5 
+22 
+88
+
+Drosophila
+
+High confidence orthologs 1693 	48.9%
+Low confidence orthologs 646	18.7%
+Total 2339				67.65982%
+
+Drosophila also show enrichment for ribonucleotide binding 
+1 
+GO:0032553 
+ribonucleotide binding 
+
+5.344E-96 
+1.075E-92
+
+p = 0.01 
+8.794E-92 
+1.075E-92 
+454 
+1947
+And known synaptic components in cellular comparment
+
+
+GO:0045202 
+synapse 
+
+5.004E-121 
+6.360E-118 
+4.913E-117 
+6.360E-118 
+410 
+1482
+
+Human phenotype is dominated by abnormalities of locomotion, abnormal muscle tone
+
+
+HP:0003808 
+Abnormal muscle tone 
+
+1.961E-18 
+1.009E-14 
+
+p = 0.01
+9.207E-14 
+1.009E-14 
+293 
+1674
+
+Mouse phenotype shows later lethality and some structural malformation
+
+
+1 
+MP:0011100 
+preweaning lethality, complete penetrance 
+
+4.216E-29 
+2.695E-25 
+2.517E-24 
+2.695E-25 
+287 
+1374 
+2 
+MP:0008762 
+embryonic lethality 
+
+2.045E-19 
+6.536E-16 
+6.105E-15 
+1.307E-15 
+338 
+1947 
+3 
+MP:0013293 
+embryonic lethality prior to tooth bud stage 
+
+3.457E-17 
+7.365E-14 
+6.879E-13 
+2.209E-13 
+189 
+933 
+4 
+MP:0008540 
+abnormal cerebral hemisphere morphology 
+
+5.434E-17 
+8.683E-14 
+8.110E-13 
+3.473E-13 
+148 
+668 
+5 
+MP:0013292 
+embryonic lethality prior to organogenesis 
+
+8.443E-17 
+1.079E-13 
+1.008E-12 
+5.397E-13 
+172 
+827
+
+
+Membrane trafficking is prominent in pathway analysis and almost all the components of SRP dependent contranslation are in place
+
+
+1 
+1269877 
+Membrane Trafficking 
+BioSystems: REACTOME 
+1.678E-44 
+4.605E-41 
+3.912E-40 
+4.605E-41 
+196 
+614 
+2 
+1269876 
+Vesicle-mediated transport 
+BioSystems: REACTOME 
+4.888E-41 
+6.706E-38 
+5.696E-37 
+1.341E-37 
+199 
+660
+
+5 
+1268689 
+SRP-dependent cotranslational protein targeting to membrane 
+BioSystems: REACTOME 
+1.395E-31 
+7.654E-29 
+6.502E-28 
+3.827E-28 
+65 
+116 
+6 
+1270303 
+Axon guidance 
+BioSystems: REACTOME 
+5.388E-31 
+2.464E-28 
+2.093E-27 
+1.478E-27 
+161 
+55
+
+VEGFA-VEGFR2 Pathway 
+BioSystems: REACTOME 
+1.251E-27 
+3.813E-25 
+3.239E-24 
+3.432E-24 
+112 
+333
+9 above
+
+Disease phenotype now shows a substantial amount of neurodegenerative
+
+
+1 
+C0751651 
+Mitochondrial Diseases 
+DisGeNET Curated 
+6.405E-29 
+4.811E-25 
+4.571E-24 
+4.811E-25 
+112 
+380 
+2 
+C0543888 
+Epileptic encephalopathy 
+DisGeNET Curated 
+5.195E-23 
+
+
+p = 0.011.951E-19 
+1.854E-18 
+3.902E-19 
+115 
+459 
+3 
+C0002395 
+Alzheimer's Disease 
+DisGeNET Curated 
+2.767E-12 
+6.929E-9 
+6.583E-8 
+2.079E-8 
+259 
+1819 
+4 
+C2931850 
+Aase Smith syndrome 2 
+DisGeNET Curated 
+3.395E-11 
+6.375E-8 
+6.057E-7 
+2.550E-7 
+14 
+19 
+5 
+C0030567 
+Parkinson Disease 
+DisGeNET Curated 
+1.242E-10 
+1.865E-7
+
+p = 0.01 
+1.772E-6 
+9.327E-7 
+150 
+946
+
+
+Taking the difference between drosophila and yeast 1004 genes
+
+Mouse
+
+
+
+MP:0002206 
+abnormal CNS synaptic transmission 
+
+4.019E-16 
+2.325E-12 
+2.149E-11 
+2.325E-12 
+124 
+779 
+2 
+MP:0008540 
+abnormal cerebral hemisphere morphology 
+
+2.174E-15 
+6.289E-12 
+5.811E-11 
+1.258E-11 
+110 
+668 
+3 
+MP:0003635 
+abnormal synaptic transmission 
+
+5.466E-15 
+1.054E-11 
+9.740E-11 
+3.162E-11 
+142 
+977 
+4 
+MP:0000787 
+abnormal telencephalon morphology 
+
+6.676E-13 
+9.258E-10 
+8.555E-9 
+3.862E-9 
+127 
+888 
+5 
+MP:0002882 
+abnormal neuron morphology 
+
+8.002E-13 
+9.258E-10 
+8.555E-9 
+4.629E-9 
+199 
+1634
+
+Human phenotype
+
+
+1 
+HP:0001290 
+Generalized hypotonia 
+
+1.196E-10 
+5.535E-7 
+4.991E-6 
+5.535E-7 
+106 
+808 
+2 
+HP:0003808 
+Abnormal muscle tone 
+
+6.714E-10 
+1.553E-6 
+1.401E-5 
+3.107E-6 
+177 
+1674 
+3 
+HP:0001276 
+Hypertonia 
+
+1.374E-8 
+1.590E-5 
+1.434E-4 
+6.359E-5 
+105 
+863 
+4 
+HP:0001257 
+Spasticity 
+
+1.374E-8 
+1.590E-5 
+1.434E-4 
+6.359E-5 
+105 
+863 
+5 
+HP:0001252 
+Muscular hypotonia 
+
+2.119E-8 
+1.961E-5 
+1.768E-4 
+9.803E-5 
+138 
+1254
+
+CC (need to do in panther)
+
+
+1 
+GO:0045202 
+synapse 
+
+1.061E-79 
+1.147E-7
+
+p = 0.016 
+8.678E-76 
+1.147E-76 
+273 
+1482 
+2 
+GO:0044456 
+synapse part 
+
+2.637E-75 
+1.425E-72 
+1.078E-71 
+2.851E-72 
+241 
+1228 
+3 
+GO:0043005 
+neuron projection 
+
+3.265E-69 
+1.177E-66 
+8.899E-66 
+3.530E-66 
+271 
+1624 
+4 
+GO:0098793 
+presynapse 
+
+5.209E-64 
+1.408E-61 
+1.065E-60 
+5.631E-61 
+167 
+699 
+5 
+GO:0030424 
+axon 
+
+2.100E-54 
+4.540E-52 
+3.434E-51 
+2.270E-51 
+168 
+817
+Gene family
+
+
+
+p = 0.01
+1 
+1150 
+NADH:ubiquinone oxidoreductase supernumerary subunits 
+genenames.org 
+2.842E-15 
+7.873E-13 
+4.883E-12 
+7.873E-13 
+16 
+30 
+2 
+1055 
+Exocyst complex 
+genenames.org 
+2.456E-13 
+3.401E-11 
+2.110E-10 
+6.802E-11 
+9 
+9 
+3 
+1220 
+Membrane associated guanylate kinases|PDZ domain containing 
+genenames.org 
+1.642E-12 
+1.516E-10 
+9.407E-10 
+4.549E-10 
+29 
+152 
+4 
+646 
+Mitochondrial ribosomal proteins 
+genenames.org 
+1.402E-9 
+8.977E-8 
+5.569E-7 
+3.883E-7 
+18 
+79 
+5 
+904 
+Calcium voltage-gated channel subunits|Membrane associated guanylate kinases 
+genenames.org 
+1.620E-9 
+8.977E-8 
+5.569E-7 
+4.489E-7 
+11 
+26
+
+Disease
+
+
+1 
+C0543888 
+Epileptic encephalopathy 
+DisGeNET Curated 
+8.645E-13 
+4.916E-9 
+4.534E-8 
+4.916E-9 
+70 
+459 
+2 
+C0751651 
+Mitochondrial Diseases 
+DisGeNET Curated 
+1.844E-9 
+5.243E-6 
+4.835E-5 
+1.049E-5 
+55 
+380 
+3 
+C0036341 
+Schizophrenia 
+DisGeNET Curated 
+4.440E-8 
+8.416E-5 
+7.763E-4 
+2.525E-4 
+145 
+1537 
+4 
+C0524851 
+Neurodegenerative Disorders 
+DisGeNET Curated 
+1.108E-7 
+1.576E-4 
+1.453E-3 
+6.303E-4 
+78 
+695 
+5 
+C0002395 
+Alzheimer's Disease 
+DisGeNET Curated 
+1.799E-7 
+2.046E-4 
+1.887E-3 
+1.023E-3 
+163 
+1819
+
+
+6 
+C0005586 
+Bipolar Disorder 
+DisGeNET Curated 
+2.786E-7 
+
+p = 0.01
+2.641E-4 
+2.436E-3 
+1.585E-3 
+79 
+723 
+7 
+C1838979 
+MITOCHONDRIAL COMPLEX I DEFICIENCY 
+DisGeNET Curated 
+5.129E-7 
+4.167E-4 
+3.843E-3 
+2.917E-3 
+11 
+29 
+8 
+C0014544 
+Epilepsy 
+DisGeNET Curated 
+5.864E-7 
+4.169E-4 
+3.845E-3 
+3.335E-3 
+66 
+578 
+9 
+C1527404 
+Female Pseudo-Turner Syndrome 
+DisGeNET Curated 
+8.160E-7 
+4.731E-4 
+4.363E-3 
+4.641E-3 
+7 
+11 
+10 
+C0557874 
+Global developmental delay 
+DisGeNET BeFree 
+8.319E-7 
+4.731E-4 
+4.363E-3 
+4.731E-3 
+38 
+266 
+11 
+C0002736 
+Amyotrophic Lateral Sclerosis 
+DisGeNET Curated 
+2.410E-6 
+1.246E-3 
+1.149E-2 
+1.371E-2 
+67 
+614 
+12 
+C1535926 
+Neurodevelopmental Disorders 
+DisGeNET Curated 
+3.116E-6 
+1.429E-3 
+1.318E-2 
+1.772E-2 
+31 
+20
+
+So the neurological complex disorders are beginning to come in in the gap between yeast and drosophila
+
+
+
+Difference between yeast and drosophila (n=1104)
+
+MF
+Glumatergic synapse comes in in pathway
+Also cytoskeletal binding in MF
+Less lethal murine phenotype
+	
+Pubmed has plenty of PSD
+
+1 
+GO:0003924 
+GTPase activity 
+
+2.284E-32 
+3.590E-29 
+2.850E-28 
+3.590E-29 
+137 
+796 
+2 
+GO:0008092 
+cytoskeletal protein binding 
+
+2.348E-30 
+1.845E-27 
+1.465E-26 
+3.691E-27 
+159 
+1061 
+3 
+GO:0032553 
+ribonucleotide binding 
+
+1.145E-28 
+6.002E-26 
+4.764E-25 
+1.801E-25 
+231 
+1947 
+4 
+GO:0032555 
+purine ribonucleotide binding 
+
+5.359E-28 
+2.106E-25 
+1.672E-24 
+8.425E-25 
+228 
+1930 
+5 
+GO:0017076 
+purine nucleotide binding 
+
+1.002E-27 
+3.150E-25 
+2.501E-24 
+1.575E-24 
+229 
+1951
+
+BP
+
+
+1 
+GO:0016050 
+vesicle organization 
+
+7.542E-43 
+5.729E-39 
+5.450E-38 
+5.729E-39 
+241 
+1784 
+2 
+GO:0099536 
+synaptic signaling 
+
+3.008E-42 
+1.142E-38 
+1.087E-37 
+2.285E-38 
+161 
+913 
+3 
+GO:0099537 
+trans-synaptic signaling 
+
+3.457E-41 
+6.044E-38 
+5.749E-37 
+2.626E-37 
+158 
+900 
+4 
+GO:0007268 
+chemical synaptic transmission 
+
+3.978E-41 
+6.044E-38 
+5.749E-37 
+3.022E-37 
+157 
+891 
+5 
+GO:0098916 
+anterograde trans-synaptic signaling 
+
+3.978E-41 
+6.044E-38 
+5.749E-37 
+3.022E-37 
+157 
+891 
+Show 45 more annotations
+
+
+CC
+1 
+GO:0045202 
+synapse 
+
+1.061E-79 
+1.147E-76 
+8.678E-76 
+1.147E-76 
+273 
+1482 
+2 
+GO:0044456 
+synapse part 
+
+2.637E-75 
+1.425E-72 
+1.078E-71 
+2.851E-72 
+241 
+1228 
+3 
+GO:0043005 
+neuron projection 
+
+3.265E-69 
+1.177E-66 
+8.899E-66 
+3.530E-66 
+271 
+1624 
+4 
+GO:0098793 
+presynapse 
+
+5.209E-64 
+1.408E-61 
+1.065E-60 
+5.631E-61 
+167 
+699 
+5 
+GO:0030424 
+axon 
+
+2.100E-54 
+4.540E-52 
+3.434E-51 
+2.270E-51 
+168 
+817
+
+
+Human phenotype
+
+1 
+1269877 
+Membrane Trafficking 
+BioSystems: REACTOME 
+8.339E-36 
+1.964E-32 
+1.638E-31 
+1.964E-32 
+137 
+614 
+2 
+1269876 
+Vesicle-mediated transport 
+BioSystems: REACTOME 
+7.545E-33 
+8.884E-30 
+7.411E-29 
+1.777E-29 
+138 
+660 
+3 
+1268763 
+Neuronal System 
+BioSystems: REACTOME 
+1.647E-27 
+1.293E-24 
+1.079E-23 
+3.879E-24 
+89 
+351 
+4 
+1268766 
+Transmission across Chemical Synapses 
+BioSystems: REACTOME 
+2.664E-25 
+1.568E-22 
+1.308E-21 
+6.273E-22 
+66 
+218 
+5 
+213818 
+Glutamatergic synapse 
+BioSystems: KEGG 
+1.779E-17 
+8.381E-15 
+6.991E-14 
+4.190E-14 
+39 
+114
+
+
+1 
+HP:0001290 
+Generalized hypotonia 
+
+1.196E-10 
+5.535E-7 
+4.991E-6 
+5.535E-7 
+106 
+808 
+2 
+HP:0003808 
+Abnormal muscle tone 
+
+6.714E-10 
+1.553E-6 
+1.401E-5 
+3.107E-6 
+177 
+1674 
+3 
+HP:0001276 
+Hypertonia 
+
+1.374E-8 
+1.590E-5 
+1.434E-4 
+6.359E-5 
+105 
+863 
+4 
+HP:0001257 
+Spasticity 
+
+1.374E-8 
+1.590E-5 
+1.434E-4 
+6.359E-5 
+105 
+863 
+5 
+HP:0001252 
+Muscular hypotonia 
+
+2.119E-8 
+1.961E-5 
+1.768E-4 
+9.803E-5 
+138 
+1254
+
+
+Murine phenotype
+
+
+1 
+MP:0002206 
+abnormal CNS synaptic transmission 
+
+4.019E-16 
+2.325E-12 
+2.149E-11 
+2.325E-12 
+124 
+779 
+2 
+MP:0008540 
+abnormal cerebral hemisphere morphology 
+
+2.174E-15 
+6.289E-12 
+5.811E-11 
+1.258E-11 
+110 
+668 
+3 
+MP:0003635 
+abnormal synaptic transmission 
+
+5.466E-15 
+1.054E-11 
+9.740E-11 
+3.162E-11 
+142 
+977 
+4 
+MP:0000787 
+abnormal telencephalon morphology 
+
+6.676E-13 
+9.258E-10 
+8.555E-9 
+3.862E-9 
+127 
+888 
+5 
+MP:0002882 
+abnormal neuron morphology 
+
+8.002E-13 
+9.258E-10 
+8.555E-9 
+4.629E-9 
+199 
+1634
+
+Pathway
+
+1 
+1269877 
+Membrane Trafficking 
+BioSystems: REACTOME 
+8.339E-36 
+1.964E-32 
+1.638E-31 
+1.964E-32 
+137 
+614 
+2 
+1269876 
+Vesicle-mediated transport 
+BioSystems: REACTOME 
+7.545E-33 
+8.884E-30 
+7.411E-29 
+1.777E-29 
+138 
+660 
+3 
+1268763 
+Neuronal System 
+BioSystems: REACTOME 
+1.647E-27 
+1.293E-24 
+1.079E-23 
+3.879E-24 
+89 
+351 
+4 
+1268766 
+Transmission across Chemical Synapses 
+BioSystems: REACTOME 
+2.664E-25 
+1.568E-22 
+1.308E-21 
+6.273E-22 
+66 
+218 
+5 
+213818 
+Glutamatergic synapse 
+BioSystems: KEGG 
+1.779E-17 
+8.381E-15 
+6.991E-14 
+4.190E-14 
+39 
+114
+
+
+Pubmed
+
+2 
+28671696 
+Spatiotemporal profile of postsynaptic interactomes integrates components of complex brain disorders. 
+Pubmed 
+9.814E-154 
+4.214E-149 
+5.030E-148 
+8.427E-149 
+235 
+928
+
+
+Diseases
+
+
+1 
+C0543888 
+Epileptic encephalopathy 
+DisGeNET Curated 
+8.645E-13 
+4.916E-9 
+4.534E-8 
+4.916E-9 
+70 
+459 
+2 
+C0751651 
+Mitochondrial Diseases 
+DisGeNET Curated 
+1.844E-9 
+5.243E-6 
+4.835E-5 
+1.049E-5 
+55 
+380 
+3 
+C0036341 
+Schizophrenia 
+DisGeNET Curated 
+4.440E-8 
+8.416E-5 
+7.763E-4 
+2.525E-4 
+145 
+1537 
+4 
+C0524851 
+Neurodegenerative Disorders 
+DisGeNET Curated 
+1.108E-7 
+1.576E-4 
+1.453E-3 
+6.303E-4 
+78 
+695 
+5 
+C0002395 
+Alzheimer's Disease 
+DisGeNET Curated 
+1.799E-7 
+2.046E-4 
+1.887E-3 
+1.023E-3 
+163 
+1819
+
+
+More cognitive diseases and this is drosophila
+
+Zebra fish
+
+High confidence
+
+1068
+
+Low confidence
+
+2019
+
+Total 3087
+
+
+Mouse
+
+High confidence 
+
+3062
+
+Low confidence
+
+156
+
+Diff high confidence
+
+Mouse and fly difference
+
+n=1447
+
+MF cytoskeletal and actin bindingh
+Increasingly mild himan phenotype and murine more to do with ep
+Mouse LTP fifth along with abnormal morphology
+MAGUK come in in gene family
+
+
+
+
+GO:0008092 
+cytoskeletal protein binding 
+
+9.599E-68 
+1.613E-64 
+1.291E-63 
+1.613E-64 
+254 
+1061 
+2 
+GO:0050839 
+cell adhesion molecule binding 
+
+2.215E-40 
+1.860E-37 
+1.489E-36 
+3.721E-37 
+137 
+525 
+3 
+GO:0003779 
+actin binding 
+
+1.095E-37 
+6.133E-35 
+4.909E-34 
+1.840E-34 
+122 
+451 
+4 
+GO:0044877 
+protein-containing complex binding 
+
+7.941E-30 
+3.335E-27 
+2.669E-26 
+1.334E-26 
+220 
+1357 
+5 
+GO:0045296 
+cadherin binding 
+
+9.136E-27 
+3.070E-24 
+2.457E-23 
+1.535E-23 
+89 
+338
+
+Biological process
+
+
+1 
+GO:0007010 
+cytoskeleton organization 
+
+1.174E-68 
+1.029E-64 
+9.934E-64 
+1.029E-64 
+324 
+1663 
+2 
+GO:0120036 
+plasma membrane bounded cell projection organization 
+
+5.797E-65 
+2.541E-61 
+2.453E-60 
+5.081E-61 
+332 
+1790 
+3 
+GO:0030030 
+cell projection organization 
+
+2.872E-64 
+8.392E-61 
+8.103E-60 
+2.518E-60 
+335 
+1828 
+4 
+GO:0032989 
+cellular component morphogenesi1 1220 Membrane associated guanylate kinases|PDZ domain containing genenames.org 1.320E-25 4.514E-23 2.895E-22 4.514E-23 48 152s 
+
+1.236E-52 
+2.709E-49 
+2.616E-48 
+1.084E-48 
+253 
+1297 
+5 
+GO:0031175 
+neuron projection development 
+
+4.707E-50 
+8.252E-47 
+7.968E-46 
+4.126E-46 
+231 
+1151
+
+
+Cellular compartment
+
+
+1 
+GO:0045202 
+synapse 
+
+2.779E-97 
+3.109E-94 
+2.362E-93 
+3.109E-94 
+344 
+1482 
+2 
+GO:0043005 
+neuron projection 
+
+4.021E-86 
+2.250E-83 
+1.709E-82 
+4.499E-83 
+345 
+1624 
+3 
+GO:0030054 
+cell junction 
+
+2.315E-77 
+8.636E-75 
+6.561E-74 
+2.591E-74 
+298 
+1352 
+4 
+GO:0120038 
+plasma membrane bounded cell projection part 
+
+6.667E-77 
+1.492E-74 
+1.134E-73 
+7.460E-74 
+349 
+1784 
+5 
+GO:0044463 
+cell projection part 
+
+6.667E-77 
+1.492E-74 
+1.134E-73 
+7.460E-74 
+349 
+1784 
+Show 45 more annotations
+
+
+Human Phenotype
+1 
+HP:0004305 
+Involuntary movements 
+
+1.500E-7 
+7.447E-4 
+6.767E-3 
+7.447E-4 
+116 
+750 
+2 
+HP:0002072 
+Chorea 
+
+5.745E-6 
+9.050E-3 
+8.224E-2
+2.852E-2 
+37 
+175 
+3 
+HP:0002460 
+Distal muscle weakness 
+
+8.931E-6 
+9.050E-3 
+8.224E-2
+4.434E-2 
+33 
+151 
+4 
+HP:0025373 
+Interictal EEG abnormality 
+
+1.094E-5 
+9.050E-3 
+8.224E-2
+5.430E-2
+5 
+5 
+5 
+HP:0040168 
+Focal seizures, afebril 
+
+1.094E-5 
+9.050E-3 
+8.224E-2
+5.430E-2
+5 
+5
+
+Murine
+
+
+1 
+MP:0002206 
+abnormal CNS synaptic transmission 
+
+1.208E-28 
+7.547E-25 
+7.032E-24 
+7.547E-25 
+180 
+779 
+2 
+MP:0003635 
+abnormal synaptic transmission 
+
+9.018E-27 
+2.818E-23 
+2.626E-22 
+5.636E-23 
+205 
+977 
+3 
+MP:0008415 
+abnormal neurite morphology 
+
+7.688E-19 
+1.602E-15 
+1.492E-14 
+4.805E-15 
+115 
+490 
+4 
+MP:0002882 
+abnormal neuron morphology 
+
+3.087E-18 
+4.823E-15 
+4.494E-14 
+1.929E-14 
+268 
+1634 
+5 
+MP:0002207 
+abnormal long term potentiation 
+
+7.531E-16 
+9.414E-13 
+8.771E-12 
+4.707E-12 
+70 
+251
+
+
+Pathway
+
+
+1 
+1270303 
+Axon guidance 
+BioSystems: REACTOME 
+5.707E-24 
+1.421E-20 
+1.193E-19 
+1.421E-20 
+118 
+554 
+2 
+1270302 
+Developmental Biology 
+BioSystems: REACTOME 
+2.027E-19 
+2.522E-16 
+2.118E-15 
+5.045E-16 
+171 
+1081 
+3 
+1427849 
+Protein-protein interactions at synapses 
+BioSystems: REACTOME 
+9.935E-17 
+8.243E-14 
+6.922E-13 
+2.473E-13 
+32 
+73 
+4 
+1268763 
+Neuronal System 
+BioSystems: REACTOME 
+1.470E-14 
+9.148E-12 
+7.682E-11 
+3.659E-11 
+73 
+351 
+5 
+1427850 
+Interactions of neurexins and neuroligins at synapses 
+BioSystems: REACTOME 
+6.558E-14 
+3.265E-11 
+2.741E-10 
+1.632E-10 
+26 
+59
+
+
+Gene family
+
+
+1 
+1220 
+Membrane associated guanylate kinases|PDZ domain containing 
+genenames.org 
+1.320E-25 
+4.514E-23 
+2.895E-22 
+4.514E-23 
+48 
+152
+
+
+Disease 
+
+
+1 
+C0036341 
+Schizophrenia 
+DisGeNET Curated 
+3.168E-20 
+2.617E-16 
+2.511E-15 
+2.617E-16 
+218 
+1537 
+2 
+C0004352 
+Autistic Disorder 
+DisGeNET Curated 
+1.572E-18 
+6.492E-15 
+6.230E-14 
+1.298E-14 
+111 
+601 
+3 
+C0002726 
+Amyloidosis 
+DisGeNET Curated 
+8.755E-17 
+2.410E-13 
+2.313E-12 
+7.230E-13 
+133 
+826 
+4 
+C0014544 
+Epilepsy 
+DisGeNET Curated 
+7.543E-15 
+1.557E-11 
+1.495E-10 
+6.230E-11 
+100 
+578 
+5 
+C0002395 
+Alzheimer's Disease 
+DisGeNET Curated 
+7.167E-14 
+9.995E-11 
+9.592E-10 
+5.919E-10 
+225 
+1819 
+Show 45 more annotations
+
+
+To do diff zebra fish and mouse (mouse is social)
+gmt for these

@@ -1,0 +1,219 @@
+\chapter{Extra tables}
+
+
+
+\section{Correlation of vertex measures and study p values}
+
+%\listoftables
+\begin{table}[h]{}
+\centering
+
+\begin{tabular}{llllllll}
+Vertex statistic & Spearman's $\rho$ \& $\rho$ value & Study & Study type\\
+\hline
+Betweenness Centrality & 0.022 & 0.214 & CTG & Intelligence\textsubscript{Replication}\\
+Betweenness Centrality & -0.034 & 0.049 & UKBB Intelligence & Intelligence\textsubscript{Discovery}\\
+Betweenness Centrality & 0.015 & 0.389 & EA2 & Education\textsubscript{Replication}\\
+Betweenness Centrality & -0.002 & 0.917 & UKBB Education & Education\textsubscript{Discovery}\\
+Closeness Centrality & -0.007 & 0.671 & CTG & Intelligence\textsubscript{Replication}\\
+Closeness Centrality & -0.008 & 0.649 & UKBB Intelligence & Intelligence\textsubscript{Discovery}\\
+Closeness Centrality & -0.024 & 0.172 & EA2 & Education\textsubscript{Replication}\\
+Closeness Centrality & -0.033 & 0.059 & UKBB Education & Education\textsubscript{Discovery}\\
+Degree & 0.022 & 0.208 & CTG & Intelligence\textsubscript{Replication}\\
+Degree & 0.011 & 0.532 & UKBB Intelligence & Intelligence\textsubscript{Discovery}\\
+Degree & -0.007 & 0.689 & EA2 & Education\textsubscript{Replication}\\
+Degree & -0.035 & 0.044 & UKBB Education & Education\textsubscript{Discovery}\\
+Eigenvector centrality & -0.002 & 0.921 & CTG & Intelligence\textsubscript{Replication}\\
+Eigenvector centrality & -0.008 & 0.655 & UKBB Intelligence & Intelligence\textsubscript{Discovery}\\
+Eigenvector centrality & -0.031 & 0.073 & EA2 & Education\textsubscript{Replication}\\
+Eigenvector centrality & -0.028 & 0.109 & UKBB Education & Education\textsubscript{Discovery}\\
+Transitivity & -0.026 & 0.16 & CTG & Intelligence\textsubscript{Replication}\\
+Transitivity & -0.013 & 0.467 & UKBB Intelligence & Intelligence\textsubscript{Discovery}\\
+Transitivity & -0.001 & 0.949 & EA2 & Education\textsubscript{Replication}\\
+Transitivity & 0.008 & 0.679 & UKBB Education & Education\textsubscript{Discovery}\\
+
+\end{tabular}
+\caption{Figure1:Paper Correlation of Graph statistics to gene p value in cohorts. Generated from word document using pandoc word is the paper supplemental for this figure}
+\label{Figure:Figure1:Paper Correlation of Graph statistics to gene p value in cohorts}
+
+\end{table}
+
+\todo{Rename table \ref{Figure:Figure1:Paper Correlation of Graph statistics to gene p value in cohorts}}
+
+\section{GSA results}
+\textbf{Table 2: Gene set analysis of gene sets produced from graph communities showing discovery and replication cohorts for intelligence and educational attainment..} Sets with \emph{p}\textless{}0.05 in MAGMA-GSA shown for discovery cohorts. Sets with \emph{p} \textless{} 0.05 in MAGMA-GSA and GSEA tested in independent replication cohorts with MAGMA \emph{p} corrected for multiple comparisons using permutation FWER method in MAGMA.
+\textbf{Intelligence cohorts}
+
+%\begin{longtable}[h]{@{}lllll@{}}
+\begin{table}[]
+    \centering
+    \begin{tabular}{c|c|c|c|c}
+         Set & N GENES & BETA & P\_MAGMA & P\_GSEA\tabularnewline
+\hline
+10 & 146 & 0.19 & 0.008 & 0.085\tabularnewline
+\textbf{5} & \textbf{106} & \textbf{0.22} & \textbf{0.014} & \textbf{\textless{}0.001}\tabularnewline
+22 & 42 & 0.24 & 0.047 & 0.11\tabularnewline
+    \end{tabular}
+    \caption{Discovery Intelligence: GSA results UKBB intelligence - MAGMA and GSEA}
+    \label{Table:Discovery Intelligence: GSA results UKBB intelligence - MAGMA and GSEA}
+\end{table}
+
+
+
+
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{c|c|c|c|c}
+        SET & N GENES & BETA & P MAGMA & P GSEA\tabularnewline
+        \hline
+\textbf{5} & \textbf{106} & \textbf{0.209} & \textbf{0.009} & \textbf{0.007}\tabularnewline
+    \end{tabular}
+    \caption{Replication Intelligence: GSA results CTG intelligence -- MAGMA and GSEA}
+    \label{Table:Replication Intelligence: GSA results CTG intelligence -- MAGMA and GSEA}
+\end{table}
+
+
+
+
+\textbf{Education cohorts}
+\begin{table}
+    \centering
+\begin{tabular}[]{llllll}
+\toprule
+SET & N GENES & BETA & P MAGMA & P GSEA\tabularnewline
+\textbf{5} & \textbf{106} & \textbf{0.29} & \textbf{0.002} & \textbf{0.007}\tabularnewline
+\textbf{53} & 386 & 0.11 & 0.015 & 0.29 *\tabularnewline
+\textbf{22} & \textbf{42} & \textbf{0.27} & \textbf{0.035} & \textbf{0.018}\tabularnewline
+\textbf{47} & \textbf{2
+3} & \textbf{0.37} & \textbf{0.035} & \textbf{0.014}\tabularnewline
+\bottomrule
+\end{tabular}
+\caption{Discovery Education: GSA results UKBB education - MAGMA and GSEA}
+\label{Discovery Education: GSA results UKBB education - MAGMA and GSEA}
+\end{table}
+
+\begin{table}[]
+    \centering
+    \begin{tabular}[]{llllll}
+\toprule
+SET & N GENES & BETA & P MAGMA & P MAGMA CORRECTED & P GSEA\tabularnewline
+\textbf{5} & \textbf{106} & \textbf{0.199} & \textbf{0.0147} & \textbf{0.046} & \textbf{0.028}\tabularnewline
+\textbf{22} & 41 & 0.0873 & 0.25 & 0.5756 & 0.099\tabularnewline
+\textbf{47} & 23 & -0.0526 & 0.599 & 0.9384 & 0.362\tabularnewline
+\bottomrule
+
+
+\end{tabular}
+\caption{Replication Education: GSA results EA2 educational attainment-- MAGMA p,MAGMA corrected for multiple comparisons (FWER) and GSEA.}
+\end{table}
+
+
+
+
+\pagebreak
+\section{GSA as longtable}
+
+\subsection{Intelligence cohorts}
+\begin{longtable}[h]{@{}lllll@{}}
+\toprule
+Set & N GENES & BETA & P\_MAGMA & P\_GSEA\tabularnewline
+10 & 146 & 0.19 & 0.008 & 0.085\tabularnewline
+\textbf{5} & \textbf{106} & \textbf{0.22} & \textbf{0.014} & \textbf{\textless{}0.00
+1}\tabularnewline
+22 & 42 & 0.24 & 0.047 & 0.11\tabularnewline
+\bottomrule
+\caption{Discovery Intelligence: GSA results UKBB intelligence - MAGMA and GSEA}
+\label{Table:Discovery Intelligence: GSA results UKBB intelligence - MAGMA and GSEA}
+\end{longtable}
+
+
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule
+SET & N GENES & BETA & P MAGMA & P GSEA\tabularnewline
+\textbf{5} & \textbf{106} & \textbf{0.209} & \textbf{0.009} & \textbf{0.007}\tabularnewline
+\bottomrule
+\caption{Replication Intelligence: GSA results CTG intelligence -- MAGMA and GSEA}
+\label{Replication Intelligence: GSA results CTG intelligence -- MAGMA and GSEA}
+\end{longtable}
+
+
+
+
+\subsection{Education cohorts}
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule
+SET & N GENES & BETA & P MAGMA & P GSEA\tabularnewline
+\textbf{5} & \textbf{106} & \textbf{0.29} & \textbf{0.002} & \textbf{0.007}\tabularnewline
+\textbf{53} & 386 & 0.11 & 0.015 & 0.29 *\tabularnewline
+\textbf{22} & \textbf{42} & \textbf{0.27} & \textbf{0.035} & \textbf{0.018}\tabularnewline
+\textbf{47} & \textbf{23} & \textbf{0.37} & \textbf{0.035} & \textbf{0.014}\tabularnewline
+\bottomrule
+\caption{Discovery Education: GSA results UKBB education - MAGMA and GSEA}
+\label{Table:Discovery Education: GSA results UKBB education - MAGMA and GSEA}
+\end{longtable}
+
+
+
+\begin{longtable}[]{@{}llllll@{}}
+\toprule
+SET & N GENES & BETA & P MAGMA & P MAGMA CORRECTED & P GSEA\tabularnewline
+\textbf{5} & \textbf{106} & \textbf{0.199} & \textbf{0.0147} & \textbf{0.046} & \textbf{0.028}\tabularnewline
+\textbf{22} & 41 & 0.0873 & 0.25 & 0.5756 & 0.099\tabularnewline
+\textbf{47} & 23 & -0.0526 & 0.599 & 0.9384 & 0.362\tabularnewline
+\bottomrule
+\caption{Replication Education: GSA results EA2 educational attainment-- MAGMA p,MAGMA corrected for multiple comparisons (FWER) and GSEA.}
+\label{Table:Replication Education: GSA results EA2 educational attainment-- MAGMA p,MAGMA corrected for multiple comparisons (FWER) and GSEA.}
+\end{longtable}
+
+\textbf{Table 2: Gene set analysis of gene sets produced from graph communities showing discovery and replication cohorts for intelligence and educational attainment..} Sets with \emph{p}\textless{}0.05 in MAGMA-GSA shown for discovery cohorts. Sets with \emph{p} \textless{} 0.05 in MAGMA-GSA and GSEA tested in independent replication cohorts with MAGMA \emph{p} corrected for multiple comparisons using permutation FWER method in MAGMA.
+
+% latex table generated in R 3.6.2 by xtable 1.8-4 package
+% Thu Jan 30 15:52:30 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{rllrlrrrrl}
+  \hline
+ & Study & Graph statistic & t & df & p & cor & CI lower & CI upper & Test \\ 
+  \hline
+1 & Intelligence Discovery & Degree & -0.75 & 3455 & 0.45 & -0.01 & -0.05 & 0.02 & Pearson's product-moment correlation \\ 
+  2 & Intelligence Discovery & Betweenness & -0.32 & 3455 & 0.75 & -0.01 & -0.04 & 0.03 & Pearson's product-moment correlation \\ 
+  3 & Intelligence Discovery & Eigenvector & -0.85 & 3455 & 0.40 & -0.01 & -0.05 & 0.02 & Pearson's product-moment correlation \\ 
+  4 & Intelligence Discovery & Transitivity & 1.00 & 3151 & 0.31 & 0.02 & -0.02 & 0.05 & Pearson's product-moment correlation \\ 
+  5 & Intelligence Replication & Degree & -0.75 & 3455 & 0.45 & -0.01 & -0.05 & 0.02 & Pearson's product-moment correlation \\ 
+  6 & Intelligence Replication & Betweenness & -0.32 & 3455 & 0.75 & -0.01 & -0.04 & 0.03 & Pearson's product-moment correlation \\ 
+  7 & Intelligence Replication & Eigenvector & -0.85 & 3455 & 0.40 & -0.01 & -0.05 & 0.02 & Pearson's product-moment correlation \\ 
+  8 & Intelligence Replication & Transitivity & 1.00 & 3151 & 0.31 & 0.02 & -0.02 & 0.05 & Pearson's product-moment correlation \\ 
+  9 & Education Discovery & Degree & -0.75 & 3455 & 0.45 & -0.01 & -0.05 & 0.02 & Pearson's product-moment correlation \\ 
+  10 & Education Discovery & Betweenness & -0.32 & 3455 & 0.75 & -0.01 & -0.04 & 0.03 & Pearson's product-moment correlation \\ 
+  11 & Education Discovery & Eigenvector & -0.85 & 3455 & 0.40 & -0.01 & -0.05 & 0.02 & Pearson's product-moment correlation \\ 
+  12 & Education Discovery & Transitivity & 1.00 & 3151 & 0.31 & 0.02 & -0.02 & 0.05 & Pearson's product-moment correlation \\ 
+  13 & Education Replication & Degree & -0.75 & 3455 & 0.45 & -0.01 & -0.05 & 0.02 & Pearson's product-moment correlation \\ 
+  14 & Education Replication & Betweenness & -0.32 & 3455 & 0.75 & -0.01 & -0.04 & 0.03 & Pearson's product-moment correlation \\ 
+  15 & Education Replication & Eigenvector & -0.85 & 3455 & 0.40 & -0.01 & -0.05 & 0.02 & Pearson's product-moment correlation \\ 
+  16 & Education Replication & Transitivity & 1.00 & 3151 & 0.31 & 0.02 & -0.02 & 0.05 & Pearson's product-moment correlation \\ 
+   \hline
+\end{tabular}
+\caption{Correlation of study gene level statistic with network statistics for cognate protein/gene in PSP using Pearson's product moment correlation. Code at \url{source('~/RProjects/paper_xls_latex/R/make_df_graph_stats_correlation.R')}}
+\end{table}
+
+% latex table generated in R 3.6.2 by xtable 1.8-4 package
+% Fri Feb 14 12:31:13 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrr}
+  \hline
+ & degree & betweenness & transitivity & closeness & kcoreness \\ 
+  \hline
+degree & $2.2 \times 10^{-16}$ & $2.2 \times 10^{-16}$ & $2.2 \times 10^{-16}$ & $2.2 \times 10^{-16}$ & $2.2 \times 10^{-16}$ \\ 
+  betweenness & $2.2 \times 10^{-16}$ & $2.2 \times 10^{-16}$ & $9.016 \times 10^{-1}$ & $2.2 \times 10^{-16}$ & $2.2 \times 10^{-16}$ \\ 
+  transitivity & $2.2 \times 10^{-16}$ & $9.016 \times 10^{-1}$ & $2.2 \times 10^{-16}$ & $2.2 \times 10^{-16}$ & $2.2 \times 10^{-16}$ \\ 
+  closeness & $2.2 \times 10^{-16}$ & $2.2 \times 10^{-16}$ & $2.2 \times 10^{-16}$ & $2.2 \times 10^{-16}$ & $2.2 \times 10^{-16}$ \\ 
+  kcoreness & $2.2 \times 10^{-16}$ & $2.2 \times 10^{-16}$ & $2.2 \times 10^{-16}$ & $2.2 \times 10^{-16}$ & $2.2 \times 10^{-16}$ \\ 
+   \hline
+\end{tabular}
+\caption{Correlation between vertex centrality measures for PSP. p values} 
+\label{tab:Correlation between vertex centrality measures for PSP. p values}
+\end{table}
