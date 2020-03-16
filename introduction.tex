@@ -143,19 +143,22 @@ Finally they provide a molecular basis for human learning and memory \cite{kande
 
 
 \subsection{Evolution}
-The synapse is composed of the presynaptic and post synaptic area. The presynaptic area is evolved from cellular components involved in endocytosis whereas the post synaptic density is evolved from early life forms environment monitoring apparatus. There is a topological distribution of receptors in the post synaptic density and the presynaptic areas active zone is in close approximation to the post synaptic density.  
 
-The presynaptic density has evolved earlier in evolution than the post synaptic density and is present from the time of the vertebrate expansion of the synaptic proteome. By contrast the PSP is more evolutionarily ancient. The proteins composing it are found in the earliest yeasts. The new proteins found in the mammalian PSP are the result of paralogue expansion. The PSP originated in the sensory signalling complexes of bacteria. These are too small to detect a difference in chemical gradient along their length and therefore Grant hypothesises that the function of these earliest receptors was to detect differences in chemical composition of their environment swim and then check again the composition of the environment,. From this he concludes that the earliest function of the PSP is in recording differential pattern to the time course of signals arising in the organism,. The presynaptic area is derived from endocytosis related mechanisms.
 
-Cite those from extra bib also ? cite the Hill paper on evolutionary conservation much of this could go next to the pLI bit
+The presynaptic density has evolved earlier in evolution than the post synaptic density and is present from the time of the vertebrate expansion of the synaptic proteome. By contrast the PSP is more evolutionarily ancient. The proteins composing it are found in the earliest yeasts. The new proteins found in the mammalian PSP are the result of paralogue expansion. The PSP originated in the sensory signalling complexes of bacteria. These are too small to detect a difference in chemical gradient along their length and therefore Grant hypothesises that the function of these earliest receptors was to detect differences in chemical composition of their environment swim and then check again the composition of the environment. From this he concludes that the earliest function of the PSP is in recording differential pattern to the time course of signals arising in the organism. The presynaptic area is derived from endocytosis related mechanisms.
 
-Hill combined data from CHARGE and someone else to show using Linkage dysequlibrium regression. LD regression that areas of the genome enriched for SNPs associated with differences in intelligence were under negative evolutionary pressure finding these regions contained 2.6\% of SNPs but ~40\% of SNP based heritability/ \cite{hill2016molecular} (Hill)
+A genome duplication event approximately 550 Ma ago led to a significant increase in synaptic complexity \cite{nithianantharajah2013synaptic} , \cite{grant2016molecular}.
+
+\todo{Cite those from extra bib also ? cite the Hill paper on evolutionary conservation much of this could go next to the pLI bit
+}
+
+Hill combined data from CHARGE and someone else to show using Linkage dysequlibrium regression. LD regression that areas of the genome enriched for SNPs associated with differences in intelligence were under negative evolutionary pressure finding these regions contained 2.6\% of SNPs but ~40\% of SNP based heritability. \cite{hill2016molecular} 
 
 Networks as well as reduplication can provide robustness
 
 
 
- A genome duplication event approximately 550 Ma ago led to a significant increase in synaptic complexity \cite{nithianantharajah2013synaptic} , \cite{grant2016molecular}.
+ 
 
 \subsection{Systems Biology approaches to the synapse}
 
@@ -163,7 +166,7 @@ Systems biology entrails knowledge of the structure and dynamics of a biological
  
 \subsection{Models of the synapse}
 
-Initial yeast models of the synapse were of poor quality so data mining of the literature for interactions was required to develop effective and comprehensive static models \cite{pocklington2006proteomes},\cite{armstrong2012evolution}(. Databases are now of better quality and use standardised ontologies to organise their information)\cite{brazma2006standards}, \cite{hermjakob2004hupo}, \cite{kerrien2007broadening}. Databases however contain evidence on interactions that are less likely to be valid than evidence of direct experimental, interaction (eg literature data mining and co-expression). In order to develop a useful model of synaptic interactions, a significant amount of data cleaning, organisation and transformation of these databases is still required. This review will concern models where the interactions are inferred from experimental evidence of direct interaction in mouse or human. Synaptic components are purified using centrifugation and protein components examined by mass spectrometry. The process is reviewed in depth by \cite{lassek2014proteome} A comprehensive review of systems biology models of the synapse and their development is provided by Armstrong and Sorokina (2012) \cite{armstrong2012evolution}
+Initial yeast models of the synapse were of poor quality so data mining of the literature for interactions was required to develop effective and comprehensive static models \cite{pocklington2006proteomes},\cite{armstrong2012evolution}. Databases are now of better quality and use standardised ontologies to organise their information)\cite{brazma2006standards}, \cite{hermjakob2004hupo}, \cite{kerrien2007broadening}. Databases however contain evidence on interactions that are less likely to be valid than evidence of direct experimental, interaction (eg literature data mining and co-expression). In order to develop a useful model of synaptic interactions, a significant amount of data cleaning, organisation and transformation of these databases is still required. This review will concern models where the interactions are inferred from experimental evidence of direct interaction in mouse or human. Synaptic components are purified using centrifugation and protein components examined by mass spectrometry. The process is reviewed in depth by \cite{lassek2014proteome} A comprehensive review of systems biology models of the synapse and their development is provided by Armstrong and Sorokina (2012). \cite{armstrong2012evolution}
 
 \subsection{Static methods}
 
@@ -327,7 +330,7 @@ VEGAS 2 (Mishra and Macgregor, 2014) uses 1000Genomes rather than hapmap as the 
 \todo{Ask Douglas what of this should be methods}
 MAGMA generates a gene based statistic using a multiple regression rather than a simulation model (de Leeuw et al., 2015a). Once SNPs are assigned to genes, MAGMA projects the SNP matrix onto its principle components and removes SNPs with low explanatory power. The principle components are used to regress the pheotype in the gene level test. An F test is used to calculate a gene level statistic. 
 
-The software uses the mean of the CHi Square distribution but also has a facility for simulation based models similar to PLINK and VEGAS. It also incorporates a gene set test. As the study aims to exntend the results obtained in the study by Hill et al (2014) (end p 36)
+The software uses the mean of the Chi Square distribution but also has a facility for simulation based models similar to PLINK and VEGAS. It also incorporates a gene set test. As the study aims to extend the results obtained in the study by Hill et al (2014) (end p 36)
 
 to network communities I have not presented gene set tests for MAGMA but instead have used GSEA (Subramanian et al, 2005b). I have however used MAGMA to calculate gene level p values once I was able to confirm their similarity to the results of VEGAS because of the dramatically reduced runnning time (8-15 minutes).
 MAGMA allows the use of different NCBI genome assemblies for gene boundaries and uses 1000 Genomes to supply information on population LD.
@@ -346,6 +349,11 @@ Figuere 9 Comparison of VEGAS and MAGMA
 
 Figure 9 shows a comparison of the $-log10$ transformed $p$ values of VEGAS2 and MAGMA for the CHARGE data. $R^2$=0.98 \footnote{quote correlation} Image from compareMAGMAtoVEGAS.R. The results appear similar and it appears reasonable to compare results from MAGMA with the results provided from the study by Hill et al. (2014)
 \subsection{PASCAL}
+Lampterer et al \cite{lamparter2016fast} report the results of a method for using summary GWAS statistics to both generate gene level scores and do gene set analysis. The gene set analysis avoids the requirement for a cutoff and so can include contributions from low scoring genes. It provides similar scores to VEGAS in a shorter time scale and combines max of chi square (MOC) where the top scoring SNP is used and SOC (sum of chi square). Linkage dysequilibrium is accounted for using a reference panel (1000G) and information on LD is incorporated into the Gene Set Analysis score. Fishers method is used for 
+
+Reports good similarity for VEGAS for genes with P score above $10^{-6}$ nut with a marked increase in speed compared to VEGAS.
+
+This thesis aims to give a general method for performing network analysis for complex traits involving the synapse. Therefore I have chosen to use two methods of gene scoring to avoid the dependence of all subsequent inference on the accuracy of gene scoring software. Although not as widely cited as MAGMA, PASCAL is widely used and has been used in a number of important GWA analysis. \todo{add citations} \todo{mention some of these papers} 
 
 \subsection{Limitations of gene boundaries and non coding SNPs}
 A number of SNPs are found in non coding regions of the genome. They may effect gene expression through affecting quantitative trait loci but these are excluded from analysis. For most analysis the discarded SNPs amount to about 50\%.
