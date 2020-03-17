@@ -119,14 +119,25 @@ Periods of synaptic activity can increase the strength of synaptic connections b
 
 The theory that an increase in the strength of connection between neural cells leads to learning was first proposed by Cajal in 1911 \cite{nicoll2017brief}. Hebb proposed a model where there is synaptic modification following coextant pre and post synaptic activation \cite{hebb1949organization_check}. Later tetanic stimulation of rabbit hippocampal synapses was shown to result in an increase in the subsequnet strength of these responses.\cite{bliss1973long} NMDAR activity was subsequently shown to be necessary for LTP \cite{collingridge1983excitatory} but not for neurotransmission. 
  Interfering in the process of LTP in animal models leads to defects in memory and learning \cite{lisman2012mechanisms}).
- \cite{lisman2017glutamatergic} makes a connection between the modular structure of the synapse and the variety of potentiation responses.\todo{read this paper}
+ \cite{lisman2017glutamatergic} makes a connection between the modular structure of the synapse and the variety of potentiation responses.\todo{read this paper}`. The composition of the synapse into 70-80nm modules of independently activating AMPA receptors explains many problems with forms of plasticity.
+ Six different forms of plasticity are observed in the synapse short term plasticity, long term plasticity, late long term plasticity, long term depression, distance dependent scaling and homeostatic scaling \cite{lisman2017glutamatergic}. Short term mpotentiation reuslts from weak stimuli and occurs early and is a promising model of working memory as GluA1 knockdown animals have abormal STP and long term memory. Early LTP is likely mediated by phospohrylation of GluA1 by CAMkII. Late long term potentiation is associated with a change in the size of the PSD. LTP is axiomatically defined as beginning 30 mins after a tetanic stimulus. Late LTP as associated with more AMPAR signalling with recruitment to the synapse and an increase in quantal probability. This often requires other factors such as dopamine in CA1 and BDNF and has been referred to as NeoHebbian. The mechanisms of this late stage include first increase in receptors from PSD 95 mediated \todo{check} CAMKII phosphorylation of stargazin or of syngap or activation of erk kinase through syngap. 
+ MOdelling of the synapse suggests that responses can be explained if there are hotspots where there are either modules of AMPA receptor present or absent on vesicle release and plasticity can occur with recruitment to silent hotspots. \todo{network effects from this bit}
+ 
  
 \subsection{The synaptogenic model of neural plasticity}
-In addition Grant proposes what he calls the synaptogenic model of neural plasticity in contrast to what he regards as the dominant neural model. The neural model is stated as having neural circuits as the building block for behaviour and as a behaviour becomes habituated the strength of connection in the circuit is increased. This rewires one circuit to one behaviour. In contrast he suggests a bottom up synaptogenic model in which the synaptic protein composition acts as a zip code which allows spatially distributed neurons to respond to particular patterns of receptor stimulation. In support of his arguments he points out that the association of long term potentiation with learning remains controversial and it may be that the glutamate receptor (NMDA both subsume LTP and learning rather than affecting LTP which in turn causes learning. An example suggesting this is that mutations in PSD 95 give rise to cognitive impairments but increased long term potentiation.
 
-As regards the model of a bottom up approach to the structure of the synapse and behaviour we will adopt a similar approach seeking groupings of proteins and hence their cognate genes and seeing what their effect are on population studies of cognitive differences, enrichment for murine models of cognition or their role in disorders with a cognitive phenotype. Our approach however is looking for enrichment in-silico rather than in changes in behaviours of experimental model organisms. 
 
-One area I should mention here is that there is a middle ground between the one circuit one behaviour model with weights and a distributed bottom up model with an intrinsic frequency response. Primitive models of the synapse prove to be powerful computational devices. One of Grants arguments is that the synapse is a computational unit. A group of connected neurons with associated weights can give rise to complex decision making behaviour by allowing representation of structures being learned to be encoded as patterns more proximally in the network without there being a specific circuit for each response (for example in MNIST there is not a pattern of activation that is specific to 1 or 2 there are patterns of activation that are more likely to result in the final soft-max function choosing one of these) I would speculate that the combination of weights and circuits and the enormous complexity of the synapse allows to some extent the complex cognitive computations carried out by mammals particularly those in areas of locomotion and sensation that have proved so hard to simulate.
+An alternative model of synaptic learning has been proposed that takes into account the level of synaptic complexity. In this model temporal neural signals are distributed according to the organisation of synaptic proteins into complexes and supercomplexes with specific combinations of elements attuned to particular temporal responses and then mapping to different areas in the brain. 
+
+There are a number of reasons that the synaptic weight hypothesis may be incomplete, increases in LTP accompanied by difficulties in learning, very specific behavioural phenotypes from synaptic variation but without evidence of a circuit based change. 
+
+ In contrast he suggests a bottom up synaptogenic model in which the synaptic protein composition acts as a zip code which allows spatially distributed neurons to respond to particular patterns of receptor stimulation. In support of his arguments he points out that the association of long term potentiation with learning remains controversial and it may be that the glutamate receptor (NMDA both subsume LTP and learning rather than affecting LTP which in turn causes learning. An example suggesting this is that mutations in PSD 95 give rise to cognitive impairments but increased long term potentiation.
+
+\subsubsection{Analogy with synaptic models of computation}
+\todo{commented out areas here may want to keep some of these}
+% As regards the model of a bottom up approach to the structure of the synapse and behaviour we will adopt a similar approach seeking groupings of proteins and hence their cognate genes and seeing what their effect are on population studies of cognitive differences, enrichment for murine models of cognition or their role in disorders with a cognitive phenotype. Our approach however is looking for enrichment in-silico rather than in changes in behaviours of experimental model organisms. 
+
+% One area I should mention here is that there is a middle ground between the one circuit one behaviour model with weights and a distributed bottom up model with an intrinsic frequency response. Primitive models of the synapse prove to be powerful computational devices. One of Grants arguments is that the synapse is a computational unit. A group of connected neurons with associated weights can give rise to complex decision making behaviour by allowing representation of structures being learned to be encoded as patterns more proximally in the network without there being a specific circuit for each response (for example in MNIST there is not a pattern of activation that is specific to 1 or 2 there are patterns of activation that are more likely to result in the final soft-max function choosing one of these) I would speculate that the combination of weights and circuits and the enormous complexity of the synapse allows to some extent the complex cognitive computations carried out by mammals particularly those in areas of locomotion and sensation that have proved so hard to simulate.
 \subsection{Importance}
 
 There are many reasons to be interested in synaptic function but I consider five to be of particular importance. 
@@ -185,7 +196,7 @@ Synaptic proteins form modular structures \cite{pocklington2006proteomes} and th
 
 
 
-
+\subsubsection{This is a bit about networks}
 We have therefore a very complex wiring diagram of the synapse but we still don’t know what are its natural units and how the network structure of the synapse affects complex traits is unknown. One way to represent complex systems interactions is as a network. The burgeoning field of network science has made great advances this century and uses advances from graph theory, computer algorithms and statistical physics. Network theory allows the interrogation of the function of complex systems in terms of the pattern of their interconnections and shows common functional consequences of particular structures across disparate forms of network for example the internet, social networks and protein protein interactions. In this thesis I will show how an understanding of synaptic structure can help us to understand the molecular genetics of a complex trait in this case genetic differences in cognitive ability. I will also use the example of cognitive ability as a proof of concept of how these techniques can be used to understand neuropsychiatric disorders. Network approaches to disease
 
 \subsection{Previous network based GSA}
@@ -328,30 +339,56 @@ VEGAS 2 (Mishra and Macgregor, 2014) uses 1000Genomes rather than hapmap as the 
 \subsection{MAGMA}
 \label{sec:MAGMA_gene_scores}
 \todo{Ask Douglas what of this should be methods}
-MAGMA generates a gene based statistic using a multiple regression rather than a simulation model (de Leeuw et al., 2015a). Once SNPs are assigned to genes, MAGMA projects the SNP matrix onto its principle components and removes SNPs with low explanatory power. The principle components are used to regress the pheotype in the gene level test. An F test is used to calculate a gene level statistic. 
+MAGMA generates a gene based statistic using a multiple regression rather than a simulation model \cite{de2015magma}. Using summary gene data MAGMA uses either the mean $\chi^2$ statistic or top $\chi^2$ statistic to generate a p value. The mean method is the default and uses the properties of the sampling distribution.\cite{brown1975400} Top SNP scores can be calculated using a permutation method.   Linkage dysequlibrium is accounted for by using a reference population. 
+ 
+% MAGMA projects the SNP matrix onto its principle components and removes SNPs with low explanatory power. The principle components are used to regress the pheotype in the gene level test. An F test is used to calculate a gene level statistic. 
+MAGMA also includes a gene set test which tests the self contained hypothesis that the genes in the set have a greater association with the phenotype than all other genes. The gene p values are transformed into z values having a roughly normal distribution and reflecting the strengh of association of the gene with the phenotype. 
 
-The software uses the mean of the Chi Square distribution but also has a facility for simulation based models similar to PLINK and VEGAS. It also incorporates a gene set test. As the study aims to extend the results obtained in the study by Hill et al (2014) (end p 36)
-
-to network communities I have not presented gene set tests for MAGMA but instead have used GSEA (Subramanian et al, 2005b). I have however used MAGMA to calculate gene level p values once I was able to confirm their similarity to the results of VEGAS because of the dramatically reduced runnning time (8-15 minutes).
-MAGMA allows the use of different NCBI genome assemblies for gene boundaries and uses 1000 Genomes to supply information on population LD.
+The gene set test uses a generalised least squares model where errors are the product of the variance and the gene gene correlation matrix $R$ which is calculated from reference data. Gene size, density and sample number are corrected for by treating them as covariates.
+% to network communities I have not presented gene set tests for MAGMA but instead have used GSEA (Subramanian et al, 2005b). I have however used MAGMA to calculate gene level p values once I was able to confirm their similarity to the results of VEGAS because of the dramatically reduced runnning time (8-15 minutes).
+% MAGMA allows the use of different NCBI genome assemblies for gene boundaries and uses 1000 Genomes to supply information on population LD.
 
 For the work presented in this thesis gene level statistics were calculated using NCBI 37.3 build to provide gene boundaries and 1000 Genome European Ancestry to account for linkage disequilibrium. 
 
-%For the work presented in this review, gene level statistics were calculated %using MAGMA and the NCBI 38 genome build \footnote{my !!! but the LBC data is %from VEGAS}. I have found that the results given by MAGMA aere on occasion very %sensitive to the genome build (see further work). My VEGAS data is incomplete %but should be finished in the next few weeks. I will also present MAGMA with %NCBI 37.3 as is used by Davies et al (2016) (see futher work).
+MAGMA has been widely used in the primary GWA studies of intelligence and cognitive ability and is the primary analysis method used in this thesis. This allows comparison of results with published MAGMA statistics. The results may vary slightly as the methods for calculating gene values are slightly different when raw genotype data is available. 
 
+%For the work presented in this review, gene level statistics were calculated %using MAGMA and the NCBI 38 genome build \footnote{my !!! but the LBC data is %from VEGAS}. I have found that the results given by MAGMA aere on occasion very %sensitive to the genome build (see further work). My VEGAS data is incomplete %but should be finished in the next few weeks. I will also present MAGMA with %NCBI 37.3 as is used by Davies et al (2016) (see futher work).
+\subsubsection{Remove}
+\todo{? remove this bit}
 MAGMA requires information on SNP chromosome and base location; where this is not available in summary data I have used SNP tracker (Deng et al, 2015).
 
 MAGMA also has the attractive feature of preducing results as the Entrez id or HGNC gene symbols. It is useful to use the entrez id as it is used as the vertices in the models generated in igraph and is less susceptible to change than HGNC.
-
+\subsubsection{Windows}
 The use of a gene window significantly affects the number of SNPS assigned to genes. For example using the College Phenotype from Rietveld et al (2013c) of 2319112snsps 914887 were mapped to genes (39.45\%) using no window and NCBI37.3 build. 1385602 (59.75\%) mapped to genes using a 50kB window. (end of p 37)
+
+\textcolor{red}{added}
+Various window sizes are used \todo{bring together window bits}. \cite{zhao2017gene} use a 15kB window in a study of gene level statistics using the GATES method \cite{li2011gates} across psychiatric disorders as 90\% \cite{pickrell2010understanding} of eQTL are found in this region. 
+FUMA uses a default 10kB window but this can be altered \cite{watanabe2017functional}. 
  
 Figuere 9 Comparison of VEGAS and MAGMA
 
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{llcc}
+    \toprule
+    Name     & Test & Year & Citations \\
+    \midrule
+    MAGMA     & F & 2015 & 665\cite{de2015magma} \\ 
+    FUMA & MAGMA & 2017 & 426 \cite{watanabe2017functional}\\
+    VEGAS2 & MonteCarlo & 2015 & 147 \cite{mishra2015vegas2}\\
+    VEGAS & & 2010 & 743  \cite{liu2010versatile} \\
+    FAST & GATES & 2013 & 36 \cite{chanda2013fast} \\
+    \bottomrule
+    \end{tabular}
+    \caption{Comparison of Gene level scoring methods for summary GWAS statistics}
+    \label{tab:gene_tests}
+\end{table}
 Figure 9 shows a comparison of the $-log10$ transformed $p$ values of VEGAS2 and MAGMA for the CHARGE data. $R^2$=0.98 \footnote{quote correlation} Image from compareMAGMAtoVEGAS.R. The results appear similar and it appears reasonable to compare results from MAGMA with the results provided from the study by Hill et al. (2014)
 \subsection{PASCAL}
 Lampterer et al \cite{lamparter2016fast} report the results of a method for using summary GWAS statistics to both generate gene level scores and do gene set analysis. The gene set analysis avoids the requirement for a cutoff and so can include contributions from low scoring genes. It provides similar scores to VEGAS in a shorter time scale and combines max of chi square (MOC) where the top scoring SNP is used and SOC (sum of chi square). Linkage dysequilibrium is accounted for using a reference panel (1000G) and information on LD is incorporated into the Gene Set Analysis score. Fishers method is used for 
 
-Reports good similarity for VEGAS for genes with P score above $10^{-6}$ nut with a marked increase in speed compared to VEGAS.
+Reports good similarity for VEGAS for genes with P score above $10^{-6}$ but with a marked increase in speed compared to VEGAS.
 
 This thesis aims to give a general method for performing network analysis for complex traits involving the synapse. Therefore I have chosen to use two methods of gene scoring to avoid the dependence of all subsequent inference on the accuracy of gene scoring software. Although not as widely cited as MAGMA, PASCAL is widely used and has been used in a number of important GWA analysis. \todo{add citations} \todo{mention some of these papers} 
 
