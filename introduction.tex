@@ -24,7 +24,8 @@ A nerve cell is composed of a number of dendrites that receive signals, a cell b
     \label{fig:soma and dendrites}
 \end{figure}
 
-Each nerve cell has an out outgoing axon but a cortical neuron receives input from around $10000$ synapses \cite{laughlin2003communication}\todo{check have checked laughlin check someone else}. Although synaptic numbers vary over time the number of synapses in the human neo-cortex has been estimated to be $1.5 \times 10^{-14}$ (0.15 quadrillion).\cite{pakkenberg2003aging}A synapse connects a presynaptic neuron and a postsynaptic cell across the synaptic cleft \cite{sudhof2012presynaptic}. The synapse is made up of proteins that self organise into macro-molecular machines that are responsible for signal transduction and processing.\cite{frank2016nmda}\todo{ref}  An essential function of the nerve cell is to integrate incoming information from the dendrites into a binary response at the axon.\cite{lassek2015synaptic} \cite{pocklington2006proteomes}
+Each nerve cell has an out outgoing axon but a cortical neuron receives input from around $10000$ synapses \cite{laughlin2003communication}\todo{check have checked laughlin check someone else, the reference for the upper number being 10000 is Lisman}.
+Although synaptic numbers vary over time the number of synapses in the human neo-cortex has been estimated to be $1.5 \times 10^{-14}$ (0.15 quadrillion).\cite{pakkenberg2003aging}A synapse connects a presynaptic neuron and a postsynaptic cell across the synaptic cleft \cite{sudhof2012presynaptic}. The synapse is made up of proteins that self organise into macro-molecular machines that are responsible for signal transduction and processing.\cite{frank2016nmda}\todo{ref}  An essential function of the nerve cell is to integrate incoming information from the dendrites into a binary response at the axon.\cite{lassek2015synaptic} \cite{pocklington2006proteomes}
 
  The majority of synapses in the brain belong either to the excitatory glutamate system or the inhibitory GABA system. The most common type of synapse and neurotransmitter are the glutamatergic excitatory transmitters which comprise the main information processing system in the brain \cite{stewart2014structure} \todo{check ref}.
 
@@ -323,7 +324,11 @@ MAGMA has been used in a number of studies of intelligence and cognitive ability
 
 In the pilot study carried out on the CAGES data set I used VEGAS and MAGMA. With larger numbers of SNPs in later studies VEGAS proved too slow and I used MAGMA after confirming the results were comparable \textcolor{red}{(see commented out section below in the .tex).} 
 
+\todo{? put in discussion echoing Plomin on usefulness of summary stats the usefulness of complete MAGMA results or VEGAS and saying explicitly if they were calculated on raw data - windows some sort of standardised reporting}
+
 Finally given the centrality of gene level statistics and gene set analysis in this study I used an independent software implementation which has recently been widely used. I will review these below. 
+
+
 
 
 % uses data that is now publically available and quotes the gene level results from the software package VEGAS in the extended materials in his paper. It would seem reasonable that if we can reproduce these and show similarity between these results and other techniques we can assume that they are resonably reliable.
@@ -332,7 +337,7 @@ Finally given the centrality of gene level statistics and gene set analysis in t
 
 \subsection{Assigning SNPs to genes}
 
-The simplest approach is to use the top scoring SNPs in a gene (Wang et al 2007). This however canm be biased by gene size. Curtis et al (2008) suggested combining p values using Fishers combination test, but this assumes that the p values are independent which would not be the case in the presence of LD. Yang et al (2009)
+The simplest approach is to use the top scoring SNPs in a gene (Wang et al 2007). This however can be biased by gene size\todo{ref}. Curtis et al (2008) suggested combining p values using Fishers combination test, but this assumes that the p values are independent which would not be the case in the presence of LD. Yang et al (2009)
 suggested using the truncated p value test but this is also sensitive to the assumption of independence. 
 
 The 'gold standard' used for comparison in the papers introducing most of the packages is the set based test in PLINK (Purcell et al 2007), which permutes phenotype labels for a set of SNPs to achieve a null distribution. To perform this for all SNPs in all genes is prohibitively computationally intensive and most methods use an approximation or asymptotic distribution to improve computational efficiency. In addition the set based test requires genotyped data, and several methods can now make use of summary statistics \footnote{want to use summary statistics as 1) rapid prototyping of methods by others 2) you can check the results}. I will consider the two implementations of VEGAS and MAGMA in more detail(end p35)
@@ -408,7 +413,7 @@ This thesis aims to give a general method for performing network analysis for co
 \subsection{Limitations of gene boundaries and non coding SNPs}
 A number of SNPs are found in non coding regions of the genome. They may effect gene expression through affecting quantitative trait loci but these are excluded from analysis. For most analysis the discarded SNPs amount to about 50\%.
 
-In order to include gene regulatory elements in gene level analysis a number of ``windows" around the gene boundary have been suggested both symmetric and asymmteric. VEGAS had a set 50kB boundary so some results such as Hill \cite{hill2014human} gene set analysis of the CAGES data set incorporate this. The predominant practice at present appears to be not to include a gene window or only a very small one of 5kb as per \cite{savage2018genome}. \textcolor{red}{combined with sec~\ref{sec:windows1}}
+In order to include gene regulatory elements in gene level analysis a number of ``windows" around the gene boundary have been suggested both symmetric and asymmteric. VEGAS had a set 50kB boundary so some results such as Hill \cite{hill2014human} gene set analysis of the CAGES data set incorporate this. The predominant practice at present appears to be not to include a gene window or only a very small one of 5kb as per \cite{savage2018genome}. \textcolor{red}{combined with sec~\ref{sec:windows1} also on windows}
 
 
 \section{ Gene set tests}
