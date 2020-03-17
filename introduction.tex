@@ -310,13 +310,25 @@ Before going on to discuss the methods that we can use to identify coherent sets
 
 \section{Gene level tests}
 
-Genome wide association studies test the association of single nucleotide polymorphisms with a phenotype.
-In order to test hypotheses about communities in the synaptome or perform tests such as gene set enrichment analysis for synaptic modules, it is necessary to reason at the level of vertices in a graph. It is necessary therefore to have a statistic for the significance of the association of a gene encoding a protein in the synaptome with a phenotype. This will require assigning SNPs to genes and generating a combined statistic (Petterson et al 2011).
-Several authors have described methods for generating gene level association statistics. It has severl attractions. For one the num,ber of statistical testrs in doing inferecnnce is redeuced from over 500,000 for SNPs to approximately 20,000 for gene level tests with a commensurate reduction in the penalty for multiple testing. In addition genes are a natural biological unit and can be used in models of networks, proteins and other biological entities. Any form of pathway analysis will depend on finding a way of producing gene level statistics that are computationally tractable, reliable, repeatable and in which the analysis can easily be reproduced. As this will form the basis of our interrogation of netwroks, it is important that these foundations are sound. Given the lack of reproducibility in some computational approaches, particularly within network and pathway studies (Mitrea et al 2013b),. we (end p 34)
-wish to ensure we can compare our findingsw with published work given a specific set of GWAS results.
-This is rather problematic as many authors have used the WTCCC Crohns dataset to test simulations including de Leeuw et al (2015b), de Leeuw et al (2016), Li et al (2012), Li et al (2011) and Kwak and Pan(2015). Unfortunately this data is not available for donwload from the WTCCC website at present and when I wrote to the WTCCC they confirmed to me it was unavailable. Rietveld et al (2013c) uses data that is now publically available and quotes the gene level results from the software package VEGAS in the extended materials in his paper. It would seem reasonable that if we can reproduce these and show similarity between these results and other techniques we can assume that they are resonably reliable.
+Genome wide association studies test the association of single nucleotide polymorphisms with a phenotype.\todo{ref}
+In order to test hypotheses about the importance of network structures in the post synaptic proteome to a phenotype we will need to perform significance tests for a group of genes. In order to test whether the properties of individual vertices in the network such as degree are associated with the phenotype we will need a statistic that measures the association of the vertex with the phenotype.  
 
-pFig 19 compares the results published in the supplementary materials from Rietveld et al (2013b) with those obtained running VEGAS on the data from this trial downloaded from the Social Science Genetic Consortium website. \footnote{Crohn's sets now}
+It is necessary therefore to have a statistic for the significance of the association of a gene encoding a protein in the synaptome with a phenotype. This will require assigning SNPs to genes and generating a combined statistic (Petterson et al 2011).
+
+Several authors have described methods for generating gene level association statistics. It has several attractions. For one the number of statistical tests in doing inference is reduced from over 500,000 for SNPs to approximately 20,000 for gene level tests with a commensurate reduction in the penalty for multiple testing. In addition genes are a natural biological unit and can be used in models of networks, proteins and other biological entities. Any form of pathway analysis will depend on finding a way of producing gene level statistics that are computationally tractable, reliable, repeatable and in which the analysis can easily be reproduced. As this will form the basis of our interrogation of networks, it is important that these foundations are sound. Given the lack of reproducibility in some computational approaches, particularly within network and pathway studies (Mitrea et al 2013b), we wish to ensure we can compare our findings with published work given a specific set of GWAS results.
+% This is rather problematic as many authors have used the WTCCC Crohns dataset to test simulations including de Leeuw et al (2015b), de Leeuw et al (2016), Li et al (2012), Li et al (2011) and Kwak and Pan(2015). Unfortunately this data is not available for donwload from the WTCCC website at present and when I wrote to the WTCCC they confirmed to me it was unavailable. 
+Rietveld et al (2013c) reported gene level statistics for educational attainment using VEGAS and VEGAS in conjunction with GSEA was used by Hill. 
+
+MAGMA has been used in a number of studies of intelligence and cognitive ability for gene level testing and gene set analysis and results are available in the supplementary material to these papers.
+
+In the pilot study carried out on the CAGES data set I used VEGAS and MAGMA. With larger numbers of SNPs in later studies VEGAS proved too slow and I used MAGMA after confirming the results were comparable \textcolor{red}{(see commented out section below in the .tex).} 
+
+Finally given the centrality of gene level statistics and gene set analysis in this study I used an independent software implementation which has recently been widely used. I will review these below. 
+
+
+% uses data that is now publically available and quotes the gene level results from the software package VEGAS in the extended materials in his paper. It would seem reasonable that if we can reproduce these and show similarity between these results and other techniques we can assume that they are resonably reliable.
+
+% pFig 19 compares the results published in the supplementary materials from Rietveld et al (2013b) with those obtained running VEGAS on the data from this trial downloaded from the Social Science Genetic Consortium website. \footnote{Crohn's sets now}
 
 \subsection{Assigning SNPs to genes}
 
