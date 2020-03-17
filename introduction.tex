@@ -309,7 +309,7 @@ We can extend this to multiple groups by recursively partitioning the network ba
 Before going on to discuss the methods that we can use to identify coherent sets of genes in a network we should point out that one of trhe aims of the study is to assess how well network analysis and clustering helps in the understanding of a phenotype. If the phenotype is poorly defined or their is a great deal of inter observed variability it may be that the clustering is measuring the phenotype (for example finding an unexpected subgroup of the phenotype) rather than assessing the effectiveness of modules of proteins associated with the phenotype.
 
 \section{Gene level tests}
-
+\todo{Keep this introduction bit and then move the bit on specific methods to a methods section perhaps start of chapter 2 do the same with the bit at the start of GSA}
 Genome wide association studies test the association of single nucleotide polymorphisms with a phenotype.\todo{ref}
 In order to test hypotheses about the importance of network structures in the post synaptic proteome to a phenotype we will need to perform significance tests for a group of genes. In order to test whether the properties of individual vertices in the network such as degree are associated with the phenotype we will need a statistic that measures the association of the vertex with the phenotype.  
 
@@ -371,6 +371,7 @@ MAGMA requires information on SNP chromosome and base location; where this is no
 
 MAGMA also has the attractive feature of preducing results as the Entrez id or HGNC gene symbols. It is useful to use the entrez id as it is used as the vertices in the models generated in igraph and is less susceptible to change than HGNC.
 \subsubsection{Windows}
+\label{sec:windows1}
 The use of a gene window significantly affects the number of SNPS assigned to genes. For example using the College Phenotype from Rietveld et al (2013c) of 2319112snsps 914887 were mapped to genes (39.45\%) using no window and NCBI37.3 build. 1385602 (59.75\%) mapped to genes using a 50kB window. (end of p 37)
 
 \textcolor{red}{added}
@@ -407,11 +408,11 @@ This thesis aims to give a general method for performing network analysis for co
 \subsection{Limitations of gene boundaries and non coding SNPs}
 A number of SNPs are found in non coding regions of the genome. They may effect gene expression through affecting quantitative trait loci but these are excluded from analysis. For most analysis the discarded SNPs amount to about 50\%.
 
-In order to include gene regulatory elements in gene level analysis a number of ``windows" around the gene boundary have been suggested both symmetric and asymmteric. VEGAS had a set 50kB boundary so some results such as Hill \cite{hill2014human} gene set analysis of the CAGES data set incorporate this. The predominant practice at present appears to be not to include a gene window or only a very small one of 5kb as per \cite{savage2018genome}.
+In order to include gene regulatory elements in gene level analysis a number of ``windows" around the gene boundary have been suggested both symmetric and asymmteric. VEGAS had a set 50kB boundary so some results such as Hill \cite{hill2014human} gene set analysis of the CAGES data set incorporate this. The predominant practice at present appears to be not to include a gene window or only a very small one of 5kb as per \cite{savage2018genome}. \textcolor{red}{combined with sec~\ref{sec:windows1}}
 
 
 \section{ Gene set tests}
-
+\todo{Keep this introduction bit and then move the bit on specific methods to a methods section perhaps start of chapter 2 do the same with the bit marked above in gene level tests}
 Gene set analysis, also known as pathway analysis, tests the association of a set of genes with a particular phenotype. The set of genes can represent any grouping of genes based upon apriori biological knowledge. For example gene sets are often made up of the components of metabolic pathways, hence the synonyms pathway analysis. I shall be using communities discovered by community detection algortighms in graphs and subgraphs of the synaptic proteome as gene sets.
 
 Gene set analysis was originally described in the contect of gene expression experiments (Mootha et al, 2003).
