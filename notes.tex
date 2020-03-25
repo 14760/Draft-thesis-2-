@@ -1,5 +1,6 @@
 \chapter{Notes}
-
+\section{extra refs}
+\subsection{centrality measures}
 @article{valente2008correlated,
   title={How correlated are network centrality measures?},
   author={Valente, Thomas W and Coronges, Kathryn and Lakon, Cynthia and Costenbader, Elizabeth},
@@ -28,6 +29,102 @@
   year={2016},
   publisher={Frontiers}
 }
+
+\subsection{communities}
+\textcolor{red}{Over 1000 citations}
+@article{porter2009communities,
+  title={Communities in networks},
+  author={Porter, Mason A and Onnela, Jukka-Pekka and Mucha, Peter J},
+  journal={Notices of the AMS},
+  volume={56},
+  number={9},
+  pages={1082--1097},
+  year={2009}
+}
+
+\textcolor{red}{cited by 853}
+@article{good2010performance,
+  title={Performance of modularity maximization in practical contexts},
+  author={Good, Benjamin H and De Montjoye, Yves-Alexandre and Clauset, Aaron},
+  journal={Physical Review E},
+  volume={81},
+  number={4},
+  pages={046106},
+  year={2010},
+  publisher={APS}
+}
+
+\textcolor{red}{citations 97}
+@article{lewis2010function,
+  title={The function of communities in protein interaction networks at multiple scales},
+  author={Lewis, Anna CF and Jones, Nick S and Porter, Mason A and Deane, Charlotte M},
+  journal={BMC systems biology},
+  volume={4},
+  number={1},
+  pages={100},
+  year={2010},
+  publisher={Springer}
+}
+
+\textcolor{red}{cited by 8635}
+@article{fortunato2010community,
+  title={Community detection in graphs},
+  author={Fortunato, Santo},
+  journal={Physics reports},
+  volume={486},
+  number={3-5},
+  pages={75--174},
+  year={2010},
+  publisher={Elsevier}
+}
+
+\textcolor{red}{cited by 457}
+@article{lancichinetti2012consensus,
+  title={Consensus clustering in complex networks},
+  author={Lancichinetti, Andrea and Fortunato, Santo},
+  journal={Scientific reports},
+  volume={2},
+  pages={336},
+  year={2012},
+  publisher={Nature Publishing Group}
+}
+
+\textcolor{red}{cited by 877}
+@article{lancichinetti2011finding,
+  title={Finding statistically significant communities in networks},
+  author={Lancichinetti, Andrea and Radicchi, Filippo and Ramasco, Jos{\'e} J and Fortunato, Santo},
+  journal={PloS one},
+  volume={6},
+  number={4},
+  year={2011},
+  publisher={Public Library of Science}
+}
+
+\subsection{multilayer networks}
+\textcolor{red}{cited by 1936}
+@article{kivela2014multilayer,
+  title={Multilayer networks},
+  author={Kivel{\"a}, Mikko and Arenas, Alex and Barthelemy, Marc and Gleeson, James P and Moreno, Yamir and Porter, Mason A},
+  journal={Journal of complex networks},
+  volume={2},
+  number={3},
+  pages={203--271},
+  year={2014},
+  publisher={Oxford University Press}
+}
+
+\textcolor{red}{over 100 pages, cited by 1878}
+@article{boccaletti2014structure,
+  title={The structure and dynamics of multilayer networks},
+  author={Boccaletti, Stefano and Bianconi, Ginestra and Criado, Regino and Del Genio, Charo I and G{\'o}mez-Gardenes, Jes{\'u}s and Romance, Miguel and Sendina-Nadal, Irene and Wang, Zhen and Zanin, Massimiliano},
+  journal={Physics Reports},
+  volume={544},
+  number={1},
+  pages={1--122},
+  year={2014},
+  publisher={Elsevier}
+}
+
 
 Wagner and Fell small world
 
@@ -73,3 +170,14 @@ SE = 1 / sqrt( 2 * MAF * ( 1 - MAF ) * ( N + $Zscore^2$ ) )
 \section{Useful papers for methods}
 
 MDD for quoting MAGMA \url{https://www.nature.com/articles/s41467-018-03819-3}
+
+
+\section{Modularity}
+
+for an adjacency matrix $A_{ij}$ we want to know how many edges pass between similar nodes that share a property be it an ontology term or a community membership.
+
+Total number of edges is between nodes of same group is:
+
+\begin{equation}
+    \frac{1}{2} \sum_{i,j} A_{i,j}\delta_{g_i,g_j}
+\end{equation}
