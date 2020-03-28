@@ -126,8 +126,10 @@
 }
 
 
+\subsection{general notes}
 Wagner and Fell small world
 
+\subsection{extra results}
 Enrichment of new graph components
 
 
@@ -138,6 +140,7 @@ SET           NGENES       BETA   BETA STD         SE            P
 new in graph    1397     0.0553     0.0145     0.0293     0.029806
 new graph       4414      0.101     0.0427     0.0186   3.1989e-08
 PSD             3414      0.113     0.0436     0.0201   1.0565e-08
+
 
 
 \section{Readme from Sniekers}
@@ -171,6 +174,10 @@ SE = 1 / sqrt( 2 * MAF * ( 1 - MAF ) * ( N + $Zscore^2$ ) )
 
 MDD for quoting MAGMA \url{https://www.nature.com/articles/s41467-018-03819-3}
 
+\section{Community detection}
+
+Communities allow the network to be broken up into smaller components which can be analysed in turn and which may represent functional units.
+
 
 \section{Modularity}
 
@@ -179,5 +186,157 @@ for an adjacency matrix $A_{ij}$ we want to know how many edges pass between sim
 Total number of edges is between nodes of same group is:
 
 \begin{equation}
-    \frac{1}{2} \sum_{i,j} A_{i,j}\delta_{g_i,g_j}
+\label{eq:notes_modularity_totaledges}
+    \frac{1}{2} \sum_{i,j} A_{i,j}\delta_{g_i g_j}
 \end{equation}
+
+The expected number of edges between all nodes of the same type is 
+
+\begin{equation}
+    \frac{1}{2}\sum_{i,j} \frac{k_i k_j}{2m}\delta_{g_i g_j}
+\end{equation}
+
+The modularity Q is 
+
+\begin{equation}
+    Q=\frac{1}{2m}\sum_{i,j}\textcolor{red}{(A_{i,j}-\frac{k_i k_j}{2m}}) \delta{g_i g_j}
+\end{equation}
+
+The red term is:
+
+\begin{equation}
+    B_{ij} = \sum_{i,j} A_{i,j} - \frac{k_i k_j}{2m}
+\end{equation}
+
+$\mathbf{B}$ is the modularity matrix which is n by n having elements $B_{i,j}$
+
+
+
+\section{Centrality measures}
+Betweeness, degree and closeness were described by Freeman, eigenvector centrality by Bonich \cite{valente2008correlated}
+
+Boland degree closeness and flow centrality correlated but betweenness not
+
+The correlation of symmetrised centrality measures are shown in table~\ref{tab:Correlation of centrality valente et al}. This study addressed 58 sociometric networks. The networks were directed and in order to calculated eigenvector centrality the networks were ``symmetrised" as described by the authors or made undirected. Degree had the strongest overall correlation 0.7 followed by eigenvector centrality 0.67.
+
+
+
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{lllll}
+    \toprule
+         & Degree & Eigenvector centrality & Closeness & Betweenness \\
+         \midrule
+    Degree  & 1  & 0.92  & 0.66 & 0.85\\
+    Eigenvector centrality & 0.92 & 1 & 0.63 & 0.72  \\
+    Closeness & 0.66 & 0.63 & 1 & 0.44  \\
+    Betweenness& 0.85 & 0.72 & 0.44 & 1 \\
+    \bottomrule
+    \end{tabular}
+    \caption{Correlation of centrality measures for 58 sociometric network datasets from Valente et al \cite{valente2008correlated}. Pearson correlation coefficient. Values are for symmetrised closeness and betweenness centrality. Eigenvector centrality is necessarily symmetrised. Range of average network size 45-83. Some studies had maximal nominations for degree}
+    \label{tab:Correlation of centrality valente et al}
+\end{table}
+
+
+\section{Louvain}
+
+Louvain clustering discovers 14 communities in the PSP. The modularity of the division is 0.339.
+
+Group 7 shows enrichment in intelligence discovery (p=0.0012) and replication (p=0.0012) cohorts (p=0.0026). Using a discovery and replication cohort alpha is 0.0125, but the enrichment is greater than considering all of the groups alpha 0.00357 (0.05/14). See table~\ref{tab:Louvain clustering intelligence}
+
+Group 7 is enriched in the discovery cohort for education but not the replication cohort (p=0.0146 and replication p=0.4750). See table~\ref{tab:Louvain clustering education}.
+
+Using the largest cohorts available for intelligence we confirm group 7 is enriched (Savage) p=0.0002. Two other groups survive multuple testing at alpha corrected for all groups see table~\ref{tab:Louvain clustering Savage intelligence phase 2 cohorts}. 
+
+Using the largest cohorts available for education we find enrichment of group 7 (p=0.0017) and the group 8 found in Savage (p=0.0003) see table~\ref{tab:Louvain clustering EA3 Education cohorts}
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Sat Mar 28 15:46:38 2020
+
+Group 7 is enriched for Molecular function glutamate receptor activity GO:0008066 	glutamate receptor activity 		 	Bonferroni (against genome) $3.478 \times 10^{-32}$ 	Number in group 26  In annotation	84. 
+Group 8 is large. The second most enriched Biological process is GO:0048666 	neuron development 		Bonferroni	$1.180 \times 10^{-52}$ 	Number in group 150 	Number in annotation 1298.
+
+Code on mac \url{source('~/RProjects/utils/src/generic_compile_gsa_lourvain_new.R')}
+\todo{Overlap of group 7 with group 5}
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrrrrrr}
+  \hline
+ & SET & NGENES & BETA & BETA\_STD & SE & Intelligence Discovery & Intelligence Replication \\ 
+  \hline
+2 & 2::: & 334 & 0.09 & 0.01 & 0.05 & 0.0407 & 0.1916 \\ 
+  3 & 3::: & 510 & 0.10 & 0.02 & 0.04 & 0.0075 & 0.1006 \\ 
+  7 & 7::: & 144 & 0.26 & 0.02 & 0.08 & 0.0012 & 0.0026 \\ 
+  12 & 12::: & 21 & 0.63 & 0.02 & 0.21 & 0.0014 & 0.1628 \\ 
+   \hline
+\end{tabular}
+\caption{Louvain clustering PSP Intelligence cohorts}
+\label{tab:Louvain clustering intelligence}
+\end{table}
+
+% ed
+
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Sat Mar 28 15:49:04 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrrrrrr}
+  \hline
+ & SET & NGENES & BETA & BETA\_STD & SE & P & P\_EA2 \\ 
+  \hline
+2 & 2::: & 334 & 0.13 & 0.02 & 0.05 & 0.0071 & 0.0568 \\ 
+  5 & 5::: & 112 & 0.23 & 0.02 & 0.09 & 0.0063 & 0.3478 \\ 
+  7 & 7::: & 144 & 0.19 & 0.02 & 0.09 & 0.0146 & 0.4750 \\ 
+   \hline
+\end{tabular}
+\caption{Louvain clustering PSP Education cohorts}
+\label{tab:Louvain clustering education}
+\end{table}
+
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Sat Mar 28 15:51:04 2020 Sav2
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrrrrr}
+  \hline
+ & SET & NGENES & BETA & BETA\_STD & SE & P \\ 
+  \hline
+2 & 2::: & 345 & 0.11 & 0.02 & 0.0550 & 0.0208 \\ 
+  3 & 3::: & 527 & 0.11 & 0.02 & 0.0431 & 0.0055 \\ 
+  7 & 7::: & 153 & 0.32 & 0.03 & 0.0899 & 0.0002 \\ 
+  8 & 8::: & 537 & 0.14 & 0.02 & 0.0475 & 0.0018 \\ 
+   \hline
+\end{tabular}
+\caption{Louvain clustering PSP Savage Intelligence phase2 cohorts}
+\label{tab:Louvain clustering Savage intelligence phase 2 cohorts}
+\end{table}
+
+
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Sat Mar 28 15:52:19 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrrrrr}
+  \hline
+ & SET & NGENES & BETA & BETA\_STD & SE & P \\ 
+  \hline
+1 & 1::: & 196 & 0.11 & 0.01 & 0.0897 & 0.1185 \\ 
+  2 & 2::: & 334 & 0.06 & 0.01 & 0.0660 & 0.2021 \\ 
+  3 & 3::: & 510 & 0.08 & 0.01 & 0.0521 & 0.0740 \\ 
+  4 & 4::: & 245 & 0.10 & 0.01 & 0.0792 & 0.0943 \\ 
+  5 & 5::: & 111 & 0.09 & 0.01 & 0.1110 & 0.2132 \\ 
+  6 & 6::: & 159 & 0.01 & 0.00 & 0.0958 & 0.4421 \\ 
+  7 & 7::: & 144 & 0.32 & 0.03 & 0.1080 & 0.0017 \\ 
+  8 & 8::: & 519 & 0.19 & 0.03 & 0.0558 & 0.0003 \\ 
+  9 & 9::: & 425 & 0.04 & 0.01 & 0.0640 & 0.2426 \\ 
+  10 & 10::: & 57 & 0.03 & 0.00 & 0.1570 & 0.4303 \\ 
+  11 & 11::: & 331 & 0.08 & 0.01 & 0.0679 & 0.1087 \\ 
+  12 & 12::: & 21 & -0.11 & -0.00 & 0.2620 & 0.6587 \\ 
+  13 & 13::: & 80 & -0.12 & -0.01 & 0.1330 & 0.8143 \\ 
+  14 & 14::: & 166 & 0.09 & 0.01 & 0.0989 & 0.1692 \\ 
+   \hline
+\end{tabular}
+\caption{Louvain clustering PSP EA3 Education cohorts}
+\label{tab:Louvain clustering EA3 Education cohorts}
+\end{table}
+
