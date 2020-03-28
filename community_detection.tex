@@ -219,9 +219,28 @@ Group 36 enriches in all but EA3 but has only 4 neurogenesis genes \todo{What is
 
 \section{Louvain}
 
-Louvain clustering discovers 14 communities in the PSP. The modularity of the division is 0.339.
 
-Group 7 shows enrichment in intelligence discovery (p=0.0012) and replication (p=0.0012) cohorts (p=0.0026). Using a discovery and replication cohort alpha is 0.0125, but the enrichment is greater than considering all of the groups alpha 0.00357 (0.05/14). See table~\ref{tab:Louvain clustering intelligence}
+\subsection{Introduction}
+The Louvain method named after the university of the authors of the original paper is a hierarchical clustering method using modularity maximisation as the objective function. It functions very well at scale in dividing networks up into communities.\cite{blondel2008fast}
+
+The algorithm works by first assigning nodes into communities. Then those communities are in turn combined into communities composed of communities. The process stops when maximal modularity is achieved. 
+
+\subsection{Methods}
+
+Louvain clustering was carried out using igraph Version 1.2.4.2 using the \texttt{cluster\_louvain} command. The Louvain implementation requires no parameters to be supplied other than an optional weights argument for weighted networks and this simplifies study design as described earlier. 
+
+The igraph implementation returns communities discovered at the level of hierarchy that maximises the modularity.
+
+The communities objects returned by the \texttt{cluster\_louvain} method were converted into a gmt file using a custom R script.\todo{source}
+
+Gene set analysis of the educational ability and intelligence GWA were carried out using MAGMA as described above \todo{add cross ref}. 
+
+
+
+\subsection{Results}
+Louvain clustering discovers 14 communities in the PSP. The modularity of the resulting division is 0.339.
+
+Group 7 shows enrichment in the intelligence discovery (p=0.0012) and replication cohorts (p=0.0026). Group 7 is composed of 154 genes but the number shown in the tables of results may be less than this if a gene was not assigned any SNPs using MAGMA. Using a discovery and replication cohort alpha is 0.0125, but the enrichment is greater than considering all of the groups alpha 0.00357 (0.05/14). See table~\ref{tab:Louvain clustering intelligence}
 
 Group 7 is enriched in the discovery cohort for education but not the replication cohort (p=0.0146 and replication p=0.4750). See table~\ref{tab:Louvain clustering education}.
 
