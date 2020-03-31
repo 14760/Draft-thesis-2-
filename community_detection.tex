@@ -346,6 +346,8 @@ Code on mac \url{source('~/RProjects/utils/src/generic_compile_gsa_lourvain_new.
         Spectral & 0.30\\
         Infomap & 0.275\\
         Louvain & 0.339\\
+        Lec & 0.247\\
+        walk trap & 0.256\\
         \bottomrule
     \end{tabular}
     \caption{Modularity using different partion methods}
@@ -381,6 +383,9 @@ For the overlap between group 5 and louvain group 7 22 were in group 7 and 57 in
 
 The 22 gene overlap between group 5 and louvain group 7 were ampa, kainate and 3 metabotropic glutamate along with PICK1 and GRIP AP1 and a few others. GSA 13 glutamate receptor activity GO:0008066 
 
+This supports the Newman idea that different partitions are made up of similar components. 
+
+\todo{can add that infomap and Louvain along with spectral are the ones most recommended by Newman and that group has expertise with spectral also to add and look at overlap for block stochastic.}
 
 % latex table generated in R 3.6.1 by xtable 1.8-4 package
 % Tue Mar 31 13:59:17 2020 int
@@ -485,7 +490,11 @@ The 22 gene overlap between group 5 and louvain group 7 were ampa, kainate and 3
 \label{tab:Infomap savage}
 \end{table}
 
+\section{Walk trap}
 
+Implemented in igraph. 562 communities , 405 have single member  Min.1 1st Qu.  1 Median1    Mean 6.151 3rd Qu. 2   Max. 760 
+ 
+  
 \section{Spinglass}
 
 There are a number of tunable parameters for the implementation of the spinglass algorithm in igraph for R specifically
@@ -571,6 +580,8 @@ It also enriches significantly in EA3 group 5(Spinglass) $P=0.0010319$ but so do
 src \url{source('~/RProjects/gridsearch_gamma/R/check_results/check_results.R')}
 
 Enriches strongly in savage $0.0049343$ but less so in davies (approx 0.02 but group 4 very strongly in davies)
+\section{SBM}
+See core periphery
 
  \section{Community detection thresholds}
 There are limits to the detection of communities specifically in the difference between the probability of edges and the probability of in group edges.
