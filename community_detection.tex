@@ -337,6 +337,153 @@ Code on mac \url{source('~/RProjects/utils/src/generic_compile_gsa_lourvain_new.
 \label{tab:Louvain clustering EA3 Education cohorts}
 \end{table}
 
+\begin{table}[]
+    \centering
+    \begin{tabular}{cc}
+    \toprule
+        Method & Q \\
+        \midrule
+        Spectral & 0.30\\
+        Infomap & 0.275\\
+        Louvain & 0.339\\
+        \bottomrule
+    \end{tabular}
+    \caption{Modularity using different partion methods}
+    \label{tab:modularity}
+\end{table}
+
+\section{Infomap}
+
+Infomap works using information theory about random walks. It is implemented in igraph for R. 
+
+There are no free parameters that need to be supplied
+
+\subsection{Results}
+
+Infomap discovers 171 communities. Group size  Min. 1st 2.00 Qu.5.00   Median 8.00     Mean 20.22 3rd Qu. 13.00   Max. 1228.00
+
+One group is responsible for 35.5\% of the PSP. 916 nodes belonged to 134 groups less than size 15. 36 groups had communities greater than or equal to 15 and smaller than the largest group (1313 genes). The second largest group has 130 members.  
+
+The modularity of the partition is 0.275.
+
+
+For intelligence cohort see table~\ref{tab:Infomap Intelligence infomap significant in both groups}
+
+For education cohort see table~\ref{tab:infomap education}. For the large new cohorts in education (EA3) see table~\ref{tab:infomap EA3} and intelligence (Savage) see table~\ref{tab:Infomap savage}.
+
+Group 11 consists of NMDA receptors and DLG genes. The disease most associated with it is ASD. Group 1 is large limiting enrichment analysis but RNA binding GO:0003723 in 406 genes P Bonferroni against all genome $2.728 \times 10^{-112}$ \subsection{Overlap with other partitions}
+
+Group 5 Spectral was distributed quite widely but there were 31 in group 16, 10 in 21 and 19 in 24 using infomap. Group 24 is enriched in the savage study and contains GRIP1, GRIA 1-4, GRIK 1,2,3,5, 3 metabotropic, PICK1, GRIP AP and CACNG2. This seems to be a cohesive group across different clusterings (see below) code \url{source('~/RProjects/graph2community/R/overlap_info.R')}
+
+\todo{take 1 neighbourhood of these genes}
+
+For the overlap between group 5 and louvain group 7 22 were in group 7 and 57 in Louvain 14.
+
+The 22 gene overlap between group 5 and louvain group 7 were ampa, kainate and 3 metabotropic glutamate along with PICK1 and GRIP AP1 and a few others. GSA 13 glutamate receptor activity GO:0008066 
+
+
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Tue Mar 31 13:59:17 2020 int
+
+
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrrrrrr}
+  \hline
+ & SET & NGENES & BETA & BETA\_STD & SE & P & P\_C \\ 
+  \hline
+1 & 1::: & 1176 & 0.1 & 0.02 & 0.03 & 0.0061 & 0.0479 \\ 
+  11 & 11::: & 47 & 0.4 & 0.02 & 0.15 & 0.0018 & 0.0080 \\ 
+   \hline
+\end{tabular}
+\caption{Intelligence infomap significant in both groups}
+\label{tab:Infomap Intelligence infomap significant in both groups}
+\end{table}
+
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Tue Mar 31 14:05:51 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrrrrr}
+  \hline
+ & SET & NGENES & BETA & BETA\_STD & SE & P \\ 
+  \hline
+1 & 1::: & 1173 & 0.06 & 0.02 & 0.0364 & 0.0415 \\ 
+  8 & 8::: & 62 & 0.39 & 0.02 & 0.1650 & 0.0096 \\ 
+  11 & 11::: & 47 & 0.62 & 0.03 & 0.1990 & 0.0010 \\ 
+  17 & 17::: & 22 & 0.57 & 0.02 & 0.2730 & 0.0191 \\ 
+  23 & 23::: & 20 & 0.60 & 0.02 & 0.2880 & 0.0188 \\ 
+  30 & 30::: & 15 & 0.54 & 0.02 & 0.2890 & 0.0313 \\ 
+  31 & 31::: & 13 & 1.04 & 0.03 & 0.3900 & 0.0037 \\ 
+  67 & 67::: &  7 & 0.64 & 0.01 & 0.3700 & 0.0422 \\ 
+  68 & 68::: &  9 & 0.73 & 0.02 & 0.4060 & 0.0354 \\ 
+  76 & 76::: &  8 & 1.37 & 0.03 & 0.5050 & 0.0033 \\ 
+  98 & 98::: &  6 & 1.29 & 0.02 & 0.5320 & 0.0077 \\ 
+  99 & 99::: &  7 & 0.80 & 0.02 & 0.4250 & 0.0299 \\ 
+  111 & 111::: &  6 & 2.22 & 0.04 & 0.5960 & 0.0001 \\ 
+  135 & 135::: &  4 & 2.26 & 0.03 & 0.7930 & 0.0022 \\ 
+  139 & 139::: &  4 & 1.71 & 0.03 & 0.7020 & 0.0076 \\ 
+  158 & 158::: &  2 & 2.20 & 0.02 & 0.9880 & 0.0129 \\ 
+  161 & 161::: &  2 & 1.79 & 0.02 & 1.0500 & 0.0451 \\ 
+  167 & 167::: &  2 & 1.54 & 0.02 & 0.7630 & 0.0220 \\ 
+  170 & 170::: &  2 & 2.56 & 0.03 & 0.9150 & 0.0026 \\ 
+   \hline
+\end{tabular}
+\caption{Significant EA3 infomap}
+\label{tab:infomap EA3}
+\end{table}
+
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Tue Mar 31 14:07:01 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrrrrrr}
+  \hline
+ & SET & NGENES & BETA & BETA\_STD & SE & P & P\_EA2 \\ 
+  \hline
+99 & 99::: &  7 & 0.7 & 0.01 & 0.36 & 0.0211 & 0.0428 \\ 
+  106 & 106::: &  6 & 0.8 & 0.01 & 0.47 & 0.0452 & 0.0021 \\ 
+  135 & 135::: &  4 & 1.6 & 0.02 & 0.61 & 0.0038 & 0.0070 \\ 
+   \hline
+\end{tabular}
+\caption{Education infomap}
+\label{tab:infomap education}
+\end{table}
+
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Tue Mar 31 14:07:31 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrrrrr}
+  \hline
+ & SET & NGENES & BETA & BETA\_STD & SE & P \\ 
+  \hline
+1 & 1::: & 1213 & 0.08 & 0.02 & 0.0304 & 0.0061 \\ 
+  8 & 8::: & 65 & 0.27 & 0.02 & 0.1370 & 0.0231 \\ 
+  12 & 12::: & 41 & 0.29 & 0.01 & 0.1460 & 0.0249 \\ 
+  18 & 18::: & 31 & 0.45 & 0.02 & 0.1930 & 0.0093 \\ 
+  19 & 19::: & 27 & 0.53 & 0.02 & 0.2330 & 0.0120 \\ 
+  24 & 24::: & 22 & 0.68 & 0.02 & 0.2370 & 0.0019 \\ 
+  42 & 42::: & 13 & 0.70 & 0.02 & 0.2770 & 0.0057 \\ 
+  49 & 49::: & 11 & 0.61 & 0.01 & 0.3240 & 0.0307 \\ 
+  50 & 50::: & 12 & 1.11 & 0.03 & 0.3310 & 0.0004 \\ 
+  62 & 62::: & 12 & 0.58 & 0.01 & 0.2770 & 0.0176 \\ 
+  74 & 74::: &  9 & 0.94 & 0.02 & 0.3740 & 0.0061 \\ 
+  76 & 76::: &  8 & 1.20 & 0.02 & 0.4310 & 0.0027 \\ 
+  77 & 77::: &  8 & 0.95 & 0.02 & 0.4550 & 0.0187 \\ 
+  96 & 96::: &  7 & 1.54 & 0.03 & 0.4380 & 0.0002 \\ 
+  101 & 101::: &  8 & 0.80 & 0.02 & 0.4210 & 0.0294 \\ 
+  111 & 111::: &  6 & 1.09 & 0.02 & 0.5420 & 0.0223 \\ 
+  120 & 120::: &  6 & 0.68 & 0.01 & 0.4070 & 0.0476 \\ 
+  135 & 135::: &  4 & 2.11 & 0.03 & 0.6740 & 0.0009 \\ 
+  158 & 158::: &  2 & 2.03 & 0.02 & 0.8370 & 0.0077 \\ 
+  170 & 170::: &  2 & 3.06 & 0.03 & 0.9540 & 0.0007 \\ 
+   \hline
+\end{tabular}
+\caption{Savage infomap}
+\label{tab:Infomap savage}
+\end{table}
 
 
 \section{Spinglass}
@@ -439,7 +586,8 @@ There are limits to the detection of communities specifically in the difference 
 \begin{tabular}{rlrrrrr}
   \hline
  & SET & NGENES & BETA & BETA\_STD & SE & P \\ 
-  \hline
+  \hline 
+
 1 & Education Replication\_presynaptic\_all & 1449 & 0.06 & 0.02 & 0.02 & 0.00 \\ 
   2 & Education Discovery\_presynaptic\_all & 1461 & 0.07 & 0.02 & 0.03 & 0.00 \\ 
   3 & EA3\_presynaptic\_all & 1460 & 0.10 & 0.03 & 0.03 & 0.00 \\ 
