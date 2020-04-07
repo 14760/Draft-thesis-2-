@@ -101,10 +101,62 @@ The Exome Aggregation Consortium (ExAC - Broad Institute) contains DNA sequence 
 \subsection{Synaptic Proteome Graph}
 
 The largest connected component of the graph of the postsynaptic proteome (PSP) consisted of 3457 nodes and 30498 edges. The mean degree (the number of edges incident to each node) was 17.6, the median 8, minimum degree 1 and maximum degree 535. The degree distribution is consistent with a power law distribution. Further details on the graph are available in supplemental table 3. 
-
+\subsubsection{Spectral community detection}
 65 post synaptic graph communities (clusters) were detected using the spectral clustering algorithm with fine-tuning step; the modularity (Q) of the partition was 0.30 indicating a robust community architecture.  The communities ranged in size from 1 to 405 genes (mean 53.2, median 27, standard deviation 73). We excluded those communities with less than 15 members, removing 35 communities and 88 genes (2.5\% of the PSP). 35 communities with a total of 3369 genes remained with mean community size 96.1, median 72 and standard deviation 76.8 (See supplementary tables 4,5).   
 
-\textbf{Gene level results}
+For community statistics following Fortunato \cite{fortunato2016community} see table~\ref{tab:Community statistics after fortunato spectral clustering size > 15} \todo{summary statistics for each measure}
+code \url{source('~/RProjects/embed2/src/make_fortunato_table.R')}
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Tue Apr  7 17:38:02 2020
+\begin{table}[ht]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lrrrrrrrrrr}
+  \hline
+community & n\_c & internal\_degree & average\_internal\_degree & internal\_degree\_density & external\_degree & average\_external\_degree & external\_degree\_density & total\_degree & average\_degree & conductance \\ 
+  \hline
+1 & 171 & 916 & 5.357 & 0.032 & 1536 & 8.982 & 0.003 & 2452 & 14.339 & 0.626 \\ 
+  2 & 165 & 1250 & 7.576 & 0.046 & 2248 & 13.624 & 0.004 & 3498 & 21.200 & 0.643 \\ 
+  3 & 41 & 110 & 2.683 & 0.067 & 253 & 6.171 & 0.002 & 363 & 8.854 & 0.697 \\ 
+  4 & 31 & 94 & 3.032 & 0.101 & 198 & 6.387 & 0.002 & 292 & 9.419 & 0.678 \\ 
+  5 & 112 & 460 & 4.107 & 0.037 & 737 & 6.580 & 0.002 & 1197 & 10.688 & 0.616 \\ 
+  6 & 79 & 172 & 2.177 & 0.028 & 593 & 7.506 & 0.002 & 765 & 9.684 & 0.775 \\ 
+  7 & 129 & 364 & 2.822 & 0.022 & 863 & 6.690 & 0.002 & 1227 & 9.512 & 0.703 \\ 
+  9 & 65 & 166 & 2.554 & 0.040 & 451 & 6.938 & 0.002 & 617 & 9.492 & 0.731 \\ 
+  10 & 154 & 1042 & 6.766 & 0.044 & 1069 & 6.942 & 0.002 & 2111 & 13.708 & 0.506 \\ 
+  11 & 56 & 154 & 2.750 & 0.050 & 687 & 12.268 & 0.004 & 841 & 15.018 & 0.817 \\ 
+  12 & 34 & 124 & 3.647 & 0.111 & 317 & 9.324 & 0.003 & 441 & 12.971 & 0.719 \\ 
+  16 & 72 & 294 & 4.083 & 0.058 & 589 & 8.181 & 0.002 & 883 & 12.264 & 0.667 \\ 
+  17 & 148 & 852 & 5.757 & 0.039 & 1136 & 7.676 & 0.002 & 1988 & 13.432 & 0.571 \\ 
+  19 & 20 & 46 & 2.300 & 0.121 & 191 & 9.550 & 0.003 & 237 & 11.850 & 0.806 \\ 
+  20 & 151 & 800 & 5.298 & 0.035 & 2012 & 13.325 & 0.004 & 2812 & 18.623 & 0.716 \\ 
+  22 & 42 & 94 & 2.238 & 0.055 & 409 & 9.738 & 0.003 & 503 & 11.976 & 0.813 \\ 
+  23 & 72 & 162 & 2.250 & 0.032 & 671 & 9.319 & 0.003 & 833 & 11.569 & 0.806 \\ 
+  24 & 76 & 348 & 4.579 & 0.061 & 686 & 9.026 & 0.003 & 1034 & 13.605 & 0.663 \\ 
+  25 & 27 & 54 & 2.000 & 0.077 & 234 & 8.667 & 0.003 & 288 & 10.667 & 0.812 \\ 
+  26 & 120 & 480 & 4.000 & 0.034 & 1238 & 10.317 & 0.003 & 1718 & 14.317 & 0.721 \\ 
+  28 & 38 & 132 & 3.474 & 0.094 & 272 & 7.158 & 0.002 & 404 & 10.632 & 0.673 \\ 
+  32 & 52 & 152 & 2.923 & 0.057 & 514 & 9.885 & 0.003 & 666 & 12.808 & 0.772 \\ 
+  33 & 191 & 1104 & 5.780 & 0.030 & 1787 & 9.356 & 0.003 & 2891 & 15.136 & 0.618 \\ 
+  34 & 215 & 2680 & 12.465 & 0.058 & 2520 & 11.721 & 0.004 & 5200 & 24.186 & 0.485 \\ 
+  43 & 150 & 972 & 6.480 & 0.043 & 2317 & 15.447 & 0.005 & 3289 & 21.927 & 0.704 \\ 
+  44 & 103 & 616 & 5.981 & 0.059 & 1807 & 17.544 & 0.005 & 2423 & 23.524 & 0.746 \\ 
+  45 & 124 & 624 & 5.032 & 0.041 & 1998 & 16.113 & 0.005 & 2622 & 21.145 & 0.762 \\ 
+  46 & 49 & 302 & 6.163 & 0.128 & 810 & 16.531 & 0.005 & 1112 & 22.694 & 0.728 \\ 
+  47 & 27 & 58 & 2.148 & 0.083 & 290 & 10.741 & 0.003 & 348 & 12.889 & 0.833 \\ 
+  48 & 23 & 74 & 3.217 & 0.146 & 244 & 10.609 & 0.003 & 318 & 13.826 & 0.767 \\ 
+  51 & 112 & 494 & 4.411 & 0.040 & 1423 & 12.705 & 0.004 & 1917 & 17.116 & 0.742 \\ 
+  53 & 405 & 7072 & 17.462 & 0.043 & 5479 & 13.528 & 0.004 & 12551 & 30.990 & 0.437 \\ 
+  55 & 44 & 164 & 3.727 & 0.087 & 678 & 15.409 & 0.005 & 842 & 19.136 & 0.805 \\ 
+  58 & 37 & 128 & 3.459 & 0.096 & 950 & 25.676 & 0.008 & 1078 & 29.135 & 0.881 \\ 
+  62 & 34 & 172 & 5.059 & 0.153 & 305 & 8.971 & 0.003 & 477 & 14.029 & 0.639 \\ 
+   \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Community statistics after fortunato spectral clustering size $> 15$} 
+\label{tab:Community statistics after fortunato spectral clustering size > 15}
+\end{table}
+\subsubsection{Gene level results}
 
 Genome wide gene association analysis (GWGAS) was performed with MAGMA using the summary statistical data from the four cohorts. The results, including MAGMA output files, are available in the Supplemental Information.
 Sniekers et al. found 47 genes associated with intelligence using MAGMA (Bonferroni threshold of P = $2.73 x 10^{-6}$). \cite{sniekers2017genome}  To confirm the validity of our gene level results we used summary data provided from this study and found 46 genes at  P$<2.74 x 10^{-6}$ genes using MAGMA v.1.06.  The pairwise correlation (Spearman’s $\rho$) of the negative log10 transformed gene p values reported in the supplementary material found in Sniekers et al and our results was $\rho$= 0.957. \cite{sniekers2017genome} 
@@ -240,7 +292,7 @@ Gene set analysis of the educational ability and intelligence GWA were carried o
 \subsection{Results}
 Louvain clustering discovers 14 communities in the PSP. The modularity of the resulting division is 0.339. 
 
-The largest community is 539 genes in size (module 8). The minimum community size is 21 genes (module 12). The median module size is 190.5 and the mean is 246.9. The distribution of community sizes is shown in the boxplot in figure~\ref{fig:barplot_size_commmunities_using_louvain}
+The largest community is 539 genes in size (module 8). The minimum community size is 21 genes (module 12). The median module size is 190.5 and the mean is 246.9. The distribution of community sizes is shown in the boxplot in figure~\ref{fig:barplot_size_commmunities_using_louvain} code \url{source('~/RProjects/graph2community/R/plots/louvain_size.R')}
 
 \begin{figure}
     \centering
@@ -582,13 +634,9 @@ The values are lower using random degree sequences but not all are valid here is
  \footnote{\url{source('~/RProjects/centrality/R/bootstrap_ci_modularity_louvain_cluster_barabasi.R')}}
  
 
-It is significantly enriched for glutamate receptor activity (37 of 84) and axon guidance and for ASD, schizophrenia and seizures \todo{overlap with group 5}. 
+\textcolor{red}{It is significantly enriched for glutamate receptor activity (37 of 84) and axon guidance and for ASD, schizophrenia and seizures \todo{overlap with group 5}. It also enriches significantly in EA3 group 5(Spinglass) $P=0.0010319$ but so does group 9 at p=$0.0014555$ src \url{source('~/RProjects/gridsearch_gamma/R/check_results/check_results.R')}
+Enriches strongly in savage $0.0049343$ but less so in davies (approx 0.02 but group 4 very strongly in davies)}
 
-It also enriches significantly in EA3 group 5(Spinglass) $P=0.0010319$ but so does group 9 at p=$0.0014555$
-
-src \url{source('~/RProjects/gridsearch_gamma/R/check_results/check_results.R')}
-
-Enriches strongly in savage $0.0049343$ but less so in davies (approx 0.02 but group 4 very strongly in davies)
 \section{SBM}
 See core periphery
 
