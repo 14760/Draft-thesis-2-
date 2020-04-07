@@ -238,7 +238,16 @@ Gene set analysis of the educational ability and intelligence GWA were carried o
 
 
 \subsection{Results}
-Louvain clustering discovers 14 communities in the PSP. The modularity of the resulting division is 0.339.
+Louvain clustering discovers 14 communities in the PSP. The modularity of the resulting division is 0.339. 
+
+The largest community is 539 genes in size (module 8). The minimum community size is 21 genes (module 12). The median module size is 190.5 and the mean is 246.9. The distribution of community sizes is shown in the boxplot in figure~\ref{fig:barplot_size_commmunities_using_louvain}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_Louvain_community_sizes.png}
+    \caption{Barplot of the size of communities from the PSP discovered using the Louvain clustering method implemented in igraph}
+    \label{fig:barplot_size_commmunities_using_louvain}
+\end{figure}
 
 Group 7 shows enrichment in the intelligence discovery (p=0.0012) and replication cohorts (p=0.0026). Group 7 is composed of 154 genes but the number shown in the tables of results may be less than this if a gene was not assigned any SNPs using MAGMA. Using a discovery and replication cohort alpha is 0.0125, but the enrichment is greater than considering all of the groups alpha 0.00357 (0.05/14). See table~\ref{tab:Louvain clustering intelligence}
 
