@@ -106,6 +106,10 @@ The largest connected component of the graph of the postsynaptic proteome (PSP) 
 
 For community statistics following Fortunato \cite{fortunato2016community} see table~\ref{tab:Community statistics after fortunato spectral clustering size > 15} \todo{summary statistics for each measure}
 code \url{source('~/RProjects/embed2/src/make_fortunato_table.R')}\todo{low conductance and high conductance nodes. perhaps high vanish and you have a plum pudding model}
+
+
+
+
 % latex table generated in R 3.6.3 by xtable 1.8-4 package
 % Tue Apr  7 17:38:02 2020
 \begin{table}[ht]
@@ -294,12 +298,48 @@ Louvain clustering discovers 14 communities in the PSP. The modularity of the re
 
 The largest community is 539 genes in size (module 8). The minimum community size is 21 genes (module 12). The median module size is 190.5 and the mean is 246.9. The distribution of community sizes is shown in the boxplot in figure~\ref{fig:barplot_size_commmunities_using_louvain} code \url{source('~/RProjects/graph2community/R/plots/louvain_size.R')}
 
+Statistics for the communities following Fortunato \cite{fortunato2016community} are shown in table\ref{tab:Community statistics after fortunato louvain clustering}.
+
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{images/Rplot_Louvain_community_sizes.png}
     \caption{Barplot of the size of communities from the PSP discovered using the Louvain clustering method implemented in igraph}
     \label{fig:barplot_size_commmunities_using_louvain}
 \end{figure}
+
+
+
+
+
+
+% Wed Apr  8 11:13:27 2020
+\begin{table}[ht]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lrrrrrrrrrr}
+  \hline
+community & n\_c & internal\_degree & average\_internal\_degree & internal\_degree\_density & external\_degree & average\_external\_degree & external\_degree\_density & total\_degree & average\_degree & conductance \\ 
+  \hline
+1 & 209 & 658 & 3.148 & 0.015 & 1062 & 5.081 & 0.002 & 1720 & 8.230 & 0.617 \\ 
+  2 & 350 & 1904 & 5.440 & 0.016 & 2117 & 6.049 & 0.002 & 4021 & 11.489 & 0.526 \\ 
+  3 & 536 & 9554 & 17.825 & 0.033 & 6628 & 12.366 & 0.004 & 16182 & 30.190 & 0.410 \\ 
+  4 & 265 & 1516 & 5.721 & 0.022 & 2848 & 10.747 & 0.003 & 4364 & 16.468 & 0.653 \\ 
+  5 & 114 & 820 & 7.193 & 0.064 & 1349 & 11.833 & 0.004 & 2169 & 19.026 & 0.622 \\ 
+  6 & 166 & 1198 & 7.217 & 0.044 & 1861 & 11.211 & 0.003 & 3059 & 18.428 & 0.608 \\ 
+  7 & 154 & 564 & 3.662 & 0.024 & 646 & 4.195 & 0.001 & 1210 & 7.857 & 0.534 \\ 
+  8 & 539 & 4738 & 8.790 & 0.016 & 5734 & 10.638 & 0.004 & 10472 & 19.429 & 0.548 \\ 
+  9 & 448 & 4458 & 9.951 & 0.022 & 4036 & 9.009 & 0.003 & 8494 & 18.960 & 0.475 \\ 
+  10 & 58 & 320 & 5.517 & 0.097 & 563 & 9.707 & 0.003 & 883 & 15.224 & 0.638 \\ 
+  11 & 344 & 2288 & 6.651 & 0.019 & 2888 & 8.395 & 0.003 & 5176 & 15.047 & 0.558 \\ 
+  12 & 21 & 58 & 2.762 & 0.138 & 174 & 8.286 & 0.002 & 232 & 11.048 & 0.750 \\ 
+  13 & 81 & 424 & 5.235 & 0.065 & 828 & 10.222 & 0.003 & 1252 & 15.457 & 0.661 \\ 
+  14 & 172 & 834 & 4.849 & 0.028 & 928 & 5.395 & 0.002 & 1762 & 10.244 & 0.527 \\ 
+   \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Community statistics after fortunato louvain clustering} 
+\label{tab:Community statistics after fortunato louvain clustering}
+\end{table}
 
 Group 7 shows enrichment in the intelligence discovery (p=0.0012) and replication cohorts (p=0.0026). Group 7 is composed of 154 genes but the number shown in the tables of results may be less than this if a gene was not assigned any SNPs using MAGMA. Using a discovery and replication cohort alpha is 0.0125, but the enrichment is greater than considering all of the groups alpha 0.00357 (0.05/14). See table~\ref{tab:Louvain clustering intelligence}
 
@@ -423,11 +463,69 @@ There are no free parameters that need to be supplied
 
 \subsection{Results}
 
-Infomap discovers 171 communities. Group size  Min. 1st 2.00 Qu.5.00   Median 8.00     Mean 20.22 3rd Qu. 13.00   Max. 1228.00
+Infomap discovers 171 communities. Group size  Min. 2.00, 1st  Qu.5.00,   Median 8.00,     Mean 20.2,2 3rd Qu. 13.00 ,  Max. 1228.00
 
-One group is responsible for 35.5\% of the PSP. 916 nodes belonged to 134 groups less than size 15. 36 groups had communities greater than or equal to 15 and smaller than the largest group (1313 genes). The second largest group has 130 members.  
+The partition results in a large number of small communities. 
 
 The modularity of the partition is 0.275.
+
+One group is responsible for 35.5\% of the PSP. 916 nodes belonged to 134 groups less than size 15. 36 groups had communities greater than or equal to 15 and smaller than the largest group (1313 genes). The second largest group has 130 members.  \todo{mean conductance of louvain,spectral and infomap}
+
+For community statistics for modules with 15 or more members following Fortunato \cite{fortunato2016community} see table~\ref{tab:Community statistics after fortunato infomap clustering size > 15}
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Wed Apr  8 11:31:09 2020
+\begin{table}[ht]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lrrrrrrrrrr}
+  \hline
+community & n\_c & internal\_degree & average\_internal\_degree & internal\_degree\_density & external\_degree & average\_external\_degree & external\_degree\_density & total\_degree & average\_degree & conductance \\ 
+  \hline
+1 & 1228 & 24454 & 19.914 & 0.016 & 8388 & 6.831 & 0.003 & 32842 & 26.744 & 0.255 \\ 
+  2 & 130 & 2082 & 16.015 & 0.124 & 1849 & 14.223 & 0.004 & 3931 & 30.238 & 0.470 \\ 
+  3 & 118 & 894 & 7.576 & 0.065 & 1407 & 11.924 & 0.004 & 2301 & 19.500 & 0.611 \\ 
+  4 & 83 & 594 & 7.157 & 0.087 & 995 & 11.988 & 0.004 & 1589 & 19.145 & 0.626 \\ 
+  5 & 52 & 508 & 9.769 & 0.192 & 771 & 14.827 & 0.004 & 1279 & 24.596 & 0.603 \\ 
+  6 & 41 & 548 & 13.366 & 0.334 & 608 & 14.829 & 0.004 & 1156 & 28.195 & 0.526 \\ 
+  7 & 64 & 326 & 5.094 & 0.081 & 583 & 9.109 & 0.003 & 909 & 14.203 & 0.641 \\ 
+  8 & 66 & 132 & 2.000 & 0.031 & 550 & 8.333 & 0.002 & 682 & 10.333 & 0.806 \\ 
+  9 & 50 & 286 & 5.720 & 0.117 & 463 & 9.260 & 0.003 & 749 & 14.980 & 0.618 \\ 
+  10 & 50 & 248 & 4.960 & 0.101 & 463 & 9.260 & 0.003 & 711 & 14.220 & 0.651 \\ 
+  11 & 51 & 272 & 5.333 & 0.107 & 373 & 7.314 & 0.002 & 645 & 12.647 & 0.578 \\ 
+  12 & 43 & 424 & 9.860 & 0.235 & 246 & 5.721 & 0.002 & 670 & 15.581 & 0.367 \\ 
+  13 & 41 & 80 & 1.951 & 0.049 & 478 & 11.659 & 0.003 & 558 & 13.610 & 0.857 \\ 
+  14 & 40 & 310 & 7.750 & 0.199 & 256 & 6.400 & 0.002 & 566 & 14.150 & 0.452 \\ 
+  15 & 34 & 206 & 6.059 & 0.184 & 389 & 11.441 & 0.003 & 595 & 17.500 & 0.654 \\ 
+  16 & 34 & 172 & 5.059 & 0.153 & 237 & 6.971 & 0.002 & 409 & 12.029 & 0.579 \\ 
+  17 & 23 & 122 & 5.304 & 0.241 & 313 & 13.609 & 0.004 & 435 & 18.913 & 0.720 \\ 
+  18 & 32 & 86 & 2.688 & 0.087 & 266 & 8.312 & 0.002 & 352 & 11.000 & 0.756 \\ 
+  19 & 27 & 80 & 2.963 & 0.114 & 265 & 9.815 & 0.003 & 345 & 12.778 & 0.768 \\ 
+  20 & 28 & 172 & 6.143 & 0.228 & 182 & 6.500 & 0.002 & 354 & 12.643 & 0.514 \\ 
+  21 & 23 & 84 & 3.652 & 0.166 & 205 & 8.913 & 0.003 & 289 & 12.565 & 0.709 \\ 
+  22 & 26 & 86 & 3.308 & 0.132 & 168 & 6.462 & 0.002 & 254 & 9.769 & 0.661 \\ 
+  23 & 21 & 86 & 4.095 & 0.205 & 207 & 9.857 & 0.003 & 293 & 13.952 & 0.706 \\ 
+  24 & 22 & 92 & 4.182 & 0.199 & 126 & 5.727 & 0.002 & 218 & 9.909 & 0.578 \\ 
+  25 & 17 & 68 & 4.000 & 0.250 & 148 & 8.706 & 0.003 & 216 & 12.706 & 0.685 \\ 
+  27 & 18 & 52 & 2.889 & 0.170 & 135 & 7.500 & 0.002 & 187 & 10.389 & 0.722 \\ 
+  28 & 18 & 48 & 2.667 & 0.157 & 137 & 7.611 & 0.002 & 185 & 10.278 & 0.741 \\ 
+  29 & 18 & 64 & 3.556 & 0.209 & 114 & 6.333 & 0.002 & 178 & 9.889 & 0.640 \\ 
+  30 & 17 & 58 & 3.412 & 0.213 & 115 & 6.765 & 0.002 & 173 & 10.176 & 0.665 \\ 
+  31 & 15 & 34 & 2.267 & 0.162 & 161 & 10.733 & 0.003 & 195 & 13.000 & 0.826 \\ 
+  32 & 15 & 104 & 6.933 & 0.495 & 82 & 5.467 & 0.002 & 186 & 12.400 & 0.441 \\ 
+  34 & 18 & 52 & 2.889 & 0.170 & 94 & 5.222 & 0.002 & 146 & 8.111 & 0.644 \\ 
+  35 & 15 & 32 & 2.133 & 0.152 & 130 & 8.667 & 0.003 & 162 & 10.800 & 0.802 \\ 
+  36 & 18 & 38 & 2.111 & 0.124 & 100 & 5.556 & 0.002 & 138 & 7.667 & 0.725 \\ 
+  40 & 15 & 42 & 2.800 & 0.200 & 78 & 5.200 & 0.002 & 120 & 8.000 & 0.650 \\ 
+  46 & 15 & 30 & 2.000 & 0.143 & 47 & 3.133 & 0.001 & 77 & 5.133 & 0.610 \\ 
+  52 & 15 & 30 & 2.000 & 0.143 & 35 & 2.333 & 0.001 & 65 & 4.333 & 0.538 \\ 
+   \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Community statistics after fortunato infomap clustering size $> 15$} 
+\label{tab:Community statistics after fortunato infomap clustering size > 15}
+\end{table}
+
 
 
 For intelligence cohort see table~\ref{tab:Infomap Intelligence infomap significant in both groups}
@@ -534,7 +632,7 @@ This supports the Newman idea that different partitions are made up of similar c
   42 & 42::: & 13 & 0.70 & 0.02 & 0.2770 & 0.0057 \\ 
   49 & 49::: & 11 & 0.61 & 0.01 & 0.3240 & 0.0307 \\ 
   50 & 50::: & 12 & 1.11 & 0.03 & 0.3310 & 0.0004 \\ 
-  62 & 62::: & 12 & 0.58 & 0.01 & 0.2770 & 0.0176 \\ 
+  62 & 62::: & 12 & 0.58 & 0.01 & 0.2770 & 0.0176 \\ in
   74 & 74::: &  9 & 0.94 & 0.02 & 0.3740 & 0.0061 \\ 
   76 & 76::: &  8 & 1.20 & 0.02 & 0.4310 & 0.0027 \\ 
   77 & 77::: &  8 & 0.95 & 0.02 & 0.4550 & 0.0187 \\ 
