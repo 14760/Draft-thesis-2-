@@ -219,8 +219,201 @@ Boland degree closeness and flow centrality correlated but betweenness not
 
 The correlation of symmetrised centrality measures are shown in table~\ref{tab:Correlation of centrality valente et al}. This study addressed 58 sociometric networks. The networks were directed and in order to calculated eigenvector centrality the networks were ``symmetrised" as described by the authors or made undirected. Degree had the strongest overall correlation 0.7 followed by eigenvector centrality 0.67.
 
+\section{Top GO}
+Using Fisher's exact test in topGO.
+\subsection{Spectral clustering}
+
+Results for gene set enrichment using topgo most significant group for ontology term biological process (see table~\ref{tab:Top term biological process background PSP}. 10969 terms are present in the BP terms list so I have included an adjusted alpha of 0.05/10969 = $4.56 \times 10^{-6}$ however the terms in GO are not independent and classical correction for multiple comparisons may be complicated. 
+
+Results for molecular function against background of PSP are shown in table~\ref{tab:Top term molecular function background PSP}. There are 2473 terms in the topGO Molecular Function list $\alpha=$ 0.05/2473 = $2.02 \times 10^{-5}$
+
+Results for cellular component against background of PSP are shown in table~\ref{tab:Top term CC background PSP}. There are 1499 terms in the topGO Cellular component list $\alpha=$0.05/1499 = $3.36 \times 10^{-5}$.
 
 
+\subsection{Permutation of labels}
+BP only one significant term at $3.00 \times 10^{-5}$
+Summary
+   Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+0.000030 0.000280 0.000940 0.001088 0.001450 0.005400 
+
+Non simulaterd
+Median 1.3e-12
+Mean 2.637653e-05
+31 significant terms
+
+
+	Paired t-test
+
+
+t = 4.5857, df = 34, p-value = 5.878e-05
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 0.0007240725 0.0018766167
+sample estimates:
+mean of the differences 
+            0.001300345 
+            
+Boxplot of the difference in p values between spectral groups and random groups of same size from PSP is shown in figure~\ref{fig:topGO_permutation}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/Rplot_EnrichmentGO_permuted_labels.png}
+    \caption{Enrichment p values for spectral groups Biological Process left compared with enrichment p values for groups of identical size derived from label permutation. Top p value for each group used.}
+    \label{fig:topGO_permutation}
+\end{figure}
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat Apr 11 15:28:29 2020
+\begin{table}[ht]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lllrrrrl}
+  \hline
+community & GO.ID & Term & Annotated & Significant & Expected & classic & less\_than\_alpha \\ 
+  \hline
+1 & GO:0000226 & microtubule cytoskeleton organization & 201 & 44 & 9.64 & $3.20 \times 10^{-19}$ & TRUE \\ 
+  2 & GO:0031145 & anaphase-promoting complex-dependent cat... & 34 & 30 & 1.64 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  3 & GO:0034762 & regulation of transmembrane transport & 203 & 10 & 2.25 & $4.60 \times 10^{-5}$ & FALSE \\ 
+  4 & GO:0007031 & peroxisome organization & 36 & 13 & 0.33 & $4.30 \times 10^{-19}$ & TRUE \\ 
+  5 & GO:0007186 & G protein-coupled receptor signaling pat... & 178 & 34 & 5.71 & $8.20 \times 10^{-19}$ & TRUE \\ 
+  6 & GO:0097035 & regulation of membrane lipid distributio... & 9 & 5 & 0.19 & $4.50 \times 10^{-7}$ & TRUE \\ 
+  7 & GO:0061640 & cytoskeleton-dependent cytokinesis & 50 & 11 & 1.84 & $1.20 \times 10^{-6}$ & TRUE \\ 
+  9 & GO:0001894 & tissue homeostasis & 56 & 10 & 1.06 & $5.00 \times 10^{-8}$ & TRUE \\ 
+  10 & GO:0042773 & ATP synthesis coupled electron transport & 56 & 43 & 2.57 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  11 & GO:0034498 & early endosome to Golgi transport & 5 & 3 & 0.08 & $3.70 \times 10^{-5}$ & FALSE \\ 
+  12 & GO:0007041 & lysosomal transport & 51 & 14 & 0.50 & $3.70 \times 10^{-18}$ & TRUE \\ 
+  16 & GO:0000045 & autophagosome assembly & 34 & 10 & 0.73 & $1.00 \times 10^{-9}$ & TRUE \\ 
+  17 & GO:0061025 & membrane fusion & 70 & 28 & 2.92 & $9.40 \times 10^{-22}$ & TRUE \\ 
+  19 & GO:0046755 & viral budding & 13 & 5 & 0.08 & $5.60 \times 10^{-9}$ & TRUE \\ 
+  20 & GO:0006468 & protein phosphorylation & 535 & 65 & 23.57 & $9.70 \times 10^{-17}$ & TRUE \\ 
+  22 & GO:0046328 & regulation of JNK cascade & 47 & 6 & 0.59 & $2.00 \times 10^{-5}$ & FALSE \\ 
+  23 & GO:1900028 & negative regulation of ruffle assembly & 2 & 2 & 0.04 & $3.90 \times 10^{-4}$ & FALSE \\ 
+  24 & GO:0006470 & protein dephosphorylation & 101 & 13 & 2.27 & $2.20 \times 10^{-7}$ & TRUE \\ 
+  25 & GO:0072321 & chaperone-mediated protein transport & 7 & 3 & 0.06 & $1.60 \times 10^{-5}$ & FALSE \\ 
+  26 & GO:0043408 & regulation of MAPK cascade & 172 & 33 & 6.08 & $7.40 \times 10^{-17}$ & TRUE \\ 
+  28 & GO:1903361 & protein localization to basolateral plas... & 6 & 3 & 0.06 & $2.30 \times 10^{-5}$ & FALSE \\ 
+  32 & GO:0051480 & regulation of cytosolic calcium ion conc... & 87 & 12 & 1.28 & $1.90 \times 10^{-9}$ & TRUE \\ 
+  33 & GO:0006897 & endocytosis & 278 & 55 & 15.66 & $2.70 \times 10^{-18}$ & TRUE \\ 
+  34 & GO:0007015 & actin filament organization & 172 & 60 & 10.62 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  43 & GO:0051276 & chromosome organization & 238 & 71 & 10.34 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  44 & GO:0006457 & protein folding & 102 & 25 & 3.06 & $2.60 \times 10^{-17}$ & TRUE \\ 
+  45 & GO:0036503 & ERAD pathway & 27 & 13 & 0.98 & $1.30 \times 10^{-12}$ & TRUE \\ 
+  46 & GO:0070202 & regulation of establishment of protein l... & 8 & 8 & 0.11 & $8.30 \times 10^{-16}$ & TRUE \\ 
+  47 & GO:0035337 & fatty-acyl-CoA metabolic process & 19 & 3 & 0.15 & $3.70 \times 10^{-4}$ & FALSE \\ 
+  48 & GO:0006183 & GTP biosynthetic process & 3 & 3 & 0.02 & $2.50 \times 10^{-7}$ & TRUE \\ 
+  51 & GO:0006409 & tRNA export from nucleus & 12 & 9 & 0.40 & $6.70 \times 10^{-12}$ & TRUE \\ 
+  53 & GO:0006413 & translational initiation & 120 & 106 & 14.17 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  55 & GO:0006397 & mRNA processing & 95 & 16 & 1.22 & $7.30 \times 10^{-15}$ & TRUE \\ 
+  58 & GO:2001235 & positive regulation of apoptotic signali... & 53 & 6 & 0.59 & $1.90 \times 10^{-5}$ & FALSE \\ 
+  62 & GO:0070125 & mitochondrial translational elongation & 32 & 15 & 0.32 & $1.00 \times 10^{-23}$ & TRUE \\ 
+   \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Top term biological process background PSP} 
+\label{tab:Top term biological process background PSP}
+\end{table}
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat Apr 11 15:39:02 2020
+\begin{table}[ht]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lllrrrrl}
+  \hline
+community & GO.ID & Term & Annotated & Significant & Expected & classic & less\_than\_alpha \\ 
+  \hline
+1 & GO:0008017 & microtubule binding & 113 & 21 & 5.12 & $1.50 \times 10^{-8}$ & TRUE \\ 
+  2 & GO:0004298 & threonine-type endopeptidase activity & 13 & 13 & 0.62 & $4.50 \times 10^{-18}$ & TRUE \\ 
+  3 & GO:0008270 & zinc ion binding & 119 & 7 & 1.40 & $3.90 \times 10^{-4}$ & FALSE \\ 
+  4 & GO:0031489 & myosin V binding & 14 & 4 & 0.13 & $5.90 \times 10^{-6}$ & TRUE \\ 
+  5 & GO:0008066 & glutamate receptor activity & 21 & 12 & 0.66 & $1.10 \times 10^{-13}$ & TRUE \\ 
+  6 & GO:0015247 & aminophospholipid transmembrane transpor... & 3 & 3 & 0.06 & $9.50 \times 10^{-6}$ & TRUE \\ 
+  7 & GO:0005525 & GTP binding & 159 & 19 & 5.82 & $3.10 \times 10^{-6}$ & TRUE \\ 
+  9 & GO:0005507 & copper ion binding & 12 & 4 & 0.23 & $5.30 \times 10^{-5}$ & FALSE \\ 
+  10 & GO:0003954 & NADH dehydrogenase activity & 33 & 31 & 1.51 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  11 & GO:1990460 & leptin receptor binding & 3 & 3 & 0.05 & $3.90 \times 10^{-6}$ & TRUE \\ 
+  12 & GO:0030674 & protein binding, bridging & 65 & 4 & 0.59 & $2.50 \times 10^{-3}$ & FALSE \\ 
+  16 & GO:0005251 & delayed rectifier potassium channel acti... & 10 & 4 & 0.22 & $3.90 \times 10^{-5}$ & FALSE \\ 
+  17 & GO:0000149 & SNARE binding & 61 & 37 & 2.64 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  19 & GO:0048306 & calcium-dependent protein binding & 32 & 3 & 0.19 & $8.40 \times 10^{-4}$ & FALSE \\ 
+  20 & GO:0051018 & protein kinase A binding & 23 & 15 & 1.02 & $8.30 \times 10^{-16}$ & TRUE \\ 
+  22 & GO:0004709 & MAP kinase kinase kinase activity & 11 & 3 & 0.14 & $2.90 \times 10^{-4}$ & FALSE \\ 
+  23 & GO:0004115 & 3',5'-cyclic-AMP phosphodiesterase activ... & 4 & 2 & 0.07 & $2.00 \times 10^{-3}$ & FALSE \\ 
+  24 & GO:0099181 & structural constituent of presynapse & 4 & 4 & 0.09 & $2.30 \times 10^{-7}$ & TRUE \\ 
+  25 & GO:0005149 & interleukin-1 receptor binding & 2 & 2 & 0.02 & $5.50 \times 10^{-5}$ & FALSE \\ 
+  26 & GO:0004708 & MAP kinase kinase activity & 9 & 8 & 0.32 & $1.60 \times 10^{-11}$ & TRUE \\ 
+  28 & GO:0097016 & L27 domain binding & 4 & 4 & 0.04 & $1.30 \times 10^{-8}$ & TRUE \\ 
+  32 & GO:0005261 & cation channel activity & 96 & 11 & 1.42 & $8.10 \times 10^{-8}$ & TRUE \\ 
+  33 & GO:0017124 & SH3 domain binding & 55 & 29 & 3.08 & $5.60 \times 10^{-23}$ & TRUE \\ 
+  34 & GO:0003779 & actin binding & 224 & 85 & 13.95 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  43 & GO:0003677 & DNA binding & 251 & 67 & 11.23 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  44 & GO:0031072 & heat shock protein binding & 52 & 25 & 1.54 & $6.30 \times 10^{-26}$ & TRUE \\ 
+  45 & GO:0005342 & organic acid transmembrane transporter a... & 18 & 7 & 0.66 & $1.80 \times 10^{-6}$ & TRUE \\ 
+  46 & GO:0051082 & unfolded protein binding & 56 & 9 & 0.78 & $4.00 \times 10^{-8}$ & TRUE \\ 
+  47 & GO:0003996 & acyl-CoA ligase activity & 4 & 2 & 0.03 & $3.50 \times 10^{-4}$ & FALSE \\ 
+  48 & GO:0061631 & ubiquitin conjugating enzyme activity & 8 & 3 & 0.05 & $1.40 \times 10^{-5}$ & TRUE \\ 
+  51 & GO:0017056 & structural constituent of nuclear pore & 7 & 6 & 0.22 & $5.40 \times 10^{-9}$ & TRUE \\ 
+  53 & GO:0003723 & RNA binding & 549 & 248 & 66.55 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  55 & GO:0003676 & nucleic acid binding & 716 & 24 & 9.09 & $5.00 \times 10^{-7}$ & TRUE \\ 
+  58 & GO:0048306 & calcium-dependent protein binding & 32 & 4 & 0.35 & $3.40 \times 10^{-4}$ & FALSE \\ 
+  62 & GO:0003735 & structural constituent of ribosome & 101 & 11 & 0.95 & $6.30 \times 10^{-10}$ & TRUE \\ 
+   \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Top term molecular function background PSP} 
+\label{tab:Top term molecular function background PSP}
+\end{table}
+
+
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat Apr 11 15:46:40 2020
+\begin{table}[ht]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lllrrrrl}
+  \hline
+community & GO.ID & Term & Annotated & Significant & Expected & classic & less\_than\_alpha \\ 
+  \hline
+1 & GO:0005815 & microtubule organizing center & 238 & 57 & 11.51 & $3.20 \times 10^{-27}$ & TRUE \\ 
+  2 & GO:0000502 & proteasome complex & 37 & 34 & 1.78 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  3 & GO:0016010 & dystrophin-associated glycoprotein compl... & 8 & 5 & 0.09 & $9.60 \times 10^{-9}$ & TRUE \\ 
+  4 & GO:0005777 & peroxisome & 61 & 14 & 0.56 & $1.60 \times 10^{-17}$ & TRUE \\ 
+  5 & GO:0005834 & heterotrimeric G-protein complex & 18 & 12 & 0.59 & $1.30 \times 10^{-14}$ & TRUE \\ 
+  6 & GO:0016021 & integral component of membrane & 747 & 32 & 16.52 & $4.20 \times 10^{-5}$ & FALSE \\ 
+  7 & GO:0005940 & septin ring & 11 & 11 & 0.40 & $1.00 \times 10^{-16}$ & TRUE \\ 
+  9 & GO:0072562 & blood microparticle & 52 & 9 & 1.00 & $3.80 \times 10^{-7}$ & TRUE \\ 
+  10 & GO:0070469 & respiratory chain & 54 & 42 & 2.44 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  11 & GO:0030905 & retromer, tubulation complex & 4 & 4 & 0.07 & $6.70 \times 10^{-8}$ & TRUE \\ 
+  12 & GO:0030897 & HOPS complex & 7 & 7 & 0.07 & $5.30 \times 10^{-15}$ & TRUE \\ 
+  16 & GO:0000421 & autophagosome membrane & 11 & 6 & 0.23 & $3.20 \times 10^{-8}$ & TRUE \\ 
+  17 & GO:0031201 & SNARE complex & 28 & 25 & 1.18 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  19 & GO:0000813 & ESCRT I complex & 3 & 3 & 0.02 & $1.50 \times 10^{-7}$ & TRUE \\ 
+  20 & GO:0005886 & plasma membrane & 1276 & 94 & 56.07 & $1.10 \times 10^{-10}$ & TRUE \\ 
+  22 & GO:0008043 & intracellular ferritin complex & 2 & 2 & 0.02 & $1.50 \times 10^{-4}$ & FALSE \\ 
+  23 & GO:0034045 & phagophore assembly site membrane & 8 & 2 & 0.16 & $9.70 \times 10^{-3}$ & FALSE \\ 
+  24 & GO:0000159 & protein phosphatase type 2A complex & 10 & 7 & 0.22 & $2.20 \times 10^{-10}$ & TRUE \\ 
+  25 & GO:0042719 & mitochondrial intermembrane space protei... & 3 & 2 & 0.02 & $1.70 \times 10^{-4}$ & FALSE \\ 
+  26 & GO:0071944 & cell periphery & 1338 & 78 & 47.35 & $7.70 \times 10^{-9}$ & TRUE \\ 
+  28 & GO:0005923 & bicellular tight junction & 44 & 11 & 0.47 & $2.20 \times 10^{-13}$ & TRUE \\ 
+  32 & GO:0034703 & cation channel complex & 96 & 11 & 1.47 & $1.20 \times 10^{-7}$ & TRUE \\ 
+  33 & GO:0071944 & cell periphery & 1338 & 121 & 74.18 & $1.10 \times 10^{-12}$ & TRUE \\ 
+  34 & GO:0015629 & actin cytoskeleton & 260 & 92 & 16.25 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  43 & GO:0031981 & nuclear lumen & 856 & 111 & 36.86 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  44 & GO:0101031 & chaperone complex & 20 & 8 & 0.59 & $4.10 \times 10^{-8}$ & TRUE \\ 
+  45 & GO:0044432 & endoplasmic reticulum part & 292 & 32 & 10.68 & $5.40 \times 10^{-9}$ & TRUE \\ 
+  46 & GO:0005832 & chaperonin-containing T-complex & 9 & 9 & 0.13 & $1.00 \times 10^{-17}$ & TRUE \\ 
+  47 & GO:0005778 & peroxisomal membrane & 33 & 5 & 0.25 & $3.60 \times 10^{-6}$ & TRUE \\ 
+  48 & GO:0031371 & ubiquitin conjugating enzyme complex & 5 & 3 & 0.03 & $2.00 \times 10^{-6}$ & TRUE \\ 
+  51 & GO:0005643 & nuclear pore & 25 & 12 & 0.81 & $2.70 \times 10^{-12}$ & TRUE \\ 
+  53 & GO:1990904 & ribonucleoprotein complex & 293 & 184 & 34.65 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  55 & GO:0016607 & nuclear speck & 83 & 15 & 1.08 & $2.40 \times 10^{-14}$ & TRUE \\ 
+  58 & GO:0030127 & COPII vesicle coat & 9 & 4 & 0.10 & $1.50 \times 10^{-6}$ & TRUE \\ 
+  62 & GO:0000315 & organellar large ribosomal subunit & 15 & 14 & 0.15 & $7.00 \times 10^{-29}$ & TRUE \\ 
+   \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Top term CC background PSP} 
+\label{tab:Top term CC background PSP}
+\end{table}
 
 \begin{table}[]
     \centering
@@ -238,3 +431,152 @@ The correlation of symmetrised centrality measures are shown in table~\ref{tab:C
     \label{tab:Correlation of centrality valente et al}
 \end{table}
 
+\section{Markov clustering}
+
+\subsection{Introduction}
+\subsection{Method}
+Markov clustering was carried out using the markov clustering python package (\url{https://markov-clustering.readthedocs.io/en/latest/readme.html}) and default hyper parameters. The network was imported into network x as a named edgelist (name is entrez id) and converted to a sparse scipy matrix. Markov clustering was then carried out.
+
+\subsection{Results}
+
+604 communities were detected. Only 32 were of size greater than or equal to 15.
+196 nodes were of size 1 and 124 of size 2.
+
+Communities were converted to gmt file format using a custom python script \url{/home/grant/Projects_/Python/venvs/markov_clustering.ipynb}. Pickle of clusters in same file. Q according to markov cluster is 0.806.
+
+5 sets were enriched in the discovery intelligence cohort but none replicated. 3 sets were identified in the education discovery cohort but failed to replicate(see tables~\ref{lab:markov clustering intelligence},\ref{lab:markov clustering education},\ref{lab:markov clustering intelligence both significant},\ref{lab:markov clustering education both significant},\ref{lab:markov clustering sav2},\ref{lab:markov clustering ea3})
+
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Tue Apr 14 16:30:05 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrrr}
+  \hline
+ & SET & NGENES & BETA & BETA\_STD & SE & P & P\_C \\ 
+  \hline
+1 &  2 & 17 & 0.61 & 0.02 & 0.26 & 0.0108 & 0.8351 \\ 
+  7 & 20 & 223 & 0.17 & 0.02 & 0.06 & 0.0023 & 0.2891 \\ 
+  8 & 23 & 39 & 0.29 & 0.01 & 0.15 & 0.0256 & 0.7449 \\ 
+  26 & 179 & 26 & 0.49 & 0.02 & 0.21 & 0.0095 & 0.3448 \\ 
+  27 & 236 & 16 & 0.50 & 0.01 & 0.28 & 0.0338 & 0.1788 \\ 
+   \hline
+\end{tabular}
+\caption{markov clustering intelligence} 
+\label{lab:markov clustering intelligence}
+\end{table}
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Tue Apr 14 16:30:05 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrrr}
+  \hline
+ & SET & NGENES & BETA & BETA\_STD & SE & P & P\_EA2 \\ 
+  \hline
+1 &  2 & 17 & 0.87 & 0.03 & 0.27 & 0.0007 & 0.4884 \\ 
+  28 & 237 & 19 & 0.36 & 0.01 & 0.20 & 0.0394 & 0.1715 \\ 
+  29 & 245 & 20 & 0.39 & 0.01 & 0.21 & 0.0351 & 0.4840 \\ 
+   \hline
+\end{tabular}
+\caption{markov clustering education} 
+\label{lab:markov clustering education}
+\end{table}
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Tue Apr 14 16:30:05 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & SET & NGENES & BETA & BETA\_STD & SE & P \\ 
+  \hline
+1 &  2 & 17 & 0.46 & 0.01 & 0.2720 & 0.0457 \\ 
+  2 &  4 & 179 & 0.14 & 0.01 & 0.0771 & 0.0344 \\ 
+  7 & 20 & 228 & 0.14 & 0.01 & 0.0634 & 0.0155 \\ 
+  15 & 55 & 24 & 0.40 & 0.01 & 0.2290 & 0.0398 \\ 
+  24 & 162 & 18 & 0.59 & 0.02 & 0.2530 & 0.0102 \\ 
+  27 & 236 & 16 & 0.41 & 0.01 & 0.2390 & 0.0447 \\ 
+  30 & 324 & 16 & 0.57 & 0.02 & 0.2700 & 0.0176 \\ 
+   \hline
+\end{tabular}
+\caption{markov clustering sav2} 
+\label{lab:markov clustering sav2}
+\end{table}
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Tue Apr 14 16:30:05 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & SET & NGENES & BETA & BETA\_STD & SE & P \\ 
+  \hline
+3 &  6 & 241 & 0.16 & 0.02 & 0.0784 & 0.0214 \\ 
+  10 & 25 & 92 & 0.25 & 0.02 & 0.1360 & 0.0305 \\ 
+  18 & 65 & 21 & 0.64 & 0.02 & 0.2720 & 0.0098 \\ 
+  26 & 179 & 26 & 0.60 & 0.02 & 0.2750 & 0.0149 \\ 
+   \hline
+\end{tabular}
+\caption{markov clustering ea3} 
+\label{lab:markov clustering ea3}
+\end{table}
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Tue Apr 14 16:30:05 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrrr}
+  \hline
+ & SET & NGENES & BETA & BETA\_STD & SE & P & P\_C \\ 
+  \hline
+\hline
+\end{tabular}
+\caption{markov clustering intelligence both significant} 
+\label{lab:markov clustering intelligence both significant}
+\end{table}
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Tue Apr 14 16:30:05 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrrr}
+  \hline
+ & SET & NGENES & BETA & BETA\_STD & SE & P & P\_EA2 \\ 
+  \hline
+\hline
+\end{tabular}
+\caption{markov clustering education both significant} 
+\label{lab:markov clustering education both significant}
+\end{table}
+
+
+% %Counter(1: 196,
+%          2: 124,
+%          3: 88,
+%          4: 59,
+%          5: 36,
+%          6: 16,
+%          7: 15,
+%          8: 11,
+%          9: 10,
+%          10: 3,
+%          11: 3,
+%          12: 4,
+%          13: 1,
+%          14: 6,
+%          15: 3,
+%          16: 4,
+%          17: 4,
+%          18: 1,
+%          19: 2,
+%          20: 1,
+%          21: 2,
+%          25: 1,
+%          26: 1,
+%          34: 2,
+%          40: 1,
+%          48: 1,
+%          59: 1,
+%          79: 1,
+%          84: 1,
+%          98: 1,
+%          116: 1,
+%          144: 1,
+%          181: 1,
+%          232: 1,
+%          251: 1)
