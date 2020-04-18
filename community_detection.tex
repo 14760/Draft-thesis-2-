@@ -272,6 +272,28 @@ This shows that there is not consistent enrichment for neurogenesis in group 5 2
 
 Group 36 enriches in all but EA3 but has only 4 neurogenesis genes \todo{What is enrichment in full gsa}
 
+\section{Benchmarks}
+Infomap and louvain do very well on lfr but spectral not so well. Infomap does perfectly with nmi but poorly with real world network. 
+settings = \url{g2= nx.generators.LFR_benchmark_graph(n=graph_n, tau1=3, tau2=1.1, mu=0.1, average_degree=10, max_degree=50, min_community=10,max_community=50, seed=1)}
+
+Set seed 1 
+Louvain =  0.9705355030878491
+
+Info = 1 
+
+Spec = 0.9486340326647721
+
+Greedy = 0.8736469937608322
+
+Leading eigenvector method igraph = 0.6202572106629003
+
+Label propogation = 0.9966685735031502
+
+Out walk trap = 0.9952730301593156
+
+its all the small or zero groups that give good nmi as the number of correctly misclassified is right so long as vertices a and b if in different groups are in different groups 
+
+
 
 \section{Louvain}
 

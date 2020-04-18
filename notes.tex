@@ -1,5 +1,20 @@
 \chapter{Notes}
 \section{extra refs}
+
+
+\subsection{Introduction synapses}
+\textcolor{red}{review}
+@article{humeau2019next,
+  title={The next generation of approaches to investigate the link between synaptic plasticity and learning},
+  author={Humeau, Yann and Choquet, Daniel},
+  journal={Nature neuroscience},
+  volume={22},
+  number={10},
+  pages={1536--1543},
+  year={2019},
+  publisher={Nature Publishing Group}
+}
+
 \subsection{centrality measures}
 @article{valente2008correlated,
   title={How correlated are network centrality measures?},
@@ -100,7 +115,17 @@
   publisher={Public Library of Science}
 }
 
-\subsection{multilayer networks}
+\subsection{multilayer networks}@article{humeau2019next,
+  title={The next generation of approaches to investigate the link between synaptic plasticity and learning},
+  author={Humeau, Yann and Choquet, Daniel},
+  journal={Nature neuroscience},
+  volume={22},
+  number={10},
+  pages={1536--1543},
+  year={2019},
+  publisher={Nature Publishing Group}
+}
+
 \textcolor{red}{cited by 1936}
 @article{kivela2014multilayer,
   title={Multilayer networks},
@@ -124,6 +149,7 @@
   year={2014},
   publisher={Elsevier}
 }
+
 
 
 \subsection{general notes}
@@ -223,20 +249,60 @@ The correlation of symmetrised centrality measures are shown in table~\ref{tab:C
 Using Fisher's exact test in topGO.
 \subsection{Spectral clustering}
 
-Results for gene set enrichment using topgo most significant group for ontology term biological process (see table~\ref{tab:Top term biological process background PSP}. 10969 terms are present in the BP terms list so I have included an adjusted alpha of 0.05/10969 = $4.56 \times 10^{-6}$ however the terms in GO are not independent and classical correction for multiple comparisons may be complicated. 
+Results for gene set enrichment using topgo most significant group for ontology term biological process (see table~\ref{tab:Top term biological process spectral clustering background PSP}. 10969 terms are present in the BP terms list so I have included an adjusted alpha of 0.05/10969 = $4.56 \times 10^{-6}$ however the terms in GO are not independent and classical correction for multiple comparisons may be complicated. 
 
-Results for molecular function against background of PSP are shown in table~\ref{tab:Top term molecular function background PSP}. There are 2473 terms in the topGO Molecular Function list $\alpha=$ 0.05/2473 = $2.02 \times 10^{-5}$
+Results for molecular function against background of PSP are shown in table~\ref{tab:Top term molecular function spectral clustering background PSP}. There are 2473 terms in the topGO Molecular Function list $\alpha=$ 0.05/2473 = $2.02 \times 10^{-5}$
 
-Results for cellular component against background of PSP are shown in table~\ref{tab:Top term CC background PSP}. There are 1499 terms in the topGO Cellular component list $\alpha=$0.05/1499 = $3.36 \times 10^{-5}$.
+Results for cellular component against background of PSP are shown in table~\ref{tab:Top term CC background spectral clustering PSP}. There are 1499 terms in the topGO Cellular component list $\alpha=$0.05/1499 = $3.36 \times 10^{-5}$.
 
 
 \subsection{Permutation of labels}
+Simulated 
 BP only one significant term at $3.00 \times 10^{-5}$
 Summary
    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
 0.000030 0.000280 0.000940 0.001088 0.001450 0.005400 
 
 Non simulaterd
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat Apr 18 17:32:34 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{lr}
+  \hline
+quantile & value of p \\ 
+  \hline
+0\% & $1.000 \times 10^{-30}$ \\ 
+  25\% & $6.250 \times 10^{-19}$ \\ 
+  50\% & $1.300 \times 10^{-12}$ \\ 
+  75\% & $8.250 \times 10^{-7}$ \\ 
+  100\% & $3.900 \times 10^{-4}$ \\ 
+   \hline
+\end{tabular}
+\caption{P values for different quantiles for BP} 
+\label{tabP values for different quantiles for BP}
+\end{table}
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat Apr 18 17:35:47 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{lr}
+  \hline
+quantile & value of p \\ 
+  \hline
+0\% & $1.000 \times 10^{-30}$ \\ 
+  25\% & $5.541 \times 10^{-14}$ \\ 
+  50\% & $2.300 \times 10^{-7}$ \\ 
+  75\% & $4.600 \times 10^{-5}$ \\ 
+  100\% & $2.500 \times 10^{-3}$ \\ 
+   \hline
+\end{tabular}
+\caption{P values for different quantiles for MF} 
+\label{tabP values for different quantiles for MF}
+\end{table}
+
+
 Median 1.3e-12
 Mean 2.637653e-05
 31 significant terms
@@ -307,8 +373,8 @@ community & GO.ID & Term & Annotated & Significant & Expected & classic & less\_
    \hline
 \end{tabular}
 \end{adjustbox}
-\caption{Top term biological process background PSP} 
-\label{tab:Top term biological process background PSP}
+\caption{Top term biological process Spectral clustering background PSP} 
+\label{tab:Top term biological process spectral clustering background PSP}
 \end{table}
 
 % latex table generated in R 3.6.3 by xtable 1.8-4 package
@@ -352,14 +418,14 @@ community & GO.ID & Term & Annotated & Significant & Expected & classic & less\_
   48 & GO:0061631 & ubiquitin conjugating enzyme activity & 8 & 3 & 0.05 & $1.40 \times 10^{-5}$ & TRUE \\ 
   51 & GO:0017056 & structural constituent of nuclear pore & 7 & 6 & 0.22 & $5.40 \times 10^{-9}$ & TRUE \\ 
   53 & GO:0003723 & RNA binding & 549 & 248 & 66.55 & $1.00 \times 10^{-30}$ & TRUE \\ 
-  55 & GO:0003676 & nucleic acid binding & 716 & 24 & 9.09 & $5.00 \times 10^{-7}$ & TRUE \\ 
+  55 & GO:0003676 & nucleic acid binding & 716 & 24 & 9.09 & $5.00 \times 10^{-7}$ & TRUE \\ biological
   58 & GO:0048306 & calcium-dependent protein binding & 32 & 4 & 0.35 & $3.40 \times 10^{-4}$ & FALSE \\ 
   62 & GO:0003735 & structural constituent of ribosome & 101 & 11 & 0.95 & $6.30 \times 10^{-10}$ & TRUE \\ 
    \hline
 \end{tabular}
 \end{adjustbox}
-\caption{Top term molecular function background PSP} 
-\label{tab:Top term molecular function background PSP}
+\caption{Top term molecular function spectral clustering background PSP} 
+\label{tab:Top term molecular function spectral clustering background PSP}
 \end{table}
 
 
@@ -411,8 +477,8 @@ community & GO.ID & Term & Annotated & Significant & Expected & classic & less\_
    \hline
 \end{tabular}
 \end{adjustbox}
-\caption{Top term CC background PSP} 
-\label{tab:Top term CC background PSP}
+\caption{Top term CC background spectral clustering PSP} 
+\label{tab:Top term CC background spectral clustering PSP}
 \end{table}
 
 \begin{table}[]
