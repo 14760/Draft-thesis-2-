@@ -302,7 +302,24 @@ quantile & value of p \\
 \label{tabP values for different quantiles for MF}
 \end{table}
 
-
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat Apr 18 17:39:43 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{lr}
+  \hline
+quantile & value of p \\ 
+  \hline
+0\% & $1.000 \times 10^{-30}$ \\ 
+  25\% & $1.300 \times 10^{-17}$ \\ 
+  50\% & $1.100 \times 10^{-10}$ \\ 
+  75\% & $1.350 \times 10^{-7}$ \\ 
+  100\% & $9.700 \times 10^{-3}$ \\ 
+   \hline
+\end{tabular}
+\caption{P values for different quantiles for CC} 
+\label{tabP values for different quantiles for CC}
+\end{table}
 Median 1.3e-12
 Mean 2.637653e-05
 31 significant terms
@@ -311,14 +328,18 @@ Mean 2.637653e-05
 	Paired t-test
 
 
-t = 4.5857, df = 34, p-value = 5.878e-05
+t = 4.5857, df = 34, p-value = 5.878e-05 BP
 alternative hypothesis: true difference in means is not equal to 0
 95 percent confidence interval:
  0.0007240725 0.0018766167
 sample estimates:
 mean of the differences 
             0.001300345 
-            
+
+perhaps with the benchmarks in the real network there are elements with weak communtity structure ie how to evaluate the good performance of infomap especially when there is a minimum groups size of ten and it normally finds lots with one member in the group.    
+
+Given that the singles are not assigned to groups due to size criteria it may be worth having a statistic of number of nodes in single group or even gamma for the community size distribution.
+
 Boxplot of the difference in p values between spectral groups and random groups of same size from PSP is shown in figure~\ref{fig:topGO_permutation}
 \begin{figure}
     \centering
@@ -445,7 +466,7 @@ community & GO.ID & Term & Annotated & Significant & Expected & classic & less\_
   4 & GO:0005777 & peroxisome & 61 & 14 & 0.56 & $1.60 \times 10^{-17}$ & TRUE \\ 
   5 & GO:0005834 & heterotrimeric G-protein complex & 18 & 12 & 0.59 & $1.30 \times 10^{-14}$ & TRUE \\ 
   6 & GO:0016021 & integral component of membrane & 747 & 32 & 16.52 & $4.20 \times 10^{-5}$ & FALSE \\ 
-  7 & GO:0005940 & septin ring & 11 & 11 & 0.40 & $1.00 \times 10^{-16}$ & TRUE \\ 
+   7 & GO:0005940 & septin ring & 11 & 11 & 0.40 & $1.00 \times 10^{-16}$ & TRUE \\ 
   9 & GO:0072562 & blood microparticle & 52 & 9 & 1.00 & $3.80 \times 10^{-7}$ & TRUE \\ 
   10 & GO:0070469 & respiratory chain & 54 & 42 & 2.44 & $1.00 \times 10^{-30}$ & TRUE \\ 
   11 & GO:0030905 & retromer, tubulation complex & 4 & 4 & 0.07 & $6.70 \times 10^{-8}$ & TRUE \\ 
@@ -485,7 +506,7 @@ community & GO.ID & Term & Annotated & Significant & Expected & classic & less\_
     \centering
     \begin{tabular}{lllll}
     \toprule
-         & Degree & Eigenvector centrality & Closeness & Betweenness \\
+          & Degree & Eigenvector centrality & Closeness & Betweenness \\
          \midrule
     Degree  & 1  & 0.92  & 0.66 & 0.85\\
     Eigenvector centrality & 0.92 & 1 & 0.63 & 0.72  \\
@@ -496,6 +517,381 @@ community & GO.ID & Term & Annotated & Significant & Expected & classic & less\_
     \caption{Correlation of centrality measures for 58 sociometric network datasets from Valente et al \cite{valente2008correlated}. Pearson correlation coefficient. Values are for symmetrised closeness and betweenness centrality. Eigenvector centrality is necessarily symmetrised. Range of average network size 45-83. Some studies had maximal nominations for degree}
     \label{tab:Correlation of centrality valente et al}
 \end{table}
+
+\subsection{GO Louvain}
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat Apr 18 17:57:38 2020
+\begin{table}[ht]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lllrrrrl}
+  \hline
+community & GO.ID & Term & Annotated & Significant & Expected & classic & less\_than\_alpha \\ 
+  \hline
+1 & GO:0006625 & protein targeting to peroxisome & 29 & 16 & 2 & $5.70 \times 10^{-13}$ & TRUE \\ 
+  2 & GO:0042773 & ATP synthesis coupled electron transport & 56 & 45 & 6 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  3 & GO:0016071 & mRNA metabolic process & 254 & 165 & 39 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  4 & GO:0051276 & chromosome organization & 238 & 99 & 18 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  5 & GO:0070202 & regulation of establishment of protein l... & 8 & 8 & 0 & $1.00 \times 10^{-12}$ & TRUE \\ 
+  6 & GO:0031145 & anaphase-promoting complex-dependent cat... & 34 & 30 & 2 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  7 & GO:0007215 & glutamate receptor signaling pathway & 64 & 25 & 3 & $1.30 \times 10^{-18}$ & TRUE \\ 
+  8 & GO:0006468 & protein phosphorylation & 535 & 196 & 84 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  9 & GO:0030029 & actin filament-based process & 333 & 141 & 43 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  10 & GO:0016236 & macroautophagy & 125 & 19 & 2 & $5.60 \times 10^{-14}$ & TRUE \\ 
+  11 & GO:0097711 & ciliary basal body-plasma membrane docki... & 48 & 27 & 5 & $4.70 \times 10^{-16}$ & TRUE \\ 
+  12 & GO:0015696 & ammonium transport & 25 & 4 & 0 & $1.30 \times 10^{-5}$ & FALSE \\ 
+  13 & GO:0001732 & formation of cytoplasmic translation ini... & 11 & 10 & 0 & $3.30 \times 10^{-16}$ & TRUE \\ 
+  14 & GO:0061025 & membrane fusion & 70 & 30 & 4 & $1.30 \times 10^{-21}$ & TRUE \\ 
+   \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Top term  lourvain BP background PSP} 
+\label{tab:Top term  lourvain BP background PSP}
+\end{table}
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat Apr 18 17:58:35 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{lr}
+  \hline
+quantile & value of p \\ 
+  \hline
+0\% & $1.000 \times 10^{-30}$ \\ 
+  25\% & $1.000 \times 10^{-30}$ \\ 
+  50\% & $6.506 \times 10^{-19}$ \\ 
+  75\% & $4.212 \times 10^{-14}$ \\ 
+  100\% & $1.300 \times 10^{-5}$ \\ 
+   \hline
+\end{tabular}
+\caption{P values for different quantiles for lourvain clusteringBP} 
+\label{tabP values for different quantiles for lourvain clusteringBP}
+\end{table}
+
+\subsubsection{Molecular function}
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat Apr 18 17:59:47 2020
+\begin{table}[ht]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lllrrrrl}
+  \hline
+community & GO.ID & Term & Annotated & Significant & Expected & classic & less\_than\_alpha \\ 
+  \hline
+1 & GO:0034987 & immunoglobulin receptor binding & 8 & 6 & 0 & $1.10 \times 10^{-6}$ & TRUE \\ 
+  2 & GO:0003954 & NADH dehydrogenase activity & 33 & 30 & 3 & $1.60 \times 10^{-27}$ & TRUE \\ 
+  3 & GO:0003723 & RNA binding & 549 & 298 & 86 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  4 & GO:0003677 & DNA binding & 251 & 86 & 20 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  5 & GO:0051721 & protein phosphatase 2A binding & 9 & 6 & 0 & $9.10 \times 10^{-8}$ & TRUE \\ 
+  6 & GO:0004298 & threonine-type endopeptidase activity & 13 & 13 & 1 & $4.90 \times 10^{-18}$ & TRUE \\ 
+  7 & GO:0038023 & signaling receptor activity & 128 & 32 & 6 & $5.40 \times 10^{-17}$ & TRUE \\ 
+  8 & GO:0004672 & protein kinase activity & 195 & 103 & 30 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  9 & GO:0003779 & actin binding & 224 & 107 & 29 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  10 & GO:0017137 & Rab GTPase binding & 63 & 10 & 1 & $6.50 \times 10^{-8}$ & TRUE \\ 
+  11 & GO:0008017 & microtubule binding & 113 & 30 & 11 & $1.40 \times 10^{-7}$ & TRUE \\ 
+  12 & GO:0005544 & calcium-dependent phospholipid binding & 27 & 4 & 0 & $1.90 \times 10^{-5}$ & TRUE \\ 
+  13 & GO:0003743 & translation initiation factor activity & 27 & 14 & 1 & $5.20 \times 10^{-17}$ & TRUE \\ 
+  14 & GO:0000149 & SNARE binding & 61 & 33 & 3 & $1.70 \times 10^{-28}$ & TRUE \\ 
+   \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Top term  lourvain MF background PSP} 
+\label{tab:Top term  lourvain MF background PSP}
+\end{table}
+
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat Apr 18 18:00:33 2020
+\begin{table}[ht]
+\centering
+
+\begin{tabular}{lr}
+  \hline
+quantile & value of p \\ 
+  \hline
+0\% & $1.000 \times 10^{-30}$ \\ 
+  25\% & $4.325 \times 10^{-29}$ \\ 
+  50\% & $2.845 \times 10^{-17}$ \\ 
+  75\% & $8.450 \times 10^{-8}$ \\ 
+  100\% & $1.900 \times 10^{-5}$ \\ 
+   \hline
+\end{tabular}
+\caption{P values for different quantiles for lourvain clusteringMF} 
+\label{tabP values for different quantiles for lourvain clusteringMF}
+\end{table}
+
+\subsubsection{Cellular compartment}
+
+
+
+\subsection{topgo Infomap}
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat Apr 18 18:17:43 2020
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat Apr 18 18:35:49 2020
+\begin{table}[ht]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lllrrrrl}
+  \hline
+community & GO.ID & Term & Annotated & Significant & Expected & classic & less\_than\_alpha \\ 
+  \hline
+1 & GO:0090304 & nucleic acid metabolic process & 801 & 505 & 287 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  2 & GO:0030029 & actin filament-based process & 333 & 71 & 12 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  3 & GO:0006897 & endocytosis & 278 & 41 & 10 & $2.60 \times 10^{-17}$ & TRUE \\ 
+  4 & GO:0000226 & microtubule cytoskeleton organization & 201 & 28 & 5 & $2.90 \times 10^{-16}$ & TRUE \\ 
+  5 & GO:0070202 & regulation of establishment of protein l... & 8 & 8 & 0 & $1.20 \times 10^{-15}$ & TRUE \\ 
+  6 & GO:0006521 & regulation of cellular amino acid metabo... & 33 & 28 & 0 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  7 & GO:0070268 & cornification & 41 & 12 & 1 & $9.90 \times 10^{-13}$ & TRUE \\ 
+  8 & GO:0045821 & positive regulation of glycolytic proces... & 5 & 2 & 0 & $3.30 \times 10^{-3}$ & FALSE \\ 
+  9 & GO:0090383 & phagosome acidification & 15 & 15 & 0 & $4.30 \times 10^{-29}$ & TRUE \\ 
+  10 & GO:0030036 & actin cytoskeleton organization & 284 & 28 & 4 & $5.00 \times 10^{-18}$ & TRUE \\ 
+  11 & GO:0099537 & trans-synaptic signaling & 316 & 28 & 5 & $1.80 \times 10^{-16}$ & TRUE \\ 
+  12 & GO:0010257 & NADH dehydrogenase complex assembly & 34 & 31 & 0 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  13 & GO:0060384 & innervation & 10 & 2 & 0 & $5.10 \times 10^{-3}$ & FALSE \\ 
+  14 & GO:0061025 & membrane fusion & 70 & 25 & 1 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  15 & GO:0000045 & autophagosome assembly & 34 & 10 & 0 & $2.20 \times 10^{-13}$ & TRUE \\ 
+  16 & GO:0007186 & G protein-coupled receptor signaling pat... & 178 & 25 & 2 & $2.70 \times 10^{-26}$ & TRUE \\ 
+  17 & GO:0034199 & activation of protein kinase A activity & 10 & 6 & 0 & $1.10 \times 10^{-11}$ & TRUE \\ 
+  18 & GO:0010921 & regulation of phosphatase activity & 56 & 10 & 1 & $2.60 \times 10^{-11}$ & TRUE \\ 
+  19 & GO:0005513 & detection of calcium ion & 5 & 3 & 0 & $4.20 \times 10^{-6}$ & TRUE \\ 
+  20 & GO:0070125 & mitochondrial translational elongation & 32 & 16 & 0 & $6.80 \times 10^{-28}$ & TRUE \\ 
+  21 & GO:0031175 & neuron projection development & 404 & 10 & 3 & $1.60 \times 10^{-4}$ & FALSE \\ 
+  22 & GO:0006893 & Golgi to plasma membrane transport & 33 & 5 & 0 & $3.90 \times 10^{-6}$ & TRUE \\ 
+  23 & GO:0002495 & antigen processing and presentation of p... & 53 & 10 & 0 & $6.90 \times 10^{-14}$ & TRUE \\ 
+  24 & GO:0007215 & glutamate receptor signaling pathway & 64 & 13 & 0 & $5.80 \times 10^{-18}$ & TRUE \\ 
+  25 & GO:0051403 & stress-activated MAPK cascade & 80 & 12 & 0 & $8.70 \times 10^{-17}$ & TRUE \\ 
+  27 & GO:0006869 & lipid transport & 65 & 5 & 0 & $1.20 \times 10^{-5}$ & FALSE \\ 
+  28 & GO:0002221 & pattern recognition receptor signaling p... & 40 & 5 & 0 & $1.10 \times 10^{-6}$ & TRUE \\ 
+  29 & GO:0006816 & calcium ion transport & 144 & 14 & 1 & $1.10 \times 10^{-16}$ & TRUE \\ 
+  30 & GO:0006637 & acyl-CoA metabolic process & 40 & 10 & 0 & $3.30 \times 10^{-16}$ & TRUE \\ 
+  31 & GO:1902531 & regulation of intracellular signal trans... & 468 & 7 & 2 & $2.40 \times 10^{-3}$ & FALSE \\ 
+  32 & GO:0061640 & cytoskeleton-dependent cytokinesis & 50 & 11 & 0 & $3.50 \times 10^{-18}$ & TRUE \\ 
+  34 & GO:0006625 & protein targeting to peroxisome & 29 & 14 & 0 & $9.80 \times 10^{-28}$ & TRUE \\ 
+  35 & GO:1904340 & positive regulation of dopaminergic neur... & 2 & 2 & 0 & $1.60 \times 10^{-5}$ & FALSE \\ 
+  36 & GO:0006957 & complement activation, alternative pathw... & 2 & 2 & 0 & $2.70 \times 10^{-5}$ & FALSE \\ 
+  40 & GO:0006936 & muscle contraction & 124 & 7 & 1 & $2.30 \times 10^{-7}$ & TRUE \\ 
+  46 & GO:0034204 & lipid translocation & 6 & 4 & 0 & $3.90 \times 10^{-9}$ & TRUE \\ 
+  52 & GO:0098659 & inorganic cation import across plasma me... & 25 & 4 & 0 & $2.30 \times 10^{-6}$ & TRUE \\ 
+   \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Top term  infomap BP background PSP} 
+\label{tab:Top term  infomap BP background PSP}
+\end{table}
+
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat Apr 18 18:17:43 2020
+\begin{table}[ht]
+\centering
+
+\begin{tabular}{lr}
+  \hline
+quantile & value of p \\ 
+  \hline
+0\% & $1.000 \times 10^{-30}$ \\ 
+  25\% & $3.500 \times 10^{-18}$ \\ 
+  50\% & $1.200 \times 10^{-15}$ \\ 
+  75\% & $2.300 \times 10^{-6}$ \\ 
+  100\% & $5.100 \times 10^{-3}$ \\ 
+   \hline
+\end{tabular}
+\caption{P values for different quantiles for infomap clusteringBP} 
+\label{tabP values for different quantiles for infomap clusteringBP}
+\end{table}
+
+\subsubsection{MF topgo infomap}
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat Apr 18 20:16:53 2020
+\begin{table}[ht]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lllrrrrl}
+  \hline
+community & GO.ID & Term & Annotated & Significant & Expected & classic & less\_than\_alpha \\ 
+  \hline
+1 & GO:1990904 & ribonucleoprotein complex & 293 & 230 & 105 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  2 & GO:0015629 & actin cytoskeleton & 260 & 79 & 10 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  3 & GO:0071944 & cell periphery & 1338 & 91 & 46 & $9.40 \times 10^{-18}$ & TRUE \\ 
+  4 & GO:0015630 & microtubule cytoskeleton & 407 & 48 & 9 & $1.40 \times 10^{-25}$ & TRUE \\ 
+  5 & GO:0005832 & chaperonin-containing T-complex & 9 & 9 & 0 & $1.50 \times 10^{-17}$ & TRUE \\ 
+  6 & GO:0000502 & proteasome complex & 37 & 31 & 0 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  7 & GO:0005882 & intermediate filament & 64 & 13 & 1 & $4.40 \times 10^{-11}$ & TRUE \\ 
+  8 & GO:0097427 & microtubule bundle & 5 & 2 & 0 & $3.40 \times 10^{-3}$ & FALSE \\ 
+  9 & GO:0033176 & proton-transporting V-type ATPase comple... & 13 & 13 & 0 & $2.10 \times 10^{-25}$ & TRUE \\ 
+  10 & GO:0031209 & SCAR complex & 8 & 7 & 0 & $5.70 \times 10^{-13}$ & TRUE \\ 
+  11 & GO:0097060 & synaptic membrane & 219 & 29 & 3 & $2.30 \times 10^{-22}$ & TRUE \\ 
+  12 & GO:0005747 & mitochondrial respiratory chain complex ... & 34 & 31 & 0 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  13 & GO:0031232 & extrinsic component of external side of ... & 4 & 1 & 0 & $4.60 \times 10^{-2}$ & FALSE \\ 
+  14 & GO:0031201 & SNARE complex & 28 & 25 & 0 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  15 & GO:0000421 & autophagosome membrane & 11 & 7 & 0 & $1.30 \times 10^{-12}$ & TRUE \\ 
+  16 & GO:0005834 & heterotrimeric G-protein complex & 18 & 11 & 0 & $5.20 \times 10^{-19}$ & TRUE \\ 
+  17 & GO:0005952 & cAMP-dependent protein kinase complex & 8 & 7 & 0 & $1.90 \times 10^{-15}$ & TRUE \\ 
+  18 & GO:0000164 & protein phosphatase type 1 complex & 5 & 3 & 0 & $6.80 \times 10^{-6}$ & TRUE \\ 
+  19 & GO:0034704 & calcium channel complex & 33 & 5 & 0 & $4.40 \times 10^{-6}$ & TRUE \\ 
+  20 & GO:0000315 & organellar large ribosomal subunit & 15 & 15 & 0 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  21 & GO:0048787 & presynaptic active zone membrane & 18 & 2 & 0 & $5.80 \times 10^{-3}$ & FALSE \\ 
+  22 & GO:0099023 & tethering complex & 33 & 5 & 0 & $3.60 \times 10^{-6}$ & TRUE \\ 
+  23 & GO:0005875 & microtubule associated complex & 57 & 13 & 0 & $1.40 \times 10^{-19}$ & TRUE \\ 
+  24 & GO:0045211 & postsynaptic membrane & 160 & 16 & 1 & $1.70 \times 10^{-17}$ & TRUE \\ 
+  25 & GO:0097458 & neuron part & 812 & 10 & 4 & $2.10 \times 10^{-3}$ & FALSE \\ 
+  27 & GO:0030905 & retromer, tubulation complex & 4 & 4 & 0 & $4.30 \times 10^{-10}$ & TRUE \\ 
+  28 & GO:0005741 & mitochondrial outer membrane & 86 & 5 & 0 & $4.50 \times 10^{-5}$ & FALSE \\ 
+  29 & GO:0016529 & sarcoplasmic reticulum & 31 & 8 & 0 & $7.60 \times 10^{-13}$ & TRUE \\ 
+  30 & GO:0045254 & pyruvate dehydrogenase complex & 6 & 6 & 0 & $5.90 \times 10^{-15}$ & TRUE \\ 
+  31 & GO:0038038 & G protein-coupled receptor homodimeric c... & 1 & 1 & 0 & $4.40 \times 10^{-3}$ & FALSE \\ 
+  32 & GO:0005940 & septin ring & 11 & 11 & 0 & $8.10 \times 10^{-29}$ & TRUE \\ 
+  34 & GO:0005777 & peroxisome & 61 & 17 & 0 & $3.40 \times 10^{-30}$ & TRUE \\ 
+  35 & GO:0030285 & integral component of synaptic vesicle m... & 19 & 2 & 0 & $2.60 \times 10^{-3}$ & FALSE \\ 
+  36 & GO:0072562 & blood microparticle & 52 & 7 & 0 & $3.70 \times 10^{-9}$ & TRUE \\ 
+  40 & GO:0016010 & dystrophin-associated glycoprotein compl... & 8 & 5 & 0 & $4.50 \times 10^{-11}$ & TRUE \\ 
+  46 & GO:0016021 & integral component of membrane & 747 & 12 & 3 & $2.80 \times 10^{-6}$ & TRUE \\ 
+  52 & GO:0016021 & integral component of membrane & 747 & 13 & 3 & $1.80 \times 10^{-7}$ & TRUE \\ 
+   \hline
+\end{tabular}
+\end{adjustbox}
+
+
+\caption{Top term  infomap CC background PSP} 
+\label{tab:Top term  infomap CC background PSP}
+\end{table}
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat Apr 18 20:16:53 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{lr}
+  \hline
+quantile & value of p \\ 
+  \hline
+0\% & $1.000 \times 10^{-30}$ \\ 
+  25\% & $2.100 \times 10^{-25}$ \\ 
+  50\% & $5.700 \times 10^{-13}$ \\ 
+  75\% & $3.600 \times 10^{-6}$ \\ 
+  100\% & $4.600 \times 10^{-2}$ \\ 
+   \hline
+\end{tabular}
+\caption{P values for different quantiles for infomap clusteringCC} 
+\label{tabP values for different quantiles for infomap clusteringCC}
+\end{table}
+
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat Apr 18 18:37:55 2020
+\begin{table}[ht]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lllrrrrl}
+  \hline
+community & GO.ID & Term & Annotated & Significant & Expected & classic & less\_than\_alpha \\ 
+  \hline
+1 & GO:0003676 & nucleic acid binding & 716 & 506 & 260 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  2 & GO:0003779 & actin binding & 224 & 76 & 9 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  3 & GO:0017124 & SH3 domain binding & 55 & 22 & 2 & $2.90 \times 10^{-19}$ & TRUE \\ 
+  4 & GO:0008017 & microtubule binding & 113 & 11 & 2 & $1.80 \times 10^{-5}$ & TRUE \\ 
+  5 & GO:0019888 & protein phosphatase regulator activity & 24 & 7 & 0 & $2.90 \times 10^{-8}$ & TRUE \\ 
+  6 & GO:0004298 & threonine-type endopeptidase activity & 13 & 12 & 0 & $2.90 \times 10^{-23}$ & TRUE \\ 
+  7 & GO:0005200 & structural constituent of cytoskeleton & 74 & 6 & 1 & $2.30 \times 10^{-3}$ & FALSE \\ 
+  8 & GO:0016836 & hydro-lyase activity & 22 & 5 & 0 & $3.20 \times 10^{-5}$ & FALSE \\ 
+  9 & GO:0036442 & proton-exporting ATPase activity & 19 & 14 & 0 & $4.90 \times 10^{-23}$ & TRUE \\ 
+  10 & GO:0017048 & Rho GTPase binding & 79 & 16 & 1 & $2.90 \times 10^{-15}$ & TRUE \\ 
+  11 & GO:0030165 & PDZ domain binding & 41 & 10 & 1 & $1.90 \times 10^{-10}$ & TRUE \\ 
+  12 & GO:0003954 & NADH dehydrogenase activity & 33 & 30 & 0 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  13 & GO:0004860 & protein kinase inhibitor activity & 20 & 3 & 0 & $1.40 \times 10^{-3}$ & FALSE \\ 
+  14 & GO:0000149 & SNARE binding & 61 & 29 & 1 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  15 & GO:0017137 & Rab GTPase binding & 63 & 9 & 1 & $6.60 \times 10^{-9}$ & TRUE \\ 
+  16 & GO:0003924 & GTPase activity & 153 & 21 & 1 & $2.00 \times 10^{-21}$ & TRUE \\ 
+  17 & GO:0051018 & protein kinase A binding & 23 & 11 & 0 & $3.60 \times 10^{-20}$ & TRUE \\ 
+  18 & GO:0019888 & protein phosphatase regulator activity & 24 & 7 & 0 & $5.70 \times 10^{-10}$ & TRUE \\ 
+  19 & GO:0005516 & calmodulin binding & 103 & 8 & 1 & $3.30 \times 10^{-7}$ & TRUE \\ 
+  20 & GO:0003735 & structural constituent of ribosome & 101 & 12 & 1 & $2.30 \times 10^{-12}$ & TRUE \\ 
+  21 & GO:0031005 & filamin binding & 5 & 3 & 0 & $2.90 \times 10^{-6}$ & TRUE \\ 
+  22 & GO:0004823 & leucine-tRNA ligase activity & 1 & 1 & 0 & $7.60 \times 10^{-3}$ & FALSE \\ 
+  23 & GO:0003774 & motor activity & 67 & 6 & 0 & $1.70 \times 10^{-6}$ & TRUE \\ 
+  24 & GO:0008066 & glutamate receptor activity & 21 & 12 & 0 & $1.00 \times 10^{-23}$ & TRUE \\ 
+  25 & GO:0004712 & protein serine/threonine/tyrosine kinase... & 15 & 5 & 0 & $5.50 \times 10^{-9}$ & TRUE \\ 
+  27 & GO:1990460 & leptin receptor binding & 3 & 3 & 0 & $1.40 \times 10^{-7}$ & TRUE \\ 
+  28 & GO:0019900 & kinase binding & 250 & 6 & 1 & $1.10 \times 10^{-3}$ & FALSE \\ 
+  29 & GO:0005262 & calcium channel activity & 47 & 9 & 0 & $4.70 \times 10^{-13}$ & TRUE \\ 
+  30 & GO:0016903 & oxidoreductase activity, acting on the a... & 21 & 8 & 0 & $1.40 \times 10^{-14}$ & TRUE \\ 
+  31 & GO:0017048 & Rho GTPase binding & 79 & 3 & 0 & $3.90 \times 10^{-3}$ & FALSE \\ 
+  32 & GO:0003924 & GTPase activity & 153 & 11 & 1 & $1.70 \times 10^{-12}$ & TRUE \\ 
+  34 & GO:0071949 & FAD binding & 9 & 3 & 0 & $1.10 \times 10^{-5}$ & TRUE \\ 
+  35 & GO:0050321 & tau-protein kinase activity & 17 & 2 & 0 & $1.90 \times 10^{-3}$ & FALSE \\ 
+  36 & GO:0019825 & oxygen binding & 4 & 2 & 0 & $1.70 \times 10^{-4}$ & FALSE \\ 
+  40 & GO:0008270 & zinc ion binding & 119 & 6 & 1 & $7.30 \times 10^{-6}$ & TRUE \\ 
+  46 & GO:0015247 & aminophospholipid transmembrane transpor... & 3 & 3 & 0 & $6.00 \times 10^{-8}$ & TRUE \\ 
+  52 & GO:0022857 & transmembrane transporter activity & 250 & 8 & 1 & $1.90 \times 10^{-6}$ & TRUE \\ 
+   \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Top term  infomap MF background PSP} 
+\label{tab:Top term  infomap MF background PSP}
+\end{table}
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat Apr 18 18:37:55 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{lr}
+  \hline
+quantile & value of p \\ 
+  \hline
+0\% & $1.000 \times 10^{-30}$ \\ 
+  25\% & $2.900 \times 10^{-19}$ \\ 
+  50\% & $6.600 \times 10^{-9}$ \\ 
+  75\% & $1.100 \times 10^{-5}$ \\ 
+  100\% & $7.600 \times 10^{-3}$ \\ 
+   \hline
+\end{tabular}
+\caption{P values for different quantiles for infomap clusteringMF} 
+\label{tabP values for different quantiles for infomap clusteringMF}
+\end{table}
+
+\subsection{lec}
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat Apr 18 20:20:18 2020
+\begin{table}[ht]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lllrrrrl}
+  \hline
+community & GO.ID & Term & Annotated & Significant & Expected & classic & less\_than\_alpha \\ 
+  \hline
+1 & GO:0030036 & actin cytoskeleton organization & 284 & 188 & 94 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  2 & GO:0034641 & cellular nitrogen compound metabolic pro... & 1208 & 621 & 394 & $1.00 \times 10^{-30}$ & TRUE \\ 
+  3 & GO:0010257 & NADH dehydrogenase complex assembly & 34 & 33 & 12 & $8.10 \times 10^{-15}$ & TRUE \\ 
+   \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Top term  lec BP background PSP} 
+\label{tab:Top term  lec BP background PSP}
+\end{table}
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat Apr 18 20:20:18 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{lr}
+  \hline
+quantile & value of p \\ 
+  \hline
+0\% & $1.000 \times 10^{-30}$ \\ 
+  25\% & $1.000 \times 10^{-30}$ \\ 
+  50\% & $1.000 \times 10^{-30}$ \\ 
+  75\% & $4.050 \times 10^{-15}$ \\ 
+  100\% & $8.100 \times 10^{-15}$ \\ 
+   \hline
+\end{tabular}
+\caption{P values for different quantiles for lec clusteringBP} 
+\label{tabP values for different quantiles for lec clusteringBP}
+\end{table}
+
+\subsection{Lec size off}
+
+greater than 5
+
 
 \section{Markov clustering}
 

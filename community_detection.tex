@@ -293,7 +293,76 @@ Out walk trap = 0.9952730301593156
 
 its all the small or zero groups that give good nmi as the number of correctly misclassified is right so long as vertices a and b if in different groups are in different groups 
 
+\subsection{Group size}
 
+Using a 3457 LFR graph (18061 edges) the ground truth is of 143 communities
+
+Community size however varied with different methods
+
+Length louvain = 74
+
+ Length info = 143
+ 
+ Length greedy = 61
+ 
+ Length eig = 60
+ 
+ Length label = 147
+ 
+ Length walk trap = 139
+ 
+ Comparison of louvain and ground truth method nmi result 0.9342619557388658
+ 
+Comparison of infomap and ground truth method nmi result 0.9995553221817195
+
+Comparison of greedy and ground truth method nmi result 0.886167941390111
+
+Comparison of igraph eigenvector and ground truth method nmi result 0.5990794237801158
+
+Comparison of label propagation and ground truth method nmi result 0.9992978887550072
+
+Comparison of walk trap and ground truth method nmi result 0.9966928932427445
+
+Spectral nmi = 0.950168278988933
+
+Spectral communities 129
+
+Comparison of louvain and ground truth method split-join result 1088.0
+Comparison of infomap and ground truth method split-join result 4.0
+Comparison of greedy and ground truth method split-join result 1607.0
+Comparison of igraph eigenvector and ground truth method split-join result 3397.0
+Comparison of label propagation and ground truth method split-join result 52.0
+Comparison of walk trap and ground truth method split-join result 51.0
+
+This is a distance metric that is asymmetrical
+
+Spectral 573
+
+Comparison of louvain and ground truth method adjusted\_rand result 0.7240323254646376
+Comparison of infomap and ground truth method adjusted\_rand result 0.9992769735118784
+Comparison of greedy and ground truth method adjusted\_rand result 0.5230033392550409
+Comparison of igraph eigenvector and ground truth method adjusted\_rand result 0.1556290274596547
+Comparison of label propagation and ground truth method adjusted\_rand result 0.9951401364385163
+Comparison of walk trap and ground truth method adjusted\_rand result 0.9877048741950667
+
+
+Spectral adjusted rand
+0.8562028042791093
+
+Variational information of melia (distance identity is 0)
+
+Comparison of louvain and ground truth method vi result 0.599081269091533
+Comparison of infomap and ground truth method vi result 0.004317734259799977
+Comparison of greedy and ground truth method vi result 1.0019588805230972
+Comparison of igraph eigenvector and ground truth method vi result 3.3729468833994076
+Comparison of label propagation and ground truth method vi result 0.004766377185209336
+Comparison of walk trap and ground truth method vi result 0.03202630730712208
+
+Spectral 
+0.476519814388233
+
+
+But infomap has lower modularity for the network see table~\ref{tab:modularity}
 
 \section{Louvain}
 
