@@ -760,6 +760,14 @@ This supports the Newman idea that different partitions are made up of similar c
 
 Implemented in igraph. 562 communities , 405 have single member  Min.1 1st Qu.  1 Median1    Mean 6.151 3rd Qu. 2   Max. 760 
  
+\section{Label propogation}
+
+There is no guarantee that the clustering is unique indeed it is different every time. For one run in python average modularity is close to 0. With 10000 repetitions the maximum modularity was 0.25565433088497774 and this took 1 min 28 seconds
+
+After 100000 iterations the maximum modularity is 0.25762367434321437 with a running time of 12m 56 seconds and divided it into 4 communities
+
+Counter(0: 2002, 1: 1404, 2: 37, 3: 2, 4: 12)
+
   
 \section{Spinglass}
 
@@ -794,7 +802,9 @@ args for spinglass
 
 \subsection{Implementation}
 Spin glass clustering was carried out using the igraph package in R using a script to automatically generate values for gamma and spins and to conver the communities object into a graph markup language(GML) file. 5 gamma values were used gamma = $0.1,0.5,1,2,5$ and 9 spin values spins = $2,10,20,30,40,50,60,80,100$ 
+
 Running 45 grid search the clustering with spinglass takes about 56.6 seconds which accumulates if one has a large number of clusters to make therefore Grid search generation run on staff.compute R 3.5 DICE.
+
 Gamma of 0.1 and 0.5 only returned valid spins of 2 and 2,10 respectively. 
 \subsection{Study design}
 Given the number of tunable parameters in the spinglass model it is difficult to make a study design similar to that we used with the spectral clustering as the number of communities will lead to a prohibitively small alpha level. The possibility of finding individual datasets for each set of communities at each parameter setting is not practicable as even varying only gamma and spins we have the cartesian product of the number of parameter settings numbers of groups of sets.
