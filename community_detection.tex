@@ -279,6 +279,32 @@ See table~\ref{tab:modularity and group sizes xtable}
 
 code \url{source('~/RProjects/group_sizes/R/make_clusterings/make_clusterings.R')}
 
+\subsection{Spectral clustering}
+
+The group size distribution for spectral clustering seems to follow a power low distribution. See figure~\ref{fig:group sizes spectral clustering shows power law distribution} \ref{fig:group sizes spectral clustering log 10} Code \url{source('~/RProjects/group_sizes/R/group_sizes.R')}. For mean size see table~\ref{tab:modularity and group sizes xtable}. 
+
+The distribution seems most like log normal fitting distribnution of group sizes using package MASS for R function \texttt{fitdistr}
+
+[1] "lognormal"
+'log Lik.' -306.3578 (df=2)
+
+[1] "normal" 
+'log Lik.' -370.6692 (df=2)
+
+[1] "exp"
+'log Lik.' -323.295 (df=1)
+
+[1] "geom"
+'log Lik.' -323.9023 (df=1)
+
+[1] "Poisson"
+'log Lik.' -2803.31 (df=1)
+
+
+
+and mean log 2.60 and sd log 1.98
+
+code \url{source('~/RProjects/group_sizes/R/group_sizes.R')}
 \subsection{LFR benchmark}
 Infomap and louvain do very well on lfr but spectral not so well. Infomap does perfectly with nmi but poorly with real world network. 
 settings = \url{g2= nx.generators.LFR_benchmark_graph(n=graph_n, tau1=3, tau2=1.1, mu=0.1, average_degree=10, max_degree=50, min_community=10,max_community=50, seed=1)}
@@ -385,8 +411,67 @@ average degree $<k>$= 20, maximum degree kmax = 50, minimum community size cmin 
 
 NMI compare communities 3457 ground truth and markov clustering 0.98858023049201
 
+\subsection{Stochastic block model Modularity and Group size}
+
+There is a dramatic fall of in the performance of infomap using NMI as the background probability of a link (and hence the resolution limit of the clustering is approached.
+
+For groups (Graph) \todo{labels} \url{source('~/RProjects/group_sizes/R/sbm_benchmark/graph/graph_performance_multi.R')}
+
+For nmi with ground truth Louvain
+\url{source('~/RProjects/group_sizes/R/sbm_benchmark/graph/graph_performance.R')}
+
+The points here is that there is a dramatic deterioration in nmi for infomap (from perfect at 1 to 0) in figure~\ref{fig:my_rough_infomap} compared to figure~\ref{fig:my_rough_louvain sbm_nmi}. (what we are interested in here is points at which performance breaks down as infomap does very well on a lot of standard benchmarks)
 
 
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_rough_infomap_nmi_sbm.png}
+    \caption{NMI detected 2 (as out) group SBM infomap as approaches resolution limit. plot is p}
+    \label{fig:my_rough_infomap}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_rough_sbm_nmi_louvain.png}
+    \caption{NMI 2 group SBM louvain as approaches resolution limit. plot is p on x axis}
+    \label{fig:my_rough_louvain sbm_nmi}
+\end{figure}
+Source \url{source('~/RProjects/group_sizes/R/sbm_benchmark/graph/graph_performance.R')}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_rough_modularity_lou_ground_truth.png}
+    \caption{Modularity group SBM louvain as approaches resolution limit. plot is p on x axis}
+    \label{fig:my_rough_louvain modularity}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_group_size_rough_louvain_sbm.png}
+    \caption{2 group SBM group size louvain as approaches resolution limit. plot is p on x axis}
+    \label{fig:my_rough_louvain group size}
+\end{figure}
+
+
+
+
+
+
+\section{Spectral clustering}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_group_size_spectral.png}
+    \caption{Distribution of group sizes spectral clustering}
+    \label{fig:group sizes spectral clustering shows power law distribution}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_spectral_groups_size_log10.png}
+    \caption{Distribution of group sizes spectral clustering. Log 10 scaled y axis}
+    \label{fig:group sizes spectral clustering log 10}
+\end{figure}
 \section{Louvain}
 
 
