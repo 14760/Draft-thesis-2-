@@ -306,6 +306,13 @@ and mean log 2.60 and sd log 1.98
 
 code \url{source('~/RProjects/group_sizes/R/group_sizes.R')}
 \subsection{LFR benchmark}
+
+The block stochastic model provides communities with a Poisson distribution different to many real world networks \todo{cross ref}. An alternative proposd is the LFR benchmark named after the authors. The benchmark produces a synthetic network with node degree corresponding to a power law distribution $\tau_1$ and community size also related to a power law distribution $\tau_2$ corresponding to observations of their prevalence in real world networks. The LFR test is held to be a more testing test than the block stochastic model or simple ground truth networks. A mixing parameter $\mu$ controls the amount of noise in the network and hence the difficulty of the task for the community detection algorithm.
+
+The Lovain algorithm and infomap algorithms were found to perform well \cite{lancichinetti2008benchmark} \cite{lancichinetti2009community}, a spectral algorithm was tested, the leading eigenvector method of Newman \cite{newman2006finding} without fine tuning step. 
+
+An implementation of the LFR community generator is found in the networkx for python \cite{hagberg2008exploring}.
+\subsubsection{Testing}
 Infomap and louvain do very well on lfr but spectral not so well. Infomap does perfectly with nmi but poorly with real world network. 
 settings = \url{g2= nx.generators.LFR_benchmark_graph(n=graph_n, tau1=3, tau2=1.1, mu=0.1, average_degree=10, max_degree=50, min_community=10,max_community=50, seed=1)}
 
@@ -981,6 +988,17 @@ See core periphery
 
  \section{Community detection thresholds}
 There are limits to the detection of communities specifically in the difference between the probability of edges and the probability of in group edges.
+
+Newman p 512
+
+\begin{equation}
+    K1K2 < 2m
+\end{equation}
+
+Ie fails to detect separate communities if the product of the sum their degrees is less than 2m
+
+So when increasing the background amount we are increasing m
+
  
  \section{Enrichment of the presynaptic proteome}
  
