@@ -307,11 +307,19 @@ and mean log 2.60 and sd log 1.98
 code \url{source('~/RProjects/group_sizes/R/group_sizes.R')}
 \subsection{LFR benchmark}
 
-The block stochastic model provides communities with a Poisson distribution different to many real world networks \todo{cross ref}. An alternative proposd is the LFR benchmark named after the authors. The benchmark produces a synthetic network with node degree corresponding to a power law distribution $\tau_1$ and community size also related to a power law distribution $\tau_2$ corresponding to observations of their prevalence in real world networks. The LFR test is held to be a more testing test than the block stochastic model or simple ground truth networks. A mixing parameter $\mu$ controls the amount of noise in the network and hence the difficulty of the task for the community detection algorithm.
+The block stochastic model provides communities with a Poisson distribution different to many real world networks \todo{cross ref}. An alternative proposd is the LFR benchmark named after the authors. The benchmark produces a synthetic network with node degree corresponding to a power law distribution $\tau_1$ ($\gamma$ in \cite{lancichinetti2009community} and community size also related to a power law distribution $\tau_2$ ($\beta$ in \cite{lancichinetti2009community} corresponding to observations of their prevalence in real world networks. The LFR test is held to be a more testing test than the block stochastic model or simple ground truth networks. A mixing parameter $\mu$ controls the amount of noise in the network and hence the difficulty of the task for the community detection algorithm. $\mu$ is the proportion of links from the community occuring between community members. 
 
 The Lovain algorithm and infomap algorithms were found to perform well \cite{lancichinetti2008benchmark} \cite{lancichinetti2009community}, a spectral algorithm was tested, the leading eigenvector method of Newman \cite{newman2006finding} without fine tuning step. 
 
 An implementation of the LFR community generator is found in the networkx for python \cite{hagberg2008exploring}.
+
+Although the LFR benchmark is harder than the benchmark reported by Newman it still has limitations. It tends to generate networks with similar size commuinities although these are not always found in real world networks \cite{orman2013towards} \cite{aldecoa2013exploring}. 
+
+For a degree structure similar to the PSP it proved impossible to generate a community structure with a power exponent greater than 1.156 in the network x implementation of the LFR benchmarks using 1000 iterations (parameters - average degree 27, min\_community=20) .  Increasing minimum community size to 50 allowed a maximum $\beta$ of 1.6.
+
+Therefore in addition to performance on benchmarks we will have to see how the clustering algorithms perform on the network do they make allocations than 'make sense' and also if possible to find some ground truth communities.\todo{ground truth communities} Perhaps this is in part because real world networks do not follow constant power law exponent distributions over their complete distribution. 
+
+In addition we note that there is a need for better benchmarks. Also for benchmarks that not only generate community structure but other mesoscale structure such as core periphery structure. \todo{perhaps move this to discussion or end of chapter discussion}
 \subsubsection{Testing}
 Infomap and louvain do very well on lfr but spectral not so well. Infomap does perfectly with nmi but poorly with real world network. 
 settings = \url{g2= nx.generators.LFR_benchmark_graph(n=graph_n, tau1=3, tau2=1.1, mu=0.1, average_degree=10, max_degree=50, min_community=10,max_community=50, seed=1)}
