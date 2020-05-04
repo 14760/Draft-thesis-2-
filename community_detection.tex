@@ -431,7 +431,7 @@ In order to forbid the trivial solution it is common to fix the size of the two 
 
 The disadvanges of this method, is that we must specify the community size and that minimising cut size does not always naturally yiled communitiues as we described in the section on maximising modularity.
 
-8.2.2 Spectral methods using the modularity matrix
+\subsection{Spectral methods using the modularity matrix}
 
 Modularity is the difference between the number of edges in a community and the null model: the expected value of edges in a community. The expected value is take to be the observed degree of the corresponding vertex: when $P_{i,j}$ is the probability of an edge in $i,j$ the modularity $Q$ is:
 \begin{equation}
@@ -468,6 +468,7 @@ defining the modularity as the difference between the actual number of edges and
 \begin{equation}
 \mathbf{B}_{i,j} = A_{i,j} - P_{i,j} = A_{i,j} - \frac{k_i k_j}{2m}
 \end{equation}
+\label{eq:modularity matrix B}
 
 as before we define an index matrix $s$ of community membership and write the modularity from equation 20 (here equation 14) as:
 
@@ -503,6 +504,99 @@ we now seek to maximise $Q$ by finding the eigenvector corresponding to the larg
 of $\mathbf{B}$ with maximum eigenvalue.
 
 We can extend this to multiple groups by recursively partitioning the network based on the leading eigenvector of the partiion and stopping partitioning when the partition does not result in a further increase in the modularity for the subdivision of the community (see Newman (2006) for further degtails). This is the method implemented by McLean et al (2016)
+
+\subsubsection{Simple demonstration of spectral method}
+
+Using the definition of the modularity matrix $\mathbf{B}$ in equation~\ref{eq:modularity matrix B} we can calculate the modularity matrix using the adjacency matrix and the vector of degrees $k$
+
+\begin{equation}
+    \mathbf{B} = \mathbf{A} - \frac{\mathbf{k} \mathbf{k}^T}{2m}
+\end{equation}
+
+Using the eigenvector corresponding to the largest eigenvalue of $B$ and taking the sign function of each element in the matrix we obtain two group allocations for the PSP. 
+
+The PSP is divided using only this information into two groups, one of 2346 nodes and one of 1111 nodes. 
+
+As the other eigenvectors are orthogonal to the first they provide further information see figure~\ref{fig:first_four_eigenvectors _of_PSP}.
+
+Tables~\ref{tab:1111 group generated from sign of first eigenvector of modularity matrix. Biological function} and ~\ref{tab:2346 group generated from sign of first eigenvector of modularity matrix. Biological function} show that the groups have different functions using Gene Ontology enrichment for biological function and the PSP genes as backgrounds. The larger group (negative sign of eigenvector) n=2346 is enriched for actin cytoskeleton organisation wheras the smaller group with a positive sign on the eigenvector are enriched for biological functions such as mRNA metabolic process, translation and amide biosynthetic process. 
+
+The separation of the first four eigenvectors of the modularity matrix are shown in figure~\ref{fig:first_four_eigenvectors _of_PSP}. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_eigenvectors_of_PSP_modularity_matrix.png}
+    \caption{First four eigenvectors of the modularity matrix of $\mathbf{B}$ the modularity matrix of the PSP}
+    \label{fig:first_four_eigenvectors _of_PSP}
+\end{figure}
+% Mon May  4 15:33:03 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrrr}
+  \hline
+GO.ID & Term & Annotated & Significant & Expected & classic \\ 
+  \hline
+GO:0034641 & cellular nitrogen compound metabolic pro... & 1208 & 621 & 393.5 & $1.00 \times 10^{-30}$ \\ 
+  GO:0016071 & mRNA metabolic process & 254 & 210 & 82.7 & $1.00 \times 10^{-30}$ \\ 
+  GO:0010467 & gene expression & 922 & 506 & 300.3 & $1.00 \times 10^{-30}$ \\ 
+  GO:0090304 & nucleic acid metabolic process & 801 & 452 & 260.9 & $1.00 \times 10^{-30}$ \\ 
+  GO:0044271 & cellular nitrogen compound biosynthetic ... & 900 & 490 & 293.2 & $1.00 \times 10^{-30}$ \\ 
+  GO:0043604 & amide biosynthetic process & 297 & 225 & 96.8 & $1.00 \times 10^{-30}$ \\ 
+  GO:0006412 & translation & 258 & 204 & 84.0 & $1.00 \times 10^{-30}$ \\ 
+  GO:0043043 & peptide biosynthetic process & 262 & 205 & 85.3 & $1.00 \times 10^{-30}$ \\ 
+  GO:0034645 & cellular macromolecule biosynthetic proc... & 803 & 447 & 261.6 & $1.00 \times 10^{-30}$ \\ 
+  GO:0009059 & macromolecule biosynthetic process & 830 & 456 & 270.4 & $1.00 \times 10^{-30}$ \\ 
+  GO:0046483 & heterocycle metabolic process & 1076 & 549 & 350.5 & $1.00 \times 10^{-30}$ \\ 
+  GO:0006139 & nucleobase-containing compound metabolic... & 1050 & 537 & 342.0 & $1.00 \times 10^{-30}$ \\ 
+  GO:0016070 & RNA metabolic process & 716 & 407 & 233.2 & $1.00 \times 10^{-30}$ \\ 
+  GO:1901360 & organic cyclic compound metabolic proces... & 1121 & 562 & 365.2 & $1.00 \times 10^{-30}$ \\ 
+  GO:0006725 & cellular aromatic compound metabolic pro... & 1088 & 549 & 354.4 & $1.00 \times 10^{-30}$ \\ 
+  GO:0006401 & RNA catabolic process & 179 & 152 & 58.3 & $1.00 \times 10^{-30}$ \\ 
+  GO:0006402 & mRNA catabolic process & 175 & 149 & 57.0 & $1.00 \times 10^{-30}$ \\ 
+  GO:1901576 & organic substance biosynthetic process & 1147 & 564 & 373.6 & $1.00 \times 10^{-30}$ \\ 
+  GO:0009058 & biosynthetic process & 1160 & 568 & 377.9 & $1.00 \times 10^{-30}$ \\ 
+  GO:0043603 & cellular amide metabolic process & 368 & 248 & 119.9 & $1.00 \times 10^{-30}$ \\ 
+   \hline
+\end{tabular}
+\caption{1111 group generated from sign of first eigenvector of modularity matrix. Biological function} 
+\label{tab:1111 group generated from sign of first eigenvector of modularity matrix. Biological function}
+\end{table}
+
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrrr}
+  \hline
+GO.ID & Term & Annotated & Significant & Expected & classic \\ 
+  \hline
+GO:0030030 & cell projection organization & 572 & 483 & 385.7 & $7.80 \times 10^{-24}$ \\ 
+  GO:0120036 & plasma membrane bounded cell projection ... & 566 & 478 & 381.6 & $1.40 \times 10^{-23}$ \\ 
+  GO:0099537 & trans-synaptic signaling & 316 & 281 & 213.1 & $1.30 \times 10^{-20}$ \\ 
+  GO:0023052 & signaling & 1510 & 1142 & 1018.1 & $1.50 \times 10^{-20}$ \\ 
+  GO:0007268 & chemical synaptic transmission & 310 & 276 & 209.0 & $2.00 \times 10^{-20}$ \\ 
+  GO:0098916 & anterograde trans-synaptic signaling & 310 & 276 & 209.0 & $2.00 \times 10^{-20}$ \\ 
+  GO:0007154 & cell communication & 1508 & 1140 & 1016.8 & $2.30 \times 10^{-20}$ \\ 
+  GO:0099536 & synaptic signaling & 318 & 282 & 214.4 & $2.90 \times 10^{-20}$ \\ 
+  GO:0051049 & regulation of transport & 623 & 511 & 420.1 & $2.10 \times 10^{-19}$ \\ 
+  GO:0007399 & nervous system development & 772 & 617 & 520.5 & $2.20 \times 10^{-18}$ \\ 
+  GO:0048666 & neuron development & 439 & 368 & 296.0 & $9.30 \times 10^{-17}$ \\ 
+  GO:0030029 & actin filament-based process & 333 & 287 & 224.5 & $1.70 \times 10^{-16}$ \\ 
+  GO:0030036 & actin cytoskeleton organization & 284 & 249 & 191.5 & $2.10 \times 10^{-16}$ \\ 
+  GO:0050804 & modulation of chemical synaptic transmis... & 218 & 197 & 147.0 & $2.20 \times 10^{-16}$ \\ 
+  GO:0031175 & neuron projection development & 404 & 340 & 272.4 & $5.30 \times 10^{-16}$ \\ 
+  GO:0099177 & regulation of trans-synaptic signaling & 219 & 197 & 147.7 & $7.50 \times 10^{-16}$ \\ 
+  GO:0032879 & regulation of localization & 853 & 667 & 575.1 & $1.20 \times 10^{-15}$ \\ 
+  GO:0032989 & cellular component morphogenesis & 453 & 375 & 305.4 & $3.00 \times 10^{-15}$ \\ 
+  GO:0030182 & neuron differentiation & 478 & 393 & 322.3 & $5.10 \times 10^{-15}$ \\ 
+  GO:0048699 & generation of neurons & 515 & 420 & 347.2 & $7.00 \times 10^{-15}$ \\ 
+   \hline
+\end{tabular}
+\caption{2346 group generated from sign of first eigenvector of modularity matrix. Biological function. Background gene set PSP.} 
+\label{tab:2346 group generated from sign of first eigenvector of modularity matrix. Biological function}
+\end{table}
+
+
+
 
 \subsection{Infomap}
 \subsection{Louvain}
