@@ -307,11 +307,11 @@ Fielder vector
 \subsection{Betweenness Newman and Girvan}
 One way in which communities can be discovered in graphs is to take two vertices that are
 disimillar and disconnected them by removing connecting edges.
-The Newman and Girvan algorithm (Newman and Girvan, 2004) calculates the betweenness
+The Newman and Girvan algorithm \cite{newman2004finding}  calculates the betweenness
 of all edges in the network. The edge with highest betweenness is then removed and the
 process is repeated. This is a form of divisive hierarchical clustering. The betweenness
 needs to be recalculated at each stage and one needs to know the number of communities
-to reduce the network to. An implementation is provided in igraph and it generates a dendrogram of heirarchical clustering communities with the optimum division being the one that maximises modulatity. This algorithm was used by Pocklington et al. (2006a) to find
+to reduce the network to. An implementation is provided in igraph and it generates a dendrogram of heirarchical clustering communities with the optimum division being the one that maximises modulatity. This algorithm was used by Pocklington et al. \cite{pocklington2006proteomes} to find
 communities in the MASC complex. In addition it has good performance on \todo{benchmark}. Unfortunately it does not scale to the number of
 vertices found in the contemporary synaptic proteome. Even with a parrallelised implementation found it took a prohibitavely long time. 
 
@@ -618,6 +618,9 @@ GO:0030030 & cell projection organization & 572 & 483 & 385.7 & $7.80 \times 10^
 
 
 \subsection{Infomap}
+
+
+\cite{rosvall2008maps}
 \subsection{Louvain}
 \subsection{sG}
 \section{Benchmarks}
