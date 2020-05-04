@@ -11,6 +11,9 @@
 
 
 \section{Introduction}
+
+See also section~\ref{sec:alternate intro}
+
 \todo{Rewrite this section as from paper eg DH}
 \textcolor{red}{start of dh intro}
 Intelligence, also known as general cognitive function,\cite{davies2015genetic} or simply as g,\cite{spearman1961general} describes the finding that across seemingly-disparate measures of cognitive ability, a single common factor explains around 40\% of the total cognitive test score variance in a group with a range of intellectual ability.  \cite{carroll1993human}  This single factor is the source of much of the predictive validity of cognitive tests; higher measured intelligence is predictive of higher-level educational and occupational outcomes, \cite{strenze2007intelligence}  as well as better health, and longevity .\cite{deary2012annrev} 
@@ -281,7 +284,229 @@ See figure~\ref{fig:study design community detection}.
     \label{fig:study design community detection}
 \end{figure}
 
+\section{Communities}
+\label{sec:alternate intro}
+\subsection{Assessment of communities}
 
+In addressing the performance of community detection algorithms on ground truth communities Yang and Leskovec describe the usual process of assessing community detection performance. It bears quoting at length:
+
+"Generally, after some community detection algorithm identifies communities based on the network structure, the essential next step is to interpret the communities by identifying a common external property or a function that the members of a given community share and around which the community organizes [8]. For example, given a protein–protein interaction network of a cell, one first identifies communities based on the structure of the network and then examines that these communities correspond to real functional units of a cell. ". \cite{yang2015defining}
+
+In community detection for protein interactions we commonly use gene ontology definitions or gene lists of disorders such as gclin var. One of the problems of this is that we know that these lists of genes may not overlap exaclty with the findings of large scale population genetic studies. 
+
+There is a way in which we can test the clustering against true population studies and user this as a useful way to get more information about the gwas study and that is by doing GSA.
+
+
+\section{Clustering methods}
+
+\subsection{Graph partitioning}
+Kernaghan Lin
+
+Fielder vector
+
+\subsection{Betweenness Newman and Girvan}
+One way in which communities can be discovered in graphs is to take two vertices that are
+disimillar and disconnected them by removing connecting edges.
+The Newman and Girvan algorithm (Newman and Girvan, 2004) calculates the betweenness
+of all edges in the network. The edge with highest betweenness is then removed and the
+process is repeated. This is a form of divisive hierarchical clustering. The betweenness
+needs to be recalculated at each stage and one needs to know the number of communities
+to reduce the network to. An implementation is provided in igraph and it generates a dendrogram of heirarchical clustering communities with the optimum division being the one that maximises modulatity. This algorithm was used by Pocklington et al. (2006a) to find
+communities in the MASC complex. In addition it has good performance on \todo{benchmark}. Unfortunately it does not scale to the number of
+vertices found in the contemporary synaptic proteome. Even with a parrallelised implementation found it took a prohibitavely long time. 
+\subsection{Spectral clustering}
+Graphs can be divided into components according to the spectrum of the eigenvalues and
+eigenvectors of the matrices that represent them (Newman, 2010).
+I hope to show the similarity and differences between using the graph Laplacian matrix
+and Modularity matrix for community detection and graph partitioning, in particular that
+they both use the graph spectra as solutions to optimisation problems (the minimisation
+of cut size and the maximisation of modularity).
+In the discussion that follows, I will use graph partitioning to mean separating a graph
+into two or more disjunct subgraphs in such a way that the minimum number of edges are
+cut. I will refer to community detection as finding disjunct sets of vertices that share more
+edges between them than would be expected at random, that is to say they are densely
+interconnected components.
+The two matrices that I will concentrate on are the Laplacian matrix L and the modularity
+matrix B.
+
+Several representations of the Laplacian matrix are used in the literature, often without
+further specification (Planck and Luxburg, 2006).
+The unnormalised graph Laplacian is defined:
+\begin{equation}
+    \mathbf{L} = \mathbf{D} - \mathbf{W}
+\end{equation}
+
+where $\mathbf{L}$ is the Laplacian, $\mathbf{D}$ is the diagonal degree matrix that has the degree of vertex i
+(the number of its connecting edges) at entry $\mathbf{D}_{i,i}$ and $\mathbf{W}$ as the weighted matrix.
+For our purposes the weight matrix will be the adjacency matrix $\mathbf{A}_{i,j}$ which has an entry
+1 at $\mathbf{A}_{i,j}$ if there is an edge between vertex i and vertex j, and a zero otherwise.
+$\mathbf{A}$ will be symmetrical and the column and rows of $\mathbf{L}$ will add to zero. The vector 1 is
+therefore an eigenvector of L with eigenvalue zero as a linear combination of the columns
+of L is the zero vector.
+Two matrices are referred to as the normalised graph Laplacians. The symmetric:
+
+The symmteric:
+
+\begin{equation}
+{L}_{sym} = \mathbf{D}^{-\frac{1}{2}}\mathbf{L}\mathbf{D}^{-\frac{1}{2}}= \mathbf{I}-\mathbf{D}^{-frac{1}{2}}\mathbf{A}\mathbf{D}^{-\frac{1}{2}}
+\end{equation}
+
+and the random walk Laplacian:
+
+\begin{equation}
+\mathbf{L}_{rw}=\mathbf{D}^{-\frac{1}{2}}\mathbf{L}=\mathbf{I}-\mathbf{D}^{-\frac{1}{2}}\mathbf{A}
+\end{equation}
+
+We will make use of the fact that eigenvalues can represent a minimisation problem:
+
+\begin{equation}
+\lambda_{min}=\mathit{argmin}\frac{\mathbf{x}^T\mathbf{A}\mathbf{x}}{\mathbf{x}^T\mathbf{x}}
+\end{equation}
+
+%p29
+
+\begin{equation}
+R = \sum_{i,j}\mathbb{I}_{i,j\notin G_{same} }\mathbf{A}_{i,j}
+\end{equation}
+
+where there are two groups G. With this we count each edge twice so we should rescale R by 0.5.
+
+Defining an index vector $\mathbf{s}$ where $s_i$ is $+1$ if vertex $i$ is in group 1 and -1 if vertex $s_i$ is in group two, we can replace the indicator function,
+
+\begin{equation}
+\mathbb{I}_{i,j\notin samegroup}=\frac{1}{2}(1-s_i s_j)
+\end{equation}
+
+with,
+
+\begin{equation}
+R=\frac{1}{4}\sum_{i,j}(1-s_i s_j)\mathbf{A}_{i,j}
+\end{equation}
+
+\begin{equation}
+R = \frac{1}{4}\sum_{i,j}\mathbf{A}_{i,j}-s_i s_j \mathbf{A}_{i,j}
+\end{equation}
+
+Rewriting the first term in equation (here it is 7)
+
+\begin{equation}
+\sum_{i,j}\mathbf{A}_{i,j}=\sum_i k_i = \sum_i s_i ^2 k_i = \sum_{i,j} s_i s_j k_i \delta_{i,j}
+\end{equation}
+
+where $k_i$ is the degree of vertex $i$ and $s_i^2 = 1$ which is
+
+\begin{equation}
+R = \frac{1}{4}s_i s_j \sum_{i,j}(k_i \delta_{i,j} - \mathbf{A}_{i,j}
+\end{equation}
+
+
+from the definition of the degree matrix $\mathbf{D}$
+\begin{equation}
+\sum_{i,j} (\mathbf{D}_{i,j} -\mathbf{A}_{i,j} = \sum_{i,j} \mathbf{L}_{i,j}
+\end{equation}
+
+from the definition of the Laplacian in equation 5 (in document review)
+
+Including the group indicators $s_i$,$s_j$ as the vector $\mathbf{s}$ we have the quadratic form:
+\begin{equation}
+R=\frac{1}{4}\mathbf{s}^T\mathbf{L}\mathbf{s}
+\end{equation}
+
+so we want $\mathbf{s}$ such that we can minimise $R$. The factor of $\frac{1}{4}$ is irrelevant in the minimisation.
+
+The columns of the Laplacian sum to 0 which means that the vector $\mathbf{1}$ is in the nullspace of the columns of $\mathbf{l}$ and $R$ will be 0 when $\mathbf{x}$ is $\mathbf{1}$. The second smallest eigenvalue of $\mathbf{L}$, $\mathbf{x}$ will minimise $\mathbf{x^T}\mathbf{L}\mathbf{x}$.
+This is equivalent to minimising the cut size other than by the trivial solution of putting all the vertices in oune group. We can see that this minimises the sum of edges passing between two groups:
+
+\begin{equation}
+\mathbf{x^T}\mathbf{L}\mathbf{x}=\mathbf{x^T}\mathbf{D}\mathbf{x}-\mathbf{x^T}\mathbf{A}\mathbf{x}=\sum_i k_i x_i^2 = \sum_{i,j} A_{i,j}x_i x_j
+\end{equation}
+
+\begin{equation}
+\frac{1}{2}\sum_i d_i x_i^2 - 2 \sum_{i,j} x_i x_j A_{i,j} + k_jx_j^2)=\frac{1}{2}\sum{i,j}A_{i,j}(x_i - x_j)^2
+\end{equation}
+
+and $A_{i,j}$ is only equal to 1 if there is an edge between $A_{i,j}$.
+
+In order to forbid the trivial solution it is common to fix the size of the two groups. $R$ is then minimised by choosing $s$ to be proportional to the second eigenvector of the Laplacian. In most cases $s$ cannot be chosen parallel to $v$ so an approximation is made using the sign of the scond eigenvector eg if $v_i>=0$ then $s_i=0$.
+
+The disadvanges of this method, is that we must specify the community size and that minimising cut size does not always naturally yiled communitiues as we described in the section on maximising modularity.
+
+8.2.2 Spectral methods using the modularity matrix
+
+Modularity is the difference between the number of edges in a community and the null model: the expected value of edges in a community. The expected value is take to be the observed degree of the corresponding vertex: when $P_{i,j}$ is the probability of an edge in $i,j$ the modularity $Q$ is:
+\begin{equation}
+Q = \frac{1}{2m} \sum_{i,j} (A_{i,j}-P_{i,j})\delta(g_i,g_j)
+\end{equation}
+
+where $g$ is group membership, $m$ is the number of edges and $\delta$ is the Kronecker delta.
+
+Our null model requires (end p 31)
+
+\begin{equation}
+\sum_j P_{i,j}=k_i	
+\end{equation}
+
+the probability of an edge depends on the degree of each vertex at the ned of the edge and the sum of the probability of edges is equal to $2m$ as we count each edge twice
+\begin{equation}
+	\sum_{i,j} P_{i,j}=2m
+\end{equation}
+
+$P_{i,j}$ depends on the product of $k_i$ and $k_j$ scaled by a constant proportional to $k$ for the network
+
+\begin{equation}
+	\sum_{i,j}P_{i,j}=2m=C^2[\sum_{i,j} k_i k_j] = C^2[2m^2]=(2mC)^2
+\end{equation} 
+
+so $C^2$ is $\frac{1}{2m}$ and
+
+\begin{equation}
+	P_{i,j} = \frac{k_i k_J}{2m}
+\end{equation}
+
+defining the modularity as the difference between the actual number of edges and expected number, the modularity matrix $\mathbf{B}$ is:
+
+\begin{equation}
+\mathbf{B}_{i,j} = A_{i,j} - P_{i,j} = A_{i,j} - \frac{k_i k_j}{2m}
+\end{equation}
+
+as before we define an index matrix $s$ of community membership and write the modularity from equation 20 (here equation 14) as:
+
+\begin{equation}
+Q = \frac{1}{2m}\sum_{i,j}[A_{i,j}-P_{i,j}]\delta (g_i,g_j)	
+\end{equation}
+
+\begin{equation}
+\delta(g_i,g_j)	= \frac{1}{2}(s+i s_j + 1)
+\end{equation}
+
+\begin{equation}
+	Q = \frac{1}{4m}\sum_{i,j}[A_{i,j}-P{i,j}](s_i s_j + 1)
+\end{equation}
+
+\begin{equation}
+\sum_{i,j} A_{i,j}=\sum_{i,j}P_{i,j}=0
+\end{equation}
+
+end p 32
+
+\begin{equation}
+Q = \frac{1}{4m}\sum_{i,j}[A_{i,j}-P_{i,j}](s_i,s_j)	
+\end{equation}
+
+as a quadratic form:
+
+\begin{equation}
+	Q = \frac{1}{4m}\mathbf{s}^T\mathbf{Bs}
+\end{equation}
+
+we now seek to maximise $Q$ by finding the eigenvector corresponding to the largest eigenvalue. The restriction of $s$ to integer values is circumvented by ascribing $s_i$ to the sign of the eigenvector $v_i$
+of $\mathbf{B}$ with maximum eigenvalue.
+
+We can extend this to multiple groups by recursively partitioning the network based on the leading eigenvector of the partiion and stopping partitioning when the partition does not result in a further increase in the modularity for the subdivision of the community (see Newman (2006) for further degtails). This is the method implemented by McLean et al (2016)
+
+\subsection{Infomap}
+\subsection{Louvain}
+\subsection{sG}
 \section{Benchmarks}
 
 \subsection{Performance on graph}
