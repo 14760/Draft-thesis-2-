@@ -618,11 +618,25 @@ GO:0030030 & cell projection organization & 572 & 483 & 385.7 & $7.80 \times 10^
 
 
 \subsection{Infomap}
+See section~\ref{sec:infomap in methods}
+
+Infomap conceptually is related to the idea of taking a random walk across as network. \cite{rosvall2008maps}In a random walk across a network the walker will tend to remain in communities once in them. Infomap uses information theory to find an optimal community structure and aims to minimise the descriptive length of an encoding of the community struture. The hypothetical random walk is given a binary encoding with movements in and out of communities given specific codes and movement within communities given codes. These do not have to be unique because the information already provided about the location in the walk can identify where the walk is in terms of a node or community. The goal is then to encode community entry and exit in such a way to minimise the descriptive length. The traversal of the actual community structure will be best described with a labelling that corresponds as close as possible to the community structure but there is also a cost to intra group movement and a tendency to produce shorter labels. 
+
+The infomap algorithm is popular as it is fast and has performed well on standardised benchmarks such as the LFR benchmark \todo{add cross reference}.\cite{lancichinetti2008benchmark} \cite{newman2018networks} \todo{check the lanchichinetti refs there should maybe also be the 2009 one}The LFR benchmark however does not provide well for communities of different sizes with a degree structure similar to the PSP network and we find limitations in the infomap method both in its performance at limits of resolution in the SBM and in the community structure detected for the PSP. It provides a relatively low modularity for the partition and finds a large number of small groups and one very large one (see table~\ref{tab:modularity and group sizes xtable}). 
 
 
-\cite{rosvall2008maps}
 \subsection{Louvain}
+
+\cite{blondel2008fast}
 \subsection{sG}
+
+\subsection{Walk trap}
+See section~\ref{sec:walk trap results}
+
+\cite{pons2005computing}
+\subsection{Fast greedy}
+Also referred to as fc.
+\cite{clauset2004finding}
 \section{Benchmarks}
 
 \subsection{Performance on graph}
@@ -1053,6 +1067,7 @@ lec & 0.25 & 3 & 1111 & 1212 & 1134.0 & 1152.3 \\
 
 
 \section{Infomap}
+\label{sec:infomap in methods}
 
 Infomap works using information theory about random walks. It is implemented in igraph for R. 
 
@@ -1247,7 +1262,7 @@ This supports the Newman idea that different partitions are made up of similar c
 \end{table}
 
 \section{Walk trap}
-
+\label{sec:walk trap results}
 Implemented in igraph. 562 communities , 405 have single member  Min.1 1st Qu.  1 Median1    Mean 6.151 3rd Qu. 2   Max. 760 
  
 \section{Label propogation}
