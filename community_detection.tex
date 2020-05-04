@@ -628,7 +628,9 @@ The infomap algorithm is popular as it is fast and has performed well on standar
 \subsection{Louvain}
 
 \cite{blondel2008fast}
-\subsection{sG}
+
+\subsection{Spinglass}
+See section~\ref{sec: Spinglass description}
 
 \subsection{Walk trap}
 See section~\ref{sec:walk trap results}
@@ -637,6 +639,14 @@ See section~\ref{sec:walk trap results}
 \subsection{Fast greedy}
 Also referred to as fc.
 \cite{clauset2004finding}
+
+
+\subsection{Markov clustering}
+See section~\ref{sec:markov clustering}.
+
+
+
+
 \section{Benchmarks}
 
 \subsection{Performance on graph}
@@ -1275,7 +1285,7 @@ Counter(0: 2002, 1: 1404, 2: 37, 3: 2, 4: 12)
 
   
 \section{Spinglass}
-
+\label{sec: Spinglass description}
 There are a number of tunable parameters for the implementation of the spinglass algorithm in igraph for R specifically
 args for spinglass
 \begin{itemize}
@@ -1378,25 +1388,7 @@ So when increasing the background amount we are increasing m
  
  Surprisingly all of the education phenotypes enrich for genes in the presynaptic proteome and this is not true of intelligence except weakly for UKBB Intelligence Discovery. The reasons for this are unclear. See figure \ref{Table:Enrichment of intelligence phenotypes presynaptic proteome} and \ref{Table:Enrichment of education phenotypes presynaptic proteome}
  
- % latex table generated in R 3.6.1 by xtable 1.8-4 package
-% Thu Jan 16 16:01:27 2020
-\begin{table}[ht]
-\centering
-\begin{tabular}{rlrrrrr}
-  \hline
- & SET & NGENES & BETA & BETA\_STD & SE & P \\ 
-  \hline 
 
-1 & Education Replication\_presynaptic\_all & 1449 & 0.06 & 0.02 & 0.02 & 0.00 \\ 
-  2 & Education Discovery\_presynaptic\_all & 1461 & 0.07 & 0.02 & 0.03 & 0.00 \\ 
-  3 & EA3\_presynaptic\_all & 1460 & 0.10 & 0.03 & 0.03 & 0.00 \\ 
-   \hline
-\end{tabular}
-\caption{Enrichment of education phenotypes presynaptic proteome} 
-\label{Table:Enrichment of intelligence phenotypes presynaptic proteome}
-% latex table generated in R 3.6.1 by xtable 1.8-4 package
-% Thu Jan 16 16:01:27 2020
-\end{table}
 
 \begin{table}
 \centering
@@ -1414,23 +1406,7 @@ So when increasing the background amount we are increasing m
 \end{table}
 
 
-% latex table generated in R 3.6.1 by xtable 1.8-4 package
-% Thu Jan 16 16:01:27 2020
-\begin{table}[ht]
-\centering
-\begin{tabular}{rlrrrrr}
-  \hline
- & SET & NGENES & BETA & BETA\_STD & SE & P \\ 
-  \hline
-1 & Intelligence Discovery\_presynaptic\_all & 1461 & 0.05 & 0.01 & 0.03 & 0.04 \\ 
-  2 & Intelligence Replication\_presynaptic\_all & 1466 & 0.02 & 0.00 & 0.02 & 0.23 \\ 
-  3 & Savage\_presynaptic\_all & 1498 & 0.04 & 0.01 & 0.03 & 0.10 \\ 
-  4 & Davies\_presynaptic\_all & 1460 & 0.05 & 0.01 & 0.03 & 0.04 \\ 
-   \hline
-\end{tabular}
-\caption{Enrichment of intelligence phenotypes presynaptic proteome} 
-\label{Table:Enrichment of intelligence phenotypes presynaptic proteome}
-\end{table}
+
 
 % latex table generated in R 3.6.1 by xtable 1.8-4 package
 % Thu Jan 16 16:01:27 2020
