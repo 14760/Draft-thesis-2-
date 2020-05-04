@@ -314,6 +314,10 @@ needs to be recalculated at each stage and one needs to know the number of commu
 to reduce the network to. An implementation is provided in igraph and it generates a dendrogram of heirarchical clustering communities with the optimum division being the one that maximises modulatity. This algorithm was used by Pocklington et al. (2006a) to find
 communities in the MASC complex. In addition it has good performance on \todo{benchmark}. Unfortunately it does not scale to the number of
 vertices found in the contemporary synaptic proteome. Even with a parrallelised implementation found it took a prohibitavely long time. 
+
+For a network with 1108 nodes and 4691 edges on a single core the algorithm took 9690 minutes (approximately 6.7 days). \cite{mclean2016improved}
+
+
 \subsection{Spectral clustering}
 Graphs can be divided into components according to the spectrum of the eigenvalues and
 eigenvectors of the matrices that represent them (Newman, 2010).
@@ -503,7 +507,22 @@ as a quadratic form:
 we now seek to maximise $Q$ by finding the eigenvector corresponding to the largest eigenvalue. The restriction of $s$ to integer values is circumvented by ascribing $s_i$ to the sign of the eigenvector $v_i$
 of $\mathbf{B}$ with maximum eigenvalue.
 
-We can extend this to multiple groups by recursively partitioning the network based on the leading eigenvector of the partiion and stopping partitioning when the partition does not result in a further increase in the modularity for the subdivision of the community (see Newman (2006) for further degtails). This is the method implemented by McLean et al (2016)
+We can extend this to multiple groups by recursively partitioning the network based on the leading eigenvector of the partition and stopping partitioning when the partition does not result in a further increase in the modularity for the subdivision of the community (see Newman (2006) for further details).
+
+The change in modularity of bisecting group $g$ is 
+
+\begin{equation}
+    \Delta Q = \frac{1}{4,} \sum_{i,j \in g} B_{i,j}^{(g)}s_i s_j
+\end{equation}
+where the modularity matrix for the bisection is 
+\begin{equation}
+B_{ij}^{P(g)} = B_{i,j} - \delta_{i,j}\sum_{k \in g} B_{i,k}  
+\end{equation}
+\label{eq:Change in modularity spectral clustering}
+
+Newman \cite{newman2018networks} p510.
+
+This is the method implemented by McLean \cite{mclean2016improved}. This implementation include a fine tuning step where the node which being moved from one group to another results in the maximum gain in modularity is fixed in its commubnity and the process is repeated until all nodes are moved. This process is repeated until the change in modularity is less than $\Delta$ $\epsilon$
 
 \subsubsection{Simple demonstration of spectral method}
 
