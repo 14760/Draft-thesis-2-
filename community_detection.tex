@@ -746,33 +746,52 @@ Using a 3457 LFR graph (18061 edges) the ground truth is of 143 communities
 
 Community size however varied with different methods
 
-Length louvain = 74
 
- Length info = 143
+\begin{table}[]
+    \centering
+    \begin{tabular}{lll}
+    \toprule
+        Method & n communites & NMI  \\
+        \midrule
+        Ground truth  & 143 & 1 \\
+        Louvain & 74 & 0.934 \\
+        Infomap & 143 & 0.9996 \\
+        igraph eigenvector & 60 & 0.599\\
+        Label propagation & 147 & 0.999\\
+        Walk trap & 139 & 0.996\\
+        Spectral & 129 & 0.950\\
+        \bottomrule
+    \end{tabular}
+    \caption{Performance of algorithms against groun truth for 3457 node 18061 generated LFR benchmark network}
+    \label{tab:benchmark Performance of algorithms against groun truth for 3457 node 18061 generated LFR benchmark network}
+\end{table}
+%Length louvain = 74
+
+%  Length info = 143
  
- Length greedy = 61
+%  Length greedy = 61
  
- Length eig = 60
+%  Length eig = 60
  
- Length label = 147
+%  Length label = 147
  
- Length walk trap = 139
+%  Length walk trap = 139
  
- Comparison of louvain and ground truth method nmi result 0.9342619557388658
+%  Comparison of louvain and ground truth method nmi result 0.9342619557388658
  
-Comparison of infomap and ground truth method nmi result 0.9995553221817195
+% Comparison of infomap and ground truth method nmi result 0.9995553221817195
 
-Comparison of greedy and ground truth method nmi result 0.886167941390111
+% Comparison of greedy and ground truth method nmi result 0.886167941390111
 
-Comparison of igraph eigenvector and ground truth method nmi result 0.5990794237801158
+% Comparison of igraph eigenvector and ground truth method nmi result 0.5990794237801158
 
-Comparison of label propagation and ground truth method nmi result 0.9992978887550072
+% Comparison of label propagation and ground truth method nmi result 0.9992978887550072
 
-Comparison of walk trap and ground truth method nmi result 0.9966928932427445
+% Comparison of walk trap and ground truth method nmi result 0.9966928932427445
 
-Spectral nmi = 0.950168278988933
+% Spectral nmi = 0.950168278988933
 
-Spectral communities 129
+% Spectral communities 129
 
 Comparison of louvain and ground truth method split-join result 1088.0
 Comparison of infomap and ground truth method split-join result 4.0
