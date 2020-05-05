@@ -624,6 +624,10 @@ Infomap conceptually is related to the idea of taking a random walk across as ne
 
 The infomap algorithm is popular as it is fast and has performed well on standardised benchmarks such as the LFR benchmark \todo{add cross reference}.\cite{lancichinetti2008benchmark} \cite{newman2018networks} \todo{check the lanchichinetti refs there should maybe also be the 2009 one}The LFR benchmark however does not provide well for communities of different sizes with a degree structure similar to the PSP network and we find limitations in the infomap method both in its performance at limits of resolution in the SBM and in the community structure detected for the PSP. It provides a relatively low modularity for the partition and finds a large number of small groups and one very large one (see table~\ref{tab:modularity and group sizes xtable}). 
 
+On the PSP there are 171 groups the majority less than fifteen members in size, the median group size is 9 and mean 20.2. THe largest group is 1228 and the next largest 130. The conductance of the largest group is low compared to mean group conductance at 0.255 suggesting this large group is not very cohesive and the clustering may be suboptimal for our purposes. 
+
+
+
 
 \subsection{Louvain}
 
@@ -1088,6 +1092,7 @@ lec & 0.25 & 3 & 1111 & 1212 & 1134.0 & 1152.3 \\
   infomap & 0.28 & 171 & 2 & 1228 & 8.0 & 20.2 \\ 
   spectral & 0.30 & 65 & 1 & 405 & 27.0 & 53.2 \\ 
   geodesic & 0.10 & 2566 & 1 & 496 & 1.0 & 1.3 \\ 
+  fast greedy (fc) & 0.31 & 19 & 2 & 1010 & 8 & 181.9 \\
    \bottomrule
 \end{tabular}
 \caption{modularity and group sizes xtable} 
@@ -1295,6 +1300,9 @@ This supports the Newman idea that different partitions are made up of similar c
 Implemented in igraph. 562 communities , 405 have single member  Min.1 1st Qu.  1 Median1    Mean 6.151 3rd Qu. 2   Max. 760 
  
 \section{Label propogation}
+\label{sec:label propogation}
+
+\cite{raghavan2007near}
 
 There is no guarantee that the clustering is unique indeed it is different every time. For one run in python average modularity is close to 0. With 10000 repetitions the maximum modularity was 0.25565433088497774 and this took 1 min 28 seconds
 
@@ -1302,7 +1310,33 @@ After 100000 iterations the maximum modularity is 0.25762367434321437 with a run
 
 Counter(0: 2002, 1: 1404, 2: 37, 3: 2, 4: 12)
 
-  
+
+\
+\subsection{PSP graph}
+100 iterations Modularity = 0.0788
+
+1000 iterations = 0.081
+
+10000 iterations = 0.32
+Counter({0: 780, 1: 610, 2: 28, 3: 36, 4: 6, 5: 9, 6: 49, 7: 5, 8: 4, 9: 3})
+
+100000 iterations = 0.376 11 groups
+Counter({0: 471,
+         1: 540,
+         2: 368,
+         3: 29,
+         4: 37,
+         5: 5,
+         6: 9,
+         7: 51,
+         8: 5,
+         9: 8,
+         10: 4,
+         11: 3})
+         
+
+
+
 \section{Spinglass}
 \label{sec: Spinglass description}
 There are a number of tunable parameters for the implementation of the spinglass algorithm in igraph for R specifically
@@ -1355,6 +1389,8 @@ We get significant enrichment for spin 2 gamma 5 for education and intelligence 
 For spins 10 gamma 5 we get 10 groups the 417 number group enriches strongly in discovery and replication but not for education and it is a big group.
 
 
+\section{Overlapping clustering}
+\todo{Reason for excluding}
 
 \todo{Modularity}
 \subsection{Modularity}

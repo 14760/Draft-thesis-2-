@@ -1,6 +1,28 @@
 \chapter{Discussion}
 
+My principal aims with this thesis were two-fold: first to investigate the practicality of network based analysis of complex traits and to discover general  principles that are applicable to such analyses; second to use these analyses to better understand a specific complex trait (intelligence) which we believed would be appropriate for such analysis (see section~\ref{sec:Introduction intelligence} and specifically  \ref{sec:Intelligence intro usefulness of intelligence as phenotype}).
+
+In this chapter I will summarise the findings of the thesis for both of these. I will then discuss the strengths and limitations of this analysis and outline future work. I will conclude with some more speculative observations on this work informed by my experience in carrying out this analysis.
 \section{Discussion}
+\subsection{Intelligence and Educational Ability}
+We find that communities associated with metabotropic glutamate receptors and iontotropic ampa receptors are enriched for differences in intelligence and educational ability. These findings are found in discovery and replication cohorts and the findings become stronger in more recent studies that overlap with our discovery and replication cohorts but provide additional numbers. 
+In the discovery and replication cohorts the enriched portions of the communities are not so much the receptors themselves but their neighbours, proteins that contribute to the macromolecular complexes the receptors are embedded in. This finding supports the analyses and hypotheses of Grant \cite{grant2012synaptopathies} and the early work of Pocklington and co-workers \cite{pocklington2006proteomes} in community detection. 
+
+The more recent studies (Savage and EA3) show enrichment both of the receptor and their neighbours but a substantial amount of the enrichment is found in the neighbouring proteins. These are findings that would be missed in a standard gene set analysis approach and supports the utility of network based community gene set analysis as a method of analysing complex traits. 
+
+For the discovery and replication cohorts the enriching proteins share few common biological themes found in Gene Ontology base gene set enrichment save for their proximity to receptor genes that are known to participate in glutamatergic neurotransmission. It is interesting to note that amongst the only findings within this group is an enrichment for neurogenesis. Hill found neurogenesis enriched in a large cohort for intelligence but that group was over 1000 genes in size, this group by contrast is 7 genes and enriches. 
+
+
+
+This suggests that the combination of community based GSA and Gene Ontology analysis may provide a more detailed interrogation of ontology or topology defined areas of enrichment in complex traits. 
+
+
+Vertex statistic and intelligence
+
+
+
+
+
 One of the issues with the project is the continuing evolution of the synaptic maps and that we can only address two of these while they are in a continuous state of evolution. Indeed the map could be said to change with the outcome of each published synaptic proteomic study. The only way to produce anything was to freeze the data at points. Hopefully the code written to optimise the analysis will make more fluid analysis possible in the future.
 
 Further directions will include looking at the synaptic proteome over the course of time. When moving from a trait such as intelligence to polygenic disorders that have different onsets in time then if we assume these to be synaptopathies we can expect different proteins to be expressed and this to correspond to the critical periods of the emergence of the disorder. For example neurodevelopmental disorders early, schizophrenia we would expect to occur around the time of peak onset of schizophrenia. We also know that the proteome varies across the brain and we will need to take this into account.
