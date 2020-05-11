@@ -60,7 +60,9 @@ In addressing the performance of community detection algorithms on ground truth 
 
 In community detection for protein interactions we commonly use gene ontology definitions or Gene RIFor gene lists of gene disease associations (GDA) such as OMIM \cite{hamosh2005online} ClinVar \cite{landrum2016clinvar}, CTD (Comparative toxogenomics database) \cite{davis2019comparative}, dbGAP \cite{tryka2014ncbi} disgenet \cite{pinero2020disgenet} \cite{pinero2016disgenet} and GWAS catalog \footnote{note to self -sic} \cite{welter2014nhgri} to assess whether the community detection algorithm is returning `natural" commuinities. The underlying assumption is that enrichment for these terms represents a function, someway in which the community is an entity and (although this is less often stated) that the community differs from a random selection of the elements that make up the network. 
 
-One of the problems of this approach is that we know that these lists of genes may not overlap exaclty with the findings of large scale population genetic studies. 
+One of the problems of this approach is that we know that these lists of genes may not overlap exaclty with the findings of large scale population genetic studies. For example in DisGeNET over 1000 genes are associated with schizophrenia from curated sources and the total number of genes found in the database is 1700 \cite{pinero2020disgenet}. This represents approximately 8.5\% of protein encoding genes in the genome \cite{ezkurdia2014multiple}. This 
+contrasts with 341 genes found in the Psychiatric Genomics Consortium–Schizophrenia Workgroup (PGC–SCZ) genome wide association study \cite{ripke2014biological}. Now these genes may represent those found in animal models or are drug targets or found in diseases associated with schizophrenia but a heterogenous collection of communities could be found to be associated with schizophrenia if the basis for supporting the association was over representation analysis. 
+
 
 There is a way in which we can test the clustering against true population studies and user this as a useful way to get more information about the gwas study and that is by doing GSA.
 
