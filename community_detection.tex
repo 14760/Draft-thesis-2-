@@ -50,241 +50,6 @@ This approach allows us to test three hypotheses aimed at contributing to unders
 This combined approach for analysis of neuropsychiatric GWA using synaptic structure can readily be extended to other disorders. 
 
 
-\section{Methods}
-To study the effect of synaptic network structure on the genetics of cognitive ability and educational attainment we have used a discovery and replication cohort design. To understand how the structure of the PSP might affect the genetic architecture of these complex phenotypes, we first tested if there was an association between measures of the influence of individual vertices (gene) in the graph (degree), and their significance in GWA studies. 
-Next, we used GSA to test whether the genes encoding proteins forming community structures in the network were significantly associated with differences in intelligence or educational attainment. 
-
-\subsection{Cohorts and studies}
-\section{Cohorts and samples}
-
-The population data used to test the association of centrality measures with population studies of educationbal attainment and intelligence were those described in sections~\ref{sec:cohorts from paper section} and \ref{sec:samples from paper section}
-
-
-
-\subsection{Community detection – choice of algorithm.} 
-To divide the network into its substructures wWe used a C++ implementation of spectral clustering with a fine tuning step in this paper as it previously provided the best balance of performance and informative functional enrichment on synaptic proteome networks. \cite{mclean2016improved}  The community structure is derived only from the pattern of network connections. i.e. no functional data is used to derived the substrucures.
-Community detection was carried out using the CDS package onas described in \cite{mclean2016improved} using ECDF, the distributed computing facility provided by the University of Edinburgh. All other analysis was performed on an Intel® Core™ i7-7700K CPU @ 4.20GHz 8 core workstation running Ubuntu 16.04 LTS 64 bit.  
-The modularity, a measure of the quality of the community prediction results, for the network partitioning was calculated in igraph library for R \cite{csardi2006igraph} . For all code see supplemental materials. 
-
-\subsection{Network statistics}
-To test the hypothesis that measures of gene importance in the network are correlated with cognitive ability and/or educational attainment, we calculated a range of standard network measures: betweenness centrality, degree, clustering coefficient, closeness centrality and eigenvector centrality using igraph for Python 3.6. \cite{csardi2006igraph}  We calculated the correlation between each of these vertex scores and the -log10 transform of the gene level p values derived from MAGMA for each study using Spearman’s rank correlation using the Scipy stats package for Python 3.6. 
-\subsection{Study design Topology based GSA}
-To test the hypothesis that there are network communities with an enriched association of genetic variations for intelligence and cognitive ability we carried out the following procedures.
-Communities of genes within the PSP are identified using spectral clustering. Gene based statistics are then calculated for the discovery and replication cohorts. We then use GSA to analyse data from the discovery cohorts’ GWA analyses of intelligence and cognitive ability, to identify potential communities of interest. PSP communities of interest are then tested in independent replication cohorts with correction for multiple hypothesis testing. The study design is shown in figure 1.
-
-\subsection{Gene Based Statistics}
-We calculated gene based statistics for each study using MAGMA (v1.06) using the NCBI 37.3 assembly to identify gene boundaries. \cite{de2015magma}   No window was used around the gene boundaries. Linkage disequilibrium was corrected for using 1000 Genomes European data provided by the CTG lab with the MAGMA software version 1.6.\cite{de2015magma}  Commands used for gene based tests are found in the shell script in supplementary material. Data for the meta-analysis of intelligence performed by Sniekers  et al. was downloaded from the CTG website (see urls). \cite{sniekers2017genome}  The summary statistics for the EA2 study of educational attainment were obtained from the authors and excludes UKBiobank Phase II Education data (used as the discovery cohort) in addition to the data from 23 and me. \cite{okbay2016genome}  The summary statistics unsorted by sex were used for analysis. Summary statistics for Phase II of UKBiobank Education cohort and intelligence cohort were obtained from the co-authors directly from the CCACE.[ref]\todo{get ccace ref}
-
-\subsubsection{PASCAL}
-\label{sec:PASCAL community detection}
-In order to determine if the choice of software for deriving a gene-based statistic influenced our results, we repeated our analyses using PASCAL instead of MAGMA, to provide both a gene level statistic and a competitive test of gene set enrichment. \cite{lamparter2016fast}  Pascal operates in a similar way to the popular VEGAS package but with a much shorter run time and the results are comparable. \cite{lamparter2016fast},\cite{liu2010versatile}  We judged it to be prudent to use an additional gene scoring method that uses a different scoring method as all subsequent analyses are dependent upon the gene score. 1000 Genomes European data was again used to account for linkage disequilibrium and no window was included around gene boundaries. The instructions supplied to the program are available in the supplementary material as a shell script. 
-
-\subsection{Gene set selection}
-We used the non-overlapping communities generated by the spectral community detection algorithm as gene sets stored in .gmt file format (each row a gene set). We represented each protein in the community by the Entrez ID representing the gene encoding that protein. 
-
-We selected gene sets with more than 15 members. Divisive algorithms are known to often produce numerous small communities. Small gene sets can result in the signal being dominated by a single gene. We used the default lower limit gene size for the Gene Set Enrichment Analysis software, GSEA, as the lower limit (15). 54  
-
-\subsection{Gene-set analysis}
-
-We carried out gene set analysis using the inbuilt GSA function implemented in MAGMA and using the non -parametric competitive method implemented in GSEA. \cite{de2015magma},\cite{subramanian2005gene}  MAGMA provides a competitive gene set analysis using the regression weight of the association of the genes in the group with the phenotype. \cite{de2015magma}  We followed the advice of Wilmot and Mooney and used more than one enrichment method utilising GSEA to provide a non- parametric enrichment analysis. \cite{subramanian2005gene},\cite{mooney2015gene}  GSEA calculates the enrichment of a set of genes by calculating a running Kolmogorov-Smirnov score weighted by the p value of the gene in the gene level analysis. The -log10 transform of the gene level p values obtained using MAGMA were used as input for GSEA. Gene set enrichment analysis was carried out using the command line interface for the Java implementation of GSEA (GSEA - 3.0). The script to carry out the gene set analysis is included in the supplemental materials. 
-
-We had no prior belief which, if any, communities would be associated with either phenotype. We therefore identified a set of genes (community) to be of interest if it attained nominally significant enrichment when tested using MAGMA GSA and GSEA. These gene sets were then used in the replication cohort GWA studies with correction of p values for multiple testing using the MAGMA permutation test and calculation of FDR q values in GSEA. Finally, the analysis pipeline was re-run using a different method of gene and pathway scoring to test whether the findings might be dependent on a particular package using PASCAL and its associated pathway analysis platform. \cite{lamparter2016fast}  
-
-\subsection{Gene ontology enrichment}
-To investigate the nature and function of significant community modules we used gene ontology enrichment analysis (see section~\ref{sec: gene ontology analysis}). \cite{mi2013large}  
-
- We tested for over representation of Gene Ontology terms in significant communities (sets) for each of the major Gene Ontology clades using Fishers exact test with corrections for multiple comparisons using the FDR method calculated using PANTER 13.1.\cite{mi2013large}We tested whether terms were over represented in these communities compared to their frequency both in the whole genome (using default  PANTHER settings) and compared with the  other 3457 genes in the PSP. \cite{mi2013large}  The ToppGene enrichment package was used to perform enrichment analysis of significant communities for murine and human phenotypes. \cite{chen2009toppgene}  
-
-\subsection{Evolutionary Constraint}
-
-The Exome Aggregation Consortium (ExAC - Broad Institute) contains DNA sequence data from the exomes of 60,706 individuals and provides metrics to identify genes subject to strong selection pressure against mutation. \cite{lek2016analysis}  We used data from version 1 (see URLs for source). This provides gene level measures of intolerance to deleterious mutations. The post synaptic density is known to be under evolutionary constraint with a low dN/dS (amino acid change/synonymous mutation change) in both murine and human PSD. \cite{ryan2009origin},\cite{bayes2012comparative},\cite{bayes2011characterization}  A bi-map was made between Ensembl transcript id in the ExAC data download and Entrez-id for the GRCh37 assembly using BioMart. \cite{smedley2015biomart}  We used the probability of the loss of function intolerance (pLI) to measure genetic constraint.
-
-\section{Results}
-
-\subsection{Synaptic Proteome Graph}
-
-The largest connected component of the graph of the postsynaptic proteome (PSP) consisted of 3457 nodes and 30498 edges. The mean degree (the number of edges incident to each node) was 17.6, the median 8, minimum degree 1 and maximum degree 535. The degree distribution is consistent with a power law distribution. Further details on the graph are available in supplemental table 3. 
-\subsubsection{Spectral community detection}
-65 post synaptic graph communities (clusters) were detected using the spectral clustering algorithm with fine-tuning step; the modularity (Q) of the partition was 0.30 indicating a robust community architecture.  The communities ranged in size from 1 to 405 genes (mean 53.2, median 27, standard deviation 73). We excluded those communities with less than 15 members, removing 35 communities and 88 genes (2.5\% of the PSP). 35 communities with a total of 3369 genes remained with mean community size 96.1, median 72 and standard deviation 76.8 (See supplementary tables 4,5).   
-
-For community statistics following Fortunato \cite{fortunato2016community} see table~\ref{tab:Community statistics after fortunato spectral clustering size > 15} \todo{summary statistics for each measure}
-code \url{source('~/RProjects/embed2/src/make_fortunato_table.R')}\todo{low conductance and high conductance nodes. perhaps high vanish and you have a plum pudding model}
-
-
-
-
-% latex table generated in R 3.6.3 by xtable 1.8-4 package
-% Tue Apr  7 17:38:02 2020
-\begin{table}[ht]
-\centering
-\begin{adjustbox}{max width=\textwidth}
-\begin{tabular}{lrrrrrrrrrr}
-  \hline
-community & n\_c & internal\_degree & average\_internal\_degree & internal\_degree\_density & external\_degree & average\_external\_degree & external\_degree\_density & total\_degree & average\_degree & conductance \\ 
-  \hline
-1 & 171 & 916 & 5.357 & 0.032 & 1536 & 8.982 & 0.003 & 2452 & 14.339 & 0.626 \\ 
-  2 & 165 & 1250 & 7.576 & 0.046 & 2248 & 13.624 & 0.004 & 3498 & 21.200 & 0.643 \\ 
-  3 & 41 & 110 & 2.683 & 0.067 & 253 & 6.171 & 0.002 & 363 & 8.854 & 0.697 \\ 
-  4 & 31 & 94 & 3.032 & 0.101 & 198 & 6.387 & 0.002 & 292 & 9.419 & 0.678 \\ 
-  5 & 112 & 460 & 4.107 & 0.037 & 737 & 6.580 & 0.002 & 1197 & 10.688 & 0.616 \\ 
-  6 & 79 & 172 & 2.177 & 0.028 & 593 & 7.506 & 0.002 & 765 & 9.684 & 0.775 \\ 
-  7 & 129 & 364 & 2.822 & 0.022 & 863 & 6.690 & 0.002 & 1227 & 9.512 & 0.703 \\ 
-  9 & 65 & 166 & 2.554 & 0.040 & 451 & 6.938 & 0.002 & 617 & 9.492 & 0.731 \\ 
-  10 & 154 & 1042 & 6.766 & 0.044 & 1069 & 6.942 & 0.002 & 2111 & 13.708 & 0.506 \\ 
-  11 & 56 & 154 & 2.750 & 0.050 & 687 & 12.268 & 0.004 & 841 & 15.018 & 0.817 \\ 
-  12 & 34 & 124 & 3.647 & 0.111 & 317 & 9.324 & 0.003 & 441 & 12.971 & 0.719 \\ 
-  16 & 72 & 294 & 4.083 & 0.058 & 589 & 8.181 & 0.002 & 883 & 12.264 & 0.667 \\ 
-  17 & 148 & 852 & 5.757 & 0.039 & 1136 & 7.676 & 0.002 & 1988 & 13.432 & 0.571 \\ 
-  19 & 20 & 46 & 2.300 & 0.121 & 191 & 9.550 & 0.003 & 237 & 11.850 & 0.806 \\ 
-  20 & 151 & 800 & 5.298 & 0.035 & 2012 & 13.325 & 0.004 & 2812 & 18.623 & 0.716 \\ 
-  22 & 42 & 94 & 2.238 & 0.055 & 409 & 9.738 & 0.003 & 503 & 11.976 & 0.813 \\ 
-  23 & 72 & 162 & 2.250 & 0.032 & 671 & 9.319 & 0.003 & 833 & 11.569 & 0.806 \\ 
-  24 & 76 & 348 & 4.579 & 0.061 & 686 & 9.026 & 0.003 & 1034 & 13.605 & 0.663 \\ 
-  25 & 27 & 54 & 2.000 & 0.077 & 234 & 8.667 & 0.003 & 288 & 10.667 & 0.812 \\ 
-  26 & 120 & 480 & 4.000 & 0.034 & 1238 & 10.317 & 0.003 & 1718 & 14.317 & 0.721 \\ 
-  28 & 38 & 132 & 3.474 & 0.094 & 272 & 7.158 & 0.002 & 404 & 10.632 & 0.673 \\ 
-  32 & 52 & 152 & 2.923 & 0.057 & 514 & 9.885 & 0.003 & 666 & 12.808 & 0.772 \\ 
-  33 & 191 & 1104 & 5.780 & 0.030 & 1787 & 9.356 & 0.003 & 2891 & 15.136 & 0.618 \\ 
-  34 & 215 & 2680 & 12.465 & 0.058 & 2520 & 11.721 & 0.004 & 5200 & 24.186 & 0.485 \\ 
-  43 & 150 & 972 & 6.480 & 0.043 & 2317 & 15.447 & 0.005 & 3289 & 21.927 & 0.704 \\ 
-  44 & 103 & 616 & 5.981 & 0.059 & 1807 & 17.544 & 0.005 & 2423 & 23.524 & 0.746 \\ 
-  45 & 124 & 624 & 5.032 & 0.041 & 1998 & 16.113 & 0.005 & 2622 & 21.145 & 0.762 \\ 
-  46 & 49 & 302 & 6.163 & 0.128 & 810 & 16.531 & 0.005 & 1112 & 22.694 & 0.728 \\ 
-  47 & 27 & 58 & 2.148 & 0.083 & 290 & 10.741 & 0.003 & 348 & 12.889 & 0.833 \\ 
-  48 & 23 & 74 & 3.217 & 0.146 & 244 & 10.609 & 0.003 & 318 & 13.826 & 0.767 \\ 
-  51 & 112 & 494 & 4.411 & 0.040 & 1423 & 12.705 & 0.004 & 1917 & 17.116 & 0.742 \\ 
-  53 & 405 & 7072 & 17.462 & 0.043 & 5479 & 13.528 & 0.004 & 12551 & 30.990 & 0.437 \\ 
-  55 & 44 & 164 & 3.727 & 0.087 & 678 & 15.409 & 0.005 & 842 & 19.136 & 0.805 \\ 
-  58 & 37 & 128 & 3.459 & 0.096 & 950 & 25.676 & 0.008 & 1078 & 29.135 & 0.881 \\ 
-  62 & 34 & 172 & 5.059 & 0.153 & 305 & 8.971 & 0.003 & 477 & 14.029 & 0.639 \\ 
-   \hline
-\end{tabular}
-\end{adjustbox}
-\caption{Community statistics after fortunato spectral clustering size $> 15$} 
-\label{tab:Community statistics after fortunato spectral clustering size > 15}
-\end{table}
-\subsubsection{Gene level results}
-
-Genome wide gene association analysis (GWGAS) was performed with MAGMA using the summary statistical data from the four cohorts. The results, including MAGMA output files, are available in the Supplemental Information.
-Sniekers et al. found 47 genes associated with intelligence using MAGMA (Bonferroni threshold of P = $2.73 x 10^{-6}$). \cite{sniekers2017genome}  To confirm the validity of our gene level results we used summary data provided from this study and found 46 genes at  P$<2.74 x 10^{-6}$ genes using MAGMA v.1.06.  The pairwise correlation (Spearman’s $\rho$) of the negative log10 transformed gene p values reported in the supplementary material found in Sniekers et al and our results was $\rho$= 0.957. \cite{sniekers2017genome} 
-
-
-
-\subsection{Gene set enrichment results}
-In order to test the hypothesis that particular topological groups within the graph (communities) are enriched for genetic variants associated with differences in educational attainment or intelligence we carried out competitive Gene Set Analysis using the topological communities as gene sets. 
-Four of 35 communities showed greater than nominally (p<0.05) significant enrichment using MAGMA GSA in the Education Discovery cohort (community: 5, P\textsubscript{MAGMA}=0.002, number of genes=106; community 53 n=405, community 22 n=42, P\textsubscript{MAGMA}=0.034; cluster 47 P\textsubscript{MAGMA}= 0.035 n=47). These communities other than 53 were among the 8 showing nominally significant enrichment using GSEA (2,5,11,20,22,24,33,47) and so communities 5, 22 and 47 (PGSEA= 0.004 ,0.014, 0.017) were taken forward to the replication cohorts. PGSEA for community 53 was 0.29. See table 2 and supplementary tables 2 and 3.
-In the Intelligence Discovery cohort three four gene sets showed nominally significant enrichment using MAGMA GSA (cluster 10, p=0.008, n=146; cluster 5 p=0.014, n=106; cluster 22 p=0.046; cluster 53 p=0.049). However, only group community 5 showed at least nominally significant enrichment on GSEA and was analysed in the replication cohort. 
-Group Community 5 was confirmed to have an enriched association with educational attainment in the replication cohort P\textsubscript{MAGMA}=0.01548, P\textsubscript{MAGMA} permutation= 0.043. Community Group 5 genes also were enriched in the Intelligence\textsubscript{Replication cohort} (p = 0.0084).
-
-Gene set enrichment tests were also performed using the pathway function in PASCAL.\cite{lamparter2016fast} Community Group 5 showed significant enrichment in all four cohorts using PASCAL’s gene scoring and GSA analysis methods Education Discovery p=0.00007, Intelligence Discovery p=0.0001; Education Replication p=0.0003, Intelligence Replication p=0.0001; alpha Bonferroni 0.0015 (Supplemental table 8). 
-
-\subsection{Gene ontology analysis}
-\label{sec: spectral group 5 analysis}
-We performed gene ontology enrichment analysis on community  5. Community 5 is significantly enriched for terms related to glutamate receptor activity and the heterotrimeric g protein complex, including the G protein coupled serotonin receptor. Community 5 has a significant proportion of these terms whether one compares against the rest of the genome or relative to other synaptic groups. 21 of the 27 genes annotated by the Gene Ontology Consortium as
-glutamate receptor activity (GO:0008066 MF) are found in the PSP. Of these, 12 are found in group 5 (57.1\%). 
-23 of the 37 genes encoding proteins annotated heterotrimeric g protein (GO:0005834) are found in the PSP. Of these, 16 are found in group 5 (69.5\% of PSP GO:0005834). 
-
-The PANTHER over-representation test was carried out for each of the GO clades, Biological Process, Molecular Function, Cellular Component with the gene set compared with the 3457 PSP genes. The results are ordered by FDR and are presented in tables 9-11 in the supplemental material 
-
-The biological process (BP) with the lowest FDR p value was G protein coupled receptor signalling activity, GO:0007186: FDR 2.16 x 10-8, fold enrichment 4.23. The second lowest was glutamate receptor signalling pathway GO 0007215: FDR 7.23 x 10-07, fold change 12.62.
-
-Glutamate receptor activity GO:0008066 was also the most over represented molecular function term: FDR 7.58 x 10-07, fold change 16. The most enriched cellular component was GTPase complex GO:1905360: FDR 8.75 x 10-8, fold change 18.23. This was followed by heterotrimeric G-protein complex: FDR 1.75 x 10-7, fold change 18.23.
-
-Enrichment analysis for ontology terms for Group 5 was also carried out with the entire genome  used to calculate the background frequency of terms (Panther default). Similar results with enrichment for g-protein associated receptors and glutamate receptors were found and shown in tables 12-14 in the supplemental material.
-
-\subsection{Murine and Disease Phenotypes in Community 5}
-The genes within group 5 have a strongly-enriched association with murine phenotypes related to synaptic transmission and electrophysiology. The top term is abnormal synaptic transmission (5.92 x 10-13 Bonferroni). We note that the 6th to 8th most enriched terms are phenotypes related to animal models of memory, learning and effective cognition (abnormal long term depression 6.41 x 10-7, abnormal synaptic depression 1.31 x 10-6 and abnormal long term potentiation 1.4 x 10-6, P values with Bonferroni correction using ToppGene \cite{chen2009toppgene} ). See table 15 in the supplemental material.
-
-Group 5 has an enriched association with genes that have been reported to be implicated in the aetiology of common neuropsychiatric disorders. The ten most significant terms using ToppGene \cite{chen2009toppgene}  include Schizophrenia (p = 5 x 10-08), Major Depressive Disorder (p = 6.06 x 10-5),  Bipolar Disorder (p=1.74 x 10-3), Substance induced Psychosis  (3.39 x 10-3) and Unipolar depression (p=9.14 x 10-03). See table 16in the supplemental material.
-
-\subsection{Subgroup analysis}
-Two large components can be identified in community 5 using gene ontology: heterotrimeric g proteins (of which G-protein coupled serotonin receptor complex is a subset) and glutamate receptors. These are strongly associated with human disease phenotypes and murine models of cognitive ability.
-
-With a community gene set discovered using only network topology, Gene Ontology can be used to provide a finer dissection of community properties (for example all the members of a community and all those that do or do not belong to a GO annotation that is predominant in the group).
-
-We find that the genetic variations in G protein receptors and glutamate receptors do not have an enriched association with educational attainment or human cognitive ability as one might expect based on animal phenotypes; rather, the remaining genes in group 5 after these have been removed have increased enrichment for educational attainment or intelligence, except in the CTG cohort (see table 17 supplemental material), but have a weaker association with human disease phenotypes and murine models of cognition. 
-
-Cluster 5 contains 112 genes. This cluster is enriched for genetic variants associated with intelligence and cognitive ability in all four cohorts (Intelligence Discovery p=0.014, Education Discovery p=0.002, Intelligence Replication p= 0.008, Education Replication p=0.015). There are 31 genes related to the heterotrimeric g protein complex, glutamate receptor activity or other G proteins (GO:0008066 and GO:0005834, 3 x GNB). The 81 genes left in the cluster after these are removed show more significant enrichment in all cohorts except IntelligenceReplication  (Intelligence Discovery 0.005 2.8x, Education Discovery p=0.0002 increase 10x, Intelligence Replication 0.013 (0.61 x), Education Replication (p=0.002, 7.5 x).
- 
-\subsection{Genetic Constraint}
-We used the probability of loss of function intolerance (pLI) measure in the ExAC database as a measure of genetic constraint. \cite{lek2016analysis} 
-
-The median pLI 54.1\% and the mean pLI was 1.85\% for all genes that appear at least once in the four cohorts (n= 17928). The glutamate receptor associated genes in community 5 are under much greater constraint (Mean pLI 86.2\%, median pLI 99.5\%) than the rest of the PSP (mean pLI 50.3\%, median pLI 50.4\%) or community 5 as a whole (mean 61.2\%, median 82.8\%).
-(supplemental table 18). 
-There was a small, significant positive correlation between -log10 transformed P gene association statistics for the cohorts and -log10 pLI (rho 0.12, p=3.5 x 10-11). The results are shown in supplementary table 19.
-
-\section{Discussion}
-Our results suggest that genetic variation in the genes encoding a group of proteins forming a tightly interconnected subnetwork in the post synaptic proteome have an enriched association with differences in educational attainment and intelligence. This group contains the majority of the genes encoding glutamate receptors and heterotrimeric G protein in the post synaptic proteome. These genes are commonly found in animal models of learning and memory and would intuitively appear to have a role in human learning and intelligence. The enrichment signal is, however, found in the neighbours of these proteins.
-
-This paper is to our knowledge the first to use GSA in association with community detection and make use of the complete data present in GWAS summary results. Ghissian recently used the Louvain algorithm in association with the STRING protein database but did not use a tissue specific network or a competitive test of GSA and the GWA data was limited to significant genes on GWA catalog. \cite{ghiassian2015disease} 
-
-In particular we have used an interaction network specific to a cellular component implicated in the trait. Goh found that genes that were specific to tissues were more likely to be associated with diseases than others in the connectome \cite{goh2007human}  and this seems to extend to complex traits at least in the form of intelligence and educational attainment. The review by Mooney and Wilmot of gene set analysis discusses sub communities detected in protein interaction networks as possible gene sets \cite{mooney2015gene}  and gives an example of a modularity maximisation method and an annotation mining tool that incorporates module detection; however, the first does not use genetic data and the second implements an over-representation test. does not use the full amount of data from GWA and the web address given in the paper is broken. 64  This technique could be extended to other disorders or complex traits that may be mediated by synaptic function. The synapse may behave differently from other tissues in these forms of analyses, as we know it forms modular units from its proteins that are associated with function \cite{grant2012synaptopathies} , and our finding might not generalise to proteomes in non-synaptic tissue or metabolic pathways. 
-
-We found no association between gene level GWA p values for educational attainment or intelligence and measures of vertex importance such as degree. It may be that nodes of high degree result in a severe phenotype and are not represented in population studies of complex traits. We would hypothesise that these core nodes are necessary for basic functions, and this is supported by the finding that the nodes that have a high level of importance on each of these metrics are associated with an increased measure of evolutionary constraint. 
-
- 	Our findings extend those of Goh to complex traits and show that genes whose variants are significantly associated with differences in cognitive ability or educational attainment are not disproportionately those of high degree.\cite{goh2007human} 
- The terms discovered using disease enrichment are heterogenous and come from animal models and databases such as OMIM and var. However, their use as indicators of an enriched association with a disease is common in the previous literature on network approaches to human disease. It is therefore desirable to have an approach incorporating all the information in the summary data of GWA study in the analysis of the association of network statistics or structures with disorders or complex traits.
- 
-The group is composed of glutamate receptors and G protein complexes intimately related to the plasma membrane corresponding to receptor complexes and their supporting proteins. Glutamate mediated neurotransmission is required for initiation of long term potentiation, and blocking glutamate receptors in the hippocampus of mice causes failure of memory encoding. 65,66  More recently, differential expression of glutamate receptors have recently been shown to be associated with differences in problem solving in two species of wild finch. \cite{audet2018divergence}  
-
-The glutamate receptors and heterotrimeric G proteins are not however the source of the enrichment signal and the potential connection between the GWA findings and these receptors is made possible by this analysis of communities within the graph structure.
-
-A small world model of genetic influence networks has been argued to support an omni-genic model of traits. \cite{boyle2017expanded}  However the structure of the synaptic graph may affect the genetic architecture of complex traits, even in a undirected network with unweighted edges and a small world structure, the rate of flow of information between genes depends on network structure.
-
-There are limitations to the current study. The set of genes found in proteomic studies of the pre and postsynaptic areas continues to increase although the \cite{heil2018systems} increase has reached a plateau. 41  If the network changes then the community allocations will change and a different network may lead to different community allocations. We have tried to limit this effect by choosing the method with the lowest proportion of ambiguously clustered pairs (PAC).
-
-The community allocations in addition are not a globally optimal allocation with regard to the modularity, and alternative partitions with similar modularity exist. The Spin glass model was an attractive alternative clustering method but has a number of tuneable parameters making designing a study which would properly account for multiple testing challenging.\todo{change 47 to spinglass ref}47 
-
-The clustering also does not take consideration that nodes may belong to more than one component or cluster. Probabilistic methods exist to determine the most likely community membership if vertices can belong to more than one community73 but the loss of non-overlapping gene sets may result in a great increase in the number of sets. We have also not taken into account a model where some genes are assigned to communities while others remain unassigned.
-
-The question of whether communities represent some ground truth entity also exists \cite{peel2017ground}  and we have not used any data other than the distribution of edges in community detection but it is possible to introduce these.  \cite{newman2016structure} 
-
-
- 
-
-\subsection{Extra results:Remaining proteins after subgroup}
-Remaining enrich for neurogenesis but the number of neurogenesis genes are low. Hill showed enrichement for neurogenesis genes but tested over 1000. Signal we have is from approx 7 and we also see enrichment in other areas close to glutamate synapses
-check path\_to\_code2
-
-\url{source('~/RProjects/go_analysis/R_src/GO_entity/load_neurogenesis.R')}
-
-\url{source('~/RProjects/utils/src/generic_compile_gsa_neurogen.R')} MAC
-This shows that there is not consistent enrichment for neurogenesis in group 5 22 genes associated with it 
-\begin{table}[]
-    \centering
-    \begin{tabular}{lllllll}
-        SET& NGENES&    BETA &BETA\_STD  &  SE      &   P  & P\_C\\
-        \hline
-  5  &   22&  0.2410&  0.00837& 0.237& 0.1537900& 0.0015956\\   
-         & 
-    \end{tabular}
-    \caption{Intelligence neurogenesis}
-    \label{tab:Intelligence neurogenesis}
-\end{table}
-
-\begin{table}[]
-    \centering
-    \begin{tabular}{lllllll}
-        SET& NGENES&    BETA &BETA\_STD  &  SE      &   P  & P\_C\\
-        \hline
-  5   &  22&  0.7930&  0.027500& 0.242& 0.00052570 &0.1371100\\
-
- \end{tabular}
-    \caption{Education neurogenesis}
-    \label{tab:Education neurogenesis}
-\end{table}
-
-Group 36 enriches in all but EA3 but has only 4 neurogenesis genes \todo{What is enrichment in full gsa}
-
-\section{Graphic of study design}
-See figure~\ref{fig:study design community detection}.
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{images/study_design.png}  
-    \caption{Study design for community detection}
-    \label{fig:study design community detection}
-\end{figure}
-
 \section{Communities}
 \label{sec:alternate intro}
 \subsection{Assessment of communities}
@@ -293,7 +58,9 @@ In addressing the performance of community detection algorithms on ground truth 
 
 "Generally, after some community detection algorithm identifies communities based on the network structure, the essential next step is to interpret the communities by identifying a common external property or a function that the members of a given community share and around which the community organizes [8]. For example, given a protein–protein interaction network of a cell, one first identifies communities based on the structure of the network and then examines that these communities correspond to real functional units of a cell. ". \cite{yang2015defining}
 
-In community detection for protein interactions we commonly use gene ontology definitions or gene lists of disorders such as gclin var. One of the problems of this is that we know that these lists of genes may not overlap exaclty with the findings of large scale population genetic studies. 
+In community detection for protein interactions we commonly use gene ontology definitions or Gene RIFor gene lists of gene disease associations (GDA) such as OMIM \cite{hamosh2005online} ClinVar \cite{landrum2016clinvar}, CTD (Comparative toxogenomics database) \cite{davis2019comparative}, dbGAP \cite{tryka2014ncbi} disgenet \cite{pinero2020disgenet} \cite{pinero2016disgenet} and GWAS catalog \footnote{note to self -sic} \cite{welter2014nhgri} to assess whether the community detection algorithm is returning `natural" commuinities. The underlying assumption is that enrichment for these terms represents a function, someway in which the community is an entity and (although this is less often stated) that the community differs from a random selection of the elements that make up the network. 
+
+One of the problems of this approach is that we know that these lists of genes may not overlap exaclty with the findings of large scale population genetic studies. 
 
 There is a way in which we can test the clustering against true population studies and user this as a useful way to get more information about the gwas study and that is by doing GSA.
 
@@ -319,9 +86,12 @@ vertices found in the contemporary synaptic proteome. Even with a parrallelised 
 For a network with 1108 nodes and 4691 edges on a single core the algorithm took 9690 minutes (approximately 6.7 days). \cite{mclean2016improved}
 
 
+
+
 \subsection{Spectral clustering}
 Graphs can be divided into components according to the spectrum of the eigenvalues and
-eigenvectors of the matrices that represent them (Newman, 2010).
+eigenvectors of the matrices that represent them \cite{newman2006finding}. Spectral methods are described for community detection for modularity maximisation, statistical inference and normalised graph cut partitioning and are shown to be equivalent \cite{newman2013spectral}.
+
 I hope to show the similarity and differences between using the graph Laplacian matrix
 and Modularity matrix for community detection and graph partitioning, in particular that
 they both use the graph spectra as solutions to optimisation problems (the minimisation
@@ -335,7 +105,7 @@ The two matrices that I will concentrate on are the Laplacian matrix L and the m
 matrix B.
 
 Several representations of the Laplacian matrix are used in the literature, often without
-further specification (Planck and Luxburg, 2006).
+further specification \cite{von2007tutorial}.
 The unnormalised graph Laplacian is defined:
 \begin{equation}
     \mathbf{L} = \mathbf{D} - \mathbf{W}
@@ -349,7 +119,7 @@ $\mathbf{A}$ will be symmetrical and the column and rows of $\mathbf{L}$ will ad
 therefore an eigenvector of L with eigenvalue zero as a linear combination of the columns
 of L is the zero vector.
 Two matrices are referred to as the normalised graph Laplacians. The symmetric:
-
+    
 The symmteric:
 
 \begin{equation}
@@ -525,95 +295,238 @@ Newman \cite{newman2018networks} p510.
 
 This is the method implemented by McLean \cite{mclean2016improved}. This implementation include a fine tuning step where the node which being moved from one group to another results in the maximum gain in modularity is fixed in its commubnity and the process is repeated until all nodes are moved. This process is repeated until the change in modularity is less than $\Delta$ $\epsilon$
 
-\subsubsection{Simple demonstration of spectral method}
 
-Using the definition of the modularity matrix $\mathbf{B}$ in equation~\ref{eq:modularity matrix B} we can calculate the modularity matrix using the adjacency matrix and the vector of degrees $k$
 
-\begin{equation}
-    \mathbf{B} = \mathbf{A} - \frac{\mathbf{k} \mathbf{k}^T}{2m}
-\end{equation}
 
-Using the eigenvector corresponding to the largest eigenvalue of $B$ and taking the sign function of each element in the matrix we obtain two group allocations for the PSP. 
 
-The PSP is divided using only this information into two groups, one of 2346 nodes and one of 1111 nodes. 
+\section{Methods}
+To study the effect of synaptic network structure on the genetics of cognitive ability and educational attainment we have used a discovery and replication cohort design. To understand how the structure of the PSP might affect the genetic architecture of these complex phenotypes, we first tested if there was an association between measures of the influence of individual vertices (gene) in the graph (degree), and their significance in GWA studies. 
+Next, we used GSA to test whether the genes encoding proteins forming community structures in the network were significantly associated with differences in intelligence or educational attainment. 
 
-As the other eigenvectors are orthogonal to the first they provide further information see figure~\ref{fig:first_four_eigenvectors _of_PSP}.
+\subsection{Cohorts and studies}
+\section{Cohorts and samples}
 
-Tables~\ref{tab:1111 group generated from sign of first eigenvector of modularity matrix. Biological function} and ~\ref{tab:2346 group generated from sign of first eigenvector of modularity matrix. Biological function} show that the groups have different functions using Gene Ontology enrichment for biological function and the PSP genes as backgrounds. The larger group (negative sign of eigenvector) n=2346 is enriched for actin cytoskeleton organisation wheras the smaller group with a positive sign on the eigenvector are enriched for biological functions such as mRNA metabolic process, translation and amide biosynthetic process. 
+The population data used to test the association of centrality measures with population studies of educationbal attainment and intelligence were those described in sections~\ref{sec:cohorts from paper section} and \ref{sec:samples from paper section}
 
-The separation of the first four eigenvectors of the modularity matrix are shown in figure~\ref{fig:first_four_eigenvectors _of_PSP}. 
 
+
+
+\subsection{Betweenness Newman and Girvan}
+One way in which communities can be discovered in graphs is to take two vertices that are
+disimillar and disconnected them by removing connecting edges.
+The Newman and Girvan algorithm \cite{newman2004finding}  calculates the betweenness
+of all edges in the network. The edge with highest betweenness is then removed and the
+process is repeated. This is a form of divisive hierarchical clustering. The betweenness
+needs to be recalculated at each stage and one needs to know the number of communities
+to reduce the network to. An implementation is provided in igraph and it generates a dendrogram of heirarchical clustering communities with the optimum division being the one that maximises modulatity. This algorithm was used by Pocklington et al. \cite{pocklington2006proteomes} to find
+communities in the MASC complex. In addition it has good performance on \todo{benchmark}. Unfortunately it does not scale to the number of
+vertices found in the contemporary synaptic proteome. Even with a parrallelised implementation found it took a prohibitavely long time. 
+
+For a network with 1108 nodes and 4691 edges on a single core the algorithm took 9690 minutes (approximately 6.7 days). \cite{mclean2016improved}
+ork into its substructures wWe used a C++ implementation of spectral clustering with a fine tuning step in this paper as it previously provided the best balance of performance and informative functional enrichment on synaptic proteome networks. \cite{mclean2016improved}  The community structure is derived only from the pattern of network connections. i.e. no functional data is used to derived the substrucures.
+Community detection was carried out using the CDS package onas described in \cite{mclean2016improved} using ECDF, the distributed computing facility provided by the University of Edinburgh. All other analysis was performed on an Intel® Core™ i7-7700K CPU @ 4.20GHz 8 core workstation running Ubuntu 16.04 LTS 64 bit.  
+The modularity, a measure of the quality of the community prediction results, for the network partitioning was calculated in igraph library for R \cite{csardi2006igraph} . For all code see supplemental materials. 
+
+\subsection{Network statistics}
+To test the hypothesis that measures of gene importance in the network are correlated with cognitive ability and/or educational attainment, we calculated a range of standard network measures: betweenness centrality, degree, clustering coefficient, closeness centrality and eigenvector centrality using igraph for Python 3.6. \cite{csardi2006igraph}  We calculated the correlation between each of these vertex scores and the -log10 transform of the gene level p values derived from MAGMA for each study using Spearman’s rank correlation using the Scipy stats package for Python 3.6. 
+\subsection{Study design Topology based GSA}
+To test the hypothesis that there are network communities with an enriched association of genetic variations for intelligence and cognitive ability we carried out the following procedures.
+Communities of genes within the PSP are identified using spectral clustering. Gene based statistics are then calculated for the discovery and replication cohorts. We then use GSA to analyse data from the discovery cohorts’ GWA analyses of intelligence and cognitive ability, to identify potential communities of interest. PSP communities of interest are then tested in independent replication cohorts with correction for multiple hypothesis testing. The study design is shown in figure 1.
+
+\subsection{Gene Based Statistics}
+We calculated gene based statistics for each study using MAGMA (v1.06) using the NCBI 37.3 assembly to identify gene boundaries. \cite{de2015magma}   No window was used around the gene boundaries. Linkage disequilibrium was corrected for using 1000 Genomes European data provided by the CTG lab with the MAGMA software version 1.6.\cite{de2015magma}  Commands used for gene based tests are found in the shell script in supplementary material. Data for the meta-analysis of intelligence performed by Sniekers  et al. was downloaded from the CTG website (see urls). \cite{sniekers2017genome}  The summary statistics for the EA2 study of educational attainment were obtained from the authors and excludes UKBiobank Phase II Education data (used as the discovery cohort) in addition to the data from 23 and me. \cite{okbay2016genome}  The summary statistics unsorted by sex were used for analysis. Summary statistics for Phase II of UKBiobank Education cohort and intelligence cohort were obtained from the co-authors directly from the CCACE.[ref]\todo{get ccace ref}
+
+\subsubsection{PASCAL}
+\label{sec:PASCAL community detection}
+In order to determine if the choice of software for deriving a gene-based statistic influenced our results, we repeated our analyses using PASCAL instead of MAGMA, to provide both a gene level statistic and a competitive test of gene set enrichment. \cite{lamparter2016fast}  Pascal operates in a similar way to the popular VEGAS package but with a much shorter run time and the results are comparable. \cite{lamparter2016fast},\cite{liu2010versatile}  We judged it to be prudent to use an additional gene scoring method that uses a different scoring method as all subsequent analyses are dependent upon the gene score. 1000 Genomes European data was again used to account for linkage disequilibrium and no window was included around gene boundaries. The instructions supplied to the program are available in the supplementary material as a shell script. 
+
+\subsection{Gene set selection}
+We used the non-overlapping communities generated by the spectral community detection algorithm as gene sets stored in .gmt file format (each row a gene set). We represented each protein in the community by the Entrez ID representing the gene encoding that protein. 
+
+We selected gene sets with more than 15 members. Divisive algorithms are known to often produce numerous small communities. Small gene sets can result in the signal being dominated by a single gene. We used the default lower limit gene size for the Gene Set Enrichment Analysis software, GSEA, as the lower limit (15). 54  
+
+\subsection{Gene-set analysis}
+
+We carried out gene set analysis using the inbuilt GSA function implemented in MAGMA and using the non -parametric competitive method implemented in GSEA. \cite{de2015magma},\cite{subramanian2005gene}  MAGMA provides a competitive gene set analysis using the regression weight of the association of the genes in the group with the phenotype. \cite{de2015magma}  We followed the advice of Wilmot and Mooney and used more than one enrichment method utilising GSEA to provide a non- parametric enrichment analysis. \cite{subramanian2005gene},\cite{mooney2015gene}  GSEA calculates the enrichment of a set of genes by calculating a running Kolmogorov-Smirnov score weighted by the p value of the gene in the gene level analysis. The -log10 transform of the gene level p values obtained using MAGMA were used as input for GSEA. Gene set enrichment analysis was carried out using the command line interface for the Java implementation of GSEA (GSEA - 3.0). The script to carry out the gene set analysis is included in the supplemental materials. 
+
+We had no prior belief which, if any, communities would be associated with either phenotype. We therefore identified a set of genes (community) to be of interest if it attained nominally significant enrichment when tested using MAGMA GSA and GSEA. These gene sets were then used in the replication cohort GWA studies with correction of p values for multiple testing using the MAGMA permutation test and calculation of FDR q values in GSEA. Finally, the analysis pipeline was re-run using a different method of gene
+and pathway scoring to test whether the findings might be dependent on a particular package using PASCAL and its associated pathway analysis platform. \cite{lamparter2016fast}  
+
+\subsection{Gene ontology enrichment}
+To investigate the nature and function of significant community modules we used gene ontology enrichment analysis (see section~\ref{sec: gene ontology analysis}). \cite{mi2013large}  
+
+ We tested for over representation of Gene Ontology terms in significant communities (sets) for each of the major Gene Ontology clades using Fishers exact test with corrections for multiple comparisons using the FDR method calculated using PANTER 13.1.\cite{mi2013large}We tested whether terms were over represented in these communities compared to their frequency both in the whole genome (using default  PANTHER settings) and compared with the  other 3457 genes in the PSP. \cite{mi2013large}  The ToppGene enrichment package was used to perform enrichment analysis of significant communities for murine and human phenotypes. \cite{chen2009toppgene}  
+
+\subsection{Evolutionary Constraint}
+
+The Exome Aggregation Consortium (ExAC - Broad Institute) contains DNA sequence data from the exomes of 60,706 individuals and provides metrics to identify genes subject to strong selection pressure against mutation. \cite{lek2016analysis}  We used data from version 1 (see URLs for source). This provides gene level measures of intolerance to deleterious mutations. The post synaptic density is known to be under evolutionary constraint with a low dN/dS (amino acid change/synonymous mutation change) in both murine and human PSD. \cite{ryan2009origin},\cite{bayes2012comparative},\cite{bayes2011characterization}  A bi-map was made between Ensembl transcript id in the ExAC data download and Entrez-id for the GRCh37 assembly using BioMart. \cite{smedley2015biomart}  We used the probability of the loss of function intolerance (pLI) to measure genetic constraint.
+
+\section{Results}
+
+\subsection{Synaptic Proteome Graph}
+
+The largest connected component of the graph of the postsynaptic proteome (PSP) consisted of 3457 nodes and 30498 edges. The mean degree (the number of edges incident to each node) was 17.6, the median 8, minimum degree 1 and maximum degree 535. The degree distribution is consistent with a power law distribution. Further details on the graph are available in supplemental table 3. 
+\subsubsection{Spectral community detection}
+65 post synaptic graph communities (clusters) were detected using the spectral clustering algorithm with fine-tuning step; the modularity (Q) of the partition was 0.30 indicating a robust community architecture.  The communities ranged in size from 1 to 405 genes (mean 53.2, median 27, standard deviation 73). We excluded those communities with less than 15 members, removing 35 communities and 88 genes (2.5\% of the PSP). 35 communities with a total of 3369 genes remained with mean community size 96.1, median 72 and standard deviation 76.8 (See supplementary tables 4,5).   
+
+For community statistics following Fortunato \cite{fortunato2016community} see table~\ref{tab:Community statistics after fortunato spectral clustering size > 15} \todo{summary statistics for each measure}
+code \url{source('~/RProjects/embed2/src/make_fortunato_table.R')}\todo{low conductance and high conductance nodes. perhaps high vanish and you have a plum pudding model}
+
+
+
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Tue Apr  7 17:38:02 2020
+\begin{table}[ht]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lrrrrrrrrrr}
+  \hline
+community & n\_c & internal\_degree & average\_internal\_degree & internal\_degree\_density & external\_degree & average\_external\_degree & external\_degree\_density & total\_degree & average\_degree & conductance \\ 
+  \hline
+1 & 171 & 916 & 5.357 & 0.032 & 1536 & 8.982 & 0.003 & 2452 & 14.339 & 0.626 \\ 
+  2 & 165 & 1250 & 7.576 & 0.046 & 2248 & 13.624 & 0.004 & 3498 & 21.200 & 0.643 \\ 
+  3 & 41 & 110 & 2.683 & 0.067 & 253 & 6.171 & 0.002 & 363 & 8.854 & 0.697 \\ 
+  4 & 31 & 94 & 3.032 & 0.101 & 198 & 6.387 & 0.002 & 292 & 9.419 & 0.678 \\ 
+  5 & 112 & 460 & 4.107 & 0.037 & 737 & 6.580 & 0.002 & 1197 & 10.688 & 0.616 \\ 
+  6 & 79 & 172 & 2.177 & 0.028 & 593 & 7.506 & 0.002 & 765 & 9.684 & 0.775 \\ 
+  7 & 129 & 364 & 2.822 & 0.022 & 863 & 6.690 & 0.002 & 1227 & 9.512 & 0.703 \\ 
+  9 & 65 & 166 & 2.554 & 0.040 & 451 & 6.938 & 0.002 & 617 & 9.492 & 0.731 \\ 
+  10 & 154 & 1042 & 6.766 & 0.044 & 1069 & 6.942 & 0.002 & 2111 & 13.708 & 0.506 \\ 
+  11 & 56 & 154 & 2.750 & 0.050 & 687 & 12.268 & 0.004 & 841 & 15.018 & 0.817 \\ 
+  12 & 34 & 124 & 3.647 & 0.111 & 317 & 9.324 & 0.003 & 441 & 12.971 & 0.719 \\ 
+  16 & 72 & 294 & 4.083 & 0.058 & 589 & 8.181 & 0.002 & 883 & 12.264 & 0.667 \\ 
+  17 & 148 & 852 & 5.757 & 0.039 & 1136 & 7.676 & 0.002 & 1988 & 13.432 & 0.571 \\ 
+  19 & 20 & 46 & 2.300 & 0.121 & 191 & 9.550 & 0.003 & 237 & 11.850 & 0.806 \\ 
+  20 & 151 & 800 & 5.298 & 0.035 & 2012 & 13.325 & 0.004 & 2812 & 18.623 & 0.716 \\ 
+  22 & 42 & 94 & 2.238 & 0.055 & 409 & 9.738 & 0.003 & 503 & 11.976 & 0.813 \\ 
+  23 & 72 & 162 & 2.250 & 0.032 & 671 & 9.319 & 0.003 & 833 & 11.569 & 0.806 \\ 
+  24 & 76 & 348 & 4.579 & 0.061 & 686 & 9.026 & 0.003 & 1034 & 13.605 & 0.663 \\ 
+  25 & 27 & 54 & 2.000 & 0.077 & 234 & 8.667 & 0.003 & 288 & 10.667 & 0.812 \\ 
+  26 & 120 & 480 & 4.000 & 0.034 & 1238 & 10.317 & 0.003 & 1718 & 14.317 & 0.721 \\ 
+  28 & 38 & 132 & 3.474 & 0.094 & 272 & 7.158 & 0.002 & 404 & 10.632 & 0.673 \\ 
+  32 & 52 & 152 & 2.923 & 0.057 & 514 & 9.885 & 0.003 & 666 & 12.808 & 0.772 \\ 
+  
+  33 & 191 & 1104 & 5.780 & 0.030 & 1787 & 9.356 & 0.003 & 2891 & 15.136 & 0.618 \\ 
+  34 & 215 & 2680 & 12.465 & 0.058 & 2520 & 11.721 & 0.004 & 5200 & 24.186 & 0.485 \\ 
+  43 & 150 & 972 & 6.480 & 0.043 & 2317 & 15.447 & 0.005 & 3289 & 21.927 & 0.704 \\ 
+  44 & 103 & 616 & 5.981 & 0.059 & 1807 & 17.544 & 0.005 & 2423 & 23.524 & 0.746 \\ 
+  45 & 124 & 624 & 5.032 & 0.041 & 1998 & 16.113 & 0.005 & 2622 & 21.145 & 0.762 \\ 
+  46 & 49 & 302 & 6.163 & 0.128 & 810 & 16.531 & 0.005 & 1112 & 22.694 & 0.728 \\ 
+  47 & 27 & 58 & 2.148 & 0.083 & 290 & 10.741 & 0.003 & 348 & 12.889 & 0.833 \\ 
+  48 & 23 & 74 & 3.217 & 0.146 & 244 & 10.609 & 0.003 & 318 & 13.826 & 0.767 \\ 
+  51 & 112 & 494 & 4.411 & 0.040 & 1423 & 12.705 & 0.004 & 1917 & 17.116 & 0.742 \\ 
+  53 & 405 & 7072 & 17.462 & 0.043 & 5479 & 13.528 & 0.004 & 12551 & 30.990 & 0.437 \\ 
+  55 & 44 & 164 & 3.727 & 0.087 & 678 & 15.409 & 0.005 & 842 & 19.136 & 0.805 \\ 
+  58 & 37 & 128 & 3.459 & 0.096 & 950 & 25.676 & 0.008 & 1078 & 29.135 & 0.881 \\ 
+  62 & 34 & 172 & 5.059 & 0.153 & 305 & 8.971 & 0.003 & 477 & 14.029 & 0.639 \\ 
+   \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Community statistics after fortunato spectral clustering size $> 15$} 
+\label{tab:Community statistics after fortunato spectral clustering size > 15}
+\end{table}
+\subsubsection{Gene level results}
+
+Genome wide gene association analysis (GWGAS) was performed with MAGMA using the summary statistical data from the four cohorts. The results, including MAGMA output files, are available in the Supplemental Information.
+Sniekers et al. found 47 genes associated with intelligence using MAGMA (Bonferroni threshold of P = $2.73 x 10^{-6}$). \cite{sniekers2017genome}  To confirm the validity of our gene level results we used summary data provided from this study and found 46 genes at  P$<2.74 x 10^{-6}$ genes using MAGMA v.1.06.  The pairwise correlation (Spearman’s $\rho$) of the negative log10 transformed gene p values reported in the supplementary material found in Sniekers et al and our results was $\rho$= 0.957. \cite{sniekers2017genome} 
+
+
+
+\subsection{Gene set enrichment results}
+In order to test the hypothesis that particular topological groups within the graph (communities) are enriched for genetic variants associated with differences in educational attainment or intelligence we carried out competitive Gene Set Analysis using the topological communities as gene sets. 
+Four of 35 communities showed greater than nominally (p<0.05) significant enrichment using MAGMA GSA in the Education Discovery cohort (community: 5, P\textsubscript{MAGMA}=0.002, number of genes=106; community 53 n=405, community 22 n=42, P\textsubscript{MAGMA}=0.034; cluster 47 P\textsubscript{MAGMA}= 0.035 n=47). These communities other than 53 were among the 8 showing nominally significant enrichment using GSEA (2,5,11,20,22,24,33,47) and so communities 5, 22 and 47 (PGSEA= 0.004 ,0.014, 0.017) were taken forward to the replication cohorts. PGSEA for community 53 was 0.29. See table 2 and supplementary tables 2 and 3.
+In the Intelligence Discovery cohort three four gene sets showed nominally significant enrichment using MAGMA GSA (cluster 10, p=0.008, n=146; cluster 5 p=0.014, n=106; cluster 22 p=0.046; cluster 53 p=0.049). However, only group community 5 showed at least nominally significant enrichment on GSEA and was analysed in the replication cohort. 
+Group Community 5 was confirmed to have an enriched association with educational attainment in the replication cohort P\textsubscript{MAGMA}=0.01548, P\textsubscript{MAGMA} permutation= 0.043. Community Group 5 genes also were enriched in the Intelligence\textsubscript{Replication cohort} (p = 0.0084).
+
+Gene set enrichment tests were also performed using the pathway function in PASCAL.\cite{lamparter2016fast} Community Group 5 showed significant enrichment in all four cohorts using PASCAL’s gene scoring and GSA analysis methods Education Discovery p=0.00007, Intelligence Discovery p=0.0001; Education Replication p=0.0003, Intelligence Replication p=0.0001; alpha Bonferroni 0.0015 (Supplemental table 8). 
+
+\subsection{Gene ontology analysis}
+\label{sec: spectral group 5 analysis}
+We performed gene ontology enrichment analysis on community  5. Community 5 is significantly enriched for terms related to glutamate receptor activity and the heterotrimeric g protein complex, including the G protein coupled serotonin receptor. Community 5 has a significant proportion of these terms whether one compares against the rest of the genome or relative to other synaptic groups. 21 of the 27 genes annotated by the Gene Ontology Consortium as
+glutamate receptor activity (GO:0008066 MF) are found in the PSP. Of these, 12 are found in group 5 (57.1\%). 
+23 of the 37 genes encoding proteins annotated heterotrimeric g protein (GO:0005834) are found in the PSP. Of these, 16 are found in group 5 (69.5\% of PSP GO:0005834). 
+
+The PANTHER over-representation test was carried out for each of the GO clades, Biological Process, Molecular Function, Cellular Component with the gene set compared with the 3457 PSP genes. The results are ordered by FDR and are presented in tables 9-11 in the supplemental material 
+
+The biological process (BP) with the lowest FDR p value was G protein coupled receptor signalling activity, GO:0007186: FDR 2.16 x 10-8, fold enrichment 4.23. The second lowest was glutamate receptor signalling pathway GO 0007215: FDR 7.23 x 10-07, fold change 12.62.
+
+Glutamate receptor activity GO:0008066 was also the most over represented molecular function term: FDR 7.58 x 10-07, fold change 16. The most enriched cellular component was GTPase complex GO:1905360: FDR 8.75 x 10-8, fold change 18.23. This was followed by heterotrimeric G-protein complex: FDR 1.75 x 10-7, fold change 18.23.
+
+Enrichment analysis for ontology terms for Group 5 was also carried out with the entire genome  used to calculate the background frequency of terms (Panther default). Similar results with enrichment for g-protein associated receptors and glutamate receptors were found and shown in tables 12-14 in the supplemental material.
+
+\subsection{Murine and Disease Phenotypes in Community 5}
+The genes within group 5 have a strongly-enriched association with murine phenotypes related to synaptic transmission and electrophysiology. The top term is abnormal synaptic transmission (5.92 x 10-13 Bonferroni). We note that the 6th to 8th most enriched terms are phenotypes related to animal models of memory, learning and effective cognition (abnormal long term depression 6.41 x 10-7, abnormal synaptic depression 1.31 x 10-6 and abnormal long term potentiation 1.4 x 10-6, P values with Bonferroni correction using ToppGene \cite{chen2009toppgene} ). See table 15 in the supplemental material.
+
+Group 5 has an enriched association with genes that have been reported to be implicated in the aetiology of common neuropsychiatric disorders. The ten most significant terms using ToppGene \cite{chen2009toppgene}  include Schizophrenia (p = 5 x 10-08), Major Depressive Disorder (p = 6.06 x 10-5),  Bipolar Disorder (p=1.74 x 10-3), Substance induced Psychosis  (3.39 x 10-3) and Unipolar depression (p=9.14 x 10-03). See table 16in the supplemental material.
+
+\subsection{Subgroup analysis}
+Two large components can be identified in community 5 using gene ontology: heterotrimeric g proteins (of which G-protein coupled serotonin receptor complex is a subset) and glutamate receptors. These are strongly associated with human disease phenotypes and murine models of cognitive ability.
+
+With a community gene set discovered using only network topology, Gene Ontology can be used to provide a finer dissection of community properties (for example all the members of a community and all those that do or do not belong to a GO annotation that is predominant in the group).
+
+We find that the genetic variations in G protein receptors and glutamate receptors do not have an enriched association with educational attainment or human cognitive ability as one might expect based on animal phenotypes; rather, the remaining genes in group 5 after these have been removed have increased enrichment for educational attainment or intelligence, except in the CTG cohort (see table 17 supplemental material), but have a weaker association with human disease phenotypes and murine models of cognition. 
+
+Cluster 5 contains 112 genes. This cluster is enriched for genetic variants associated with intelligence and cognitive ability in all four cohorts (Intelligence Discovery p=0.014, Education Discovery p=0.002, Intelligence Replication p= 0.008, Education Replication p=0.015). There are 31 genes related to the heterotrimeric g protein complex, glutamate receptor activity or other G proteins (GO:0008066 and GO:0005834, 3 x GNB). The 81 genes left in the cluster after these are removed show more significant enrichment in all cohorts except IntelligenceReplication  (Intelligence Discovery 0.005 2.8x, Education Discovery p=0.0002 increase 10x, Intelligence Replication 0.013 (0.61 x), Education Replication (p=0.002, 7.5 x).
+ 
+\subsection{Genetic Constraint}
+We used the probability of loss of function intolerance (pLI) measure in the ExAC database as a measure of genetic constraint. \cite{lek2016analysis} 
+
+The median pLI 54.1\% and the mean pLI was 1.85\% for all genes that appear at least once in the four cohorts (n= 17928). The glutamate receptor associated genes in community 5 are under much greater constraint (Mean pLI 86.2\%, median pLI 99.5\%) than the rest of the PSP (mean pLI 50.3\%, median pLI 50.4\%) or community 5 as a whole (mean 61.2\%, median 82.8\%).
+(supplemental table 18). 
+There was a small, significant positive correlation between -log10 transformed P 
+gene association statistics for the cohorts and -log10 pLI (rho 0.12, p=3.5 x 10-11). The results are shown in supplementary table 19.
+
+\todo{discussion removed here}
+\textcolor{red}{discussion removed here}
+ 
+
+\subsection{Extra results:Remaining proteins after subgroup}
+Remaining enrich for neurogenesis but the number of neurogenesis genes are low. Hill showed enrichement for neurogenesis genes but tested over 1000. Signal we have is from approx 7 and we also see enrichment in other areas close to glutamate synapses
+check path\_to\_code2
+
+\url{source('~/RProjects/go_analysis/R_src/GO_entity/load_neurogenesis.R')}
+
+\url{source('~/RProjects/utils/src/generic_compile_gsa_neurogen.R')} MAC
+This shows that there is not consistent enrichment for neurogenesis in group 5 22 genes associated with it 
+\begin{table}[]
+    \centering
+    \begin{tabular}{lllllll}
+        SET& NGENES&    BETA &BETA\_STD  &  SE      &   P  & P\_C\\
+        \hline
+  5  &   22&  0.2410&  0.00837& 0.237& 0.1537900& 0.0015956\\   
+         & 
+    \end{tabular}
+    \caption{Intelligence neurogenesis}
+    \label{tab:Intelligence neurogenesis}
+\end{table}
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{lllllll}
+        SET& NGENES&    BETA &BETA\_STD  &  SE      &   P  & P\_C\\
+        \hline
+  5   &  22&  0.7930&  0.027500& 0.242& 0.00052570 &0.1371100\\
+
+ \end{tabular}
+    \caption{Education neurogenesis}
+    \label{tab:Education neurogenesis}
+\end{table}
+
+Group 36 enriches in all but EA3 but has only 4 neurogenesis genes \todo{What is enrichment in full gsa}
+
+\section{Graphic of study design}
+See figure~\ref{fig:study design community detection}.
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{images/Rplot_eigenvectors_of_PSP_modularity_matrix.png}
-    \caption{First four eigenvectors of the modularity matrix of $\mathbf{B}$ the modularity matrix of the PSP}
-    \label{fig:first_four_eigenvectors _of_PSP}
+    \includegraphics[width=\textwidth]{images/study_design.png}  
+    \caption{Study design for community detection}
+    \label{fig:study design community detection}
 \end{figure}
-% Mon May  4 15:33:03 2020
-\begin{table}[ht]
-\centering
-\begin{tabular}{llrrrr}
-  \hline
-GO.ID & Term & Annotated & Significant & Expected & classic \\ 
-  \hline
-GO:0034641 & cellular nitrogen compound metabolic pro... & 1208 & 621 & 393.5 & $1.00 \times 10^{-30}$ \\ 
-  GO:0016071 & mRNA metabolic process & 254 & 210 & 82.7 & $1.00 \times 10^{-30}$ \\ 
-  GO:0010467 & gene expression & 922 & 506 & 300.3 & $1.00 \times 10^{-30}$ \\ 
-  GO:0090304 & nucleic acid metabolic process & 801 & 452 & 260.9 & $1.00 \times 10^{-30}$ \\ 
-  GO:0044271 & cellular nitrogen compound biosynthetic ... & 900 & 490 & 293.2 & $1.00 \times 10^{-30}$ \\ 
-  GO:0043604 & amide biosynthetic process & 297 & 225 & 96.8 & $1.00 \times 10^{-30}$ \\ 
-  GO:0006412 & translation & 258 & 204 & 84.0 & $1.00 \times 10^{-30}$ \\ 
-  GO:0043043 & peptide biosynthetic process & 262 & 205 & 85.3 & $1.00 \times 10^{-30}$ \\ 
-  GO:0034645 & cellular macromolecule biosynthetic proc... & 803 & 447 & 261.6 & $1.00 \times 10^{-30}$ \\ 
-  GO:0009059 & macromolecule biosynthetic process & 830 & 456 & 270.4 & $1.00 \times 10^{-30}$ \\ 
-  GO:0046483 & heterocycle metabolic process & 1076 & 549 & 350.5 & $1.00 \times 10^{-30}$ \\ 
-  GO:0006139 & nucleobase-containing compound metabolic... & 1050 & 537 & 342.0 & $1.00 \times 10^{-30}$ \\ 
-  GO:0016070 & RNA metabolic process & 716 & 407 & 233.2 & $1.00 \times 10^{-30}$ \\ 
-  GO:1901360 & organic cyclic compound metabolic proces... & 1121 & 562 & 365.2 & $1.00 \times 10^{-30}$ \\ 
-  GO:0006725 & cellular aromatic compound metabolic pro... & 1088 & 549 & 354.4 & $1.00 \times 10^{-30}$ \\ 
-  GO:0006401 & RNA catabolic process & 179 & 152 & 58.3 & $1.00 \times 10^{-30}$ \\ 
-  GO:0006402 & mRNA catabolic process & 175 & 149 & 57.0 & $1.00 \times 10^{-30}$ \\ 
-  GO:1901576 & organic substance biosynthetic process & 1147 & 564 & 373.6 & $1.00 \times 10^{-30}$ \\ 
-  GO:0009058 & biosynthetic process & 1160 & 568 & 377.9 & $1.00 \times 10^{-30}$ \\ 
-  GO:0043603 & cellular amide metabolic process & 368 & 248 & 119.9 & $1.00 \times 10^{-30}$ \\ 
-   \hline
-\end{tabular}
-\caption{1111 group generated from sign of first eigenvector of modularity matrix. Biological function} 
-\label{tab:1111 group generated from sign of first eigenvector of modularity matrix. Biological function}
-\end{table}
 
 
-\begin{table}[ht]
-\centering
-\begin{tabular}{llrrrr}
-  \hline
-GO.ID & Term & Annotated & Significant & Expected & classic \\ 
-  \hline
-GO:0030030 & cell projection organization & 572 & 483 & 385.7 & $7.80 \times 10^{-24}$ \\ 
-  GO:0120036 & plasma membrane bounded cell projection ... & 566 & 478 & 381.6 & $1.40 \times 10^{-23}$ \\ 
-  GO:0099537 & trans-synaptic signaling & 316 & 281 & 213.1 & $1.30 \times 10^{-20}$ \\ 
-  GO:0023052 & signaling & 1510 & 1142 & 1018.1 & $1.50 \times 10^{-20}$ \\ 
-  GO:0007268 & chemical synaptic transmission & 310 & 276 & 209.0 & $2.00 \times 10^{-20}$ \\ 
-  GO:0098916 & anterograde trans-synaptic signaling & 310 & 276 & 209.0 & $2.00 \times 10^{-20}$ \\ 
-  GO:0007154 & cell communication & 1508 & 1140 & 1016.8 & $2.30 \times 10^{-20}$ \\ 
-  GO:0099536 & synaptic signaling & 318 & 282 & 214.4 & $2.90 \times 10^{-20}$ \\ 
-  GO:0051049 & regulation of transport & 623 & 511 & 420.1 & $2.10 \times 10^{-19}$ \\ 
-  GO:0007399 & nervous system development & 772 & 617 & 520.5 & $2.20 \times 10^{-18}$ \\ 
-  GO:0048666 & neuron development & 439 & 368 & 296.0 & $9.30 \times 10^{-17}$ \\ 
-  GO:0030029 & actin filament-based process & 333 & 287 & 224.5 & $1.70 \times 10^{-16}$ \\ 
-  GO:0030036 & actin cytoskeleton organization & 284 & 249 & 191.5 & $2.10 \times 10^{-16}$ \\ 
-  GO:0050804 & modulation of chemical synaptic transmis... & 218 & 197 & 147.0 & $2.20 \times 10^{-16}$ \\ 
-  GO:0031175 & neuron projection development & 404 & 340 & 272.4 & $5.30 \times 10^{-16}$ \\ 
-  GO:0099177 & regulation of trans-synaptic signaling & 219 & 197 & 147.7 & $7.50 \times 10^{-16}$ \\ 
-  GO:0032879 & regulation of localization & 853 & 667 & 575.1 & $1.20 \times 10^{-15}$ \\ 
-  GO:0032989 & cellular component morphogenesis & 453 & 375 & 305.4 & $3.00 \times 10^{-15}$ \\ 
-  GO:0030182 & neuron differentiation & 478 & 393 & 322.3 & $5.10 \times 10^{-15}$ \\ 
-  GO:0048699 & generation of neurons & 515 & 420 & 347.2 & $7.00 \times 10^{-15}$ \\ 
-   \hline
-\end{tabular}
-\caption{2346 group generated from sign of first eigenvector of modularity matrix. Biological function. Background gene set PSP.} 
-\label{tab:2346 group generated from sign of first eigenvector of modularity matrix. Biological function}
-\end{table}
+
+
 
 
 
