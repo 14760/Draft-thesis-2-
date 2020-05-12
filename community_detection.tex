@@ -548,7 +548,7 @@ On the PSP there are 171 groups the majority less than fifteen members in size, 
 
 
 \subsection{Louvain}
-
+see section \ref{sec:Louvain}
 \cite{blondel2008fast}
 
 \subsection{Spinglass}
@@ -556,6 +556,8 @@ See section~\ref{sec: Spinglass description}
 
 \subsection{Walk trap}
 See section~\ref{sec:walk trap results}
+
+The walk trap algorithm uses the properties of random walks to discover communities. At the stationary distribution the probability of being on a node is proportional to its degree. At $t$ prior to the distribution nodes within communties are more likely to be visited by a random walk originating within that community. The algorithm determines the random walk probability density scaled by the node degree and uses this to perform a bisection sweep in a manner similar to the spectral clustering algorithm.
 
 \cite{pons2005computing}
 \subsection{Fast greedy}
@@ -761,6 +763,11 @@ average degree $<k>$= 20, maximum degree kmax = 50, minimum community size cmin 
 
 NMI compare communities 3457 ground truth and markov clustering 0.98858023049201
 
+\subsection{Optimal community size}
+Real world communities tend to show a core and whisker structure. The whiskers tend to be good communities but larger groups discovered by clustering algorithms tend to belong to the core or represent the core and have lower conductance and hence are less cohesive as groups. We can see this pattern of size distribution in the communities discovered in the PSP for particular algorithms \todo{cross ref}. The spectral clustering algorithm and Louvain algorithm produce communities of less disparate size although the Louvain clusters are large. \todo{graph of conductance versus community sizes}
+
+\cite{leskovec2010empirical}
+
 \subsection{Stochastic block model Modularity and Group size}
 
 There is a dramatic fall of in the performance of infomap using NMI as the background probability of a link (and hence the resolution limit of the clustering is approached.
@@ -823,7 +830,7 @@ Source \url{source('~/RProjects/group_sizes/R/sbm_benchmark/graph/graph_performa
     \label{fig:group sizes spectral clustering log 10}
 \end{figure}
 \section{Louvain}
-
+\label{sec:Louvain}
 
 \subsection{Introduction}
 The Louvain method named after the university of the authors of the original paper is a hierarchical clustering method using modularity maximisation as the objective function. It functions very well at scale in dividing networks up into communities.\cite{blondel2008fast}
@@ -1238,7 +1245,7 @@ Implemented in igraph. 562 communities , 405 have single member  Min.1 1st Qu.  
  
 \section{Label propogation}
 \label{sec:label propogation}
-
+This algorithm runs in near linear time but is a heuristic algorithm with no guarantee that a similar clustering will be found. In the implementation in igraph for R and python very disparate values of the modularity are found (\todo{table}) and often the modularity is very low. 
 \cite{raghavan2007near}
 
 There is no guarantee that the clustering is unique indeed it is different every time. For one run in python average modularity is close to 0. With 10000 repetitions the maximum modularity was 0.25565433088497774 and this took 1 min 28 seconds
@@ -1247,9 +1254,10 @@ After 100000 iterations the maximum modularity is 0.25762367434321437 with a run
 
 Counter(0: 2002, 1: 1404, 2: 37, 3: 2, 4: 12)
 
+The label propagation method is somewhat similar to algorithms such as $k$ nearest neighbours and $k$ means clustering. At the start each node belongs to a community consisting entirely of that node. In each round of the algorithm the label changes to that of the majority of its neighbours. Ties are broken. The method performs well on LFR benchmarks see table~\ref{tab:benchmark LFR size 1000}.
 
-\
-\subsection{PSP graph}
+
+\subsection{PSP graph label propagation}
 100 iterations Modularity = 0.0788
 
 1000 iterations = 0.081
