@@ -77,7 +77,18 @@ There is a way in which we can test the clustering algorithms utility and this i
 Kernaghan Lin
 
 Fielder vector
+ \section{Community detection thresholds}
+There are limits to the detection of communities specifically in the difference between the probability of edges and the probability of in group edges.
 
+Newman p 512
+
+\begin{equation}
+    K1K2 < 2m
+\end{equation}
+
+Ie fails to detect separate communities if the product of the sum their degrees is less than 2m
+
+So when increasing the background amount we are increasing m
 \subsection{Betweenness Newman and Girvan}
 One way in which communities can be discovered in graphs is to take two vertices that are
 disimillar and disconnected them by removing connecting edges.
@@ -322,7 +333,77 @@ Infomap conceptually is related to the idea of taking a random walk across as ne
 The infomap algorithm is popular as it is fast and has performed well on standardised benchmarks such as the LFR benchmark \todo{add cross reference}.\cite{lancichinetti2008benchmark} \cite{newman2018networks} \todo{check the lanchichinetti refs there should maybe also be the 2009 one}The LFR benchmark however does not provide well for communities of different sizes with a degree structure similar to the PSP network and we find limitations in the infomap method both in its performance at limits of resolution in the SBM and in the community structure detected for the PSP. It provides a relatively low modularity for the partition and finds a large number of small groups and one very large one (see table~\ref{tab:modularity and group sizes xtable}). 
 
 On the PSP there are 171 groups the majority less than fifteen members in size, the median group size is 9 and mean 20.2. THe largest group is 1228 and the next largest 130. The conductance of the largest group is low compared to mean group conductance at 0.255 suggesting this large group is not very cohesive and the clustering may be suboptimal for our purposes. 
+\section{Infomap}
+\label{sec:infomap in methods}
 
+Infomap works using information theory about random walks. It is implemented in igraph for R. 
+
+There are no free parameters that need to be supplied
+
+\subsection{Results infomap group}
+
+Infomap discovers 171 communities. Group size  Min. 2.00, 1st  Qu.5.00,   Median 8.00,     Mean 20.2,2 3rd Qu. 13.00 ,  Max. 1228.00
+
+The partition results in a large number of small communities. 
+
+The modularity of the partition is 0.275.
+
+One group is responsible for 35.5\% of the PSP. 916 nodes belonged to 134 groups less than size 15. 36 groups had communities greater than or equal to 15 and smaller than the largest group (1313 genes). The second largest group has 130 members.  \todo{mean conductance of louvain,spectral and infomap}
+\subsection{results infomap fortunato}
+For community statistics for modules with 15 or more members following Fortunato \cite{fortunato2016community} see table~\ref{tab:Community statistics after fortunato infomap clustering size > 15}
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Wed Apr  8 11:31:09 2020
+\begin{table}[ht]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lrrrrrrrrrr}
+  \hline
+community & n\_c & internal\_degree & average\_internal\_degree & internal\_degree\_density & external\_degree & average\_external\_degree & external\_degree\_density & total\_degree & average\_degree & conductance \\ 
+  \hline
+1 & 1228 & 24454 & 19.914 & 0.016 & 8388 & 6.831 & 0.003 & 32842 & 26.744 & 0.255 \\ 
+  2 & 130 & 2082 & 16.015 & 0.124 & 1849 & 14.223 & 0.004 & 3931 & 30.238 & 0.470 \\ 
+  3 & 118 & 894 & 7.576 & 0.065 & 1407 & 11.924 & 0.004 & 2301 & 19.500 & 0.611 \\ 
+  4 & 83 & 594 & 7.157 & 0.087 & 995 & 11.988 & 0.004 & 1589 & 19.145 & 0.626 \\ 
+  5 & 52 & 508 & 9.769 & 0.192 & 771 & 14.827 & 0.004 & 1279 & 24.596 & 0.603 \\ 
+  6 & 41 & 548 & 13.366 & 0.334 & 608 & 14.829 & 0.004 & 1156 & 28.195 & 0.526 \\ 
+  7 & 64 & 326 & 5.094 & 0.081 & 583 & 9.109 & 0.003 & 909 & 14.203 & 0.641 \\ 
+  8 & 66 & 132 & 2.000 & 0.031 & 550 & 8.333 & 0.002 & 682 & 10.333 & 0.806 \\ 
+  9 & 50 & 286 & 5.720 & 0.117 & 463 & 9.260 & 0.003 & 749 & 14.980 & 0.618 \\ 
+  10 & 50 & 248 & 4.960 & 0.101 & 463 & 9.260 & 0.003 & 711 & 14.220 & 0.651 \\ 
+  11 & 51 & 272 & 5.333 & 0.107 & 373 & 7.314 & 0.002 & 645 & 12.647 & 0.578 \\ 
+  12 & 43 & 424 & 9.860 & 0.235 & 246 & 5.721 & 0.002 & 670 & 15.581 & 0.367 \\ 
+  13 & 41 & 80 & 1.951 & 0.049 & 478 & 11.659 & 0.003 & 558 & 13.610 & 0.857 \\ 
+  14 & 40 & 310 & 7.750 & 0.199 & 256 & 6.400 & 0.002 & 566 & 14.150 & 0.452 \\ 
+  15 & 34 & 206 & 6.059 & 0.184 & 389 & 11.441 & 0.003 & 595 & 17.500 & 0.654 \\ 
+  16 & 34 & 172 & 5.059 & 0.153 & 237 & 6.971 & 0.002 & 409 & 12.029 & 0.579 \\ 
+  17 & 23 & 122 & 5.304 & 0.241 & 313 & 13.609 & 0.004 & 435 & 18.913 & 0.720 \\ 
+  18 & 32 & 86 & 2.688 & 0.087 & 266 & 8.312 & 0.002 & 352 & 11.000 & 0.756 \\ 
+  19 & 27 & 80 & 2.963 & 0.114 & 265 & 9.815 & 0.003 & 345 & 12.778 & 0.768 \\ 
+  20 & 28 & 172 & 6.143 & 0.228 & 182 & 6.500 & 0.002 & 354 & 12.643 & 0.514 \\ 
+  21 & 23 & 84 & 3.652 & 0.166 & 205 & 8.913 & 0.003 & 289 & 12.565 & 0.709 \\ 
+  22 & 26 & 86 & 3.308 & 0.132 & 168 & 6.462 & 0.002 & 254 & 9.769 & 0.661 \\ 
+  23 & 21 & 86 & 4.095 & 0.205 & 207 & 9.857 & 0.003 & 293 & 13.952 & 0.706 \\ 
+  24 & 22 & 92 & 4.182 & 0.199 & 126 & 5.727 & 0.002 & 218 & 9.909 & 0.578 \\ 
+  25 & 17 & 68 & 4.000 & 0.250 & 148 & 8.706 & 0.003 & 216 & 12.706 & 0.685 \\ 
+  27 & 18 & 52 & 2.889 & 0.170 & 135 & 7.500 & 0.002 & 187 & 10.389 & 0.722 \\ 
+  28 & 18 & 48 & 2.667 & 0.157 & 137 & 7.611 & 0.002 & 185 & 10.278 & 0.741 \\ 
+  29 & 18 & 64 & 3.556 & 0.209 & 114 & 6.333 & 0.002 & 178 & 9.889 & 0.640 \\ 
+  30 & 17 & 58 & 3.412 & 0.213 & 115 & 6.765 & 0.002 & 173 & 10.176 & 0.665 \\ 
+  31 & 15 & 34 & 2.267 & 0.162 & 161 & 10.733 & 0.003 & 195 & 13.000 & 0.826 \\ 
+  32 & 15 & 104 & 6.933 & 0.495 & 82 & 5.467 & 0.002 & 186 & 12.400 & 0.441 \\ 
+  34 & 18 & 52 & 2.889 & 0.170 & 94 & 5.222 & 0.002 & 146 & 8.111 & 0.644 \\ 
+   35 & 15 & 32 & 2.133 & 0.152 & 130 & 8.667 & 0.003 & 162 & 10.800 & 0.802 \\ 
+  36 & 18 & 38 & 2.111 & 0.124 & 100 & 5.556 & 0.002 & 138 & 7.667 & 0.725 \\ 
+  40 & 15 & 42 & 2.800 & 0.200 & 78 & 5.200 & 0.002 & 120 & 8.000 & 0.650 \\ 
+  46 & 15 & 30 & 2.000 & 0.143 & 47 & 3.133 & 0.001 & 77 & 5.133 & 0.610 \\ 
+  52 & 15 & 30 & 2.000 & 0.143 & 35 & 2.333 & 0.001 & 65 & 4.333 & 0.538 \\ 
+   \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Community statistics after fortunato infomap clustering size $> 15$} 
+\label{tab:Community statistics after fortunato infomap clustering size > 15}
+\end{table}
 \subsection{Louvain}
 see section \ref{sec:Louvain}
 
@@ -344,9 +425,101 @@ The communities objects returned by the \texttt{cluster\_louvain} method were co
 
 Gene set analysis of the educational ability and intelligence GWA were carried out using MAGMA as described above \todo{add cross ref}. 
 \cite{blondel2008fast}
+\subsection{Results Louvain group}
+Louvain clustering discovers 14 communities in the PSP. The modularity of the resulting division is 0.339. 
 
+The largest community is 539 genes in size (module 8). The minimum community size is 21 genes (module 12). The median module size is 190.5 and the mean is 246.9. The distribution of community sizes is shown in the boxplot in figure~\ref{fig:barplot_size_commmunities_using_louvain} code \url{source('~/RProjects/graph2community/R/plots/louvain_size.R')}
+\subsection{results louvain fortunato}
+Statistics for the communities following Fortunato \cite{fortunato2016community} are shown in table\ref{tab:Community statistics after fortunato louvain clustering}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_Louvain_community_sizes.png}
+    \caption{Barplot of the size of communities from the PSP discovered using the Louvain clustering method implemented in igraph}
+    \label{fig:barplot_size_commmunities_using_louvain}
+\end{figure}
+
+
+
+
+
+
+% Wed Apr  8 11:13:27 2020
+\begin{table}[ht]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lrrrrrrrrrr}
+  \hline
+community & n\_c & internal\_degree & average\_internal\_degree & internal\_degree\_density & external\_degree & average\_external\_degree & external\_degree\_density & total\_degree & average\_degree & conductance \\ 
+  \hline
+1 & 209 & 658 & 3.148 & 0.015 & 1062 & 5.081 & 0.002 & 1720 & 8.230 & 0.617 \\ 
+  2 & 350 & 1904 & 5.440 & 0.016 & 2117 & 6.049 & 0.002 & 4021 & 11.489 & 0.526 \\ 
+  3 & 536 & 9554 & 17.825 & 0.033 & 6628 & 12.366 & 0.004 & 16182 & 30.190 & 0.410 \\ 
+  4 & 265 & 1516 & 5.721 & 0.022 & 2848 & 10.747 & 0.003 & 4364 & 16.468 & 0.653 \\ 
+  5 & 114 & 820 & 7.193 & 0.064 & 1349 & 11.833 & 0.004 & 2169 & 19.026 & 0.622 \\ 
+  6 & 166 & 1198 & 7.217 & 0.044 & 1861 & 11.211 & 0.003 & 3059 & 18.428 & 0.608 \\ 
+  7 & 154 & 564 & 3.662 & 0.024 & 646 & 4.195 & 0.001 & 1210 & 7.857 & 0.534 \\ 
+  8 & 539 & 4738 & 8.790 & 0.016 & 5734 & 10.638 & 0.004 & 10472 & 19.429 & 0.548 \\ 
+  9 & 448 & 4458 & 9.951 & 0.022 & 4036 & 9.009 & 0.003 & 8494 & 18.960 & 0.475 \\ 
+  10 & 58 & 320 & 5.517 & 0.097 & 563 & 9.707 & 0.003 & 883 & 15.224 & 0.638 \\ 
+  11 & 344 & 2288 & 6.651 & 0.019 & 2888 & 8.395 & 0.003 & 5176 & 15.047 & 0.558 \\ 
+  12 & 21 & 58 & 2.762 & 0.138 & 174 & 8.286 & 0.002 & 232 & 11.048 & 0.750 \\ 
+  13 & 81 & 424 & 5.235 & 0.065 & 828 & 10.222 & 0.003 & 1252 & 15.457 & 0.661 \\ 
+  14 & 172 & 834 & 4.849 & 0.028 & 928 & 5.395 & 0.002 & 1762 & 10.244 & 0.527 \\ 
+   \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Community statistics after fortunato louvain clustering} 
+\label{tab:Community statistics after fortunato louvain clustering}
+\end{table}
 \subsection{Spinglass}
 See section~\ref{sec: Spinglass description}
+\section{Spinglass}
+\label{sec: Spinglass description}
+There are a number of tunable parameters for the implementation of the spinglass algorithm in igraph for R specifically
+args for spinglass
+\begin{itemize}
+    \item{weights not applicable - edge weights}
+    \item vertex - community for specific vertex ignore
+    \item spins default 25 - upper limit for number of communities
+    \item parupdate false not required
+    \item start.temp default 1
+    
+    \item stop.temp 0.1
+    \item cool.fact for simulated annealing
+    \item update simple or random or config we may need config
+    \item gamma = balance between present and non present edges in a community present and non present edges default 1.0 makes existing and non existing links equally important, smaller make existing links, greater missing links more important
+\end{itemize}
+
+
+
+
+
+
+
+
+
+\todo{Check enrichment}
+
+
+\subsection{Theory behind spinglass}
+\todo{remember local clustering}
+\todo{remember reasons for looking for communities around or less than 100 Leskovec paper on peak conductance}
+
+\subsection{Implementation}
+Spin glass clustering was carried out using the igraph package in R using a script to automatically generate values for gamma and spins and to conver the communities object into a graph markup language(GML) file. 5 gamma values were used gamma = $0.1,0.5,1,2,5$ and 9 spin values spins = $2,10,20,30,40,50,60,80,100$ 
+
+Running 45 grid search the clustering with spinglass takes about 56.6 seconds which accumulates if one has a large number of clusters to make therefore Grid search generation run on staff.compute R 3.5 DICE.
+
+Gamma of 0.1 and 0.5 only returned valid spins of 2 and 2,10 respectively. 
+\subsection{Study design}
+Given the number of tunable parameters in the spinglass model it is difficult to make a study design similar to that we used with the spectral clustering as the number of communities will lead to a prohibitively small alpha level. The possibility of finding individual datasets for each set of communities at each parameter setting is not practicable as even varying only gamma and spins we have the cartesian product of the number of parameter settings numbers of groups of sets.
+
+The number of spins controls the maximum number of groups found in the clustering. The value of gamma controls the importance of there being edges present within the commmunity modules.
+
+We would however prefer not to abandon spin glass entirely. McLean (personal commmunication) found it gave good community enrichment at certain values (higher values) of gamma. However we are also aware both from theory and our earlier experiment that pure modules in the ontology sense may not be what we want. We may want a dominant ontology group and their neighbouring proteins that form a module as this may map more reliably onto population data. Also although it is attractive the ontology group is in no sense a ground truth  (Kronecker).\todo{remove this}
+
+One option is to adopt a strategy from machine learning. We will define the discovery intelligence and education as the training set and find the groups of sets that have a set with an arbitrarily low p value and of a satisfactory size. We will then combine these into a group of sets and test these on the replication cohorts. The design is not so robust as the previous one but at least allows us to see what insights we might gain from the spin glass clustering. We are not randomly sampling from the synaptic proteome there is still the constraint that we require that the sets form modules (in terms of their edge in-out distribution) and that the modules are connected subgraphs of the network. The arbitrary element (or the most arbitrary element) of this design is the choice of alpha. We want to chose alpha such that the number of sets to test in the replication does not lead to excessive type II error. The lower we choose alpha for the first set the more likely the p value of the second set is to be low. We can also try using the nominal alpha level of 0.5 and see what we get. 
 
 \subsection{Walk trap}
 See section~\ref{sec:walk trap results}
@@ -409,32 +582,7 @@ See table~\ref{tab:modularity and group sizes xtable}
 
 code \url{source('~/RProjects/group_sizes/R/make_clusterings/make_clusterings.R')}
 
-\subsection{Spectral clustering}
 
-The group size distribution for spectral clustering seems to follow a power low distribution. See figure~\ref{fig:group sizes spectral clustering shows power law distribution} \ref{fig:group sizes spectral clustering log 10} Code \url{source('~/RProjects/group_sizes/R/group_sizes.R')}. For mean size see table~\ref{tab:modularity and group sizes xtable}. 
-
-The distribution seems most like log normal fitting distribnution of group sizes using package MASS for R function \texttt{fitdistr}
-
-[1] "lognormal"
-'log Lik.' -306.3578 (df=2)
-
-[1] "normal" 
-'log Lik.' -370.6692 (df=2)
-
-[1] "exp"
-'log Lik.' -323.295 (df=1)
-
-[1] "geom"
-'log Lik.' -323.9023 (df=1)
-
-[1] "Poisson"
-'log Lik.' -2803.31 (df=1)
-
-
-
-and mean log 2.60 and sd log 1.98
-
-code \url{source('~/RProjects/group_sizes/R/group_sizes.R')}
 \subsection{LFR benchmark}
 
 The block stochastic model provides communities with a Poisson distribution different to many real world networks \todo{cross ref}. An alternative proposd is the LFR benchmark named after the authors. The benchmark produces a synthetic network with node degree corresponding to a power law distribution $\tau_1$ ($\gamma$ in \cite{lancichinetti2009community} and community size also related to a power law distribution $\tau_2$ ($\beta$ in \cite{lancichinetti2009community} corresponding to observations of their prevalence in real world networks. The LFR test is held to be a more testing test than the block stochastic model or simple ground truth networks. A mixing parameter $\mu$ controls the amount of noise in the network and hence the difficulty of the task for the community detection algorithm. $\mu$ is the proportion of links from the community occuring between community members. 
@@ -490,7 +638,7 @@ Set seed 1 See table~\ref{tab:benchmark LFR size 1000}
 
 its all the small or zero groups that give good nmi as the number of correctly misclassified is right so long as vertices a and b if in different groups are in different groups 
 
-\subsection{Group size}
+\subsection{LFR Group size}
 
 Using a 3457 LFR graph (18061 edges) the ground truth is of 143 communities
 
@@ -644,26 +792,117 @@ Source \url{source('~/RProjects/group_sizes/R/sbm_benchmark/graph/graph_performa
     \label{fig:my_rough_louvain group size}
 \end{figure}
 
+\section{Performance on PSP graph}
+
+The group sizes and modularity of the above algorithms on the PSP graph are shown in table~\ref{tab:modularity and group sizes xtable}
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{cc}
+    \toprule
+        Method & Q \\
+        \midrule
+        Spectral & 0.30\\
+        Infomap & 0.275\\
+        Louvain & 0.339\\
+        Lec & 0.247\\
+        walk trap & 0.256\\
+        \bottomrule
+    \end{tabular}
+    \caption{Modularity using different partion methods}
+    \label{tab:modularity}
+\end{table}
+% Tue Apr 28 16:03:31 2020
+\begin{table}[ht]
+\centering
+
+\begin{tabular}{rrrrrrr}
+  \toprule
+method & Q & n & min & max & median & mean \\ 
+  \midrule
+lec & 0.25 & 3 & 1111 & 1212 & 1134.0 & 1152.3 \\ 
+  walktrap & 0.26 & 562 & 1 & 760 & 1.0 & 6.2 \\ 
+  louvain & 0.34 & 14 & 21 & 539 & 190.5 & 246.9 \\ 
+  Spinglass gamma1 & 0.34 & 18 & 2 & 672 & 35.0 & 192.1 \\ 
+  Spinglass gamma2 & 0.33 & 38 & 5 & 269 & 85.5 & 91.0 \\ 
+  Spinglass gamma5 & 0.26 & 118 & 4 & 98 & 26.0 & 29.3 \\ 
+  infomap & 0.28 & 171 & 2 & 1228 & 8.0 & 20.2 \\ 
+  spectral & 0.30 & 65 & 1 & 405 & 27.0 & 53.2 \\ 
+  geodesic & 0.10 & 2566 & 1 & 496 & 1.0 & 1.3 \\ 
+  fast greedy (fc) & 0.31 & 19 & 2 & 1010 & 8 & 181.9 \\
+   \bottomrule
+\end{tabular}
+\caption{modularity and group sizes xtable} 
+\label{tab:modularity and group sizes xtable}
+\end{table}
+
+\section{Spectral clustering Group sizes}
+\subsection{Spectral clustering}
+
+The group size distribution for spectral clustering seems to follow a power low distribution. See figure~\ref{fig:group sizes spectral clustering shows power law distribution} \ref{fig:group sizes spectral clustering log 10} Code \url{source('~/RProjects/group_sizes/R/group_sizes.R')}. For mean size see table~\ref{tab:modularity and group sizes xtable}. 
+
+The distribution seems most like log normal fitting distribnution of group sizes using package MASS for R function \texttt{fitdistr}
+
+[1] "lognormal"
+'log Lik.' -306.3578 (df=2)
+
+[1] "normal" 
+'log Lik.' -370.6692 (df=2)
+
+[1] "exp"
+'log Lik.' -323.295 (df=1)
+
+[1] "geom"
+'log Lik.' -323.9023 (df=1)
+
+[1] "Poisson"
+'log Lik.' -2803.31 (df=1)
 
 
-\section{Methods}
+
+and mean log 2.60 and sd log 1.98
+
+code \url{source('~/RProjects/group_sizes/R/group_sizes.R')}
+See figure~\ref{fig:group sizes spectral clustering shows power law distribution} \ref{fig:group sizes spectral clustering log 10}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_group_size_spectral.png}
+    \caption{Distribution of group sizes spectral clustering}
+    \label{fig:group sizes spectral clustering shows power law distribution}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_spectral_groups_size_log10.png}
+    \caption{Distribution of group sizes spectral clustering. Log 10 scaled y axis}
+    \label{fig:group sizes spectral clustering log 10}
+\end{figure}
+
+
+\section{Walk trap results group}
+\label{sec:walk trap results}
+Implemented in igraph. 562 communities , 405 have single member  Min.1 1st Qu.  1 Median1    Mean 6.151 3rd Qu. 2   Max. 760 
+ 
+\section{Methods for paper}
+\label{sec: community detection methods from paper}
 To study the effect of synaptic network structure on the genetics of cognitive ability and educational attainment we have used a discovery and replication cohort design. To understand how the structure of the PSP might affect the genetic architecture of these complex phenotypes, we first tested if there was an association between measures of the influence of individual vertices (gene) in the graph (degree), and their significance in GWA studies. 
 Next, we used GSA to test whether the genes encoding proteins forming community structures in the network were significantly associated with differences in intelligence or educational attainment. 
 
-\subsection{Cohorts and studies}
+
 \section{Cohorts and samples}
 
 The population data used to test the association of centrality measures with population studies of educationbal attainment and intelligence were those described in sections~\ref{sec:cohorts from paper section} and \ref{sec:samples from paper section}
 
 
-
+\section{Community detection method}
+\label{sec:community detection method paper section}
 
 We used a C++ implementation of spectral clustering with a fine tuning step in this paper as it previously provided the best balance of performance and informative functional enrichment on synaptic proteome networks. \cite{mclean2016improved}  The community structure is derived only from the pattern of network connections. i.e. no functional data is used to derived the substrucures.
+
 Community detection was carried out using the CDS package onas described in \cite{mclean2016improved} using ECDF, the distributed computing facility provided by the University of Edinburgh. All other analysis was performed on an Intel® Core™ i7-7700K CPU @ 4.20GHz 8 core workstation running Ubuntu 16.04 LTS 64 bit.  
 The modularity, a measure of the quality of the community prediction results, for the network partitioning was calculated in igraph library for R \cite{csardi2006igraph} . For all code see supplemental materials. 
 
-\subsection{Network statistics}
-To test the hypothesis that measures of gene importance in the network are correlated with cognitive ability and/or educational attainment, we calculated a range of standard network measures: betweenness centrality, degree, clustering coefficient, closeness centrality and eigenvector centrality using igraph for Python 3.6. \cite{csardi2006igraph}  We calculated the correlation between each of these vertex scores and the -log10 transform of the gene level p values derived from MAGMA for each study using Spearman’s rank correlation using the Scipy stats package for Python 3.6. 
+
 \subsection{Study design Topology based GSA}
 To test the hypothesis that there are network communities with an enriched association of genetic variations for intelligence and cognitive ability we carried out the following procedures.
 Communities of genes within the PSP are identified using spectral clustering. Gene based statistics are then calculated for the discovery and replication cohorts. We then use GSA to analyse data from the discovery cohorts’ GWA analyses of intelligence and cognitive ability, to identify potential communities of interest. PSP communities of interest are then tested in independent replication cohorts with correction for multiple hypothesis testing. The study design is shown in figure ~\ref{fig:study design community detection}.
@@ -877,72 +1116,12 @@ Group 36 enriches in all but EA3 but has only 4 neurogenesis genes \todo{What is
 
 
 
-\section{Spectral clustering}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{images/Rplot_group_size_spectral.png}
-    \caption{Distribution of group sizes spectral clustering}
-    \label{fig:group sizes spectral clustering shows power law distribution}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{images/Rplot_spectral_groups_size_log10.png}
-    \caption{Distribution of group sizes spectral clustering. Log 10 scaled y axis}
-    \label{fig:group sizes spectral clustering log 10}
-\end{figure}
-
-
-
-
-\subsection{Results Louvain group}
-Louvain clustering discovers 14 communities in the PSP. The modularity of the resulting division is 0.339. 
-
-The largest community is 539 genes in size (module 8). The minimum community size is 21 genes (module 12). The median module size is 190.5 and the mean is 246.9. The distribution of community sizes is shown in the boxplot in figure~\ref{fig:barplot_size_commmunities_using_louvain} code \url{source('~/RProjects/graph2community/R/plots/louvain_size.R')}
-\subsection{results louvain fortunato}
-Statistics for the communities following Fortunato \cite{fortunato2016community} are shown in table\ref{tab:Community statistics after fortunato louvain clustering}.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{images/Rplot_Louvain_community_sizes.png}
-    \caption{Barplot of the size of communities from the PSP discovered using the Louvain clustering method implemented in igraph}
-    \label{fig:barplot_size_commmunities_using_louvain}
-\end{figure}
 
 
 
 
 
-
-% Wed Apr  8 11:13:27 2020
-\begin{table}[ht]
-\centering
-\begin{adjustbox}{max width=\textwidth}
-\begin{tabular}{lrrrrrrrrrr}
-  \hline
-community & n\_c & internal\_degree & average\_internal\_degree & internal\_degree\_density & external\_degree & average\_external\_degree & external\_degree\_density & total\_degree & average\_degree & conductance \\ 
-  \hline
-1 & 209 & 658 & 3.148 & 0.015 & 1062 & 5.081 & 0.002 & 1720 & 8.230 & 0.617 \\ 
-  2 & 350 & 1904 & 5.440 & 0.016 & 2117 & 6.049 & 0.002 & 4021 & 11.489 & 0.526 \\ 
-  3 & 536 & 9554 & 17.825 & 0.033 & 6628 & 12.366 & 0.004 & 16182 & 30.190 & 0.410 \\ 
-  4 & 265 & 1516 & 5.721 & 0.022 & 2848 & 10.747 & 0.003 & 4364 & 16.468 & 0.653 \\ 
-  5 & 114 & 820 & 7.193 & 0.064 & 1349 & 11.833 & 0.004 & 2169 & 19.026 & 0.622 \\ 
-  6 & 166 & 1198 & 7.217 & 0.044 & 1861 & 11.211 & 0.003 & 3059 & 18.428 & 0.608 \\ 
-  7 & 154 & 564 & 3.662 & 0.024 & 646 & 4.195 & 0.001 & 1210 & 7.857 & 0.534 \\ 
-  8 & 539 & 4738 & 8.790 & 0.016 & 5734 & 10.638 & 0.004 & 10472 & 19.429 & 0.548 \\ 
-  9 & 448 & 4458 & 9.951 & 0.022 & 4036 & 9.009 & 0.003 & 8494 & 18.960 & 0.475 \\ 
-  10 & 58 & 320 & 5.517 & 0.097 & 563 & 9.707 & 0.003 & 883 & 15.224 & 0.638 \\ 
-  11 & 344 & 2288 & 6.651 & 0.019 & 2888 & 8.395 & 0.003 & 5176 & 15.047 & 0.558 \\ 
-  12 & 21 & 58 & 2.762 & 0.138 & 174 & 8.286 & 0.002 & 232 & 11.048 & 0.750 \\ 
-  13 & 81 & 424 & 5.235 & 0.065 & 828 & 10.222 & 0.003 & 1252 & 15.457 & 0.661 \\ 
-  14 & 172 & 834 & 4.849 & 0.028 & 928 & 5.395 & 0.002 & 1762 & 10.244 & 0.527 \\ 
-   \hline
-\end{tabular}
-\end{adjustbox}
-\caption{Community statistics after fortunato louvain clustering} 
-\label{tab:Community statistics after fortunato louvain clustering}
-\end{table}
+\section{OTHER CLUSTERING METHODS GSA}
 
 \section{Louvain GSA}
 \label{Louvain GSA}
@@ -1043,22 +1222,7 @@ Code on mac \url{source('~/RProjects/utils/src/generic_compile_gsa_lourvain_new.
 \label{tab:Louvain clustering EA3 Education cohorts}
 \end{table}
 
-\begin{table}[]
-    \centering
-    \begin{tabular}{cc}
-    \toprule
-        Method & Q \\
-        \midrule
-        Spectral & 0.30\\
-        Infomap & 0.275\\
-        Louvain & 0.339\\
-        Lec & 0.247\\
-        walk trap & 0.256\\
-        \bottomrule
-    \end{tabular}
-    \caption{Modularity using different partion methods}
-    \label{tab:modularity}
-\end{table}
+
 
 
 
@@ -1068,161 +1232,69 @@ Code on mac \url{source('~/RProjects/utils/src/generic_compile_gsa_lourvain_new.
 % latex table generated in R 3.6.3 by xtable 1.8-4 package
 % Tue Apr 28 16:00:29 2020
 % latex table generated in R 3.6.3 by xtable 1.8-4 package
-% Tue Apr 28 16:03:31 2020
-\begin{table}[ht]
-\centering
-
-\begin{tabular}{rrrrrrr}
-  \toprule
-method & Q & n & min & max & median & mean \\ 
-  \midrule
-lec & 0.25 & 3 & 1111 & 1212 & 1134.0 & 1152.3 \\ 
-  walktrap & 0.26 & 562 & 1 & 760 & 1.0 & 6.2 \\ 
-  louvain & 0.34 & 14 & 21 & 539 & 190.5 & 246.9 \\ 
-  Spinglass gamma1 & 0.34 & 18 & 2 & 672 & 35.0 & 192.1 \\ 
-  Spinglass gamma2 & 0.33 & 38 & 5 & 269 & 85.5 & 91.0 \\ 
-  Spinglass gamma5 & 0.26 & 118 & 4 & 98 & 26.0 & 29.3 \\ 
-  infomap & 0.28 & 171 & 2 & 1228 & 8.0 & 20.2 \\ 
-  spectral & 0.30 & 65 & 1 & 405 & 27.0 & 53.2 \\ 
-  geodesic & 0.10 & 2566 & 1 & 496 & 1.0 & 1.3 \\ 
-  fast greedy (fc) & 0.31 & 19 & 2 & 1010 & 8 & 181.9 \\
-   \bottomrule
-\end{tabular}
-\caption{modularity and group sizes xtable} 
-\label{tab:modularity and group sizes xtable}
-\end{table}
 
 
-\section{Infomap}
-\label{sec:infomap in methods}
 
-Infomap works using information theory about random walks. It is implemented in igraph for R. 
+% \section{Methods}
+% To study the effect of synaptic network structure on the genetics of cognitive ability and educational attainment we have used a discovery and replication cohort design. To understand how the structure of the PSP might affect the genetic architecture of these complex phenotypes, we first tested if there was an association between measures of the influence of individual vertices (gene) in the graph (degree), and their significance in GWA studies. 
+% Next, we used GSA to test whether the genes encoding proteins forming community structures in the network were significantly associated with differences in intelligence or educational attainment. 
 
-There are no free parameters that need to be supplied
+% \subsection{Cohorts and studies}
+% \section{Cohorts and samples}
 
-\subsection{Results infomap group}
-
-Infomap discovers 171 communities. Group size  Min. 2.00, 1st  Qu.5.00,   Median 8.00,     Mean 20.2,2 3rd Qu. 13.00 ,  Max. 1228.00
-
-The partition results in a large number of small communities. 
-
-The modularity of the partition is 0.275.
-
-One group is responsible for 35.5\% of the PSP. 916 nodes belonged to 134 groups less than size 15. 36 groups had communities greater than or equal to 15 and smaller than the largest group (1313 genes). The second largest group has 130 members.  \todo{mean conductance of louvain,spectral and infomap}
-\subsection{results infomap fortunato}
-For community statistics for modules with 15 or more members following Fortunato \cite{fortunato2016community} see table~\ref{tab:Community statistics after fortunato infomap clustering size > 15}
-
-% latex table generated in R 3.6.3 by xtable 1.8-4 package
-% Wed Apr  8 11:31:09 2020
-\begin{table}[ht]
-\centering
-\begin{adjustbox}{max width=\textwidth}
-\begin{tabular}{lrrrrrrrrrr}
-  \hline
-community & n\_c & internal\_degree & average\_internal\_degree & internal\_degree\_density & external\_degree & average\_external\_degree & external\_degree\_density & total\_degree & average\_degree & conductance \\ 
-  \hline
-1 & 1228 & 24454 & 19.914 & 0.016 & 8388 & 6.831 & 0.003 & 32842 & 26.744 & 0.255 \\ 
-  2 & 130 & 2082 & 16.015 & 0.124 & 1849 & 14.223 & 0.004 & 3931 & 30.238 & 0.470 \\ 
-  3 & 118 & 894 & 7.576 & 0.065 & 1407 & 11.924 & 0.004 & 2301 & 19.500 & 0.611 \\ 
-  4 & 83 & 594 & 7.157 & 0.087 & 995 & 11.988 & 0.004 & 1589 & 19.145 & 0.626 \\ 
-  5 & 52 & 508 & 9.769 & 0.192 & 771 & 14.827 & 0.004 & 1279 & 24.596 & 0.603 \\ 
-  6 & 41 & 548 & 13.366 & 0.334 & 608 & 14.829 & 0.004 & 1156 & 28.195 & 0.526 \\ 
-  7 & 64 & 326 & 5.094 & 0.081 & 583 & 9.109 & 0.003 & 909 & 14.203 & 0.641 \\ 
-  8 & 66 & 132 & 2.000 & 0.031 & 550 & 8.333 & 0.002 & 682 & 10.333 & 0.806 \\ 
-  9 & 50 & 286 & 5.720 & 0.117 & 463 & 9.260 & 0.003 & 749 & 14.980 & 0.618 \\ 
-  10 & 50 & 248 & 4.960 & 0.101 & 463 & 9.260 & 0.003 & 711 & 14.220 & 0.651 \\ 
-  11 & 51 & 272 & 5.333 & 0.107 & 373 & 7.314 & 0.002 & 645 & 12.647 & 0.578 \\ 
-  12 & 43 & 424 & 9.860 & 0.235 & 246 & 5.721 & 0.002 & 670 & 15.581 & 0.367 \\ 
-  13 & 41 & 80 & 1.951 & 0.049 & 478 & 11.659 & 0.003 & 558 & 13.610 & 0.857 \\ 
-  14 & 40 & 310 & 7.750 & 0.199 & 256 & 6.400 & 0.002 & 566 & 14.150 & 0.452 \\ 
-  15 & 34 & 206 & 6.059 & 0.184 & 389 & 11.441 & 0.003 & 595 & 17.500 & 0.654 \\ 
-  16 & 34 & 172 & 5.059 & 0.153 & 237 & 6.971 & 0.002 & 409 & 12.029 & 0.579 \\ 
-  17 & 23 & 122 & 5.304 & 0.241 & 313 & 13.609 & 0.004 & 435 & 18.913 & 0.720 \\ 
-  18 & 32 & 86 & 2.688 & 0.087 & 266 & 8.312 & 0.002 & 352 & 11.000 & 0.756 \\ 
-  19 & 27 & 80 & 2.963 & 0.114 & 265 & 9.815 & 0.003 & 345 & 12.778 & 0.768 \\ 
-  20 & 28 & 172 & 6.143 & 0.228 & 182 & 6.500 & 0.002 & 354 & 12.643 & 0.514 \\ 
-  21 & 23 & 84 & 3.652 & 0.166 & 205 & 8.913 & 0.003 & 289 & 12.565 & 0.709 \\ 
-  22 & 26 & 86 & 3.308 & 0.132 & 168 & 6.462 & 0.002 & 254 & 9.769 & 0.661 \\ 
-  23 & 21 & 86 & 4.095 & 0.205 & 207 & 9.857 & 0.003 & 293 & 13.952 & 0.706 \\ 
-  24 & 22 & 92 & 4.182 & 0.199 & 126 & 5.727 & 0.002 & 218 & 9.909 & 0.578 \\ 
-  25 & 17 & 68 & 4.000 & 0.250 & 148 & 8.706 & 0.003 & 216 & 12.706 & 0.685 \\ 
-  27 & 18 & 52 & 2.889 & 0.170 & 135 & 7.500 & 0.002 & 187 & 10.389 & 0.722 \\ 
-  28 & 18 & 48 & 2.667 & 0.157 & 137 & 7.611 & 0.002 & 185 & 10.278 & 0.741 \\ 
-  29 & 18 & 64 & 3.556 & 0.209 & 114 & 6.333 & 0.002 & 178 & 9.889 & 0.640 \\ 
-  30 & 17 & 58 & 3.412 & 0.213 & 115 & 6.765 & 0.002 & 173 & 10.176 & 0.665 \\ 
-  31 & 15 & 34 & 2.267 & 0.162 & 161 & 10.733 & 0.003 & 195 & 13.000 & 0.826 \\ 
-  32 & 15 & 104 & 6.933 & 0.495 & 82 & 5.467 & 0.002 & 186 & 12.400 & 0.441 \\ 
-  34 & 18 & 52 & 2.889 & 0.170 & 94 & 5.222 & 0.002 & 146 & 8.111 & 0.644 \\ 
-   35 & 15 & 32 & 2.133 & 0.152 & 130 & 8.667 & 0.003 & 162 & 10.800 & 0.802 \\ 
-  36 & 18 & 38 & 2.111 & 0.124 & 100 & 5.556 & 0.002 & 138 & 7.667 & 0.725 \\ 
-  40 & 15 & 42 & 2.800 & 0.200 & 78 & 5.200 & 0.002 & 120 & 8.000 & 0.650 \\ 
-  46 & 15 & 30 & 2.000 & 0.143 & 47 & 3.133 & 0.001 & 77 & 5.133 & 0.610 \\ 
-  52 & 15 & 30 & 2.000 & 0.143 & 35 & 2.333 & 0.001 & 65 & 4.333 & 0.538 \\ 
-   \hline
-\end{tabular}
-\end{adjustbox}
-\caption{Community statistics after fortunato infomap clustering size $> 15$} 
-\label{tab:Community statistics after fortunato infomap clustering size > 15}
-\end{table}
-\section{Methods}
-To study the effect of synaptic network structure on the genetics of cognitive ability and educational attainment we have used a discovery and replication cohort design. To understand how the structure of the PSP might affect the genetic architecture of these complex phenotypes, we first tested if there was an association between measures of the influence of individual vertices (gene) in the graph (degree), and their significance in GWA studies. 
-Next, we used GSA to test whether the genes encoding proteins forming community structures in the network were significantly associated with differences in intelligence or educational attainment. 
-
-\subsection{Cohorts and studies}
-\section{Cohorts and samples}
-
-The population data used to test the association of centrality measures with population studies of educationbal attainment and intelligence were those described in sections~\ref{sec:cohorts from paper section} and \ref{sec:samples from paper section}
+% The population data used to test the association of centrality measures with population studies of educationbal attainment and intelligence were those described in sections~\ref{sec:cohorts from paper section} and \ref{sec:samples from paper section}
 
 
 
 
-We used a C++ implementation of spectral clustering with a fine tuning step in this paper as it previously provided the best balance of performance and informative functional enrichment on synaptic proteome networks. \cite{mclean2016improved}  The community structure is derived only from the pattern of network connections. i.e. no functional data is used to derived the substrucures.
-Community detection was carried out using the CDS package onas described in \cite{mclean2016improved} using ECDF, the distributed computing facility provided by the University of Edinburgh. All other analysis was performed on an Intel® Core™ i7-7700K CPU @ 4.20GHz 8 core workstation running Ubuntu 16.04 LTS 64 bit.  
-The modularity, a measure of the quality of the community prediction results, for the network partitioning was calculated in igraph library for R \cite{csardi2006igraph} . For all code see supplemental materials. 
+% We used a C++ implementation of spectral clustering with a fine tuning step in this paper as it previously provided the best balance of performance and informative functional enrichment on synaptic proteome networks. \cite{mclean2016improved}  The community structure is derived only from the pattern of network connections. i.e. no functional data is used to derived the substrucures.
+% Community detection was carried out using the CDS package onas described in \cite{mclean2016improved} using ECDF, the distributed computing facility provided by the University of Edinburgh. All other analysis was performed on an Intel® Core™ i7-7700K CPU @ 4.20GHz 8 core workstation running Ubuntu 16.04 LTS 64 bit.  
+% The modularity, a measure of the quality of the community prediction results, for the network partitioning was calculated in igraph library for R \cite{csardi2006igraph} . For all code see supplemental materials. 
 
-\subsection{Network statistics}
-To test the hypothesis that measures of gene importance in the network are correlated with cognitive ability and/or educational attainment, we calculated a range of standard network measures: betweenness centrality, degree, clustering coefficient, closeness centrality and eigenvector centrality using igraph for Python 3.6. \cite{csardi2006igraph}  We calculated the correlation between each of these vertex scores and the -log10 transform of the gene level p values derived from MAGMA for each study using Spearman’s rank correlation using the Scipy stats package for Python 3.6. 
-\subsection{Study design Topology based GSA}
-To test the hypothesis that there are network communities with an enriched association of genetic variations for intelligence and cognitive ability we carried out the following procedures.
-Communities of genes within the PSP are identified using spectral clustering. Gene based statistics are then calculated for the discovery and replication cohorts. We then use GSA to analyse data from the discovery cohorts’ GWA analyses of intelligence and cognitive ability, to identify potential communities of interest. PSP communities of interest are then tested in independent replication cohorts with correction for multiple hypothesis testing. The study design is shown in figure ~\ref{fig:study design community detection}.
+% \subsection{Network statistics}
+% To test the hypothesis that measures of gene importance in the network are correlated with cognitive ability and/or educational attainment, we calculated a range of standard network measures: betweenness centrality, degree, clustering coefficient, closeness centrality and eigenvector centrality using igraph for Python 3.6. \cite{csardi2006igraph}  We calculated the correlation between each of these vertex scores and the -log10 transform of the gene level p values derived from MAGMA for each study using Spearman’s rank correlation using the Scipy stats package for Python 3.6. 
+% \subsection{Study design Topology based GSA}
+% To test the hypothesis that there are network communities with an enriched association of genetic variations for intelligence and cognitive ability we carried out the following procedures.
+% Communities of genes within the PSP are identified using spectral clustering. Gene based statistics are then calculated for the discovery and replication cohorts. We then use GSA to analyse data from the discovery cohorts’ GWA analyses of intelligence and cognitive ability, to identify potential communities of interest. PSP communities of interest are then tested in independent replication cohorts with correction for multiple hypothesis testing. The study design is shown in figure ~\ref{fig:study design community detection}.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{images/study_design.png}  
-    \caption{Study design for community detection}
-    \label{fig:study design community detection}
-\end{figure}
-\subsection{Gene Based Statistics}
-We calculated gene based statistics for each study using MAGMA (v1.06) using the NCBI 37.3 assembly to identify gene boundaries. \cite{de2015magma}   No window was used around the gene boundaries. Linkage disequilibrium was corrected for using 1000 Genomes European data provided by the CTG lab with the MAGMA software version 1.6.\cite{de2015magma}  Commands used for gene based tests are found in the shell script in supplementary material. Data for the meta-analysis of intelligence performed by Sniekers  et al. was downloaded from the CTG website (see urls). \cite{sniekers2017genome}  The summary statistics for the EA2 study of educational attainment were obtained from the authors and excludes UKBiobank Phase II Education data (used as the discovery cohort) in addition to the data from 23 and me. \cite{okbay2016genome}  The summary statistics unsorted by sex were used for analysis. Summary statistics for Phase II of UKBiobank Education cohort and intelligence cohort were obtained from the co-authors directly from the CCACE.[ref]\todo{get ccace ref}
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=\textwidth]{images/study_design.png}  
+%     \caption{Study design for community detection}
+%     \label{fig:study design community detection}
+% \end{figure}
+% \subsection{Gene Based Statistics}
+% We calculated gene based statistics for each study using MAGMA (v1.06) using the NCBI 37.3 assembly to identify gene boundaries. \cite{de2015magma}   No window was used around the gene boundaries. Linkage disequilibrium was corrected for using 1000 Genomes European data provided by the CTG lab with the MAGMA software version 1.6.\cite{de2015magma}  Commands used for gene based tests are found in the shell script in supplementary material. Data for the meta-analysis of intelligence performed by Sniekers  et al. was downloaded from the CTG website (see urls). \cite{sniekers2017genome}  The summary statistics for the EA2 study of educational attainment were obtained from the authors and excludes UKBiobank Phase II Education data (used as the discovery cohort) in addition to the data from 23 and me. \cite{okbay2016genome}  The summary statistics unsorted by sex were used for analysis. Summary statistics for Phase II of UKBiobank Education cohort and intelligence cohort were obtained from the co-authors directly from the CCACE.[ref]\todo{get ccace ref}
 
-\subsubsection{PASCAL}
-\label{sec:PASCAL community detection}
-In order to determine if the choice of software for deriving a gene-based statistic influenced our results, we repeated our analyses using PASCAL instead of MAGMA, to provide both a gene level statistic and a competitive test of gene set enrichment. \cite{lamparter2016fast}  Pascal operates in a similar way to the popular VEGAS package but with a much shorter run time and the results are comparable. \cite{lamparter2016fast},\cite{liu2010versatile}  We judged it to be prudent to use an additional gene scoring method that uses a different scoring method as all subsequent analyses are dependent upon the gene score. 1000 Genomes European data was again used to account for linkage disequilibrium and no window was included around gene boundaries. The instructions supplied to the program are available in the supplementary material as a shell script. 
+% \subsubsection{PASCAL}
+% \label{sec:PASCAL community detection}
+% In order to determine if the choice of software for deriving a gene-based statistic influenced our results, we repeated our analyses using PASCAL instead of MAGMA, to provide both a gene level statistic and a competitive test of gene set enrichment. \cite{lamparter2016fast}  Pascal operates in a similar way to the popular VEGAS package but with a much shorter run time and the results are comparable. \cite{lamparter2016fast},\cite{liu2010versatile}  We judged it to be prudent to use an additional gene scoring method that uses a different scoring method as all subsequent analyses are dependent upon the gene score. 1000 Genomes European data was again used to account for linkage disequilibrium and no window was included around gene boundaries. The instructions supplied to the program are available in the supplementary material as a shell script. 
 
-\subsection{Gene set selection}
-We used the non-overlapping communities generated by the spectral community detection algorithm as gene sets stored in .gmt file format (each row a gene set). We represented each protein in the community by the Entrez ID representing the gene encoding that protein. 
+% \subsection{Gene set selection}
+% We used the non-overlapping communities generated by the spectral community detection algorithm as gene sets stored in .gmt file format (each row a gene set). We represented each protein in the community by the Entrez ID representing the gene encoding that protein. 
 
-We selected gene sets with more than 15 members. Divisive algorithms are known to often produce numerous small communities. Small gene sets can result in the signal being dominated by a single gene. We used the default lower limit gene size for the Gene Set Enrichment Analysis software, GSEA, as the lower limit (15). 54  
+% We selected gene sets with more than 15 members. Divisive algorithms are known to often produce numerous small communities. Small gene sets can result in the signal being dominated by a single gene. We used the default lower limit gene size for the Gene Set Enrichment Analysis software, GSEA, as the lower limit (15). 54  
 
-\subsection{Gene-set analysis}
+% \subsection{Gene-set analysis}
 
-We carried out gene set analysis using the inbuilt GSA function implemented in MAGMA and using the non -parametric competitive method implemented in GSEA. \cite{de2015magma},\cite{subramanian2005gene}  MAGMA provides a competitive gene set analysis using the regression weight of the association of the genes in the group with the phenotype. \cite{de2015magma}  We followed the advice of Wilmot and Mooney and used more than one enrichment method utilising GSEA to provide a non- parametric enrichment analysis. \cite{subramanian2005gene},\cite{mooney2015gene}  GSEA calculates the enrichment of a set of genes by calculating a running Kolmogorov-Smirnov score weighted by the p value of the gene in the gene level analysis. The -log10 transform of the gene level p values obtained using MAGMA were used as input for GSEA. Gene set enrichment analysis was carried out using the command line interface for the Java implementation of GSEA (GSEA - 3.0). The script to carry out the gene set analysis is included in the supplemental materials. 
+% We carried out gene set analysis using the inbuilt GSA function implemented in MAGMA and using the non -parametric competitive method implemented in GSEA. \cite{de2015magma},\cite{subramanian2005gene}  MAGMA provides a competitive gene set analysis using the regression weight of the association of the genes in the group with the phenotype. \cite{de2015magma}  We followed the advice of Wilmot and Mooney and used more than one enrichment method utilising GSEA to provide a non- parametric enrichment analysis. \cite{subramanian2005gene},\cite{mooney2015gene}  GSEA calculates the enrichment of a set of genes by calculating a running Kolmogorov-Smirnov score weighted by the p value of the gene in the gene level analysis. The -log10 transform of the gene level p values obtained using MAGMA were used as input for GSEA. Gene set enrichment analysis was carried out using the command line interface for the Java implementation of GSEA (GSEA - 3.0). The script to carry out the gene set analysis is included in the supplemental materials. 
 
-We had no prior belief which, if any, communities would be associated with either phenotype. We therefore identified a set of genes (community) to be of interest if it attained nominally significant enrichment when tested using MAGMA GSA and GSEA. These gene sets were then used in the replication cohort GWA studies with correction of p values for multiple testing using the MAGMA permutation test and calculation of FDR q values in GSEA. Finally, the analysis pipeline was re-run using a different method of gene
-and pathway scoring to test whether the findings might be dependent on a particular package using PASCAL and its associated pathway analysis platform. \cite{lamparter2016fast}  
+% We had no prior belief which, if any, communities would be associated with either phenotype. We therefore identified a set of genes (community) to be of interest if it attained nominally significant enrichment when tested using MAGMA GSA and GSEA. These gene sets were then used in the replication cohort GWA studies with correction of p values for multiple testing using the MAGMA permutation test and calculation of FDR q values in GSEA. Finally, the analysis pipeline was re-run using a different method of gene
+% and pathway scoring to test whether the findings might be dependent on a particular package using PASCAL and its associated pathway analysis platform. \cite{lamparter2016fast}  
 
-\subsection{Gene ontology enrichment}
-To investigate the nature and function of significant community modules we used gene ontology enrichment analysis (see section~\ref{sec: gene ontology analysis}). \cite{mi2013large}  
+% \subsection{Gene ontology enrichment}
+% To investigate the nature and function of significant community modules we used gene ontology enrichment analysis (see section~\ref{sec: gene ontology analysis}). \cite{mi2013large}  
 
- We tested for over representation of Gene Ontology terms in significant communities (sets) for each of the major Gene Ontology clades using Fishers exact test with corrections for multiple comparisons using the FDR method calculated using PANTER 13.1.\cite{mi2013large}We tested whether terms were over represented in these communities compared to their frequency both in the whole genome (using default  PANTHER settings) and compared with the  other 3457 genes in the PSP. \cite{mi2013large}  The ToppGene enrichment package was used to perform enrichment analysis of significant communities for murine and human phenotypes. \cite{chen2009toppgene}  
+%  We tested for over representation of Gene Ontology terms in significant communities (sets) for each of the major Gene Ontology clades using Fishers exact test with corrections for multiple comparisons using the FDR method calculated using PANTER 13.1.\cite{mi2013large}We tested whether terms were over represented in these communities compared to their frequency both in the whole genome (using default  PANTHER settings) and compared with the  other 3457 genes in the PSP. \cite{mi2013large}  The ToppGene enrichment package was used to perform enrichment analysis of significant communities for murine and human phenotypes. \cite{chen2009toppgene}  
 
-\subsection{Evolutionary Constraint}
+% \subsection{Evolutionary Constraint}
 
-The Exome Aggregation Consortium (ExAC - Broad Institute) contains DNA sequence data from the exomes of 60,706 individuals and provides metrics to identify genes subject to strong selection pressure against mutation. \cite{lek2016analysis}  We used data from version 1 (see URLs for source). This provides gene level measures of intolerance to deleterious mutations. The post synaptic density is known to be under evolutionary constraint with a low dN/dS (amino acid change/synonymous mutation change) in both murine and human PSD. \cite{ryan2009origin},\cite{bayes2012comparative},\cite{bayes2011characterization}  A bi-map was made between Ensembl transcript id in the ExAC data download and Entrez-id for the GRCh37 assembly using BioMart. \cite{smedley2015biomart}  We used the probability of the loss of function intolerance (pLI) to measure genetic constraint.
+% The Exome Aggregation Consortium (ExAC - Broad Institute) contains DNA sequence data from the exomes of 60,706 individuals and provides metrics to identify genes subject to strong selection pressure against mutation. \cite{lek2016analysis}  We used data from version 1 (see URLs for source). This provides gene level measures of intolerance to deleterious mutations. The post synaptic density is known to be under evolutionary constraint with a low dN/dS (amino acid change/synonymous mutation change) in both murine and human PSD. \cite{ryan2009origin},\cite{bayes2012comparative},\cite{bayes2011characterization}  A bi-map was made between Ensembl transcript id in the ExAC data download and Entrez-id for the GRCh37 assembly using BioMart. \cite{smedley2015biomart}  We used the probability of the loss of function intolerance (pLI) to measure genetic constraint.
  
 
 
-\subsection{result infomap GSA}
+\subsection{Result Infomap GSA}
+\label{sec:result infomap gsa}
 For intelligence cohort see table~\ref{tab:Infomap Intelligence infomap significant in both groups}
 
 For education cohort see table~\ref{tab:infomap education}. For the large new cohorts in education (EA3) see table~\ref{tab:infomap EA3} and intelligence (Savage) see table~\ref{tab:Infomap savage}.
@@ -1345,59 +1417,11 @@ This supports the Newman idea that different partitions are made up of similar c
 \label{tab:Infomap savage}
 \end{table}
 
-\section{Walk trap results group}
-\label{sec:walk trap results}
-Implemented in igraph. 562 communities , 405 have single member  Min.1 1st Qu.  1 Median1    Mean 6.151 3rd Qu. 2   Max. 760 
- 
-
-\section{Spinglass}
-\label{sec: Spinglass description}
-There are a number of tunable parameters for the implementation of the spinglass algorithm in igraph for R specifically
-args for spinglass
-\begin{itemize}
-    \item{weights not applicable - edge weights}
-    \item vertex - community for specific vertex ignore
-    \item spins default 25 - upper limit for number of communities
-    \item parupdate false not required
-    \item start.temp default 1
-    
-    \item stop.temp 0.1
-    \item cool.fact for simulated annealing
-    \item update simple or random or config we may need config
-    \item gamma = balance between present and non present edges in a community present and non present edges default 1.0 makes existing and non existing links equally important, smaller make existing links, greater missing links more important
-\end{itemize}
 
 
 
 
-
-
-
-
-
-\todo{Check enrichment}
-
-
-\subsection{Theory behind spinglass}
-\todo{remember local clustering}
-\todo{remember reasons for looking for communities around or less than 100 Leskovec paper on peak conductance}
-
-\subsection{Implementation}
-Spin glass clustering was carried out using the igraph package in R using a script to automatically generate values for gamma and spins and to conver the communities object into a graph markup language(GML) file. 5 gamma values were used gamma = $0.1,0.5,1,2,5$ and 9 spin values spins = $2,10,20,30,40,50,60,80,100$ 
-
-Running 45 grid search the clustering with spinglass takes about 56.6 seconds which accumulates if one has a large number of clusters to make therefore Grid search generation run on staff.compute R 3.5 DICE.
-
-Gamma of 0.1 and 0.5 only returned valid spins of 2 and 2,10 respectively. 
-\subsection{Study design}
-Given the number of tunable parameters in the spinglass model it is difficult to make a study design similar to that we used with the spectral clustering as the number of communities will lead to a prohibitively small alpha level. The possibility of finding individual datasets for each set of communities at each parameter setting is not practicable as even varying only gamma and spins we have the cartesian product of the number of parameter settings numbers of groups of sets.
-
-The number of spins controls the maximum number of groups found in the clustering. The value of gamma controls the importance of there being edges present within the commmunity modules.
-
-We would however prefer not to abandon spin glass entirely. McLean (personal commmunication) found it gave good community enrichment at certain values (higher values) of gamma. However we are also aware both from theory and our earlier experiment that pure modules in the ontology sense may not be what we want. We may want a dominant ontology group and their neighbouring proteins that form a module as this may map more reliably onto population data. Also although it is attractive the ontology group is in no sense a ground truth it is still 'Menschenwerk' (Kronecker).\todo{remove this}
-
-One option is to adopt a strategy from machine learning. We will define the discovery intelligence and education as the training set and find the groups of sets that have a set with an arbitrarily low p value and of a satisfactory size. We will then combine these into a group of sets and test these on the replication cohorts. The design is not so robust as the previous one but at least allows us to see what insights we might gain from the spin glass clustering. We are not randomly sampling from the synaptic proteome there is still the constraint that we require that the sets form modules (in terms of their edge in-out distribution) and that the modules are connected subgraphs of the network. The arbitrary element (or the most arbitrary element) of this design is the choice of alpha. We want to chose alpha such that the number of sets to test in the replication does not lead to excessive type II error. The lower we choose alpha for the first set the more likely the p value of the second set is to be low. We can also try using the nominal alpha level of 0.5 and see what we get. 
-
-\subsubsection{Spinglass results}
+\subsubsection{Spinglass results GSA }
 We get significant enrichment for spin 2 gamma 5 for education and intelligence both sets. This is because we are splitting the PSD in two. The larger approx 2082 number of genes is the one that enriches.
 
 For spins 10 gamma 5 we get 10 groups the 417 number group enriches strongly in discovery and replication but not for education and it is a big group.
@@ -1439,18 +1463,7 @@ Enriches strongly in savage $0.0049343$ but less so in davies (approx 0.02 but g
 \section{SBM}
 See core periphery
 
- \section{Community detection thresholds}
-There are limits to the detection of communities specifically in the difference between the probability of edges and the probability of in group edges.
 
-Newman p 512
-
-\begin{equation}
-    K1K2 < 2m
-\end{equation}
-
-Ie fails to detect separate communities if the product of the sum their degrees is less than 2m
-
-So when increasing the background amount we are increasing m
 
  
  \section{Enrichment of the presynaptic proteome}
