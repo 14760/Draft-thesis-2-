@@ -6,19 +6,15 @@
 
  \todo{do citations for paper before moving}
 
-
-
-
-
 \section{Introduction}
+\label{sec: community detection intro gsa}
 
 See also section~\ref{sec:alternate intro}
 
 \todo{Rewrite this section as from paper eg DH}
 \textcolor{red}{start of dh intro}
-Intelligence, also known as general cognitive function,\cite{davies2015genetic} or simply as g,\cite{spearman1961general} describes the finding that across seemingly-disparate measures of cognitive ability, a single common factor explains around 40\% of the total cognitive test score variance in a group with a range of intellectual ability.  \cite{carroll1993human}  This single factor is the source of much of the predictive validity of cognitive tests; higher measured intelligence is predictive of higher-level educational and occupational outcomes, \cite{strenze2007intelligence}  as well as better health, and longevity .\cite{deary2012annrev} 
 
-In twin and family studies genetic factors explain between 50-80\% of individual differences in intelligence. Using GREML-SC implemented in GCTA, \cite{yang2011gcta}  common single nucleotide polymorphisms (SNPs) have been found explain 20-30\% \cite{marioni2014common}  of differences in intelligence. When variants that are poorly tagged by genotyped SNPs are included using GREML-KIN, \cite{xia2016pedigree}  or GREML-MSC and imputed genotypes, around 50\% of the differences in intelligence can be explained using molecular genetic data. \cite{hill2018genomic} 
+Previous sections have discussed the genetics of differences in intelligence and educational attainment \ref{sec:Introduction intelligence bit from paper david hill}
 
 Consistent with the findings from other polygenic traits such as height, \cite{wood2014defining}  the number of variants associated with intelligence has increased as sample sizes have become larger. \cite{sniekers2017genome},\cite{hill2019combined}  However, the problem remains of how to transform information pertaining to phenotype-associated genetic loci into coherent biological explanations on how genetic differences result in phenotypic differences in intelligence. One such method that has been applied to intelligence is gene-set analysis (GSA). 
 
@@ -29,8 +25,7 @@ GSA has indicated that the tissues of the brain and central nervous system are e
 \textcolor{red}{end of DH intro}
 Effective synaptic function depends upon protein-protein interactions between over 2000 synaptic proteins (the synaptic proteome). Genetic variations in neuronal synaptic receptor components have been found to be enriched for differences in intelligence. \cite{hill2014human}  The complexes formed by these interactions have been described as ‘molecular machines’, and are a complex system with emergent structures and properties. \cite{grant2012synaptopathies}
 
-Complex systems such as the synaptic proteome can be modelled as a network of nodes (vertices) joined by edges (links). In a network model of the synaptic proteome the nodes are genes that encode a synaptic protein and an edge shows that the protein products of two genes (nodes) interact. A network can be analysed at three levels: the network’s properties as a whole, the properties of individual nodes, or the presence of structures or organisation within the network.  \cite{newman2012communities}   
-Many complex networks such as the internet, academic collaboration networks, and protein interaction networks share common properties at the level of the entire network. These properties include the small world phenomena or scale-free degree structures\cite{barabasi1999emergence},\cite{watts1998collective}  and provide evidence on how these networks form, how information passes through them and how resilient they are to disruption. \cite{rosvall2008maps},\cite{albert2000error},\cite{bianconi2001competition}  Recently the ‘small world property’ has been posited as a potential mechanism for an omni-genic model of genetic influence on complex traits. \cite{watts1998collective},\cite{boyle2017expanded} 
+
 
 
 Communities  are the most well studied large-scale structure in networks. \cite{newman2012communities}  Communities are connected sub-graphs with dense interactions between community members and sparser connections to the rest of the graph. \cite{newman2012communities},\cite{fortunato2016community},\cite{girvan2002community} . They are not present in random graphs and are of interest because of their functional implications: in human and animal social networks they have been shown to correspond to real world grouping in the data, and these assignments can be made solely on the pattern of connectivity of the vertices. \cite{adamic2005political},\cite{zachary1977information}  An example of a community would be a group of friends in a social network; in the synaptic protein network, communities may represent functional modules and can therefore be used as gene sets for competitive GSA.  \cite{pocklington2006proteomes},\cite{mclean2016improved}  
@@ -723,6 +718,7 @@ This is a distance metric that is asymmetrical
 
 Spectral 573
 
+
 Comparison of louvain and ground truth method adjusted\_rand result 0.7240323254646376
 Comparison of infomap and ground truth method adjusted\_rand result 0.9992769735118784
 Comparison of greedy and ground truth method adjusted\_rand result 0.5230033392550409
@@ -765,6 +761,9 @@ NMI compare communities 3457 ground truth and markov clustering 0.98858023049201
 
 \subsection{Optimal community size}
 Real world communities tend to show a core and whisker structure. The whiskers tend to be good communities but larger groups discovered by clustering algorithms tend to belong to the core or represent the core and have lower conductance and hence are less cohesive as groups. We can see this pattern of size distribution in the communities discovered in the PSP for particular algorithms \todo{cross ref}. The spectral clustering algorithm and Louvain algorithm produce communities of less disparate size although the Louvain clusters are large. \todo{graph of conductance versus community sizes}
+
+Approximately 80\% of nodes are in the core \todo{check ref that is from zhukov}
+\todo{what does core represent if we are not including core chapter}
 
 \cite{leskovec2010empirical}
 
@@ -1278,7 +1277,8 @@ Counter({0: 471,
          9: 8,
          10: 4,
          11: 3})
-         
+\todo{magma gsa for label propagation}
+ 
 
 
 
