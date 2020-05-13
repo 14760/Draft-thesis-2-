@@ -16,6 +16,8 @@ Networks can be subject to analysis at at least three levels: first the properti
 
 This chapter examines measures of vertex importance for the post synaptic proteome network. It explores the significance of these statistics, their implication for the function of the network and association with specific functions and finally with molecular cognition first in model organisms and finally with differences in cognitive ability in population GWA studies.   ? ref ma and goa.
 
+ The importance of central genes in a network has been well reported however there are differences between many gene networks and this protein protein interaction network. Many network analysis of gene function are co-expression networks where an edge occurs when the expression of two genes are correlated. The implications of modular structure or centrality can therefore be different. A hub node is co-expressed with a variety of different genes and may be a driver of a biological process such as a transcriptional regulator \todo{cite parikshak}. A hub node in a protein protein interaction network has promiscuous interaction partners but may not drive a process but be essential to several different processes. 
+ 
 While the measures of vertex importance are precisely defined how they will map onto animal models or complex traits is not and one can construct several plausible hypotheses of effect, effect of specific measures or no effect (hence the quotation at the start of the chapter\todo{?move this down into a fuller introduction section}.
 
 \section{Properties of empirical networks}
@@ -23,10 +25,7 @@ While the measures of vertex importance are precisely defined how they will map 
 In addition to community structure which we will examine in chapter~\ref{chap:community detection} empirical networks may contain features such as a power law distribution, large clustering component and giant connected component. These can provide information on how networks form and evolve. They are not all shared by all empirical networks. For example road networks do not show a scale free property although air travel networks do.\textcolor{red}{? remove this or move it into the bit above}\todo{? remove this section or merge with earlier}. We can test for the existence of these properties by determining how a network differs from either a completely random model or a model in which some of its features (such as degree distribution (section \ref{sec:degree distribution}.
 \todo{?add global graph measures}
 
-\section{Measures of vertex importance}
-\label{sec:Measurs of vertex importance from paper}
-\todo{Move this to importance}
-To test the hypothesis that genes encoding proteins with an important role in the structure of the PSP network were more likely to be associated with genetic variants associated with differences in intelligence or educational attainment (such as hubs), we calculated node degree, and four other measures of vertex importance: eigenvector centrality, betweenness centrality, closeness centrality and transitivity for each graph vertex (gene) using igraph. \cite{csardi2006igraph} \textcolor{red}{we need to say what all of these are before we start talking about them}\footnote{something like we will first of all need to introduce in general terms these measures and how they were calculated. in general also want to move more of this chapter into methods and results}. There was no correlation between any of these measures of vertex importance and their gene association analysis gene level statistics calculated using MAGMA (Spearman’s $\rho$ calculated with R) for genes in the post synaptic proteome graph. The results are presented in table 1\todo{table}. The complete vertex statistics for each PSP gene can be found in the supplementary material. 
+
 
 \subsubsection{Results of correlation analysis}
 The vertex measures are correlated with one another apart from transitivity and range from 0.89 (eigenvector centrality and degree) to 0.33 (betweenness centrality and closeness centrality) (\textcolor{red}{see supplementary table 6} \todo{table}).
@@ -54,6 +53,65 @@ An example of a property of an individual node is its degree: the number of conn
 Other vertex measures include eigenvector centrality, a measure of the importance of the node that includes the degree of its neighbours. \cite{bonacich1987power}  Some nodes are bottlenecks in the network. If a large number of the shortest (geodesic) paths pass through a node it is a potential bottleneck and its removal can disrupt the integrity of the network. The measure of a nodes propensity to be a bottleneck is the betweenness centrality. \cite{freeman1977set}  
 \textcolor{red}{Stop move}
 
+\section{Transitivity}
+
+The probability the two neighbours of a node in a network are connected is its transitivity or clustering coefficient.\cite{newman2018networks}
+
+Transitivity is calculated locally and globally. The local tranisitivity has been calculated in igraph for R for a histogram of values see figure~\ref{fig:transitivity}. The local clustering coefficient has been calculated using graph tool. The measure of local clustering coefficient follows \todo{Citation error}cite(watts1998collective) and is defined as a vertex having $k_v$ neighbours 
+\begin{equation}
+C = \frac{c_n}{c_{max}}
+\end{equation}
+where $c_n$ is the number of connections between a vertexes neighbours and $c_{max}$ is defined as 
+
+\begin{equation}
+c_{max} = \frac{k_v(1-k_v)}{2}
+\end{equation}
+
+The correlation of the log10 transform of the degree and local\_clustering is 
+	Spearman's rank correlation rho
+
+%data:  clustering_sub\$log_clustering and clustering_sub\$log_degree
+S = 3670800000, p-value $< 2.2 \times 10^{-16}$
+      rho= 
+-0.373025 
+
+Spearmans rho calculated as graph not linear throughout relationship see fig~\ref{fig:transitivity}.
+
+The global undirected transitivity of the PSP network is 0.0697. This is similar to the value reported in p305 newman for metabolic networks (0.090) and PPI (0.072)\todo{check both different global formulae in newman}.
+
+The expected value of the global clustering coefficient with a given degree distribution connected randomly \cite{newman2018networks} p332 is:
+\begin{equation}
+    C=\frac{1}{n}\frac{[<k^2> - <k>]^2}{<k^3>}
+\end{equation}
+
+The value of this for the PSP is 0.004541763 \footnote{code \url{source('~/RProjects/centrality/R/transitivity/Expected_global_transitivity.R')}}. The global clustering coeffieicnet is therefore high. Newman states p334 \cite{newman2018networks} that it is not clear why certain non social networks have higher than expected global clustering (for social networks it is ascribed to social choice). For other networks such as the internet with very right skewed degree distribution the clustering coefficient is less than expected. For biological systems such as foodwebs or the world wide web it is hypothesised that this may due to community formation (newman ref 367)
+
+Also motifs (other than number of triangles) newman 334 again
+
+\subsubsection{Local clustering coefficient}
+Local cluistering coefficeint tends to be inversely proportional to degree. It is undefined for nodes of degree one. See~figure \ref{fig:log_transitivity_degree}. It is suggested that this may also be due to community formation \cite{newman2018networks} p335.
+
+Mean local transitivity is 0.171. The distribution is right skewed with median of 0.129 and 3rd quartile of 0.23 and first quartile of 0.043. This does not match the arithmetic mean of vertex local clustering below it may be down to how we deal with NA. Above calculated as NA.rm
+
+The global clustering as defined by Watts and Strogatz as the arithmetic mean of the vertex local clustering coefficients is 0.156.\cite{watts1998collective} this is the value if you set NA ie degree 1 to 0 and 0.171 is the value using NA.rm see above section. 
+
+The expected value of local clustering given a random rewiring with fixed degree distribution is 0.07479691 sd (0.00183) removing NA and 0.068 setting NA to 0 (100 iterations) and 0.0682 seeting NA to zero with sd 0.00181 \footnote{Code  \url{source('~/RProjects/centrality/R/transitivity/calculate_local_transitivity_and_simulate_mean.R')} }
+
+\subsection{kcoreness}
+
+A kcore of a graph is an induced subgraph of the main graph such that each vertex has degree of at least $k$. For a vertex its kcoreness is the maximal k core subgraph it is a member of (alternatively its shell index is $c$ if it belongs to the $c$ core but not the $c+1$ core. \cite{seidman1983network} (original description), \cite{alvarez2006large}. The kcore algorithm is useful in graph analysis as it runs in linear time. 
+
+ The minimum shell index is 1, all of the 1 kcore corresponds to the connected component. The range of shell index is 1-24. The median shell index of a vertex is 8 and the mean value 9.15 (although shell indexes take on integer values). The distribution of these values is shown in figure~\ref{fig:Kcore_histogram}\todo{nice ish image of kcore already in core periphery section}
+ 
+ \begin{figure}
+     \centering
+     \includegraphics[width=\textwidth]{images/Rplot01_kcore_hist.png}
+     \caption{Histogram of shell index of vertices in calculation of kcore. Shell index is the maximum kcore a vertex is a member of and not a member of shell index n+1. }
+     \label{fig:Kcore_histogram}
+ \end{figure}
+ 
+
+\section{Biomedical significance of centrality measures}
 \cite{lee2013network} examined NHGRI complex trait catalog and found that complex trait loci were more likely to be hubs or bottlenecks (although this is 2013). Defining hub and bottleneck as top 20\% of distribution. 
 \cite{liu2017sigmod} described a method of identifying gene modules and combining this with p values but use heterogenous different measures of gene interaction including coexpression. 
 \cite{bayes2011characterization} found strong sequence conservation in PSP hub proteins. So there is some evidence that we might suspect they have an influence on human cognition using the G2C framework but as this is complex what we need is empirical proof indeed one can make a plausible argument from the available evidence for the effect of a specific measure, for an effect of centrality generally or for no effect \todo{? add box}.  
@@ -124,7 +182,10 @@ Closeness centrality \todo{add this} does not follow a power law distribution pe
 degree & 1.000 & 0.902 & 0.196 & 0.851 & 0.986 \\ 
   betweenness & 0.902 & 1.000 & $-0.002^*$ & 0.782 & 0.854 \\ 
   transitivity & 0.196 & $-0.002^*$ & 1.000 & 0.292 & 0.265 \\ 
-  closeness & 0.851 & 0.782 & 0.292 & 1.000 & 0.872 \\ 
+  closeness & 0.851 & 0.782 & 0.292 & 1.000 & 0.872 \\  
+60
+Uncompiled Changes
+
   kcoreness & 0.986 & 0.854 & 0.265 & 0.872 & 1.000 \\ 
    \hline
 \end{tabular}
@@ -538,7 +599,7 @@ Biological process bit of mixed bag nothing interesting
 
 \section{Degree and essentialness}
 \label{sec:Degree and essentialness}
-Jeong \cite{jeong2001lethality} examined the correlation between a gene being essential and having high degree in the proteome of \textit{Saccharomyces ceresvisiae} having 1870 nodes and 2240 interactions (comparatively sparse compared with the synaptic proteome). They found that elimination of the most connected nodes led to an increase in network diameter and that the likelihood that mutation in a protein would prove fatal was correlated with degree, They found that 21\% of the nodes with degree less than 5 (93\% of the proteome). Although 0.7\% of yeasts with more than 15 links had phenotypic profile 62\% of these were lethal.
+Jeong \cite{jeong2001lethality} examined the correlation between a gene being essential and having high degree in the proteome of \textit{Saccharomyces ceresvisiae} having 1870 nodes and 2240 interactions (comparatively sparse compared with the synaptic proteome). They found that elimination of the most connected nodes led to an increase in network diameter and that the likelihood that mutation in a protein would prove fatal was correlated with degree, They found that 21\% of the nodes with degree less than 5 (93\% of the proteome). Although 0.7\% of yeasts with more than 15 links had phenotypic profile 62\% of these were lethal. However later work with more complete networks did not support this \cite{milenkovic2011dominating} \cite{yu2008high}
 
 
 Raman \cite{raman2014organisational} examined multiple centrality metrics in addition to degree (degree, betweenness centrality, closeness centrality and pairwise dis-connectivity index) and their association with gene essentiality for 20 organisms.
@@ -863,50 +924,6 @@ human\_genome\_plI &5.4e-91 &3.2e-05&  0.028& 0.30&    0.68  &  1\\
 \end{table}
 
 
-\section{Transitivity}
-
-The probability the two neighbours of a node in a network are connected is its transitivity or clustering coefficient.\cite{newman2018networks}
-
-Transitivity is calculated locally and globally. The local tranisitivity has been calculated in igraph for R for a histogram of values see figure~\ref{fig:transitivity}. The local clustering coefficient has been calculated using graph tool. The measure of local clustering coefficient follows \todo{Citation error}cite(watts1998collective) and is defined as a vertex having $k_v$ neighbours 
-\begin{equation}
-C = \frac{c_n}{c_{max}}
-\end{equation}
-where $c_n$ is the number of connections between a vertexes neighbours and $c_{max}$ is defined as 
-
-\begin{equation}
-c_{max} = \frac{k_v(1-k_v)}{2}
-\end{equation}
-
-The correlation of the log10 transform of the degree and local\_clustering is 
-	Spearman's rank correlation rho
-
-%data:  clustering_sub\$log_clustering and clustering_sub\$log_degree
-S = 3670800000, p-value $< 2.2 \times 10^{-16}$
-      rho= 
--0.373025 
-
-Spearmans rho calculated as graph not linear throughout relationship see fig~\ref{fig:transitivity}.
-
-The global undirected transitivity of the PSP network is 0.0697. This is similar to the value reported in p305 newman for metabolic networks (0.090) and PPI (0.072)\todo{check both different global formulae in newman}.
-
-The expected value of the global clustering coefficient with a given degree distribution connected randomly \cite{newman2018networks} p332 is:
-\begin{equation}
-    C=\frac{1}{n}\frac{[<k^2> - <k>]^2}{<k^3>}
-\end{equation}
-
-The value of this for the PSP is 0.004541763 \footnote{code \url{source('~/RProjects/centrality/R/transitivity/Expected_global_transitivity.R')}}. The global clustering coeffieicnet is therefore high. Newman states p334 \cite{newman2018networks} that it is not clear why certain non social networks have higher than expected global clustering (for social networks it is ascribed to social choice). For other networks such as the internet with very right skewed degree distribution the clustering coefficient is less than expected. For biological systems such as foodwebs or the world wide web it is hypothesised that this may due to community formation (newman ref 367)
-
-Also motifs (other than number of triangles) newman 334 again
-
-\subsubsection{Local clustering coefficient}
-Local cluistering coefficeint tends to be inversely proportional to degree. It is undefined for nodes of degree one. See~figure \ref{fig:log_transitivity_degree}. It is suggested that this may also be due to community formation \cite{newman2018networks} p335.
-
-Mean local transitivity is 0.171. The distribution is right skewed with median of 0.129 and 3rd quartile of 0.23 and first quartile of 0.043. This does not match the arithmetic mean of vertex local clustering below it may be down to how we deal with NA. Above calculated as NA.rm
-
-The global clustering as defined by Watts and Strogatz as the arithmetic mean of the vertex local clustering coefficients is 0.156.\cite{watts1998collective} this is the value if you set NA ie degree 1 to 0 and 0.171 is the value using NA.rm see above section. 
-
-The expected value of local clustering given a random rewiring with fixed degree distribution is 0.07479691 sd (0.00183) removing NA and 0.068 setting NA to 0 (100 iterations) and 0.0682 seeting NA to zero with sd 0.00181 \footnote{Code  \url{source('~/RProjects/centrality/R/transitivity/calculate_local_transitivity_and_simulate_mean.R')} }
-
 \section{Average path length}
 The average path length calculated using the \texttt{mean\_distance} function in igraph is 2.98
 
@@ -988,7 +1005,10 @@ enrichment of genes found in the synapse with orthologs in yeast reveal a large 
 \subsection{Bridging}
 
 \cite{valente2010bridging}
-
+\section{Measures of vertex importance}
+\label{sec:Measurs of vertex importance from paper}
+\todo{Move this to importance}
+To test the hypothesis that genes encoding proteins with an important role in the structure of the PSP network were more likely to be associated with genetic variants associated with differences in intelligence or educational attainment (such as hubs), we calculated node degree, and four other measures of vertex importance: eigenvector centrality, betweenness centrality, closeness centrality and transitivity for each graph vertex (gene) using igraph. \cite{csardi2006igraph} \textcolor{red}{we need to say what all of these are before we start talking about them}\footnote{something like we will first of all need to introduce in general terms these measures and how they were calculated. in general also want to move more of this chapter into methods and results}. There was no correlation between any of these measures of vertex importance and their gene association analysis gene level statistics calculated using MAGMA (Spearman’s $\rho$ calculated with R) for genes in the post synaptic proteome graph. The results are presented in table 1\todo{table}. The complete vertex statistics for each PSP gene can be found in the supplementary material. 
 \section{Centrality measures and graph statistics}
 
 The correlation between the graph vertex centrality measures eigenvector centrality, betweenness centrality and transitivity are shown in table \ref{Table:Correlation of GWAS gene level statistics with graph vertex measures}
@@ -1001,19 +1021,8 @@ The vertex statistics are not normally distributed \todo{test this} and so we pr
 
 \todo{Add multiple testing correction}
 
-\subsection{kcoreness}
 
-A kcore of a graph is an induced subgraph of the main graph such that each vertex has degree of at least $k$. For a vertex its kcoreness is the maximal k core subgraph it is a member of (alternatively its shell index is $c$ if it belongs to the $c$ core but not the $c+1$ core. \cite{seidman1983network} (original description), \cite{alvarez2006large}. The kcore algorithm is useful in graph analysis as it runs in linear time. 
-
- The minimum shell index is 1, all of the 1 kcore corresponds to the connected component. The range of shell index is 1-24. The median shell index of a vertex is 8 and the mean value 9.15 (although shell indexes take on integer values). The distribution of these values is shown in figure~\ref{fig:Kcore_histogram}\todo{nice ish image of kcore already in core periphery section}
- 
- \begin{figure}
-     \centering
-     \includegraphics[width=\textwidth]{images/Rplot01_kcore_hist.png}
-     \caption{Histogram of shell index of vertices in calculation of kcore. Shell index is the maximum kcore a vertex is a member of and not a member of shell index n+1. }
-     \label{fig:Kcore_histogram}
- \end{figure}
- 
+ \subsection{k coreness and GWAS results}
 I also calculate the correlation between p and the coreness value of the vertex which is its k core \todo{expand}. There was no significant correlation as shown in table \ref{Table:Correlation of GWAS gene level statistics Spearmans rho gene p  with kcorecoreness measures}
 
 %Code to complete this table is found at STRONTIUM\url{source('~/RProjects/paper_xls_output/R/make_df_graph_stats_correlation_PhDlatex.R')}.
