@@ -19,6 +19,8 @@ This chapter examines measures of vertex importance for the post synaptic proteo
  The importance of central genes in a network has been well reported however there are differences between many gene networks and this protein protein interaction network. Many network analysis of gene function are co-expression networks where an edge occurs when the expression of two genes are correlated. The implications of modular structure or centrality can therefore be different. A hub node is co-expressed with a variety of different genes and may be a driver of a biological process such as a transcriptional regulator \todo{cite parikshak}. A hub node in a protein protein interaction network has promiscuous interaction partners but may not drive a process but be essential to several different processes. 
  
 While the measures of vertex importance are precisely defined how they will map onto animal models or complex traits is not and one can construct several plausible hypotheses of effect, effect of specific measures or no effect (hence the quotation at the start of the chapter\todo{?move this down into a fuller introduction section}.
+\section{General to dos}
+\todo{define configuration model}
 
 \section{Properties of empirical networks}
 \label{sec:Properties of empirical networks}
@@ -87,11 +89,13 @@ There are $\binom{N-1}{k}$ ways in which this arrangement of present and missing
    \binom{N-1}{k}        p^k (1-p)^{N-1-k}
    \label{Equation:BinomialDistributionForDegreeProbability}
 \end{equation}
-In the limit where $E[k] << N$ the degree is well approximated by a Poisson distribution \cite{barabasi2016network}. ie the probability mass should be centred around the empirical mean and we would not expect to see nodes whose degree were 3 x or more the average degree. This is not what we find the distribution is scale free. \todo{probablility of max degree node} 
-
+In the limit where $E[k] << N$ the degree is well approximated by a Poisson distribution \cite{barabasi2016network}. The Posson distribution is parameterised only by $E[k]$.  The probability mass should be centred around the empirical mean and we would not expect to see nodes whose degree were 3 x or more the average degree. This is not what we find the distribution is scale free. \todo{probablility of max degree node} 
+\todo{plot of Poisson and empirical for $E[k]$}
 
 
 \subsection{Scale free}
+\todo{define scale free}
+\todo{define the method of Clauset and Newman}
 \todo{intro to scale free}
 We can calculate the $\gamma$ coefficient for the degree distribution using the \texttt{poweRlaw} package for R. The value of $\gamma$ will vary over the distribution depending on the lower limit of degree used to fit the power law distribution. This is shown graphically in figure \ref{fig:gamma} and table \ref{table:gamma}.
 
@@ -171,11 +175,14 @@ See section~\ref{sec: intro_random_graphs}
 Add a histogram here and the expected mean and quartiles.
 
 \subsection{Degree assortativity}
+\label{sec:degree assortativity}
+\subsubsection{Introduction Degree assortativity}
 Explain assortativity
 Newman p 208
 Equation assortativity
 
-\label{sec:degree assortativity}
+
+\subsubsection{Results and methods degree assortativity}
 We can compare the average degree with those found in other publications. We can also look at the assortativity between nodes for degree. The PSP networks shows evidence of some negative degree assortativity (-0.18) using the commands \texttt{assortativity(g,deg,directed=FALSE)} in igraph for R \todo{Assortativity for essential and id}.
 
 The degree association is negative in most real world networks other than social networks \cite{newman2002assortative}. \todo{include the peel multiscale mixing patterns} see table \ref{Table:DegreeAssortativityNewman}\todo{? add positive $r$ to table}. Both the Barabsi Albert model and random model have 0 correlation. The Callaway model of network generation ('grown graph' - newman) has a positive degree correlation consistent with older nodes being connected to each other and hence in turn being more likely to be connected to others. This is at odds with our later finding (see orthologues) that nodes with clearly identified yeast orthologues tend to be of higher degree (this would fit both the Barabasi Albert model and Callaway) \todo{Do i add the pseudo hub bit here this is also probably good for the paper with Keith}. 
@@ -186,7 +193,7 @@ The value of $r$ of -0.18 \todo{three sf} is similar to those cited by Newman \c
 
 Although we expect the assortativity to be 0 in a random graph of the configuration model (the edges are placed at random so we would not expect there to be any association with edges and the degree of vertices), there will nevertheless be a deviation from 0 due to chance and it is helpful to quantify the assortativity by calculating this. 
 
-The assortativity using a configuration model is approximately normal centred on 0.
+The assortativity using a configuration model \todo{explain configuration model} is approximately normal centred on 0.
 
 For 10,000 samples   
 
@@ -234,6 +241,35 @@ This is possibly the bit where Keith's bit would be good to put in.
 %
 %
 %
+
+\subsection{Assortativity with gene score}
+ 
+A second way in which we could see if genes within the PSP that are enriched for genetic differences in education and intelligence globally within the PSP would be to calculate the correlation between there being and edge between two vertices and the significance score of the two vertices. A positive result would suggest that more significant (avoiding a cutoff effect) genes have protein products that are more likely to interact in the PSP graph. We can do this by calculating the assortativity as described by Newman. As a measure of significance we use the z score for each gene in the PSP for each study as provided by MAGMA. As some genes in the PSP do not have a significant number of SNPs within them they do not have a Z score as assigned by magma and these are therefore set to 0. \footnote{code \url{source('~/RProjects/centrality/R/get_gene_scores/assortativity_with_z_scores.R')} }
+
+\subsubsection{Assortativity with z score results}
+ 
+ \begin{table}[]
+     \centering
+     \begin{tabular}{ccc}
+     \toprule
+         Study & Missing values  & Assortativity\\
+         \midrule
+         Intelligence\textsubscript{Replication} & 148 & 0.003\\
+         Education\textsubscript{Replication} & 172 & -0.006\\
+         Education\textsubscript{Discovery} & 156 & 0.001\\
+         Intelligence\textsubscript{Discovery} & 156 & -0.004\\
+         \bottomrule
+     \end{tabular}
+     \caption{Assortativity of PSP graph vertices by study Z score. PSP graph members without corresponding Z score marked as missing values had z set to 0.}
+     \label{tab:Assortativity of PSP graph and z scores}
+ \end{table}
+
+
+The results are shown in table\ref{tab:Assortativity of PSP graph and z scores}. Assortativity scores tend to me modest (as score of approximately 0.15 is often found for degree assortativity). These results are close to zero. 
+
+This suggests that nodes with high or low z scores in the population cohorts are no more likely to have links to one another \textit{globally} across the network. It does not state that there cannot be areas within the graph where there are areas of high assortativity or areas where one high score connects to linker node connects to another high score in a group.
+
+\todo{do this with pli too and for a phenotype eg GO glutamate}
 \subsection{Degree and giant component}
 \label{sec:connected component and degree}
 Some structure can develop even in random graphs see~\ref{sec: intro_random_graphs}
@@ -244,7 +280,7 @@ Subcritical to supercritical at $<k> >1$
 Supercritical to fully connected at $E[k] > \ln(N)$
 
 
-Where $N$ is the number of nodes in a network, a giant connected component develops in random graphs when $E[k] > \ln (N)$ \cite{barabasi2016network}. This tends to be the case in real world complex networks. The necessary requirement for a connected component to form is that mean degree is greater than $1/N$. The giant connected component arises in the super-critical' region (see \cite{barabasi2016network} p87). For the PSP $E[k]$ is 17.6 and $\ln(N)=\ln(3457)=8.14$. It is important to note however that the degree distribution for the PSP graph is not that of a random network ($P(k)$ is scale free it would also be unlikely to find many nodes $ 3 \times E[k]$, if it were there would be few nodes with degree 2 and we find some nodes disconnected from the connected component in our empirical model. \todo{cross ref to missing nodes I think it is in the paper section so community detection} \todo{Add plot from \url{'~/RProjects/graph_analysis/R/transitiontoconnectederdosrenyi.R'} for transition from sub-critical to super-critical region} see section~\ref{sec: PSP graph connected component and missing} for missing components.
+Where $N$ is the number of nodes in a network, a giant connected component develops in random graphs when $E[k] > \ln (N)$ \cite{barabasi2016network}. This tends to be the case in real world complex networks. The necessary requirement for a connected component to form is that mean degree is greater than $1/N$. The giant connected component arises in the super-critical' region (see \cite{barabasi2016network} p87). For the PSP $E[k]$ is 17.6 and $\ln(N)=\ln(3457)=8.14$. It is important to note however that the degree distribution for the PSP graph is not that of a random network ($P(k)$ is scale free it would also be unlikely to find many nodes $ 3 \times E[k]$, if it were there would be few nodes with degree 2 and we find some nodes disconnected from the connected component in our empirical model \todo{so what?}. \todo{cross ref to missing nodes I think it is in the paper section so community detection} \todo{Add plot from \url{'~/RProjects/graph_analysis/R/transitiontoconnectederdosrenyi.R'} for transition from sub-critical to super-critical region} see section~\ref{sec: PSP graph connected component and missing} for missing components.
 
 
 \subsection{Degree and intelligence in PSP}
@@ -252,6 +288,7 @@ We will see what the correlation is in population cohorts and what we might expe
 \todo{This is perhaps the bit to introduce the possible different hypothesise}
 
 \subsection{The characterisation of high degree nodes}
+\todo{Do we therefore do this for all centrality measures or remove it or just degree}
 Are nodes of high degree different to the rest of the PSP in terms of function. 
 
 % latex table generated in R 3.6.2 by xtable 1.8-4 package
@@ -481,7 +518,7 @@ To test the hypothesis that measures of gene importance in the network are corre
 \section{Summary of centrality measures}
 
 The summary values for the centrality measures are shown in table \ref{Table:Summary of centrality measures}. The transitivity contained 304 NA's.
-
+\todo{add graph}
 The eigenvector centrality and transitivity are normalised. For some nodes the transitivity cannot be calculated (those of degree 1). There are 304 of these and the summary statistics are calculated excluding these values\footnote{an alternative is to set them to zero}. 
 
 The centrality measures are not normally distributed see table~\ref{Table:Test for normality (Shapiro-Wilk) for centrality measures of PSP}.
@@ -527,7 +564,7 @@ Degree & $1 $ & $4 $ & $8 $ & $17.64$  & $19$ & $535$ \\
 \end{table}
 
 \section{Correlation of centrality measures}
-Closeness centrality \todo{add this} does not follow a power law distribution per p331-332 of newman as it has a liomited distribution as the reciprocal of the shortest path length from a node to all other nodes. 
+Closeness centrality \todo{add this} does not follow a power law distribution per p331-332 of Newman as it has a limited distribution as the reciprocal of the shortest path length from a node to all other nodes. 
 % latex table generated in R 3.6.2 by xtable 1.8-4 package
 % Fri Feb 14 12:11:44 2020
 \begin{table}[ht]
@@ -540,8 +577,7 @@ degree & 1.000 & 0.902 & 0.196 & 0.851 & 0.986 \\
   betweenness & 0.902 & 1.000 & $-0.002^*$ & 0.782 & 0.854 \\ 
   transitivity & 0.196 & $-0.002^*$ & 1.000 & 0.292 & 0.265 \\ 
   closeness & 0.851 & 0.782 & 0.292 & 1.000 & 0.872 \\  
-60
-Uncompiled Changes
+ 
 
   kcoreness & 0.986 & 0.854 & 0.265 & 0.872 & 1.000 \\ 
    \hline
@@ -552,9 +588,10 @@ Uncompiled Changes
 
 
 
-All of the centrality measures are correlated with each other other except transitivity and betweenness centrality  (table~\ref{tab:Correlation between vertex centrality measures for PSP. Spearman's rho}). Transitivity is most weakly correlated with other measures. Code \footnote{\url{source('~/RProjects/paper_xls_output/R/make_df_correlation_between_centrality_measures.R')}}
 
-See \cite{oldham2019consistency} for correlation across networks. 
+All of the centrality measures are correlated with each other other except transitivity and betweenness centrality  (table~\ref{tab:Correlation between vertex centrality measures for PSP. Spearman's rho}). Transitivity is most weakly correlated with other measures. Code \footnote{\url{source('~/RProjects/paper_xls_output/R/make_df_correlation_between_centrality_measures.R')}}
+\todo{move comparison here}
+See \cite{oldham2019consistency} for correlation across networks. See table~\ref{tab:Correlation of centrality valente et al}
 
 \section{Cohorts and samples}
 \label{Centrality:cohorts and samples}
@@ -563,7 +600,7 @@ The population data used to test the association of centrality measures with pop
 
 
 \section{Association between significant vertices}
-Do there tend to be edges between significant vertices?
+Do there tend to be edges between significant vertices? Do the vertices representing genes of genome wide significance form an induced subgraph that is connected?
 The induced subgraph of significant genes for Intelligence\textsubscript{Replication} is 16 vertices no edges. Simulation mean 0.60 sd 0.94 N iterations = 1000. For Education\textsubscript{Replication} it is 25 vertices no edges (simulation mean 1.51 sd 1.69). For Intelligence \textsubscript{Discovery} it is 58 vertices with 4 edges. Simulation mean 8.78 sd 5.13. For Education \textsubscript{Discovery} it is 51 vertices with 2 edges. Simulation mean 6.3 SD 4.1.
 
 Simulation of joint results out of 1000, 100 trials
@@ -573,34 +610,7 @@ Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
    max = 14/1000 = 0.014
    mean = 0.006 of getting this number of edges or fewer in 4 samples of random subgraphs eg(number of times subgraph is 0 and next is 0 or less and next is 4 or less and next is 51 or less given actual frequency 0,0,4,2 and number of samples 16,25,58,51.
    
- \subsection{Assortativity with gene score}
  
-A second way in which we could see if genes within the PSP that are enriched for genetic differences in education and intelligence globally within the PSP would be to calculate the correlation between there being and edge between two vertices and the significance score of the two vertices. A positive result would suggest that more significant (avoiding a cutoff effect) genes have protein products that are more likely to interact in the PSP graph. We can do this by calculating the assortativity as described by Newman. As a measure of significance we use the z score for each gene in the PSP for each study as provided by MAGMA. As some genes in the PSP do not have a significant number of SNPs within them they do not have a Z score as assigned by magma and these are therefore set to 0. \footnote{code \url{source('~/RProjects/centrality/R/get_gene_scores/assortativity_with_z_scores.R')} }
-
-\subsubsection{Assortativity with z score results}
- 
- \begin{table}[]
-     \centering
-     \begin{tabular}{ccc}
-     \toprule
-         Study & Missing values  & Assortativity\\
-         \midrule
-         Intelligence\textsubscript{Replication} & 148 & 0.003\\
-         Education\textsubscript{Replication} & 172 & -0.006\\
-         Education\textsubscript{Discovery} & 156 & 0.001\\
-         Intelligence\textsubscript{Discovery} & 156 & -0.004\\
-         \bottomrule
-     \end{tabular}
-     \caption{Assortativity of PSP graph vertices by study Z score. PSP graph members without corresponding Z score marked as missing values had z set to 0.}
-     \label{tab:Assortativity of PSP graph and z scores}
- \end{table}
-
-
-The results are shown in table\ref{tab:Assortativity of PSP graph and z scores}. Assortativity scores tend to me modest (as score of approximately 0.15 is often found for degree assortativity). These results are close to zero. 
-
-This suggests that nodes with high or low z scores in the population cohorts are no more likely to have links to one another \textit{globally} across the network. It does not state that there cannot be areas within the graph where there are areas of high assortativity or areas where one high score connects to linker node connects to another high score in a group.
-
-\todo{do this with pli too and for a phenotype eg GO glutamate}
 
 \section{Degree and essentialness}
 \label{sec:Degree and essentialness}
@@ -623,7 +633,7 @@ Raman \cite{raman2014organisational} examined multiple centrality metrics in add
  Data is available for 9 clades:  Saccharomyces cerevisiae   ,Caenorhabditis elegans,Arabidopsis thaliana,Danio rerio,Mus musculus,Homo sapiens,
  Drosophila melanogaster,Aspergillus fumigatus and Schizosaccharomyces pombe 972h-.
  
- Data on 28286 human genes are recorded. 8256 unique gene ids are found for human genes. Human genes are identified by HGNC id code \footnote{\url{source('~/RProjects/paper_xls_latex/R/essentail_genes/load_essential_genes.R')}}.
+ Data on 28286 \todo{is this correct this is more than the number of protein coding genes?} human genes are recorded. 8256 unique gene ids are found for human genes. Human genes are identified by HGNC id code \footnote{\url{source('~/RProjects/paper_xls_latex/R/essentail_genes/load_essential_genes.R')}}.
  
  Entrez id were obtained using the module \url{convert_gmx_private}\footnote{ at \url{/home/grant/PycharmProjects/convert_gmx_private}}.
  
@@ -636,6 +646,9 @@ Raman \cite{raman2014organisational} examined multiple centrality metrics in add
 2241 genes in the PSP are essential (64.8\%)
 
 This compares with 37.\% of the genome as a whole (assuming 20000 genes \todo{get non essential number from database}. 36.5\% (6043/20000) non PSP genes are essential. 
+
+\subsubsection{Essential gene conclusion}
+PSP genes are more likely to be essential
 
 \todo{Degree etc for essential genes}
 \todo{Essential genes enrichment vs non essential PSP add to community detection section}
@@ -670,7 +683,7 @@ This compares with 37.\% of the genome as a whole (assuming 20000 genes \todo{ge
 
 \subsection{Degree and orthologs}
 
-If the network is generated by the preferential attachment model of Barabasi we would expect the nodes of high degree to have more ancient orthologues than those of higher degree. Another generating function of the graph is likely to be duplication divergence as we know there was a genome duplication event nevertheless we could hypothesise that the nodes with yeast orthologues will have higher median degree than the human and murine PSP. \todo{add cross ref to orthologues}
+If the network is generated by the preferential attachment model of Barabasi we would expect the nodes of high degree to have more ancient orthologues than those of lower degree.  Duplication divergence \todo{ref} may be an important mechanism as we know there was a genome duplication event nevertheless we could hypothesise that the nodes with yeast orthologues will have higher median degree than the human and murine PSP. \todo{add cross ref to orthologues}
 
 \section{Probability of loss of function intolerance (pLI)}
 
@@ -732,8 +745,8 @@ TEC tec Protein tyrosine kinase 7006 not 100124696 (Transient erythroblastopaeni
 
 There are 14990 non synaptic genes with exac information and a total of 18225 \textcolor{red}{18070 in redo} genes with exac gene info
 
-\subsection{Distribution of pLI}
-\todo{Distribution of pLI}
+\subsection{Distribution of pLI and intelligence}
+\todo{Distribution of pLI and intelligence}
 
 
 % latex table generated in R 3.6.2 by xtable 1.8-4 package
@@ -785,7 +798,7 @@ Intelligence Replication & all Zstat and pLI & 0.043 & 797235155436.9 & $2.358 \
 \end{table}
 
 There was a weak association between probability of loss of function intolerance and gene score in this case z score. In table \ref{Table:Correlation of GWAS gene level statistics Spearmans rho gene pLI} the correlation is shown with the negative log10 transform of the p value and so $\rho$ is negative. Fuller results are shown in table ~\ref{tab:Extra table to be removed shows spearman for all synaptic and non synaptic and all but rho is with pLI and zstat not -log10 and -log10 of p  so rho is positive ie}  \footnote{\url{source('~/RProjects/paper_xls_output/R/make_df_correlation_pLI_genescore.R')}} the relationship is stronger for synaptic genes than for non synaptic genes although the effect is small and synaptic genes as shown below have a higher probability of loss of function intolerance.
-
+\todo{visualisation or graph}
 There was a positive correlation between loss of function intolerance and the gene Z stat. To be explicit the Z stat is high and positive when the gene has a more significant association with the phenotype and hence a lower p value. There is a weak association between high loss of function intolerance and significant (low p value genes)
 
 \todo{there is something wrong here as Jan we find correlation} 
@@ -890,22 +903,7 @@ Wilcoxon test for difference in means for all synaptic pLI and those with eigenv
 data:  df\$pLI and joined\_df\_synaptic\$pLI
 W = 1611226, p-value $< 2.2e-16$
 alternative hypothesis: true location shift is not equal to 0
-\subsubsection{Distribution of pLI across community groups}
-\todo{Move this to community detection}
-\textcolor{red}{start move to community detection}
-Although there are quite disparate values for pLI across the different spectral groups especially the median value the mean is relatively stable. The mean of pLI for group 5 does not differ from that of the PSP as a whole.         Wilcoxon rank sum test with continuity correction
 
-data:  group5\$pLI and resPSP\$pLI
-W = 174757, p-value = 0.3335
-alternative hypothesis: true location shift is not equal to 0
-
-Group 5 has the fifth highest median pLI of 0.828
-Summary of median of groups
-    Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
-0.0007318 0.2776811 0.5084966 0.5131923 0.7514292 0.9939719 \todo{move to table}
-
-The median pLI for the whole genome is stirkingly low compared to that of the synaptic proteome (Median 0.028 vs 0.620 for synaptic). The pLI is fairly constant across orthology groups within the synaptic proteome).
-\textcolor{red}{end move to community detection}
 
 \subsection{pLI for orthologs} \url{source('~/RProjects/orthologs2/R/make_PLI_orthologs.R')}
 

@@ -788,7 +788,7 @@ Source \url{source('~/RProjects/group_sizes/R/sbm_benchmark/graph/graph_performa
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{images/Rplot_group_size_rough_louvain_sbm.png}
-    \caption{2 group SBM group size louvain as approaches resolution limit. plot is p on x axis}
+    \caption{2 group SBM group size louvain as approaches resolution limit. plot is p on x axis see \url{source('~/RProjects/group_sizes/R/sbm_benchmark/graph/graph_performance_multi.R')}}
     \label{fig:my_rough_louvain group size}
 \end{figure}
 
@@ -1431,6 +1431,23 @@ For spins 10 gamma 5 we get 10 groups the 417 number group enriches strongly in 
 \todo{Reason for excluding}
 
 \todo{Modularity}
+
+\subsubsection{Distribution of pLI across community groups}
+\todo{Move this to community detection DONE}
+\textcolor{red}{start move to community detection}
+Although there are quite disparate values for pLI across the different spectral groups especially the median value the mean is relatively stable. The mean of pLI for group 5 does not differ from that of the PSP as a whole.         Wilcoxon rank sum test with continuity correction
+
+data:  group5\$pLI and resPSP\$pLI
+W = 174757, p-value = 0.3335
+alternative hypothesis: true location shift is not equal to 0
+
+Group 5 has the fifth highest median pLI of 0.828
+Summary of median of groups
+    Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0007318 0.2776811 0.5084966 0.5131923 0.7514292 0.9939719 \todo{move to table}
+
+The median pLI for the whole genome is stirkingly low compared to that of the synaptic proteome (Median 0.028 vs 0.620 for synaptic). The pLI is fairly constant across orthology groups within the synaptic proteome).
+\textcolor{red}{end move to community detection}
 \subsection{Modularity}
 
 Although the modularity of a partition of random graph tends towards 0 we can calculate the modularity of a randomly wired graph with the pre-existing group allocations \footnote{\url{source('~/RProjects/centrality/R/bootstrap_ci_modularity.R')}}
