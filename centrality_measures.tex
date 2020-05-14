@@ -31,6 +31,14 @@ Table of diameters \cite{crescenzi2013computing}
  \todo{define configuration model}
  \todo{plot of distribution of other centrality measures}
 \todo{centrality measures for significant genes}
+\todo{centralisation 1:09 in zhukov - centrality is how central most central node is compared to other nodes in graph, max with star network}
+\todo{Metrics comparison zhukov at 1:15}
+Scatter plot of centralities multiplot eg plot(bet,deg)
+
+Kendal tau rank - concordant pairs ie a comes before b in both samples 
+
+most recent centrality in \url{source('~/RProjects/centrality/R/other_centrality/eccentricity_and_distance.R')}
+
 
 \section{Properties of empirical networks}
 \label{sec:Properties of empirical networks}
@@ -501,9 +509,13 @@ enrichment of genes found in the synapse with orthologs in yeast reveal a large 
 
 
 \section{Eigenvector centrality}
-
+Eigenvector associated with highest eigenvalue. 
 \cite{bonacich1987power}
 Nodes are important if their neighbours are important 
+
+Katz centrality has a parameter (alpha)
+    
+Alpha centrality and bonacich centrality have parameters (bonacich is alpha with alpha preset per bonacich). Bonacich is power\_centrality in igraph. Power centrality with preset is symmetrical around 0.  
 
 \todo{? add pagerank}
 
