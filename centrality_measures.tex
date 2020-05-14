@@ -30,6 +30,7 @@ Table of diameters \cite{crescenzi2013computing}
  \todo{add intellectual disability graph measures or indeed other disorders from toppgene}
  \todo{define configuration model}
  \todo{plot of distribution of other centrality measures}
+\todo{centrality measures for significant genes}
 
 \section{Properties of empirical networks}
 \label{sec:Properties of empirical networks}
@@ -457,13 +458,18 @@ Biological process bit of mixed bag nothing interesting
 \footnote{text files in \url{/home/grant/RProjects/gridsearch_gamma}}
 \subsection{Betweenness}
 \label{sec:Betweeness centrality}
-Betweenness centrality measures the number of shortest (geodesic) paths through a node. Following Newman if $n_{st}^i$ is one if a shortest path between nodes $s$ and $t$ pass through node $i$ then the betweenness centrality of node $i$ is \begin{equation}
-    x_i = \sum_{st} n_{st}^i
+Described by Freeman \cite{freeman1977set} betweenness centrality is a measure of information flow through a node and the importance of a node as a component of paths through the network. 
+
+Betweenness centrality measures the number of shortest (geodesic) paths through a node. Following Newman if $n_{st}^i$ is one if a shortest path between nodes $s$ and $t$ pass through node $i$ and $g_{st}$ is the number of shortest paths between $s$ and $t$ then the betweenness centrality of node $i$ is
+
+\begin{equation}
+    x_i = \sum_{st} \frac{n_{st}^i}{g_{st}}
 \end{equation}
 \label{eq: Betweenness centrality}
 
 from Newman \cite{newman2018networks} p172. 
-
+ \todo{normalised betweenness centrality}
+ \todo{edge centrality}
 The log transform of betweenness centrality is more nearly normal. The histogram is slightly right skewed.
 Although the qq plot looks relatively straight the Shapiro Wilk test for normality after removing infinite values and NA of the log transform  is 
 W = 0.997 p = $1.1 \times 10^{-5}$
@@ -479,11 +485,37 @@ BP – regulation of mRNA stability
 MF kinase binding and ubiquitin
 CC cell adhesion
 	]
+\subsubsection{Edge betweenness}
+
+The highest edge betweeness (21221.7 Median 321,4 mean 583.7) is between APP (351) and EGFR 1956.
+
+The second highest is GRB2 (2885) and APP.
+APP is on 12 of the top 20 edges. 
+ELAV1 is on 5 of the top 20 edges.see \url{source('~/RProjects/centrality/R/other_centrality/eccentricity_and_distance.R')} EGFR (1956), 2885 and 7514 appear three times.
+
 
 
 Other notes 
 
 enrichment of genes found in the synapse with orthologs in yeast reveal a large number for exosome and mitochondrial elements
+
+
+\section{Eigenvector centrality}
+
+\cite{bonacich1987power}
+Nodes are important if their neighbours are important 
+
+\todo{? add pagerank}
+
+\section{Closeness centrality}
+\label{sec:closenesscentrality}
+Alex Bevelas
+Closeness centrality is the inverse of the  average length of shortest path to and from other vertices in the graph \cite{freeman1978centrality}
+More normally distributed.
+High closeness RNA binding, severe murine phenotype, cellular component cell adhesion
+Ca and neurodegenerative
+
+Low closeness centrality transporter activity, seizures in human phenotype, receptor activation, disease top five all epilepsies. 
 \section{Transitivity}
 
 The probability the two neighbours of a node in a network are connected is its transitivity or clustering coefficient.\cite{newman2018networks}
