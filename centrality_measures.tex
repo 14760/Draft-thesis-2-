@@ -16,11 +16,18 @@ Networks can be subject to analysis at at least three levels: first the properti
 
 This chapter examines measures of vertex importance for the post synaptic proteome network. It explores the significance of these statistics, their implication for the function of the network and association with specific functions and finally with molecular cognition first in model organisms and finally with differences in cognitive ability in population GWA studies.   ? ref ma and goa.
 
- The importance of central genes in a network has been well reported however there are differences between many gene networks and this protein protein interaction network. Many network analysis of gene function are co-expression networks where an edge occurs when the expression of two genes are correlated. The implications of modular structure or centrality can therefore be different. A hub node is co-expressed with a variety of different genes and may be a driver of a biological process such as a transcriptional regulator \todo{cite parikshak}. A hub node in a protein protein interaction network has promiscuous interaction partners but may not drive a process but be essential to several different processes. 
+ The importance o 
+  Recompile
+65
+f central genes in a network has been well reported however there are differences between many gene networks and this protein protein interaction network. Many network analysis of gene function are co-expression networks where an edge occurs when the expression of two genes are correlated. The implications of modular structure or centrality can therefore be different. A hub node is co-expressed with a variety of different genes and may be a driver of a biological process such as a transcriptional regulator \todo{cite parikshak}. A hub node in a protein protein interaction network has promiscuous interaction partners but may not drive a process but be essential to several different processes. 
  
 While the measures of vertex importance are precisely defined how they will map onto animal models or complex traits is not and one can construct several plausible hypotheses of effect, effect of specific measures or no effect (hence the quotation at the start of the chapter\todo{?move this down into a fuller introduction section}.
 \section{General to dos}
-\todo{define configuration model}
+
+Table of diameters \cite{crescenzi2013computing}
+ table 4 
+ 
+ \todo{define configuration model}
 
 \section{Properties of empirical networks}
 \label{sec:Properties of empirical networks}
@@ -446,7 +453,35 @@ ubiquitin protein ligase binding&GO:0031625&	34&	7&	.43&	16.37&	+&	6.59E-07&	1.6
 Biological process bit of mixed bag nothing interesting 
 
 \footnote{text files in \url{/home/grant/RProjects/gridsearch_gamma}}
+\subsection{Betweenness}
+\label{sec:Betweeness centrality}
+Betweenness centrality measures the number of shortest (geodesic) paths through a node. Following Newman if $n_{st}^i$ is one if a shortest path between nodes $s$ and $t$ pass through node $i$ then the betweenness centrality of node $i$ is \begin{equation}
+    x_i = \sum_{st} n_{st}^i
+\end{equation}
+\label{eq: Betweenness centrality}
 
+from Newman \cite{newman2018networks} p172. 
+
+The log transform of betweenness centrality is more nearly normal. The histogram is slightly right skewed.
+Although the qq plot looks relatively straight the Shapiro Wilk test for normality after removing infinite values and NA of the log transform  is 
+W = 0.997 p = $1.1 \times 10^{-5}$
+
+Top 142 betweeness
+Panther 2016
+
+Parkinson’s disease p 2.48 x 10-22
+Dopamine mediated signalling pathway
+
+Mammalian phenotype – lethality
+BP – regulation of mRNA stability 
+MF kinase binding and ubiquitin
+CC cell adhesion
+	]
+
+
+Other notes 
+
+enrichment of genes found in the synapse with orthologs in yeast reveal a large number for exosome and mitochondrial elements
 \section{Transitivity}
 
 The probability the two neighbours of a node in a network are connected is its transitivity or clustering coefficient.\cite{newman2018networks}
@@ -975,35 +1010,7 @@ If we simulate mean distance using a degree sequence model we get no distance $<
 %\end{figure}
 
 \subsection{Shortest paths}
-\subsection{Betweenness}
 
-Betweenness centrality measures the number of shortest (geodesic) paths through a node. Following Newman if $n_{st}^i$ is one if a shortest path between nodes $s$ and $t$ pass through node $i$ then the betweenness centrality of node $i$ is \begin{equation}
-    x_i = \sum_{st} n_{st}^i
-\end{equation}
-\label{eq: Betweenness centrality}
-
-from Newman \cite{newman2018networks} p172. 
-
-The log transform of betweenness centrality is more nearly normal. The histogram is slightly right skewed.
-Although the qq plot looks relatively straight the Shapiro Wilk test for normality after removing infinite values and NA of the log transform  is 
-W = 0.997 p = $1.1 \times 10^{-5}$
-
-Top 142 betweeness
-Panther 2016
-
-Parkinson’s disease p 2.48 x 10-22
-Dopamine mediated signalling pathway
-
-Mammalian phenotype – lethality
-BP – regulation of mRNA stability 
-MF kinase binding and ubiquitin
-CC cell adhesion
-	]
-
-
-Other notes 
-
-enrichment of genes found in the synapse with orthologs in yeast reveal a large number for exosome and mitochondrial elements
 
 \subsection{Bridging}
 
@@ -1205,6 +1212,7 @@ High degree nodes are associated with specific phenotypes and specific gene onto
 
 We use data from the Exac project to further investigate whether high importance nodes were subject to selection pressure such that they proved more intolerant of non synonymous genetic changes. Nodes with high degree are associated with an increased probability of being intolerant to changes. 
 
+Nodes with high betweeness centrality were involved in neurodegenerative disorders including Parkinson's disease see section~\ref{sec:Betweeness centrality}. They were also associated with severe phenotypes in murine models including phenotypes incompatibly with viability. 
 
  
 
