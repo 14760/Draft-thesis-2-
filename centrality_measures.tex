@@ -483,19 +483,19 @@ S = 3670800000, p-value $< 2.2 \times 10^{-16}$
 
 Spearmans rho calculated as graph not linear throughout relationship see fig~\ref{fig:transitivity}.
 
-The global undirected transitivity of the PSP network is 0.0697. This is similar to the value reported in p305 newman for metabolic networks (0.090) and PPI (0.072)\todo{check both different global formulae in newman}.
+The global undirected transitivity of the PSP network is 0.0697. This is similar to the value reported in p305 Newman \cite{newman2018networks} for metabolic networks (0.090) and PPI (0.072)\todo{check both different global formulae in Newman}.
 
 The expected value of the global clustering coefficient with a given degree distribution connected randomly \cite{newman2018networks} p332 is:
 \begin{equation}
     C=\frac{1}{n}\frac{[<k^2> - <k>]^2}{<k^3>}
 \end{equation}
 
-The value of this for the PSP is 0.004541763 \footnote{code \url{source('~/RProjects/centrality/R/transitivity/Expected_global_transitivity.R')}}. The global clustering coeffieicnet is therefore high. Newman states p334 \cite{newman2018networks} that it is not clear why certain non social networks have higher than expected global clustering (for social networks it is ascribed to social choice). For other networks such as the internet with very right skewed degree distribution the clustering coefficient is less than expected. For biological systems such as foodwebs or the world wide web it is hypothesised that this may due to community formation (newman ref 367)
+The value of this for the PSP is 0.004541763 \footnote{code \url{source('~/RProjects/centrality/R/transitivity/Expected_global_transitivity.R')}}. The global clustering coefficient is therefore high. Newman states p334 \cite{newman2018networks} that it is not clear why certain non social networks have higher than expected global clustering (for social networks it is ascribed to social choice). For other networks such as the internet with very right skewed degree distribution the clustering coefficient is less than expected. For biological systems such as foodwebs or the world wide web it is hypothesised that this may due to community formation (newman ref 367)
 
 Also motifs (other than number of triangles) newman 334 again
 
 \subsubsection{Local clustering coefficient}
-Local cluistering coefficeint tends to be inversely proportional to degree. It is undefined for nodes of degree one. See~figure \ref{fig:log_transitivity_degree}. It is suggested that this may also be due to community formation \cite{newman2018networks} p335.
+Local clustering coefficient tends to be inversely proportional to degree. It is undefined for nodes of degree one. See~figure \ref{fig:log_transitivity_degree}. It is suggested that this may also be due to community formation \cite{newman2018networks} p335.
 
 Mean local transitivity is 0.171. The distribution is right skewed with median of 0.129 and 3rd quartile of 0.23 and first quartile of 0.043. This does not match the arithmetic mean of vertex local clustering below it may be down to how we deal with NA. Above calculated as NA.rm
 
