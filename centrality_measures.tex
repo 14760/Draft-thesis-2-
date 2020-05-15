@@ -12,15 +12,11 @@
 
 
 
-Networks can be subject to analysis at at least three levels: first the properties of the network as a whole such as the small world property, secondly the properties of individual vertices and their importance and significance within the network and finally the analysis of the presence of meso scale structures such as communities.\textcolor{red}{this is the bit where you tell people what you are going to do if it is not that then move it down to the next bit and tell people what you are going to do. }
+ Networks can be subject to analysis at least three levels: first, the properties of the network as a whole such as the small-world property, secondly the properties of individual vertices and their importance and significance within the network and finally the analysis of the presence of mesoscale structures such as communities.
 
-This chapter examines measures of vertex importance for the post synaptic proteome network. It explores the significance of these statistics, their implication for the function of the network and association with specific functions and finally with molecular cognition first in model organisms and finally with differences in cognitive ability in population GWA studies.   ? ref ma and goa.
+This chapter examines measures of vertex importance for the postsynaptic proteome network. It explores the significance of these statistics, their implication for the function of the network and association with specific functions and finally with molecular cognition first in model organisms and finally with differences in cognitive ability in population GWA studies.   
 
- The importance o 
-  Recompile
-65
-f central genes in a network has been well reported however there are differences between many gene networks and this protein protein interaction network. Many network analysis of gene function are co-expression networks where an edge occurs when the expression of two genes are correlated. The implications of modular structure or centrality can therefore be different. A hub node is co-expressed with a variety of different genes and may be a driver of a biological process such as a transcriptional regulator \todo{cite parikshak}. A hub node in a protein protein interaction network has promiscuous interaction partners but may not drive a process but be essential to several different processes. 
- 
+ The importance of central genes in a network has been well reported; however, there are differences between many gene networks and this protein-protein interaction network. Many network analyses of gene function are co-expression networks where an edge occurs when the expression of two genes are correlated. The implications of modular structure or centrality can, therefore, be different. A hub node is co-expressed with a variety of different genes and may represent a driver of a biological process such as a transcriptional regulator \todo{cite parikshak}. A hub node in a protein-protein interaction network has promiscuous interaction partners but may not drive a process but be essential to several different processes. 
 While the measures of vertex importance are precisely defined how they will map onto animal models or complex traits is not and one can construct several plausible hypotheses of effect, effect of specific measures or no effect (hence the quotation at the start of the chapter\todo{?move this down into a fuller introduction section}.
 \section{General to dos}
 
@@ -509,7 +505,37 @@ enrichment of genes found in the synapse with orthologs in yeast reveal a large 
 
 
 \section{Eigenvector centrality}
-Eigenvector associated with highest eigenvalue. 
+
+Eigenvector centrality proposed by Bonacich \cite{bonacich1972factoring} expands on degree centrality by not considering all of the edges of a vertex equal. If a vertex is linked to a highly important node this link should be given greater importance. Eigenvector centrality therefore incorporates the importance of the neighbours of a vertex.
+
+Here I follow Newman \cite{newman2018networks}. From the above we define a nodes importance as the sum of the importance of its neighbours.
+
+\begin{equation}
+    x_i = K^{-1} \sum_j x_j
+\end{equation}
+
+Where $K$ is a constant of proportionality. This can be written using the adjacency matrix as
+
+\begin{equation}
+    x_i = K^{-1} \sum_j A_{ij} x_j
+\end{equation}
+
+Where $\sum_j x_j$ includes the importance of all nodes but selects only the neighbours of $x_i$ because of the adjacency matrix (otherwise the entry will be 0).
+
+In matrix form:
+\begin{equation}
+    \mathbf{x}=K^{-1}\mathbf{Ax}
+    \end{equation}
+    
+    \begin{equation}
+         k\mathbf{x}=\mathbf{Ax}
+    \end{equation}
+  
+  Replacing $k$ with $\lambda$ shows more clearly this to be an eigenvector problem. The eigenvector will have as its $i$th entry the importance of the $i$th node. As all centralities should be positive the appropriate eigenvector is the one associated with the largest eigenvalue by the Perron-Froebenius theorem. 
+  
+  Eigenvector centrality is implemented in igraph for R by the \texttt{eigen\_centrality} function taking the graph as the argument. The values of the eigenvector centrality are not strict measures and we care only for the order of eigenvector centraliy. They can however be normalised. 
+  
+ \section{Related measures}
 \cite{bonacich1987power}
 Nodes are important if their neighbours are important 
 
