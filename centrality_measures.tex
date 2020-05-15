@@ -188,102 +188,7 @@ See section~\ref{sec: intro_random_graphs}
 
 Add a histogram here and the expected mean and quartiles.
 
-\subsection{Degree assortativity}
-\label{sec:degree assortativity}
-\subsubsection{Introduction Degree assortativity}
-Explain assortativity
-Newman p 208
-Equation assortativity
 
-
-\subsubsection{Results and methods degree assortativity}
-We can compare the average degree with those found in other publications. We can also look at the assortativity between nodes for degree. The PSP networks shows evidence of some negative degree assortativity (-0.18) using the commands \texttt{assortativity(g,deg,directed=FALSE)} in igraph for R \todo{Assortativity for essential and id}.
-
-The degree association is negative in most real world networks other than social networks \cite{newman2002assortative}. \todo{include the peel multiscale mixing patterns} see table \ref{Table:DegreeAssortativityNewman}\todo{? add positive $r$ to table}. Both the Barabsi Albert model and random model have 0 correlation. The Callaway model of network generation ('grown graph' - newman) has a positive degree correlation consistent with older nodes being connected to each other and hence in turn being more likely to be connected to others. This is at odds with our later finding (see orthologues) that nodes with clearly identified yeast orthologues tend to be of higher degree (this would fit both the Barabasi Albert model and Callaway) \todo{Do i add the pseudo hub bit here this is also probably good for the paper with Keith}. 
-
-The assortativity suggests that the Barabasi Albert model is 'incomplete' as a model of the internet \cite{newman2002assortative} and in this network we also find evidence that our synaptic protein protein interaction has similar degree assortativity to that calculated by Newman which is of the yeast interactome (cite Jeong) . The reasons for this are not clear, there are other things in our study that support the Barabasi model and it may be that multiple processes are taking place. \todo{? move this to discussion}
-
-The value of $r$ of -0.18 \todo{three sf} is similar to those cited by Newman \cite{newman2002assortative} in table \ref{Table:DegreeAssortativityNewman}. 
-
-Although we expect the assortativity to be 0 in a random graph of the configuration model (the edges are placed at random so we would not expect there to be any association with edges and the degree of vertices), there will nevertheless be a deviation from 0 due to chance and it is helpful to quantify the assortativity by calculating this. 
-
-The assortativity using a configuration model \todo{explain configuration model} is approximately normal centred on 0.
-
-For 10,000 samples   
-
-Min.    1st Qu.     Median       Mean    3rd Qu.       Max. 
--2.142e-02 -3.811e-03 -1.743e-05  5.524e-05  3.861e-03  2.235e-02 
-
-Shapiro-Wilk normality test
-
-data:  results[1:500]
-W = 0.99538, p-value = 0.1446
-
-
-\begin{table}[]
-    \centering
-    \begin{tabular}{c|c|c}
-       network  &N& $r$  \\
-       \hline
-       internet & 10697&-0.189\\
-       world wide web &269504 & -0.065\\
-       post synaptic proteome & 3457 & -0.18\\
-       protein interactions & 2115 & -0.156\\
-       neural network & 307 & -0.163\\
-       food web & 92 & -0.276 \\
-       
-       
-         
-    \end{tabular}
-    \caption{Degree assortativity coefficients of networks adapted from Newman 2002 \cite{newman2002assortative} including post synaptic proteome}
-    \label{Table:DegreeAssortativityNewman}
-\end{table}
-
-%\subsubsection{Degree correlation}
- 
-\todo{Include \url{R_plot_degree_correlation.png} commented out}
-
-
-Newman \cite{newman2018networks} p336 cites Maslov \cite{maslov2004detection} as giving as a reason for the disassortative nature of many empirical networks the prohibition on multi-edges. The expected number of multiedges between nodes would be greater than one (need to look at the paper again).
-
-This is possibly the bit where Keith's bit would be good to put in.  
- %\begin{figure}]h]
- % \includegraphics[width=\linewidth]{Rplot_degree_correlation.png}
- % \caption{Plot of degree with k nearest neighbour mean of degree}
- % \label{fig:knn_degree}
-%\end{figure}
-%
-%
-%
-
-\subsection{Assortativity with gene score}
- 
-A second way in which we could see if genes within the PSP that are enriched for genetic differences in education and intelligence globally within the PSP would be to calculate the correlation between there being and edge between two vertices and the significance score of the two vertices. A positive result would suggest that more significant (avoiding a cutoff effect) genes have protein products that are more likely to interact in the PSP graph. We can do this by calculating the assortativity as described by Newman. As a measure of significance we use the z score for each gene in the PSP for each study as provided by MAGMA. As some genes in the PSP do not have a significant number of SNPs within them they do not have a Z score as assigned by magma and these are therefore set to 0. \footnote{code \url{source('~/RProjects/centrality/R/get_gene_scores/assortativity_with_z_scores.R')} }
-
-\subsubsection{Assortativity with z score results}
- 
- \begin{table}[]
-     \centering
-     \begin{tabular}{ccc}
-     \toprule
-         Study & Missing values  & Assortativity\\
-         \midrule
-         Intelligence\textsubscript{Replication} & 148 & 0.003\\
-         Education\textsubscript{Replication} & 172 & -0.006\\
-         Education\textsubscript{Discovery} & 156 & 0.001\\
-         Intelligence\textsubscript{Discovery} & 156 & -0.004\\
-         \bottomrule
-     \end{tabular}
-     \caption{Assortativity of PSP graph vertices by study Z score. PSP graph members without corresponding Z score marked as missing values had z set to 0.}
-     \label{tab:Assortativity of PSP graph and z scores}
- \end{table}
-
-
-The results are shown in table\ref{tab:Assortativity of PSP graph and z scores}. Assortativity scores tend to me modest (as score of approximately 0.15 is often found for degree assortativity). These results are close to zero. 
-
-This suggests that nodes with high or low z scores in the population cohorts are no more likely to have links to one another \textit{globally} across the network. It does not state that there cannot be areas within the graph where there are areas of high assortativity or areas where one high score connects to linker node connects to another high score in a group.
-
-\todo{do this with pli too and for a phenotype eg GO glutamate}
 \subsection{Degree and giant component}
 \label{sec:connected component and degree}
 Some structure can develop even in random graphs see~\ref{sec: intro_random_graphs}
@@ -617,6 +522,17 @@ A kcore of a graph is an induced subgraph of the main graph such that each verte
 \cite{liu2017sigmod} described a method of identifying gene modules and combining this with p values but use heterogenous different measures of gene interaction including coexpression. 
 \cite{bayes2011characterization} found strong sequence conservation in PSP hub proteins. So there is some evidence that we might suspect they have an influence on human cognition using the G2C framework but as this is complex what we need is empirical proof indeed one can make a plausible argument from the available evidence for the effect of a specific measure, for an effect of centrality generally or for no effect \todo{? add box}.  
 
+
+\subsection{Review}
+Ghasemi
+\cite{ghasemi2014centrality}
+
+Hahn and Kern\cite{hahn2005comparative} examined protein protein interactions networks in fly, yeast and worm measuring betweennness centrality, degree centrality and closeness centrality. They found that more centrally located proteins in all networks evolved more slowly. 
+
+Ozgur \cite{ozgur2008identifying} developed a curated gene interaction network and used centrality measures to attempt to predict the genes association with prostatic cancer using the prostate gene database (PGDB). They measured degree, eigenvector, betweenness and closeness centrality and found that high scores on the first three measures were increased in increased confidence in rank in the PDGB.
+
+
+
 \subsection{Network statistics from paper}
 \label{sec: network statistics from paper}
 
@@ -705,7 +621,103 @@ See \cite{oldham2019consistency} for correlation across networks. See table~\ref
 \todo{do correlation centrality with murine ltp group}
 The population data used to test the association of centrality measures with population studies of educationbal attainment and intelligence were those described in sections~\ref{sec:cohorts from paper section} and \ref{sec:samples from paper section}
 
+\section{Assortativity}
+\subsection{Degree assortativity}
+\label{sec:degree assortativity}
+\subsubsection{Introduction Degree assortativity}
+Explain assortativity
+Newman p 208
+Equation assortativity
 
+
+\subsubsection{Results and methods degree assortativity}
+We can compare the average degree with those found in other publications. We can also look at the assortativity between nodes for degree. The PSP networks shows evidence of some negative degree assortativity (-0.18) using the commands \texttt{assortativity(g,deg,directed=FALSE)} in igraph for R \todo{Assortativity for essential and id}.
+
+The degree association is negative in most real world networks other than social networks \cite{newman2002assortative}. \todo{include the peel multiscale mixing patterns} see table \ref{Table:DegreeAssortativityNewman}\todo{? add positive $r$ to table}. Both the Barabsi Albert model and random model have 0 correlation. The Callaway model of network generation ('grown graph' - newman) has a positive degree correlation consistent with older nodes being connected to each other and hence in turn being more likely to be connected to others. This is at odds with our later finding (see orthologues) that nodes with clearly identified yeast orthologues tend to be of higher degree (this would fit both the Barabasi Albert model and Callaway) \todo{Do i add the pseudo hub bit here this is also probably good for the paper with Keith}. 
+
+The assortativity suggests that the Barabasi Albert model is 'incomplete' as a model of the internet \cite{newman2002assortative} and in this network we also find evidence that our synaptic protein protein interaction has similar degree assortativity to that calculated by Newman which is of the yeast interactome (cite Jeong) . The reasons for this are not clear, there are other things in our study that support the Barabasi model and it may be that multiple processes are taking place. \todo{? move this to discussion}
+
+The value of $r$ of -0.18 \todo{three sf} is similar to those cited by Newman \cite{newman2002assortative} in table \ref{Table:DegreeAssortativityNewman}. 
+
+Although we expect the assortativity to be 0 in a random graph of the configuration model (the edges are placed at random so we would not expect there to be any association with edges and the degree of vertices), there will nevertheless be a deviation from 0 due to chance and it is helpful to quantify the assortativity by calculating this. 
+
+The assortativity using a configuration model \todo{explain configuration model} is approximately normal centred on 0.
+
+For 10,000 samples   
+
+Min.    1st Qu.     Median       Mean    3rd Qu.       Max. 
+-2.142e-02 -3.811e-03 -1.743e-05  5.524e-05  3.861e-03  2.235e-02 
+
+Shapiro-Wilk normality test
+
+data:  results[1:500]
+W = 0.99538, p-value = 0.1446
+
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{c|c|c}
+       network  &N& $r$  \\
+       \hline
+       internet & 10697&-0.189\\
+       world wide web &269504 & -0.065\\
+       post synaptic proteome & 3457 & -0.18\\
+       protein interactions & 2115 & -0.156\\
+       neural network & 307 & -0.163\\
+       food web & 92 & -0.276 \\
+       
+       
+         
+    \end{tabular}
+    \caption{Degree assortativity coefficients of networks adapted from Newman 2002 \cite{newman2002assortative} including post synaptic proteome}
+    \label{Table:DegreeAssortativityNewman}
+\end{table}
+
+%\subsubsection{Degree correlation}
+ 
+\todo{Include \url{R_plot_degree_correlation.png} commented out}
+
+
+Newman \cite{newman2018networks} p336 cites Maslov \cite{maslov2004detection} as giving as a reason for the disassortative nature of many empirical networks the prohibition on multi-edges. The expected number of multiedges between nodes would be greater than one (need to look at the paper again).
+
+This is possibly the bit where Keith's bit would be good to put in.  
+ %\begin{figure}]h]
+ % \includegraphics[width=\linewidth]{Rplot_degree_correlation.png}
+ % \caption{Plot of degree with k nearest neighbour mean of degree}
+ % \label{fig:knn_degree}
+%\end{figure}
+%
+%
+%
+
+\subsection{Assortativity with gene score}
+ 
+A second way in which we could see if genes within the PSP that are enriched for genetic differences in education and intelligence globally within the PSP would be to calculate the correlation between there being and edge between two vertices and the significance score of the two vertices. A positive result would suggest that more significant (avoiding a cutoff effect) genes have protein products that are more likely to interact in the PSP graph. We can do this by calculating the assortativity as described by Newman. As a measure of significance we use the z score for each gene in the PSP for each study as provided by MAGMA. As some genes in the PSP do not have a significant number of SNPs within them they do not have a Z score as assigned by magma and these are therefore set to 0. \footnote{code \url{source('~/RProjects/centrality/R/get_gene_scores/assortativity_with_z_scores.R')} }
+
+\subsubsection{Assortativity with z score results}
+ 
+ \begin{table}[]
+     \centering
+     \begin{tabular}{ccc}
+     \toprule
+         Study & Missing values  & Assortativity\\
+         \midrule
+         Intelligence\textsubscript{Replication} & 148 & 0.003\\
+         Education\textsubscript{Replication} & 172 & -0.006\\
+         Education\textsubscript{Discovery} & 156 & 0.001\\
+         Intelligence\textsubscript{Discovery} & 156 & -0.004\\
+         \bottomrule
+     \end{tabular}
+     \caption{Assortativity of PSP graph vertices by study Z score. PSP graph members without corresponding Z score marked as missing values had z set to 0.}
+     \label{tab:Assortativity of PSP graph and z scores}
+ \end{table}
+
+
+The results are shown in table\ref{tab:Assortativity of PSP graph and z scores}. Assortativity scores tend to me modest (as score of approximately 0.15 is often found for degree assortativity). These results are close to zero. 
+
+This suggests that nodes with high or low z scores in the population cohorts are no more likely to have links to one another \textit{globally} across the network. It does not state that there cannot be areas within the graph where there are areas of high assortativity or areas where one high score connects to linker node connects to another high score in a group.
+
+\todo{do this with pli too and for a phenotype eg GO glutamate}
 \section{Association between significant vertices}
 Do there tend to be edges between significant vertices? Do the vertices representing genes of genome wide significance form an induced subgraph that is connected?
 The induced subgraph of significant genes for Intelligence\textsubscript{Replication} is 16 vertices no edges. Simulation mean 0.60 sd 0.94 N iterations = 1000. For Education\textsubscript{Replication} it is 25 vertices no edges (simulation mean 1.51 sd 1.69). For Intelligence \textsubscript{Discovery} it is 58 vertices with 4 edges. Simulation mean 8.78 sd 5.13. For Education \textsubscript{Discovery} it is 51 vertices with 2 edges. Simulation mean 6.3 SD 4.1.
