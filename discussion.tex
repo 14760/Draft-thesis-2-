@@ -112,33 +112,8 @@ One issue with MAGMA GWA is the choice of a background set. In competitive testi
 
 A wide variety of choices of clustering method were available. Some such as the newman and girvan betweenness method were prohibitively slow with large networks even using a highly parrallelised implementation. Others such as the greedy agglomerative method led to the domination of the clusterings by some large units and many small ones. The spin glass method is also attractive but it is hard to see how one can devise an experiment using it. There is at minimum one tune able parameter and this can take any integer value. This is useful in controlling the size of groups and one can achieve good functional enrichment but the question of the choice of parameter remains an open one. One could try to learn an appropriate hyperparameter but against what is ones objective function. Both CMcC and I(in the pilot study) used grid search with more precision in the case of CMcC but this leads to a combinatorial explosion of possible clusterings and this only takes into account the gamma parameter. I think that this method is much more useful for exploratory data analysis and once one has chosen a good gamma or cooling parameter perhaps based on functional classification then one can go on to ask questions of empirical population data. However there is a problem too with this, we have shown that
 
-% EPHB2	EPH receptor B2
-% 6146	RPL22	ribosomal protein L22
-% 23557	SNAPIN	SNAP associated protein
-% 2054	STX2	syntaxin 2
-% 5127	CDK16	cyclin dependent kinase 16
-% 2055	CLN8	CLN8 transmembrane ER and ERGIC protein
-% 6154	RPL26	ribosomal protein L26
-% 339983	NAT8L	N-acetyltransferase 8 like
-% 9230	RAB11B	RAB11B, member RAS oncogene family
-% 11280	SCN11A	sodium voltage-gated channel alpha subunit 11
-% 2066	ERBB4	erb-b2 receptor tyrosine kinase 4
-% 5138	PDE2A	phosphodiesterase 2A
-% 3092	HIP1	huntingtin interacting protein 1
-% 5142	PDE4B	phosphodiesterase 4B
-% 83992	CTTNBP2	cortactin binding protein 2
-% 55327	LIN7C	lin-7 homolog C, crumbs cell polarity complex component
-% 8224	SYN3	synapsin III
-% 1056	CEL	carboxyl ester lipase
-% 9256	TSPOAP1	TSPO associated protein 1
-% 41	ASIC1	acid sensing ion channel subunit 1
-% 43	ACHE	acetylcholinesterase (Cartwright blood group)
-% 11311	VPS45	vacuolar protein sorting 45 homolog
-% 51248	PDZD11	PDZ domain containing 11
-% 11315	PARK7	Parkinsonism associated deglycase
-% 2099	ESR1	estrogen receptor 1
-% 9267	CYTH1	cytohesin 1
- often it is not the predominant ontology member in a group that is associated with the phenotype but an agglomeration of supporting proteins which often have little in common other than their close interrreaction with the ontology members found to be associated with a phenotype in animal studies. In pursuing a very 'pure' functional enrichment using gene ontology for example as ones objective function using methods that have tunable parameters one misses these associated proteins. 
+
+ often it is not the predominant ontology member in a group that is associated with the phenotype but an agglomeration of supporting proteins which often have little in common other than their close interaction with the ontology members found to be associated with a phenotype in animal studies. In pursuing a very 'pure' functional enrichment using gene ontology for example as ones objective function using methods that have tunable parameters one misses these associated proteins. 
 
 \subsection{Community structure and choice of algorithm}
 
