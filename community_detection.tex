@@ -73,6 +73,9 @@ There is a way in which we can test the clustering algorithms utility and this i
 
 \section{Clustering methods}
 
+\subsection{Modularity}
+See section~\ref{sec:modularity definition}
+
 \subsection{Graph partitioning}
 Kernaghan Lin
 
@@ -324,7 +327,9 @@ Newman \cite{newman2018networks} p510.
 
 This is the method implemented by McLean \cite{mclean2016improved}. This implementation include a fine tuning step where the node which being moved from one group to another results in the maximum gain in modularity is fixed in its commubnity and the process is repeated until all nodes are moved. This process is repeated until the change in modularity is less than $\Delta$ $\epsilon$
 
+\section{A simple example of spectral clustering}
 
+For a simple example of spectral clustering using the first two eigenvectors of the modularity matrix of the PSP (modularity 0.21) see section~\ref{sec:simple example of spectral graph partitioning}
 \subsection{Infomap}
 See section~\ref{sec:infomap in methods}
 

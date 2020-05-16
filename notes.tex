@@ -150,7 +150,30 @@
   publisher={Elsevier}
 }
 
+New has modularity of real world networks
 
+@article{zhang2009big,
+  title={A big world inside small-world networks},
+  author={Zhang, Zhihua and Zhang, Jianzhi},
+  journal={PloS one},
+  volume={4},
+  number={5},
+  year={2009},
+  publisher={Public Library of Science}
+}
+
+cited by 1044
+
+@article{brandes2007modularity,
+  title={On modularity clustering},
+  author={Brandes, Ulrik and Delling, Daniel and Gaertler, Marco and Gorke, Robert and Hoefer, Martin and Nikoloski, Zoran and Wagner, Dorothea},
+  journal={IEEE transactions on knowledge and data engineering},
+  volume={20},
+  number={2},
+  pages={172--188},
+  year={2007},
+  publisher={IEEE}
+}
 
 \subsection{general notes}
 Wagner and Fell small world
@@ -206,6 +229,7 @@ Communities allow the network to be broken up into smaller components which can 
 
 
 \section{Modularity}
+\label{sec:modularity definition}
 
 for an adjacency matrix $A_{ij}$ we want to know how many edges pass between similar nodes that share a property be it an ontology term or a community membership.
 
@@ -236,6 +260,153 @@ The red term is:
 
 $\mathbf{B}$ is the modularity matrix which is n by n having elements $B_{i,j}$
 
+\section{Simple example of spectral graph partitioning}
+\label{sec:simple example of spectral graph partitioning}
+
+Using the first eigenvector of the modularity matrix results in a partition with modularity 0.21. The distribution of the first four eigenvectors can be seen in figure~\ref{fig:simple example of spectral clustering}.
+
+Gene ontology analysis shows that the groups are quite different one of 1111 members linked to mRNA processing and biosynthesis see tables~\ref{tab:1111 group generated from sign of first eigenvector of modularity matrix. Biological function} compared with the genome and \ref{tab:1111 group generated from sign of first eigenvector of modularity matrix background PSP. Biological function. Alpha = 5.22520639565263e-06} compared with the rest of the PSP. The other group is of 2346 genes linked to trans-synaptic signalling see tables~\ref{tab:2346 group generated from sign of first eigenvector of modularity matrix. Biological function} and with background of PSP genes ~\ref{tab:2346 group generated from sign of first eigenvector of modularity matrix background PSP. Biological function. Alpha = 5.22520639565263e-06}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_eigenvectors_of_PSP_modularity_matrix.png}
+    \caption{Simple example of spectral clustering of the PSP. The values of the $i$th entries of the first and second eigenvector are plotted on the x axis.}
+    \label{fig:simple example of spectral clustering}
+\end{figure}
+
+% Sat May 16 14:53:46 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrrr}
+  \hline
+GO.ID & Term & Annotated & Significant & Expected & classic \\ 
+  \hline
+GO:0034641 & cellular nitrogen compound metabolic pro... & 1208 & 621 & 393.5 & $1.00 \times 10^{-30}$ \\ 
+  GO:0016071 & mRNA metabolic process & 254 & 210 & 82.7 & $1.00 \times 10^{-30}$ \\ 
+  GO:0010467 & gene expression & 922 & 506 & 300.3 & $1.00 \times 10^{-30}$ \\ 
+  GO:0090304 & nucleic acid metabolic process & 801 & 452 & 260.9 & $1.00 \times 10^{-30}$ \\ 
+  GO:0044271 & cellular nitrogen compound biosynthetic ... & 900 & 490 & 293.2 & $1.00 \times 10^{-30}$ \\ 
+  GO:0043604 & amide biosynthetic process & 297 & 225 & 96.8 & $1.00 \times 10^{-30}$ \\ 
+  GO:0006412 & translation & 258 & 204 & 84.0 & $1.00 \times 10^{-30}$ \\ 
+  GO:0043043 & peptide biosynthetic process & 262 & 205 & 85.3 & $1.00 \times 10^{-30}$ \\ 
+  GO:0034645 & cellular macromolecule biosynthetic proc... & 803 & 447 & 261.6 & $1.00 \times 10^{-30}$ \\ 
+  GO:0009059 & macromolecule biosynthetic process & 830 & 456 & 270.4 & $1.00 \times 10^{-30}$ \\ 
+  GO:0046483 & heterocycle metabolic process & 1076 & 549 & 350.5 & $1.00 \times 10^{-30}$ \\ 
+  GO:0006139 & nucleobase-containing compound metabolic... & 1050 & 537 & 342.0 & $1.00 \times 10^{-30}$ \\ 
+  GO:0016070 & RNA metabolic process & 716 & 407 & 233.2 & $1.00 \times 10^{-30}$ \\ 
+  GO:1901360 & organic cyclic compound metabolic proces... & 1121 & 562 & 365.2 & $1.00 \times 10^{-30}$ \\ 
+  GO:0006725 & cellular aromatic compound metabolic pro... & 1088 & 549 & 354.4 & $1.00 \times 10^{-30}$ \\ 
+  GO:0006401 & RNA catabolic process & 179 & 152 & 58.3 & $1.00 \times 10^{-30}$ \\ 
+  GO:0006402 & mRNA catabolic process & 175 & 149 & 57.0 & $1.00 \times 10^{-30}$ \\ 
+  GO:1901576 & organic substance biosynthetic process & 1147 & 564 & 373.6 & $1.00 \times 10^{-30}$ \\ 
+  GO:0009058 & biosynthetic process & 1160 & 568 & 377.9 & $1.00 \times 10^{-30}$ \\ 
+  GO:0043603 & cellular amide metabolic process & 368 & 248 & 119.9 & $1.00 \times 10^{-30}$ \\ 
+   \hline
+\end{tabular}
+\caption{1111 group generated from sign of first eigenvector of modularity matrix. Biological function} 
+\label{tab:1111 group generated from sign of first eigenvector of modularity matrix. Biological function}
+\end{table}
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat May 16 14:55:07 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrrr}
+  \hline
+GO.ID & Term & Annotated & Significant & Expected & classic \\ 
+  \hline
+GO:0030030 & cell projection organization & 572 & 483 & 385.7 & $7.80 \times 10^{-24}$ \\ 
+  GO:0120036 & plasma membrane bounded cell projection ... & 566 & 478 & 381.6 & $1.40 \times 10^{-23}$ \\ 
+  GO:0099537 & trans-synaptic signaling & 316 & 281 & 213.1 & $1.30 \times 10^{-20}$ \\ 
+  GO:0023052 & signaling & 1510 & 1142 & 1018.1 & $1.50 \times 10^{-20}$ \\ 
+  GO:0007268 & chemical synaptic transmission & 310 & 276 & 209.0 & $2.00 \times 10^{-20}$ \\ 
+  GO:0098916 & anterograde trans-synaptic signaling & 310 & 276 & 209.0 & $2.00 \times 10^{-20}$ \\ 
+  GO:0007154 & cell communication & 1508 & 1140 & 1016.8 & $2.30 \times 10^{-20}$ \\ 
+  GO:0099536 & synaptic signaling & 318 & 282 & 214.4 & $2.90 \times 10^{-20}$ \\ 
+  GO:0051049 & regulation of transport & 623 & 511 & 420.1 & $2.10 \times 10^{-19}$ \\ 
+  GO:0007399 & nervous system development & 772 & 617 & 520.5 & $2.20 \times 10^{-18}$ \\ 
+  GO:0048666 & neuron development & 439 & 368 & 296.0 & $9.30 \times 10^{-17}$ \\ 
+  GO:0030029 & actin filament-based process & 333 & 287 & 224.5 & $1.70 \times 10^{-16}$ \\ 
+  GO:0030036 & actin cytoskeleton organization & 284 & 249 & 191.5 & $2.10 \times 10^{-16}$ \\ 
+  GO:0050804 & modulation of chemical synaptic transmis... & 218 & 197 & 147.0 & $2.20 \times 10^{-16}$ \\ 
+  GO:0031175 & neuron projection development & 404 & 340 & 272.4 & $5.30 \times 10^{-16}$ \\ 
+  GO:0099177 & regulation of trans-synaptic signaling & 219 & 197 & 147.7 & $7.50 \times 10^{-16}$ \\ 
+  GO:0032879 & regulation of localization & 853 & 667 & 575.1 & $1.20 \times 10^{-15}$ \\ 
+  GO:0032989 & cellular component morphogenesis & 453 & 375 & 305.4 & $3.00 \times 10^{-15}$ \\ 
+  GO:0030182 & neuron differentiation & 478 & 393 & 322.3 & $5.10 \times 10^{-15}$ \\ 
+  GO:0048699 & generation of neurons & 515 & 420 & 347.2 & $7.00 \times 10^{-15}$ \\ 
+   \hline
+\end{tabular}
+\caption{2346 group generated from sign of first eigenvector of modularity matrix. Biological function} 
+\label{tab:2346 group generated from sign of first eigenvector of modularity matrix. Biological function}
+\end{table}
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat May 16 14:59:26 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrrr}
+  \hline
+GO.ID & Term & Annotated & Significant & Expected & classic \\ 
+  \hline
+GO:0030030 & cell projection organization & 572 & 483 & 385.7 & $7.80 \times 10^{-24}$ \\ 
+  GO:0120036 & plasma membrane bounded cell projection ... & 566 & 478 & 381.6 & $1.40 \times 10^{-23}$ \\ 
+  GO:0099537 & trans-synaptic signaling & 316 & 281 & 213.1 & $1.30 \times 10^{-20}$ \\ 
+  GO:0023052 & signaling & 1510 & 1142 & 1018.1 & $1.50 \times 10^{-20}$ \\ 
+  GO:0007268 & chemical synaptic transmission & 310 & 276 & 209.0 & $2.00 \times 10^{-20}$ \\ 
+  GO:0098916 & anterograde trans-synaptic signaling & 310 & 276 & 209.0 & $2.00 \times 10^{-20}$ \\ 
+  GO:0007154 & cell communication & 1508 & 1140 & 1016.8 & $2.30 \times 10^{-20}$ \\ 
+  GO:0099536 & synaptic signaling & 318 & 282 & 214.4 & $2.90 \times 10^{-20}$ \\ 
+  GO:0051049 & regulation of transport & 623 & 511 & 420.1 & $2.10 \times 10^{-19}$ \\ 
+  GO:0007399 & nervous system development & 772 & 617 & 520.5 & $2.20 \times 10^{-18}$ \\ 
+  GO:0048666 & neuron development & 439 & 368 & 296.0 & $9.30 \times 10^{-17}$ \\ 
+  GO:0030029 & actin filament-based process & 333 & 287 & 224.5 & $1.70 \times 10^{-16}$ \\ 
+  GO:0030036 & actin cytoskeleton organization & 284 & 249 & 191.5 & $2.10 \times 10^{-16}$ \\ 
+  GO:0050804 & modulation of chemical synaptic transmis... & 218 & 197 & 147.0 & $2.20 \times 10^{-16}$ \\ 
+  GO:0031175 & neuron projection development & 404 & 340 & 272.4 & $5.30 \times 10^{-16}$ \\ 
+  GO:0099177 & regulation of trans-synaptic signaling & 219 & 197 & 147.7 & $7.50 \times 10^{-16}$ \\ 
+  GO:0032879 & regulation of localization & 853 & 667 & 575.1 & $1.20 \times 10^{-15}$ \\ 
+  GO:0032989 & cellular component morphogenesis & 453 & 375 & 305.4 & $3.00 \times 10^{-15}$ \\ 
+  GO:0030182 & neuron differentiation & 478 & 393 & 322.3 & $5.10 \times 10^{-15}$ \\ 
+  GO:0048699 & generation of neurons & 515 & 420 & 347.2 & $7.00 \times 10^{-15}$ \\ 
+   \hline
+\end{tabular}
+\caption{2346 group generated from sign of first eigenvector of modularity matrix background PSP. Biological function. Alpha = 5.22520639565263e-06} 
+\label{tab:2346 group generated from sign of first eigenvector of modularity matrix background PSP. Biological function. Alpha = 5.22520639565263e-06}
+\end{table}
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat May 16 15:00:11 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrrr}
+  \hline
+GO.ID & Term & Annotated & Significant & Expected & classic \\ 
+  \hline
+GO:0034641 & cellular nitrogen compound metabolic pro... & 1208 & 621 & 393.5 & $1.00 \times 10^{-30}$ \\ 
+  GO:0016071 & mRNA metabolic process & 254 & 210 & 82.7 & $1.00 \times 10^{-30}$ \\ 
+  GO:0010467 & gene expression & 922 & 506 & 300.3 & $1.00 \times 10^{-30}$ \\ 
+  GO:0090304 & nucleic acid metabolic process & 801 & 452 & 260.9 & $1.00 \times 10^{-30}$ \\ 
+  GO:0044271 & cellular nitrogen compound biosynthetic ... & 900 & 490 & 293.2 & $1.00 \times 10^{-30}$ \\ 
+  GO:0043604 & amide biosynthetic process & 297 & 225 & 96.8 & $1.00 \times 10^{-30}$ \\ 
+  GO:0006412 & translation & 258 & 204 & 84.0 & $1.00 \times 10^{-30}$ \\ 
+  GO:0043043 & peptide biosynthetic process & 262 & 205 & 85.3 & $1.00 \times 10^{-30}$ \\ 
+  GO:0034645 & cellular macromolecule biosynthetic proc... & 803 & 447 & 261.6 & $1.00 \times 10^{-30}$ \\ 
+  GO:0009059 & macromolecule biosynthetic process & 830 & 456 & 270.4 & $1.00 \times 10^{-30}$ \\ 
+  GO:0046483 & heterocycle metabolic process & 1076 & 549 & 350.5 & $1.00 \times 10^{-30}$ \\ 
+  GO:0006139 & nucleobase-containing compound metabolic... & 1050 & 537 & 342.0 & $1.00 \times 10^{-30}$ \\ 
+  GO:0016070 & RNA metabolic process & 716 & 407 & 233.2 & $1.00 \times 10^{-30}$ \\ 
+  GO:1901360 & organic cyclic compound metabolic proces... & 1121 & 562 & 365.2 & $1.00 \times 10^{-30}$ \\ 
+  GO:0006725 & cellular aromatic compound metabolic pro... & 1088 & 549 & 354.4 & $1.00 \times 10^{-30}$ \\ 
+  GO:0006401 & RNA catabolic process & 179 & 152 & 58.3 & $1.00 \times 10^{-30}$ \\ 
+  GO:0006402 & mRNA catabolic process & 175 & 149 & 57.0 & $1.00 \times 10^{-30}$ \\ 
+  GO:1901576 & organic substance biosynthetic process & 1147 & 564 & 373.6 & $1.00 \times 10^{-30}$ \\ 
+  GO:0009058 & biosynthetic process & 1160 & 568 & 377.9 & $1.00 \times 10^{-30}$ \\ 
+  GO:0043603 & cellular amide metabolic process & 368 & 248 & 119.9 & $1.00 \times 10^{-30}$ \\ 
+   \hline
+\end{tabular}
+\caption{1111 group generated from sign of first eigenvector of modularity matrix background PSP. Biological function. Alpha = 5.22520639565263e-06} 
+\label{tab:1111 group generated from sign of first eigenvector of modularity matrix background PSP. Biological function. Alpha = 5.22520639565263e-06}
+\end{table}
 
 
 \section{Centrality measures}
@@ -892,6 +1063,616 @@ quantile & value of p \\
 
 greater than 5
 
+\section{Ontology of centrality measures}
+code for eigenvector at \url{source('~/RProjects/group_sizes/R/plotting/modified_exampleGoObject_summary_PSP_centrality_eigenvector.R')}
+\subsection{Betweenness}
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat May 16 16:08:21 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrrr}
+  \hline
+GO.ID & Term & Annotated & Significant & Expected & classic \\ 
+  \hline
+GO:0051246 & regulation of protein metabolic process & 677 & 93 & 34.9 & $5.70 \times 10^{-24}$ \\ 
+  GO:0007049 & cell cycle & 458 & 74 & 23.6 & $2.10 \times 10^{-22}$ \\ 
+  GO:0051171 & regulation of nitrogen compound metaboli... & 1070 & 113 & 55.1 & $1.50 \times 10^{-20}$ \\ 
+  GO:0032268 & regulation of cellular protein metabolic... & 623 & 84 & 32.1 & $2.00 \times 10^{-20}$ \\ 
+  GO:0080090 & regulation of primary metabolic process & 1111 & 115 & 57.3 & $2.50 \times 10^{-20}$ \\ 
+  GO:0009057 & macromolecule catabolic process & 431 & 68 & 22.2 & $1.10 \times 10^{-19}$ \\ 
+  GO:0060255 & regulation of macromolecule metabolic pr... & 1167 & 117 & 60.1 & $1.30 \times 10^{-19}$ \\ 
+  GO:0006950 & response to stress & 872 & 99 & 45.0 & $3.10 \times 10^{-19}$ \\ 
+  GO:0009894 & regulation of catabolic process & 326 & 58 & 16.8 & $4.20 \times 10^{-19}$ \\ 
+  GO:0051704 & multi-organism process & 597 & 80 & 30.8 & $4.90 \times 10^{-19}$ \\ 
+  GO:0031323 & regulation of cellular metabolic process & 1167 & 115 & 60.1 & $2.20 \times 10^{-18}$ \\ 
+  GO:0031399 & regulation of protein modification proce... & 442 & 67 & 22.8 & $2.30 \times 10^{-18}$ \\ 
+  GO:0043412 & macromolecule modification & 911 & 100 & 47.0 & $2.40 \times 10^{-18}$ \\ 
+  GO:0006464 & cellular protein modification process & 899 & 99 & 46.3 & $3.40 \times 10^{-18}$ \\ 
+  GO:0036211 & protein modification process & 899 & 99 & 46.3 & $3.40 \times 10^{-18}$ \\ 
+  GO:0051247 & positive regulation of protein metabolic... & 409 & 64 & 21.1 & $3.50 \times 10^{-18}$ \\ 
+  GO:0010604 & positive regulation of macromolecule met... & 658 & 83 & 33.9 & $3.80 \times 10^{-18}$ \\ 
+  GO:0009893 & positive regulation of metabolic process & 733 & 88 & 37.8 & $4.80 \times 10^{-18}$ \\ 
+  GO:0048523 & negative regulation of cellular process & 1062 & 108 & 54.7 & $9.80 \times 10^{-18}$ \\ 
+  GO:0030163 & protein catabolic process & 263 & 50 & 13.6 & $1.40 \times 10^{-17}$ \\ 
+   \hline
+\end{tabular}
+\caption{173 betweenness 0.95centile  BP background PSP.} 
+\label{tab:173 betweenness 0.95centile  BP background PSP.}
+\end{table}
+
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrrr}
+  \hline
+GO.ID & Term & Annotated & Significant & Expected & classic \\ 
+  \hline
+GO:0009187 & cyclic nucleotide metabolic process & 16 & 7 & 1.6 & $5.00 \times 10^{-4}$ \\ 
+  GO:0009190 & cyclic nucleotide biosynthetic process & 9 & 5 & 0.9 & $9.00 \times 10^{-4}$ \\ 
+  GO:0052652 & cyclic purine nucleotide metabolic proce... & 9 & 5 & 0.9 & $9.00 \times 10^{-4}$ \\ 
+  GO:0097035 & regulation of membrane lipid distributio... & 9 & 5 & 0.9 & $9.00 \times 10^{-4}$ \\ 
+  GO:0038171 & cannabinoid signaling pathway & 3 & 3 & 0.3 & $1.00 \times 10^{-3}$ \\ 
+  GO:0071926 & endocannabinoid signaling pathway & 3 & 3 & 0.3 & $1.00 \times 10^{-3}$ \\ 
+  GO:0006171 & cAMP biosynthetic process & 4 & 3 & 0.4 & $3.70 \times 10^{-3}$ \\ 
+  GO:0015695 & organic cation transport & 4 & 3 & 0.4 & $3.70 \times 10^{-3}$ \\ 
+  GO:0021681 & cerebellar granular layer development & 8 & 4 & 0.8 & $5.10 \times 10^{-3}$ \\ 
+  GO:0046058 & cAMP metabolic process & 8 & 4 & 0.8 & $5.10 \times 10^{-3}$ \\ 
+  GO:0046339 & diacylglycerol metabolic process & 8 & 4 & 0.8 & $5.10 \times 10^{-3}$ \\ 
+  GO:0007186 & G protein-coupled receptor signaling pat... & 178 & 29 & 17.9 & $5.30 \times 10^{-3}$ \\ 
+  GO:0021696 & cerebellar cortex morphogenesis & 13 & 5 & 1.3 & $6.50 \times 10^{-3}$ \\ 
+  GO:0098742 & cell-cell adhesion via plasma-membrane a... & 62 & 13 & 6.2 & $7.40 \times 10^{-3}$ \\ 
+  GO:0015711 & organic anion transport & 113 & 20 & 11.4 & $7.90 \times 10^{-3}$ \\ 
+  GO:1904321 & response to forskolin & 5 & 3 & 0.5 & $8.70 \times 10^{-3}$ \\ 
+  GO:1904322 & cellular response to forskolin & 5 & 3 & 0.5 & $8.70 \times 10^{-3}$ \\ 
+  GO:0006820 & anion transport & 137 & 23 & 13.8 & $8.70 \times 10^{-3}$ \\ 
+  GO:0015893 & drug transport & 50 & 11 & 5.0 & $9.30 \times 10^{-3}$ \\ 
+  GO:0001539 & cilium or flagellum-dependent cell motil... & 2 & 2 & 0.2 & $1.01 \times 10^{-2}$ \\ 
+   \hline
+\end{tabular}
+\caption{362 betweenness 0.05centile  BP background PSP 0.05 centile value is 0.} 
+\label{tab:362 betweenness 0.05centile  BP background PSP.}
+\end{table}
+
+% Sat May 16 16:13:37 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrrr}
+  \hline
+GO.ID & Term & Annotated & Significant & Expected & classic \\ 
+  \hline
+GO:0022857 & transmembrane transporter activity & 250 & 44 & 23.7 & $2.20 \times 10^{-5}$ \\ 
+  GO:0008509 & anion transmembrane transporter activity & 55 & 16 & 5.2 & $2.80 \times 10^{-5}$ \\ 
+  GO:0005215 & transporter activity & 270 & 45 & 25.6 & $7.30 \times 10^{-5}$ \\ 
+  GO:0015075 & ion transmembrane transporter activity & 223 & 39 & 21.2 & $8.00 \times 10^{-5}$ \\ 
+  GO:0008514 & organic anion transmembrane transporter ... & 36 & 11 & 3.4 & $3.20 \times 10^{-4}$ \\ 
+  GO:0016849 & phosphorus-oxygen lyase activity & 8 & 5 & 0.8 & $3.30 \times 10^{-4}$ \\ 
+  GO:0009975 & cyclase activity & 9 & 5 & 0.8 & $6.80 \times 10^{-4}$ \\ 
+  GO:0015318 & inorganic molecular entity transmembrane... & 205 & 32 & 19.5 & $2.68 \times 10^{-3}$ \\ 
+  GO:0015081 & sodium ion transmembrane transporter act... & 33 & 9 & 3.1 & $2.75 \times 10^{-3}$ \\ 
+  GO:0046872 & metal ion binding & 706 & 87 & 67.0 & $2.95 \times 10^{-3}$ \\ 
+  GO:0004016 & adenylate cyclase activity & 4 & 3 & 0.4 & $3.15 \times 10^{-3}$ \\ 
+  GO:0015101 & organic cation transmembrane transporter... & 4 & 3 & 0.4 & $3.15 \times 10^{-3}$ \\ 
+  GO:0015605 & organophosphate ester transmembrane tran... & 12 & 5 & 1.1 & $3.37 \times 10^{-3}$ \\ 
+  GO:0015291 & secondary active transmembrane transport... & 29 & 8 & 2.8 & $4.36 \times 10^{-3}$ \\ 
+  GO:0043169 & cation binding & 718 & 87 & 68.2 & $4.90 \times 10^{-3}$ \\ 
+  GO:0048037 & cofactor binding & 153 & 24 & 14.5 & $8.45 \times 10^{-3}$ \\ 
+  GO:0015238 & drug transmembrane transporter activity & 20 & 6 & 1.9 & $8.57 \times 10^{-3}$ \\ 
+  GO:0001758 & retinal dehydrogenase activity & 2 & 2 & 0.2 & $8.98 \times 10^{-3}$ \\ 
+  GO:0004993 & G protein-coupled serotonin receptor act... & 2 & 2 & 0.2 & $8.98 \times 10^{-3}$ \\ 
+  GO:0005385 & zinc ion transmembrane transporter activ... & 2 & 2 & 0.2 & $8.98 \times 10^{-3}$ \\ 
+   \hline
+\end{tabular}
+\caption{362 betweenness 0.05centile  MF background PSP.} 
+\label{tab:362 betweenness 0.05centile  MF background PSP.}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrrr}
+  \hline
+GO.ID & Term & Annotated & Significant & Expected & classic \\ 
+  \hline
+GO:0019899 & enzyme binding & 717 & 98 & 37.5 & $5.70 \times 10^{-25}$ \\ 
+  GO:0044389 & ubiquitin-like protein ligase binding & 114 & 36 & 6.0 & $4.00 \times 10^{-20}$ \\ 
+  GO:0031625 & ubiquitin protein ligase binding & 108 & 35 & 5.7 & $5.50 \times 10^{-20}$ \\ 
+  GO:0019904 & protein domain specific binding & 273 & 51 & 14.3 & $2.50 \times 10^{-17}$ \\ 
+  GO:0019900 & kinase binding & 250 & 44 & 13.1 & $6.90 \times 10^{-14}$ \\ 
+  GO:0019901 & protein kinase binding & 225 & 39 & 11.8 & $4.20 \times 10^{-12}$ \\ 
+  GO:0005515 & protein binding & 2796 & 171 & 146.2 & $5.90 \times 10^{-11}$ \\ 
+  GO:0044877 & protein-containing complex binding & 415 & 53 & 21.7 & $7.70 \times 10^{-11}$ \\ 
+  GO:0051219 & phosphoprotein binding & 32 & 14 & 1.7 & $1.40 \times 10^{-10}$ \\ 
+  GO:0005102 & signaling receptor binding & 338 & 46 & 17.7 & $2.40 \times 10^{-10}$ \\ 
+  GO:0042802 & identical protein binding & 487 & 57 & 25.5 & $4.10 \times 10^{-10}$ \\ 
+  GO:0044325 & ion channel binding & 66 & 17 & 3.5 & $2.00 \times 10^{-8}$ \\ 
+  GO:0008022 & protein C-terminus binding & 85 & 19 & 4.5 & $3.50 \times 10^{-8}$ \\ 
+  GO:0008134 & transcription factor binding & 127 & 23 & 6.6 & $8.00 \times 10^{-8}$ \\ 
+  GO:0042826 & histone deacetylase binding & 25 & 10 & 1.3 & $2.00 \times 10^{-7}$ \\ 
+  GO:0047485 & protein N-terminus binding & 47 & 13 & 2.5 & $4.10 \times 10^{-7}$ \\ 
+  GO:0030235 & nitric-oxide synthase regulator activity & 6 & 5 & 0.3 & $2.10 \times 10^{-6}$ \\ 
+  GO:0097718 & disordered domain specific binding & 19 & 8 & 1.0 & $2.20 \times 10^{-6}$ \\ 
+  GO:0035258 & steroid hormone receptor binding & 25 & 9 & 1.3 & $2.40 \times 10^{-6}$ \\ 
+  GO:0019887 & protein kinase regulator activity & 50 & 12 & 2.6 & $6.10 \times 10^{-6}$ \\ 
+   \hline
+\end{tabular}
+\caption{173 betweenness 0.95centile  MF background PSP.} 
+\label{tab:173 betweenness 0.95centile  MF background PSP.}
+\end{table}
+
+% Sat May 16 16:15:15 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrrr}
+  \hline
+GO.ID & Term & Annotated & Significant & Expected & classic \\ 
+  \hline
+GO:0005829 & cytosol & 1643 & 135 & 83.8 & $2.70 \times 10^{-16}$ \\ 
+  GO:0044428 & nuclear part & 952 & 96 & 48.6 & $6.80 \times 10^{-15}$ \\ 
+  GO:0005634 & nucleus & 1439 & 120 & 73.4 & $2.00 \times 10^{-13}$ \\ 
+  GO:0032991 & protein-containing complex & 1540 & 125 & 78.6 & $2.00 \times 10^{-13}$ \\ 
+  GO:0005654 & nucleoplasm & 716 & 76 & 36.5 & $3.40 \times 10^{-12}$ \\ 
+  GO:0031981 & nuclear lumen & 856 & 82 & 43.7 & $8.10 \times 10^{-11}$ \\ 
+  GO:0043228 & non-membrane-bounded organelle & 1260 & 105 & 64.3 & $9.90 \times 10^{-11}$ \\ 
+  GO:0044446 & intracellular organelle part & 2308 & 153 & 117.8 & $1.40 \times 10^{-10}$ \\ 
+  GO:0044422 & organelle part & 2379 & 155 & 121.4 & $3.50 \times 10^{-10}$ \\ 
+  GO:0043232 & intracellular non-membrane-bounded organ... & 1252 & 103 & 63.9 & $4.80 \times 10^{-10}$ \\ 
+  GO:0031982 & vesicle & 1350 & 108 & 68.9 & $6.00 \times 10^{-10}$ \\ 
+  GO:0005615 & extracellular space & 969 & 84 & 49.4 & $9.10 \times 10^{-9}$ \\ 
+  GO:0070062 & extracellular exosome & 886 & 79 & 45.2 & $9.90 \times 10^{-9}$ \\ 
+  GO:0031974 & membrane-enclosed lumen & 1171 & 95 & 59.7 & $1.40 \times 10^{-8}$ \\ 
+  GO:0043233 & organelle lumen & 1171 & 95 & 59.7 & $1.40 \times 10^{-8}$ \\ 
+  GO:0070013 & intracellular organelle lumen & 1171 & 95 & 59.7 & $1.40 \times 10^{-8}$ \\ 
+  GO:0043230 & extracellular organelle & 896 & 79 & 45.7 & $1.70 \times 10^{-8}$ \\ 
+  GO:1903561 & extracellular vesicle & 896 & 79 & 45.7 & $1.70 \times 10^{-8}$ \\ 
+  GO:0005856 & cytoskeleton & 802 & 73 & 40.9 & $2.30 \times 10^{-8}$ \\ 
+  GO:0044421 & extracellular region part & 1007 & 85 & 51.4 & $2.70 \times 10^{-8}$ \\ 
+   \hline
+\end{tabular}
+\caption{173 betweenness 0.95centile  CC background PSP.} 
+\label{tab:173 betweenness 0.95centile  CC background PSP.}
+\end{table}
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat May 16 16:16:20 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrrr}
+  \hline
+GO.ID & Term & Annotated & Significant & Expected & classic \\ 
+  \hline
+GO:0031224 & intrinsic component of membrane & 788 & 144 & 79.9 & $3.40 \times 10^{-16}$ \\ 
+  GO:0016021 & integral component of membrane & 747 & 134 & 75.8 & $4.00 \times 10^{-14}$ \\ 
+  GO:0031226 & intrinsic component of plasma membrane & 308 & 58 & 31.2 & $8.60 \times 10^{-7}$ \\ 
+  GO:0005887 & integral component of plasma membrane & 288 & 54 & 29.2 & $2.50 \times 10^{-6}$ \\ 
+  GO:0044425 & membrane part & 1395 & 181 & 141.5 & $3.90 \times 10^{-6}$ \\ 
+  GO:0099240 & intrinsic component of synaptic membrane & 67 & 19 & 6.8 & $2.00 \times 10^{-5}$ \\ 
+  GO:0099699 & integral component of synaptic membrane & 61 & 17 & 6.2 & $7.00 \times 10^{-5}$ \\ 
+  GO:0098936 & intrinsic component of postsynaptic memb... & 50 & 15 & 5.1 & $7.50 \times 10^{-5}$ \\ 
+  GO:0099055 & integral component of postsynaptic membr... & 47 & 14 & 4.8 & $1.40 \times 10^{-4}$ \\ 
+  GO:0031225 & anchored component of membrane & 38 & 11 & 3.9 & $9.60 \times 10^{-4}$ \\ 
+  GO:0098889 & intrinsic component of presynaptic membr... & 36 & 10 & 3.6 & $2.30 \times 10^{-3}$ \\ 
+  GO:0060076 & excitatory synapse & 27 & 8 & 2.7 & $4.07 \times 10^{-3}$ \\ 
+  GO:0099146 & intrinsic component of postsynaptic dens... & 22 & 7 & 2.2 & $4.61 \times 10^{-3}$ \\ 
+  GO:0098948 & intrinsic component of postsynaptic spec... & 29 & 8 & 2.9 & $6.56 \times 10^{-3}$ \\ 
+  GO:0031045 & dense core granule & 9 & 4 & 0.9 & $8.67 \times 10^{-3}$ \\ 
+  GO:0045211 & postsynaptic membrane & 160 & 26 & 16.2 & $9.28 \times 10^{-3}$ \\ 
+  GO:0099056 & integral component of presynaptic membra... & 31 & 8 & 3.1 & $1.01 \times 10^{-2}$ \\ 
+  GO:0005858 & axonemal dynein complex & 2 & 2 & 0.2 & $1.03 \times 10^{-2}$ \\ 
+  GO:0097060 & synaptic membrane & 219 & 33 & 22.2 & $1.14 \times 10^{-2}$ \\ 
+  GO:0044459 & plasma membrane part & 742 & 92 & 75.3 & $1.40 \times 10^{-2}$ \\ 
+   \hline
+\end{tabular}
+\caption{362 betweenness 0.05centile  CC background PSP.} 
+\label{tab:362 betweenness 0.05centile  CC background PSP.}
+\end{table}
+
+\subsection{Closeness centrality}
+% Sat May 16 16:18:16 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrrr}
+  \hline
+GO.ID & Term & Annotated & Significant & Expected & classic \\ 
+  \hline
+GO:0044273 & sulfur compound catabolic process & 13 & 6 & 0.6 & $1.50 \times 10^{-5}$ \\ 
+  GO:0006811 & ion transport & 476 & 41 & 23.0 & $8.30 \times 10^{-5}$ \\ 
+  GO:0034220 & ion transmembrane transport & 352 & 33 & 17.0 & $9.60 \times 10^{-5}$ \\ 
+  GO:1901136 & carbohydrate derivative catabolic proces... & 42 & 9 & 2.0 & $1.30 \times 10^{-4}$ \\ 
+  GO:0006029 & proteoglycan metabolic process & 12 & 5 & 0.6 & $1.50 \times 10^{-4}$ \\ 
+  GO:0006026 & aminoglycan catabolic process & 13 & 5 & 0.6 & $2.30 \times 10^{-4}$ \\ 
+  GO:0006027 & glycosaminoglycan catabolic process & 13 & 5 & 0.6 & $2.30 \times 10^{-4}$ \\ 
+  GO:0009582 & detection of abiotic stimulus & 21 & 6 & 1.0 & $3.40 \times 10^{-4}$ \\ 
+  GO:0030205 & dermatan sulfate metabolic process & 4 & 3 & 0.2 & $4.30 \times 10^{-4}$ \\ 
+  GO:0030206 & chondroitin sulfate biosynthetic process & 4 & 3 & 0.2 & $4.30 \times 10^{-4}$ \\ 
+  GO:0030208 & dermatan sulfate biosynthetic process & 4 & 3 & 0.2 & $4.30 \times 10^{-4}$ \\ 
+  GO:0006023 & aminoglycan biosynthetic process & 15 & 5 & 0.7 & $5.00 \times 10^{-4}$ \\ 
+  GO:0006024 & glycosaminoglycan biosynthetic process & 15 & 5 & 0.7 & $5.00 \times 10^{-4}$ \\ 
+  GO:0030166 & proteoglycan biosynthetic process & 9 & 4 & 0.4 & $5.40 \times 10^{-4}$ \\ 
+  GO:0097035 & regulation of membrane lipid distributio... & 9 & 4 & 0.4 & $5.40 \times 10^{-4}$ \\ 
+  GO:0055085 & transmembrane transport & 473 & 38 & 22.8 & $7.00 \times 10^{-4}$ \\ 
+  GO:1901137 & carbohydrate derivative biosynthetic pro... & 179 & 19 & 8.6 & $7.90 \times 10^{-4}$ \\ 
+  GO:0006790 & sulfur compound metabolic process & 89 & 12 & 4.3 & $9.80 \times 10^{-4}$ \\ 
+  GO:0044272 & sulfur compound biosynthetic process & 44 & 8 & 2.1 & $9.90 \times 10^{-4}$ \\ 
+  GO:0030207 & chondroitin sulfate catabolic process & 5 & 3 & 0.2 & $1.03 \times 10^{-3}$ \\ 
+   \hline
+\end{tabular}
+\caption{173 closeness 0.05centile  BP background PSP.} 
+\label{tab:173 closeness 0.05centile  BP background PSP.}
+\end{table}
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat May 16 16:19:16 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrrr}
+  \hline
+GO.ID & Term & Annotated & Significant & Expected & classic \\ 
+  \hline
+GO:0060255 & regulation of macromolecule metabolic pr... & 1167 & 132 & 60.5 & $4.30 \times 10^{-30}$ \\ 
+  GO:0051171 & regulation of nitrogen compound metaboli... & 1070 & 124 & 55.5 & $5.30 \times 10^{-28}$ \\ 
+  GO:0080090 & regulation of primary metabolic process & 1111 & 125 & 57.6 & $5.40 \times 10^{-27}$ \\ 
+  GO:0010604 & positive regulation of macromolecule met... & 658 & 96 & 34.1 & $6.00 \times 10^{-27}$ \\ 
+  GO:0009893 & positive regulation of metabolic process & 733 & 101 & 38.0 & $1.10 \times 10^{-26}$ \\ 
+  GO:0010468 & regulation of gene expression & 766 & 103 & 39.7 & $1.80 \times 10^{-26}$ \\ 
+  GO:0019222 & regulation of metabolic process & 1312 & 134 & 68.0 & $1.00 \times 10^{-25}$ \\ 
+  GO:0090304 & nucleic acid metabolic process & 801 & 104 & 41.5 & $1.80 \times 10^{-25}$ \\ 
+  GO:0009057 & macromolecule catabolic process & 431 & 75 & 22.3 & $1.00 \times 10^{-24}$ \\ 
+  GO:0044260 & cellular macromolecule metabolic process & 1535 & 143 & 79.6 & $1.90 \times 10^{-24}$ \\ 
+  GO:0043170 & macromolecule metabolic process & 1679 & 149 & 87.0 & $3.00 \times 10^{-24}$ \\ 
+  GO:0010467 & gene expression & 922 & 110 & 47.8 & $3.50 \times 10^{-24}$ \\ 
+  GO:0019219 & regulation of nucleobase-containing comp... & 629 & 90 & 32.6 & $4.50 \times 10^{-24}$ \\ 
+  GO:0031323 & regulation of cellular metabolic process & 1167 & 124 & 60.5 & $5.60 \times 10^{-24}$ \\ 
+  GO:0051173 & positive regulation of nitrogen compound... & 625 & 89 & 32.4 & $1.40 \times 10^{-23}$ \\ 
+  GO:0010556 & regulation of macromolecule biosynthetic... & 621 & 88 & 32.2 & $4.60 \times 10^{-23}$ \\ 
+  GO:0051704 & multi-organism process & 597 & 86 & 30.9 & $6.40 \times 10^{-23}$ \\ 
+  GO:0048518 & positive regulation of biological proces... & 1394 & 134 & 72.3 & $1.10 \times 10^{-22}$ \\ 
+  GO:0031325 & positive regulation of cellular metaboli... & 660 & 90 & 34.2 & $1.80 \times 10^{-22}$ \\ 
+  GO:2000112 & regulation of cellular macromolecule bio... & 596 & 85 & 30.9 & $2.90 \times 10^{-22}$ \\ 
+   \hline
+\end{tabular}
+\caption{173 closeness 0.95centile  BP background PSP.} 
+\label{tab:173 closeness 0.95centile  BP background PSP.}
+\end{table}
+
+% Sat May 16 16:20:09 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrrr}
+  \hline
+GO.ID & Term & Annotated & Significant & Expected & classic \\ 
+  \hline
+GO:0003723 & RNA binding & 549 & 84 & 28.7 & $6.90 \times 10^{-24}$ \\ 
+  GO:0003676 & nucleic acid binding & 716 & 95 & 37.4 & $6.80 \times 10^{-23}$ \\ 
+  GO:0019899 & enzyme binding & 717 & 93 & 37.5 & $1.80 \times 10^{-21}$ \\ 
+  GO:1901363 & heterocyclic compound binding & 1355 & 126 & 70.9 & $2.70 \times 10^{-18}$ \\ 
+  GO:0044389 & ubiquitin-like protein ligase binding & 114 & 34 & 6.0 & $3.90 \times 10^{-18}$ \\ 
+  GO:0031625 & ubiquitin protein ligase binding & 108 & 33 & 5.7 & $5.70 \times 10^{-18}$ \\ 
+  GO:0097159 & organic cyclic compound binding & 1366 & 126 & 71.4 & $6.10 \times 10^{-18}$ \\ 
+  GO:0019904 & protein domain specific binding & 273 & 51 & 14.3 & $2.50 \times 10^{-17}$ \\ 
+  GO:0008134 & transcription factor binding & 127 & 29 & 6.6 & $3.20 \times 10^{-12}$ \\ 
+  GO:0005515 & protein binding & 2796 & 171 & 146.2 & $5.90 \times 10^{-11}$ \\ 
+  GO:0051082 & unfolded protein binding & 56 & 18 & 2.9 & $1.30 \times 10^{-10}$ \\ 
+  GO:0044877 & protein-containing complex binding & 415 & 52 & 21.7 & $2.60 \times 10^{-10}$ \\ 
+  GO:0003677 & DNA binding & 251 & 38 & 13.1 & $5.80 \times 10^{-10}$ \\ 
+  GO:0042802 & identical protein binding & 487 & 56 & 25.5 & $1.30 \times 10^{-9}$ \\ 
+  GO:0003727 & single-stranded RNA binding & 31 & 13 & 1.6 & $1.30 \times 10^{-9}$ \\ 
+  GO:0043565 & sequence-specific DNA binding & 112 & 23 & 5.9 & $6.50 \times 10^{-9}$ \\ 
+  GO:0003729 & mRNA binding & 87 & 20 & 4.5 & $8.90 \times 10^{-9}$ \\ 
+  GO:0042826 & histone deacetylase binding & 25 & 11 & 1.3 & $1.40 \times 10^{-8}$ \\ 
+  GO:0001067 & regulatory region nucleic acid binding & 92 & 20 & 4.8 & $2.50 \times 10^{-8}$ \\ 
+  GO:0044212 & transcription regulatory region DNA bind... & 92 & 20 & 4.8 & $2.50 \times 10^{-8}$ \\ 
+   \hline
+\end{tabular}
+\caption{173 closeness 0.95centile  MF background PSP.} 
+\label{tab:173 closeness 0.95centile  MF background PSP.}
+\end{table}
+
+\todo{centrality measures for specific ontology terms eg glutamate}
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat May 16 16:22:22 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrrr}
+  \hline
+GO.ID & Term & Annotated & Significant & Expected & classic \\ 
+  \hline
+GO:0015075 & ion transmembrane transporter activity & 223 & 32 & 10.3 & $2.80 \times 10^{-9}$ \\ 
+  GO:0022857 & transmembrane transporter activity & 250 & 34 & 11.6 & $3.40 \times 10^{-9}$ \\ 
+  GO:0005215 & transporter activity & 270 & 35 & 12.5 & $7.00 \times 10^{-9}$ \\ 
+  GO:0008324 & cation transmembrane transporter activit... & 177 & 26 & 8.2 & $6.70 \times 10^{-8}$ \\ 
+  GO:0015318 & inorganic molecular entity transmembrane... & 205 & 28 & 9.5 & $9.80 \times 10^{-8}$ \\ 
+  GO:0022890 & inorganic cation transmembrane transport... & 169 & 24 & 7.8 & $4.40 \times 10^{-7}$ \\ 
+  GO:0046873 & metal ion transmembrane transporter acti... & 123 & 20 & 5.7 & $4.90 \times 10^{-7}$ \\ 
+  GO:0015081 & sodium ion transmembrane transporter act... & 33 & 10 & 1.5 & $1.20 \times 10^{-6}$ \\ 
+  GO:0015077 & monovalent inorganic cation transmembran... & 103 & 17 & 4.8 & $3.10 \times 10^{-6}$ \\ 
+  GO:0022804 & active transmembrane transporter activit... & 83 & 13 & 3.8 & $8.50 \times 10^{-5}$ \\ 
+  GO:0005540 & hyaluronic acid binding & 7 & 4 & 0.3 & $1.40 \times 10^{-4}$ \\ 
+  GO:0008514 & organic anion transmembrane transporter ... & 36 & 8 & 1.7 & $1.70 \times 10^{-4}$ \\ 
+  GO:0005261 & cation channel activity & 96 & 13 & 4.4 & $3.80 \times 10^{-4}$ \\ 
+  GO:0016831 & carboxy-lyase activity & 9 & 4 & 0.4 & $4.60 \times 10^{-4}$ \\ 
+  GO:0005272 & sodium channel activity & 16 & 5 & 0.7 & $5.70 \times 10^{-4}$ \\ 
+  GO:0005216 & ion channel activity & 113 & 14 & 5.2 & $5.80 \times 10^{-4}$ \\ 
+  GO:0004930 & G protein-coupled receptor activity & 24 & 6 & 1.1 & $6.00 \times 10^{-4}$ \\ 
+  GO:0022838 & substrate-specific channel activity & 114 & 14 & 5.3 & $6.30 \times 10^{-4}$ \\ 
+  GO:0005244 & voltage-gated ion channel activity & 65 & 10 & 3.0 & $6.60 \times 10^{-4}$ \\ 
+  GO:0022832 & voltage-gated channel activity & 65 & 10 & 3.0 & $6.60 \times 10^{-4}$ \\ 
+   \hline
+\end{tabular}
+\caption{173 closeness 0.05centile  MF background PSP.} 
+\label{tab:173 closeness 0.05centile  MF background PSP.}
+\end{table}
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat May 16 16:23:16 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrrr}
+  \hline
+GO.ID & Term & Annotated & Significant & Expected & classic \\ 
+  \hline
+GO:0031224 & intrinsic component of membrane & 788 & 85 & 38.1 & $3.00 \times 10^{-16}$ \\ 
+  GO:0016021 & integral component of membrane & 747 & 79 & 36.1 & $2.90 \times 10^{-14}$ \\ 
+  GO:0031226 & intrinsic component of plasma membrane & 308 & 40 & 14.9 & $1.80 \times 10^{-9}$ \\ 
+  GO:0005887 & integral component of plasma membrane & 288 & 37 & 13.9 & $1.20 \times 10^{-8}$ \\ 
+  GO:0044425 & membrane part & 1395 & 98 & 67.5 & $6.50 \times 10^{-7}$ \\ 
+  GO:0005796 & Golgi lumen & 12 & 5 & 0.6 & $1.50 \times 10^{-4}$ \\ 
+  GO:0043202 & lysosomal lumen & 26 & 7 & 1.3 & $1.60 \times 10^{-4}$ \\ 
+  GO:0034703 & cation channel complex & 96 & 13 & 4.6 & $5.90 \times 10^{-4}$ \\ 
+  GO:1902495 & transmembrane transporter complex & 124 & 15 & 6.0 & $7.70 \times 10^{-4}$ \\ 
+  GO:0034702 & ion channel complex & 115 & 14 & 5.6 & $1.09 \times 10^{-3}$ \\ 
+  GO:1990351 & transporter complex & 129 & 15 & 6.2 & $1.17 \times 10^{-3}$ \\ 
+  GO:0030315 & T-tubule & 26 & 6 & 1.3 & $1.20 \times 10^{-3}$ \\ 
+  GO:0099055 & integral component of postsynaptic membr... & 47 & 8 & 2.3 & $1.58 \times 10^{-3}$ \\ 
+  GO:0033268 & node of Ranvier & 12 & 4 & 0.6 & $1.92 \times 10^{-3}$ \\ 
+  GO:0034706 & sodium channel complex & 12 & 4 & 0.6 & $1.92 \times 10^{-3}$ \\ 
+  GO:0001518 & voltage-gated sodium channel complex & 6 & 3 & 0.3 & $1.99 \times 10^{-3}$ \\ 
+  GO:0099699 & integral component of synaptic membrane & 61 & 9 & 3.0 & $2.30 \times 10^{-3}$ \\ 
+  GO:0098936 & intrinsic component of postsynaptic memb... & 50 & 8 & 2.4 & $2.38 \times 10^{-3}$ \\ 
+  GO:0099240 & intrinsic component of synaptic membrane & 67 & 9 & 3.2 & $4.42 \times 10^{-3}$ \\ 
+  GO:0044459 & plasma membrane part & 742 & 50 & 35.9 & $5.31 \times 10^{-3}$ \\ 
+   \hline
+\end{tabular}
+\caption{173 closeness 0.05centile  CC background PSP.} 
+\label{tab:173 closeness 0.05centile  CC background PSP.}
+\end{table}
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat May 16 16:23:18 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrrr}
+  \hline
+GO.ID & Term & Annotated & Significant & Expected & classic \\ 
+  \hline
+GO:0044428 & nuclear part & 952 & 113 & 48.6 & $1.20 \times 10^{-25}$ \\ 
+  GO:0005634 & nucleus & 1439 & 138 & 73.4 & $7.60 \times 10^{-25}$ \\ 
+  GO:0031974 & membrane-enclosed lumen & 1171 & 122 & 59.7 & $4.10 \times 10^{-23}$ \\ 
+  GO:0043233 & organelle lumen & 1171 & 122 & 59.7 & $4.10 \times 10^{-23}$ \\ 
+  GO:0070013 & intracellular organelle lumen & 1171 & 122 & 59.7 & $4.10 \times 10^{-23}$ \\ 
+  GO:0031981 & nuclear lumen & 856 & 103 & 43.7 & $8.20 \times 10^{-23}$ \\ 
+  GO:0005654 & nucleoplasm & 716 & 91 & 36.5 & $5.70 \times 10^{-21}$ \\ 
+  GO:0032991 & protein-containing complex & 1540 & 136 & 78.6 & $5.40 \times 10^{-20}$ \\ 
+  GO:1990904 & ribonucleoprotein complex & 293 & 53 & 14.9 & $7.40 \times 10^{-18}$ \\ 
+  GO:0070062 & extracellular exosome & 886 & 97 & 45.2 & $9.30 \times 10^{-18}$ \\ 
+  GO:0005829 & cytosol & 1643 & 137 & 83.8 & $1.50 \times 10^{-17}$ \\ 
+  GO:0043230 & extracellular organelle & 896 & 97 & 45.7 & $2.20 \times 10^{-17}$ \\ 
+  GO:1903561 & extracellular vesicle & 896 & 97 & 45.7 & $2.20 \times 10^{-17}$ \\ 
+  GO:0043231 & intracellular membrane-bounded organelle & 2301 & 161 & 117.4 & $2.90 \times 10^{-16}$ \\ 
+  GO:0005615 & extracellular space & 969 & 99 & 49.4 & $5.50 \times 10^{-16}$ \\ 
+  GO:0043232 & intracellular non-membrane-bounded organ... & 1252 & 114 & 63.9 & $2.00 \times 10^{-15}$ \\ 
+  GO:0043228 & non-membrane-bounded organelle & 1260 & 114 & 64.3 & $3.50 \times 10^{-15}$ \\ 
+  GO:0044421 & extracellular region part & 1007 & 99 & 51.4 & $9.50 \times 10^{-15}$ \\ 
+  GO:0044446 & intracellular organelle part & 2308 & 159 & 117.8 & $1.60 \times 10^{-14}$ \\ 
+  GO:0005576 & extracellular region & 1089 & 102 & 55.6 & $7.80 \times 10^{-14}$ \\ 
+   \hline
+\end{tabular}
+\caption{173 closeness 0.95centile  CC background PSP.} 
+\label{tab:173 closeness 0.95centile  CC background PSP.}
+\end{table}
+\subsection{Eigenvector centrality}
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat May 16 16:32:46 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrrr}
+  \hline
+GO.ID & Term & Annotated & Significant & Expected & classic \\ 
+  \hline
+GO:0044273 & sulfur compound catabolic process & 13 & 6 & 0.6 & $1.40 \times 10^{-5}$ \\ 
+  GO:1901136 & carbohydrate derivative catabolic proces... & 42 & 9 & 2.0 & $1.20 \times 10^{-4}$ \\ 
+  GO:0006029 & proteoglycan metabolic process & 12 & 5 & 0.6 & $1.40 \times 10^{-4}$ \\ 
+  GO:0006026 & aminoglycan catabolic process & 13 & 5 & 0.6 & $2.20 \times 10^{-4}$ \\ 
+  GO:0006027 & glycosaminoglycan catabolic process & 13 & 5 & 0.6 & $2.20 \times 10^{-4}$ \\ 
+  GO:0006790 & sulfur compound metabolic process & 89 & 13 & 4.3 & $2.50 \times 10^{-4}$ \\ 
+  GO:0006811 & ion transport & 476 & 39 & 22.8 & $3.40 \times 10^{-4}$ \\ 
+  GO:0030205 & dermatan sulfate metabolic process & 4 & 3 & 0.2 & $4.20 \times 10^{-4}$ \\ 
+  GO:0030206 & chondroitin sulfate biosynthetic process & 4 & 3 & 0.2 & $4.20 \times 10^{-4}$ \\ 
+  GO:0030208 & dermatan sulfate biosynthetic process & 4 & 3 & 0.2 & $4.20 \times 10^{-4}$ \\ 
+  GO:0006023 & aminoglycan biosynthetic process & 15 & 5 & 0.7 & $4.80 \times 10^{-4}$ \\ 
+  GO:0006024 & glycosaminoglycan biosynthetic process & 15 & 5 & 0.7 & $4.80 \times 10^{-4}$ \\ 
+  GO:0030166 & proteoglycan biosynthetic process & 9 & 4 & 0.4 & $5.30 \times 10^{-4}$ \\ 
+  GO:0097035 & regulation of membrane lipid distributio... & 9 & 4 & 0.4 & $5.30 \times 10^{-4}$ \\ 
+  GO:0009101 & glycoprotein biosynthetic process & 42 & 8 & 2.0 & $6.90 \times 10^{-4}$ \\ 
+  GO:0044272 & sulfur compound biosynthetic process & 44 & 8 & 2.1 & $9.50 \times 10^{-4}$ \\ 
+  GO:0034220 & ion transmembrane transport & 352 & 30 & 16.9 & $1.00 \times 10^{-3}$ \\ 
+  GO:0030207 & chondroitin sulfate catabolic process & 5 & 3 & 0.2 & $1.01 \times 10^{-3}$ \\ 
+  GO:0050650 & chondroitin sulfate proteoglycan biosynt... & 5 & 3 & 0.2 & $1.01 \times 10^{-3}$ \\ 
+  GO:0050651 & dermatan sulfate proteoglycan biosynthet... & 5 & 3 & 0.2 & $1.01 \times 10^{-3}$ \\ 
+   \hline
+\end{tabular}
+\caption{173 eigenvector 0.05centile  BP background PSP.} 
+\label{tab:173 eigenvector 0.05centile  BP background PSP.}
+\end{table}
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat May 16 16:33:00 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrrr}
+  \hline
+GO.ID & Term & Annotated & Significant & Expected & classic \\ 
+  \hline
+GO:0090304 & nucleic acid metabolic process & 801 & 116 & 41.5 & $1.00 \times 10^{-30}$ \\ 
+  GO:0016071 & mRNA metabolic process & 254 & 65 & 13.2 & $1.00 \times 10^{-30}$ \\ 
+  GO:0060255 & regulation of macromolecule metabolic pr... & 1167 & 133 & 60.5 & $1.00 \times 10^{-30}$ \\ 
+  GO:0051704 & multi-organism process & 597 & 96 & 30.9 & $1.40 \times 10^{-30}$ \\ 
+  GO:0044403 & symbiont process & 359 & 74 & 18.6 & $2.10 \times 10^{-29}$ \\ 
+  GO:0044419 & interspecies interaction between organis... & 363 & 74 & 18.8 & $4.70 \times 10^{-29}$ \\ 
+  GO:0010468 & regulation of gene expression & 766 & 105 & 39.7 & $5.60 \times 10^{-28}$ \\ 
+  GO:0010467 & gene expression & 922 & 115 & 47.8 & $7.40 \times 10^{-28}$ \\ 
+  GO:0016032 & viral process & 344 & 70 & 17.8 & $3.40 \times 10^{-27}$ \\ 
+  GO:0043170 & macromolecule metabolic process & 1679 & 152 & 87.0 & $8.60 \times 10^{-27}$ \\ 
+  GO:0044260 & cellular macromolecule metabolic process & 1535 & 145 & 79.6 & $4.80 \times 10^{-26}$ \\ 
+  GO:0006139 & nucleobase-containing compound metabolic... & 1050 & 120 & 54.4 & $7.50 \times 10^{-26}$ \\ 
+  GO:0019222 & regulation of metabolic process & 1312 & 134 & 68.0 & $1.00 \times 10^{-25}$ \\ 
+  GO:0009057 & macromolecule catabolic process & 431 & 76 & 22.3 & $1.60 \times 10^{-25}$ \\ 
+  GO:0009059 & macromolecule biosynthetic process & 830 & 105 & 43.0 & $8.40 \times 10^{-25}$ \\ 
+  GO:0046483 & heterocycle metabolic process & 1076 & 120 & 55.8 & $9.20 \times 10^{-25}$ \\ 
+  GO:0034645 & cellular macromolecule biosynthetic proc... & 803 & 103 & 41.6 & $1.20 \times 10^{-24}$ \\ 
+  GO:0016070 & RNA metabolic process & 716 & 97 & 37.1 & $1.30 \times 10^{-24}$ \\ 
+  GO:0010556 & regulation of macromolecule biosynthetic... & 621 & 90 & 32.2 & $1.60 \times 10^{-24}$ \\ 
+  GO:2000112 & regulation of cellular macromolecule bio... & 596 & 88 & 30.9 & $2.00 \times 10^{-24}$ \\ 
+   \hline
+\end{tabular}
+\caption{173 eigenvector 0.95centile  BP background PSP.} 
+\label{tab:173 eigenvector 0.95centile  BP background PSP.}
+\end{table}
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat May 16 16:34:08 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrrr}
+  \hline
+GO.ID & Term & Annotated & Significant & Expected & classic \\ 
+  \hline
+GO:0015075 & ion transmembrane transporter activity & 223 & 30 & 10.2 & $3.20 \times 10^{-8}$ \\ 
+  GO:0022857 & transmembrane transporter activity & 250 & 32 & 11.4 & $3.50 \times 10^{-8}$ \\ 
+  GO:0015081 & sodium ion transmembrane transporter act... & 33 & 11 & 1.5 & $1.00 \times 10^{-7}$ \\ 
+  GO:0005215 & transporter activity & 270 & 32 & 12.3 & $2.30 \times 10^{-7}$ \\ 
+  GO:0015318 & inorganic molecular entity transmembrane... & 205 & 27 & 9.4 & $2.80 \times 10^{-7}$ \\ 
+  GO:0046873 & metal ion transmembrane transporter acti... & 123 & 19 & 5.6 & $1.80 \times 10^{-6}$ \\ 
+  GO:0008324 & cation transmembrane transporter activit... & 177 & 22 & 8.1 & $1.10 \times 10^{-5}$ \\ 
+  GO:0015077 & monovalent inorganic cation transmembran... & 103 & 16 & 4.7 & $1.20 \times 10^{-5}$ \\ 
+  GO:0022890 & inorganic cation transmembrane transport... & 169 & 21 & 7.7 & $1.80 \times 10^{-5}$ \\ 
+  GO:0005272 & sodium channel activity & 16 & 6 & 0.7 & $4.50 \times 10^{-5}$ \\ 
+  GO:0005540 & hyaluronic acid binding & 7 & 4 & 0.3 & $1.30 \times 10^{-4}$ \\ 
+  GO:0008509 & anion transmembrane transporter activity & 55 & 10 & 2.5 & $1.40 \times 10^{-4}$ \\ 
+  GO:0005216 & ion channel activity & 113 & 15 & 5.2 & $1.50 \times 10^{-4}$ \\ 
+  GO:0022838 & substrate-specific channel activity & 114 & 15 & 5.2 & $1.60 \times 10^{-4}$ \\ 
+  GO:0015267 & channel activity & 119 & 15 & 5.4 & $2.60 \times 10^{-4}$ \\ 
+  GO:0022803 & passive transmembrane transporter activi... & 119 & 15 & 5.4 & $2.60 \times 10^{-4}$ \\ 
+  GO:0016831 & carboxy-lyase activity & 9 & 4 & 0.4 & $4.40 \times 10^{-4}$ \\ 
+  GO:0004930 & G protein-coupled receptor activity & 24 & 6 & 1.1 & $5.60 \times 10^{-4}$ \\ 
+  GO:0005452 & inorganic anion exchanger activity & 5 & 3 & 0.2 & $8.70 \times 10^{-4}$ \\ 
+  GO:0008514 & organic anion transmembrane transporter ... & 36 & 7 & 1.6 & $9.80 \times 10^{-4}$ \\ 
+   \hline
+\end{tabular}
+\caption{173 eigenvector 0.05centile  MF background PSP.} 
+\label{tab:173 eigenvector 0.05centile  MF background PSP.}
+\end{table}
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat May 16 16:34:09 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrrr}
+  \hline
+GO.ID & Term & Annotated & Significant & Expected & classic \\ 
+  \hline
+GO:0003723 & RNA binding & 549 & 97 & 28.7 & $1.00 \times 10^{-30}$ \\ 
+  GO:0003676 & nucleic acid binding & 716 & 107 & 37.4 & $1.00 \times 10^{-30}$ \\ 
+  GO:0097159 & organic cyclic compound binding & 1366 & 130 & 71.4 & $1.70 \times 10^{-20}$ \\ 
+  GO:1901363 & heterocyclic compound binding & 1355 & 129 & 70.9 & $3.30 \times 10^{-20}$ \\ 
+  GO:0019899 & enzyme binding & 717 & 86 & 37.5 & $4.90 \times 10^{-17}$ \\ 
+  GO:0031625 & ubiquitin protein ligase binding & 108 & 32 & 5.7 & $5.40 \times 10^{-17}$ \\ 
+  GO:0044389 & ubiquitin-like protein ligase binding & 114 & 32 & 6.0 & $3.20 \times 10^{-16}$ \\ 
+  GO:0003729 & mRNA binding & 87 & 25 & 4.5 & $4.40 \times 10^{-13}$ \\ 
+  GO:0019904 & protein domain specific binding & 273 & 44 & 14.3 & $1.80 \times 10^{-12}$ \\ 
+  GO:0008134 & transcription factor binding & 127 & 29 & 6.6 & $3.20 \times 10^{-12}$ \\ 
+  GO:0051082 & unfolded protein binding & 56 & 19 & 2.9 & $1.30 \times 10^{-11}$ \\ 
+  GO:0005515 & protein binding & 2796 & 171 & 146.2 & $5.90 \times 10^{-11}$ \\ 
+  GO:0003677 & DNA binding & 251 & 38 & 13.1 & $5.80 \times 10^{-10}$ \\ 
+  GO:0045296 & cadherin binding & 219 & 33 & 11.4 & $1.10 \times 10^{-8}$ \\ 
+  GO:0003727 & single-stranded RNA binding & 31 & 12 & 1.6 & $1.70 \times 10^{-8}$ \\ 
+  GO:0050839 & cell adhesion molecule binding & 272 & 37 & 14.2 & $2.20 \times 10^{-8}$ \\ 
+  GO:0043565 & sequence-specific DNA binding & 112 & 22 & 5.9 & $3.40 \times 10^{-8}$ \\ 
+  GO:0044877 & protein-containing complex binding & 415 & 47 & 21.7 & $7.40 \times 10^{-8}$ \\ 
+  GO:0019901 & protein kinase binding & 225 & 32 & 11.8 & $8.10 \times 10^{-8}$ \\ 
+  GO:0003730 & mRNA 3'-UTR binding & 29 & 11 & 1.5 & $8.90 \times 10^{-8}$ \\ 
+   \hline
+\end{tabular}
+\caption{173 eigenvector 0.95centile  MF background PSP.} 
+\label{tab:173 eigenvector 0.95centile  MF background PSP.}
+\end{table}
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat May 16 16:38:41 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrrr}
+  \hline
+GO.ID & Term & Annotated & Significant & Expected & classic \\ 
+  \hline
+GO:0031224 & intrinsic component of membrane & 788 & 84 & 37.9 & $7.10 \times 10^{-16}$ \\ 
+  GO:0016021 & integral component of membrane & 747 & 77 & 35.9 & $2.30 \times 10^{-13}$ \\ 
+  GO:0031226 & intrinsic component of plasma membrane & 308 & 41 & 14.8 & $4.10 \times 10^{-10}$ \\ 
+  GO:0005887 & integral component of plasma membrane & 288 & 38 & 13.8 & $2.70 \times 10^{-9}$ \\ 
+  GO:0044425 & membrane part & 1395 & 96 & 67.1 & $2.20 \times 10^{-6}$ \\ 
+  GO:0043202 & lysosomal lumen & 26 & 8 & 1.2 & $1.80 \times 10^{-5}$ \\ 
+  GO:0098936 & intrinsic component of postsynaptic memb... & 50 & 10 & 2.4 & $9.70 \times 10^{-5}$ \\ 
+  GO:0005796 & Golgi lumen & 12 & 5 & 0.6 & $1.50 \times 10^{-4}$ \\ 
+  GO:0034706 & sodium channel complex & 12 & 5 & 0.6 & $1.50 \times 10^{-4}$ \\ 
+  GO:1902495 & transmembrane transporter complex & 124 & 16 & 6.0 & $2.30 \times 10^{-4}$ \\ 
+  GO:0099240 & intrinsic component of synaptic membrane & 67 & 11 & 3.2 & $2.80 \times 10^{-4}$ \\ 
+  GO:0099055 & integral component of postsynaptic membr... & 47 & 9 & 2.3 & $3.10 \times 10^{-4}$ \\ 
+  GO:0034702 & ion channel complex & 115 & 15 & 5.5 & $3.20 \times 10^{-4}$ \\ 
+  GO:1990351 & transporter complex & 129 & 16 & 6.2 & $3.60 \times 10^{-4}$ \\ 
+  GO:0099699 & integral component of synaptic membrane & 61 & 10 & 2.9 & $5.40 \times 10^{-4}$ \\ 
+  GO:0030315 & T-tubule & 26 & 6 & 1.2 & $1.16 \times 10^{-3}$ \\ 
+  GO:0031225 & anchored component of membrane & 38 & 7 & 1.8 & $1.86 \times 10^{-3}$ \\ 
+  GO:0034703 & cation channel complex & 96 & 12 & 4.6 & $1.87 \times 10^{-3}$ \\ 
+  GO:0033268 & node of Ranvier & 12 & 4 & 0.6 & $1.88 \times 10^{-3}$ \\ 
+  GO:0001518 & voltage-gated sodium channel complex & 6 & 3 & 0.3 & $1.96 \times 10^{-3}$ \\ 
+   \hline
+\end{tabular}
+\caption{173 eigenvector 0.05centile  CC background PSP.} 
+\label{tab:173 eigenvector 0.05centile  CC background PSP.}
+\end{table}
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat May 16 16:38:43 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrrrr}
+  \hline
+GO.ID & Term & Annotated & Significant & Expected & classic \\ 
+  \hline
+GO:0005634 & nucleus & 1439 & 144 & 73.4 & $1.00 \times 10^{-29}$ \\ 
+  GO:1990904 & ribonucleoprotein complex & 293 & 67 & 14.9 & $1.50 \times 10^{-29}$ \\ 
+  GO:0044428 & nuclear part & 952 & 118 & 48.6 & $1.90 \times 10^{-29}$ \\ 
+  GO:0031981 & nuclear lumen & 856 & 109 & 43.7 & $4.00 \times 10^{-27}$ \\ 
+  GO:0031974 & membrane-enclosed lumen & 1171 & 123 & 59.7 & $8.10 \times 10^{-24}$ \\ 
+  GO:0043233 & organelle lumen & 1171 & 123 & 59.7 & $8.10 \times 10^{-24}$ \\ 
+  GO:0070013 & intracellular organelle lumen & 1171 & 123 & 59.7 & $8.10 \times 10^{-24}$ \\ 
+  GO:0005654 & nucleoplasm & 716 & 95 & 36.5 & $1.00 \times 10^{-23}$ \\ 
+  GO:0032991 & protein-containing complex & 1540 & 137 & 78.6 & $1.10 \times 10^{-20}$ \\ 
+  GO:0070062 & extracellular exosome & 886 & 101 & 45.2 & $3.10 \times 10^{-20}$ \\ 
+  GO:0043230 & extracellular organelle & 896 & 101 & 45.7 & $7.80 \times 10^{-20}$ \\ 
+  GO:1903561 & extracellular vesicle & 896 & 101 & 45.7 & $7.80 \times 10^{-20}$ \\ 
+  GO:0043232 & intracellular non-membrane-bounded organ... & 1252 & 120 & 63.9 & $6.20 \times 10^{-19}$ \\ 
+  GO:0005615 & extracellular space & 969 & 104 & 49.4 & $6.30 \times 10^{-19}$ \\ 
+  GO:0043228 & non-membrane-bounded organelle & 1260 & 120 & 64.3 & $1.10 \times 10^{-18}$ \\ 
+  GO:0044421 & extracellular region part & 1007 & 104 & 51.4 & $1.50 \times 10^{-17}$ \\ 
+  GO:0005576 & extracellular region & 1089 & 108 & 55.6 & $4.00 \times 10^{-17}$ \\ 
+  GO:0005925 & focal adhesion & 237 & 46 & 12.1 & $1.20 \times 10^{-16}$ \\ 
+  GO:0005924 & cell-substrate adherens junction & 238 & 46 & 12.1 & $1.40 \times 10^{-16}$ \\ 
+  GO:0030055 & cell-substrate junction & 241 & 46 & 12.3 & $2.30 \times 10^{-16}$ \\ 
+   \hline
+\end{tabular}
+\caption{173 eigenvector 0.95centile  CC background PSP.} 
+\label{tab:173 eigenvector 0.95centile  CC background PSP.}
+\end{table}
+
 
 \section{Markov clustering}
 \label{sec:markov clustering}
@@ -902,7 +1683,7 @@ Markov clustering is used in the paper by Barabasis group \cite{ghiassian2015dis
 Markov clustering was carried out using the markov clustering python package (\url{https://markov-clustering.readthedocs.io/en/latest/readme.html}) and default hyper parameters. The network was imported into network x as a named edgelist (name is entrez id) and converted to a sparse scipy matrix. Markov clustering was then carried out.
 
 \subsection{Results}
-
+methods4.3.1 
 604 communities were detected. Only 32 were of size greater than or equal to 15.
 196 nodes were of size 1 and 124 of size 2.
 

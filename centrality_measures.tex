@@ -45,7 +45,8 @@ In addition to community structure which we will examine in chapter~\ref{chap:co
 
 \subsubsection{Results of correlation analysis}
 The vertex measures are correlated with one another apart from transitivity and range from 0.89 (eigenvector centrality and degree) to 0.33 (betweenness centrality and closeness centrality) (\textcolor{red}{see supplementary table 6} \todo{table}).
-There is a weak negative ($\rho \approx 0.2$) correlation between the degree of selection pressure a gene is under and all measures of vertex importance except for transitivity (\textcolor{red}{see table 7 supplemental material} \todo{table}).
+There is a weak negative ($\rho \approx 0.2$) correlation between 
+the degree of selection pressure a gene is under and all measures of vertex importance except for transitivity (\textcolor{red}{see table 7 supplemental material} \todo{table}).
 Although nodes of high importance or local clustering do have distinct properties, for example nodes with degree $> 50$ are enriched in association for the biological process (GO:1903350)‚ ”intracellular response to dopamine‚” (FDR P= 2.10 $\times 10^{-4}$ fold change 22.37), we find no correlation with these measures and genetic association with educational attainment or intelligence. 
 \textcolor{green}{DRAFT -something like This is not because nodes of high degree or other centrality measure do not share common attributes, for example nodes with degree $>50$ are disproportionately found in BP intracellular dopamine but we find no association between these measures and educational attainment or intelligence}
 
@@ -71,7 +72,15 @@ An example of a property of an individual node is its degree: the number of conn
 \cite{parikshak2015systems} quotes the example of cardiac PPI to investigaste long QT in \cite{lundby2014annotation}
 
 \section{Other centrality measures}
-Other vertex measures include eigenvector centrality, a measure of the importance of the node that includes the degree of its neighbours. \cite{bonacich1987power}  Some nodes are bottlenecks in the network. If a large number of the shortest (geodesic) paths pass through a node it is a potential bottleneck and its removal can disrupt the integrity of the network. The measure of a nodes propensity to be a bottleneck is the betweenness centrality. \cite{freeman1977set}  
+Other vertex measures include eigenvector centrality, a measure of the importance of the node that includes the degree of its neighbours. \cite{bonacich1987power}  Some nodes are bottlenecks in the network. If a large number of the shortest (geodesic) paths pass through a node it is a potential bottleneck and its removal can disrupt the integrity of the network. The measure of a nodes propensity to be a bottleneck is the betweenness centrality. \cite{freeman1977set} 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_pairs_plot.png}
+    \caption{Scatter plot of centrality measures. Source \url{source('~/RProjects/correlation_gene_scores/R/make_df_graph_stats_correlation_lowdeg_high_bet.R')}}
+    \label{fig:scatter plot of multiple centrality measures}
+\end{figure}
+
 \textcolor{red}{Stop move}
 \section{Degree}
 \label{sec:degree}
@@ -87,8 +96,9 @@ k_i = \sum_j \mathbf{A}_{i,j}.
 
  Nodes with high degree may have more influence in a graph and are often referred to as hubs. Note however there are two senses in which the term hubs may be used (see p 168 Newman book\cite{newman2018networks}).  In a social network  individuals with a large number of contacts will have high degree and hence be influential in the network. In a protein protein interaction network high degree proteins will have numerous interactions and one would hypothesise play an important part in the network. 
  
- Disruption of high degree notde leads to disproportionate effects upon a network \todo{cite Jeong and also cite attack tolerance}
+ Disruption of high degree notde leads to disproportionate effects upon a network \cite{jeong2001lethality} \todo{cite Jeong and also cite attack tolerance}
 \todo{Sort out removed citations because of undefined control}
+\todo{also include evidence against yeast thing from dominating sets paper}
 
 \subsection{Degree distribution}
 \label{sec:degree distribution}
@@ -483,7 +493,7 @@ S = 3670800000, p-value $< 2.2 \times 10^{-16}$
 
 Spearmans rho calculated as graph not linear throughout relationship see fig~\ref{fig:transitivity}.
 
-The global undirected transitivity of the PSP network is 0.0697. This is similar to the value reported in p305 Newman \cite{newman2018networks} for metabolic networks (0.090) and PPI (0.072)\todo{check both different global formulae in Newman}.
+The global undirected transitivity of the PSP network is 0.0697. This is similar to the value reported in p305 Newman \cite{newman2018networks} for metabolic networks (0.090) and PPI (0.072)\todo{check both different global formRplotulae in Newman}.
 
 The expected value of the global clustering coefficient with a given degree distribution connected randomly \cite{newman2018networks} p332 is:
 \begin{equation}
@@ -533,7 +543,7 @@ Ozgur \cite{ozgur2008identifying} developed a curated gene interaction network a
 
 Estrada \cite{estrada2006virtual} used centrality meassures to assess essentialness in the yeast protein interaction network (degree centrlity, eigenvector centrality, information centrality, closeness centrality, betweenness centrality and subgraph centrality. They found that high centrality measures predicted essentialness better than random selection and  the best results were obtained using eigenvector centrality and the poorest using closeness and betweenness centrality. 
 
-Joy found that nodes with high betweenness and low degree centrality were particularly abundant.\cite{joy2005high}
+Joy found that nodes with high betweenness and low degree centrality were particularly abundant.\cite{joy2005high} (this does not seem to be the case in our data see \url{lm_1 <- lm_1 <- lm(ZSTAT ~  eig*scale_bet*I(1/scale_deg),data=ukbb_int_df2)}
 
 Pandey analysed GWAS results for bipolar disorder using eigenvector centrality \cite{pandey2012epistasis}. They used the WTCCC-BD GWAS (1868 cases and 2938 controls) as a discovery sample and  a NIMH GWAS (1001 cases; n=1033 controls) of individual of european ancestry as replication. Having constructed an epistasis network they used eigenvector centrality to rank the 1000 nodes in the SNP epistasis network and then assessed what pathways were enriched for the ranked SNPs. The analysis is limited by the lack of power provided by the sample size available.
 
@@ -620,6 +630,9 @@ degree & 1.000 & 0.902 & 0.196 & 0.851 & 0.986 \\
 
 All of the centrality measures are correlated with each other other except transitivity and betweenness centrality  (table~\ref{tab:Correlation between vertex centrality measures for PSP. Spearman's rho}). Transitivity is most weakly correlated with other measures. Code \footnote{\url{source('~/RProjects/paper_xls_output/R/make_df_correlation_between_centrality_measures.R')}}
 \todo{move comparison here}
+
+
+
 See \cite{oldham2019consistency} for correlation across networks. See table~\ref{tab:Correlation of centrality valente et al}
 
 \section{Cohorts and samples}
@@ -628,10 +641,12 @@ See \cite{oldham2019consistency} for correlation across networks. See table~\ref
 The population data used to test the association of centrality measures with population studies of educationbal attainment and intelligence were those described in sections~\ref{sec:cohorts from paper section} and \ref{sec:samples from paper section}
 
 \section{Assortativity}
+
+Assortativity is a measure of how likely nodes with similar properties are to be connected. \cite{newman2002assortative} by either scalar or categorical vertex properties. The most commonly studied scalar property is degree association. Assortative networks tend to form communities and are more robust to disruption by node removal  \cite{newman2002assortative} and increased assortativity leads to increased speed of transmission of information through a graph \cite{noldus2015assortativity}. \todo{plot of knng and deg at \url{source('~/RProjects/correlation_gene_scores/R/make_df_graph_stats_correlation_lowdeg_high_bet.R')}} although there seems to be a very weak correlation between knn and z score. 
 \subsection{Degree assortativity}
 \label{sec:degree assortativity}
 \subsubsection{Introduction Degree assortativity}
-Explain assortativity
+The degree assortativity is the Pearson correlation between degree for connected vertices.\cite{noldus2015assortativity} Explain assortativity
 Newman p 208
 Equation assortativity
 
@@ -1105,7 +1120,7 @@ If we simulate mean distance using a degree sequence model we get no distance $<
 \subsection{Bridging}
 
 \cite{valente2010bridging}
-\section{Measures of vertex importance}
+\section{Measures of vertex importance and intelligence:Methods}
 \label{sec:Measurs of vertex importance from paper}
 \todo{Move this to importance}
 To test the hypothesis that genes encoding proteins with an important role in the structure of the PSP network were more likely to be associated with genetic variants associated with differences in intelligence or educational attainment (such as hubs), we calculated node degree, and four other measures of vertex importance: eigenvector centrality, betweenness centrality, closeness centrality and transitivity for each graph vertex (gene) using igraph. \cite{csardi2006igraph} \textcolor{red}{we need to say what all of these are before we start talking about them}\footnote{something like we will first of all need to introduce in general terms these measures and how they were calculated. in general also want to move more of this chapter into methods and results}. There was no correlation between any of these measures of vertex importance and their gene association analysis gene level statistics calculated using MAGMA (Spearman’s $\rho$ calculated with R) for genes in the post synaptic proteome graph. The results are presented in table 1\todo{table}. The complete vertex statistics for each PSP gene can be found in the supplementary material. 
