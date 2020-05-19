@@ -471,9 +471,33 @@ Ca and neurodegenerative
 Low closeness centrality transporter activity, seizures in human phenotype, receptor activation, disease top five all epilepsies. 
 \section{Transitivity}
 
-The probability the two neighbours of a node in a network are connected is its transitivity or clustering coefficient.\cite{newman2018networks}
+The transitivity of a network measures the extent to which if two nodes each connected to another node they will be in turn connected. In more colloquial terms if Alice and Bob are both friends with Susan how likely are Alice and Bob to be friends. The clustering coefficient measures the number of these connections called closed triads occurring in a network 
+divided by the possible number that could occur.
 
-Transitivity is calculated locally and globally. The local tranisitivity has been calculated in igraph for R for a histogram of values see figure~\ref{fig:transitivity}. The local clustering coefficient has been calculated using graph tool. The measure of local clustering coefficient follows \todo{Citation error}cite(watts1998collective) and is defined as a vertex having $k_v$ neighbours 
+Transitivity can be calculated for the network as a whole or for individual nodes. This global transitivity is often called the clustering coefficient. 
+
+A triangle of vertices,  all connected to each other, forming a loop is  a \textit{closed triad} \cite{newman2018networks}. It is also a path of length two (as paths must have distinct edges. The possible triads that could be formed by the addition of an edge are all paths of length two so the transitivity is:
+\begin{equation}
+    C = \frac{\textrm{number of closed paths of length two}}{\textrm{number of paths of length 2}}
+\end{equation}
+
+Since there are six paths that can be present in a closed triad (as we count each direction the path can take in an undirected network eg $ab$ and $ba$ are distinct the transitivity is:
+
+\begin{equation}
+    C = \frac{6 \times \textrm{number of triangles}}{\textrm{number of paths of length 2}}
+\end{equation}
+
+Using connected triple to refer to any connected three vertices (whether they form a loop or not) the transitivity can then be expressed as.
+
+\begin{equation}
+    C = \frac{6 \times \textrm{number of triangles}}{2 \times \textrm{number of connected triples}}
+\end{equation}
+The probability the two neighbours of a node in a network are connected is thus its transitivity or clustering coefficient.\cite{newman2018networks}. 
+
+\subsection{Local clustering coefficient}
+
+Local transitivity (also known as the local clustering coefficient) is defined as  follows \todo{Citation error}cite(watts1998collective) for a vertex having $k_v$ neighbours 
+
 \begin{equation}
 C = \frac{c_n}{c_{max}}
 \end{equation}
@@ -483,7 +507,14 @@ where $c_n$ is the number of connections between a vertexes neighbours and $c_{m
 c_{max} = \frac{k_v(1-k_v)}{2}
 \end{equation}
 
-The correlation of the log10 transform of the degree and local\_clustering is 
+The global clustering as defined by Watts and Strogatz as the arithmetic mean of the vertex local clustering coefficients is 0.156.\cite{watts1998collective} this is the value if you set NA ie degree 1 to 0 and 0.171 is the value using NA.rm see above section. 
+
+The expected value of local clustering given a random rewiring with fixed degree distribution is 0.07479691 sd (0.00183) removing NA and 0.068 setting NA to 0 (100 iterations) and 0.0682 seeting NA to zero with sd 0.00181 \footnote{Code  \url{source('~/RProjects/centrality/R/transitivity/calculate_local_transitivity_and_simulate_mean.R')} }
+
+Calculations of local transitivity were carried out using the transitivity method in igraph with the argument type being global undirected. Local transitivity was carried out using transitivity with the type being local transitivity is not defined for nodes of degree 0 so as an alternate to NA ther argument isolates="zero" was used. 
+Transitivity is calculated locally and globally. The local tranisitivity has been calculated in igraph for R for a histogram of values see figure~\ref{fig:transitivity}. The local clustering coefficient has been calculated using graph tool. 
+
+The correlation of the of the degree and local\_clustering (isolates set to 0)  is 
 	Spearman's rank correlation rho
 
 %data:  clustering_sub\$log_clustering and clustering_sub\$log_degree
@@ -493,7 +524,20 @@ S = 3670800000, p-value $< 2.2 \times 10^{-16}$
 
 Spearmans rho calculated as graph not linear throughout relationship see fig~\ref{fig:transitivity}.
 
-The global undirected transitivity of the PSP network is 0.0697. This is similar to the value reported in p305 Newman \cite{newman2018networks} for metabolic networks (0.090) and PPI (0.072)\todo{check both different global formRplotulae in Newman}.
+\textcolor{red}{The literature records a degrees in the average value of the clustering coefficient with increasing $k$. This has been done mostly for large networks such as the internet \cite{newman2018networks} p 335. If we plot the degree and clustering coefficient there appears to be a negative correlation. The degree is not normally distributed so we have calculated Spearman's rank correlation. The transitivity with isolates set to NA and NA removed from the correlation is 0.196 p $< 2.2 \times 10^{-16}$. With the option of setting isolates to 0 the correlation is higher with $\rho$=0.375. This is however due to the large number of nodes of degree 1 (hence transitivity 0) and the low transitivity of degree two nodes. For degree greater than or equal to 2 the transitivity is 0.196. Greater or equal to 3 0.056 with p=0.0024 and equal to or greater than 5 rho is -0.085 with p= 3.02 $\times 10^{-15}$. If we plot the minimum degree to calculate the correlation and plot
+this against rho calculated at that degree we can see the pattern clearly (figure~\ref{fig:Plot of minumum degree included in the calculation of Spearmans rank correlation between degree and rho}. The plot is truncated a degree 450 as after this point there are only two data points .
+This relationship between $k$ and the transitivity $C$ therefore probably holds true in large networks (such as the internet where the studies were performed) where the number of nodes of low degree is dominated by the number of high degree (in this case $>=5$ nodes). Median node degree is 8, 5 corresponds to the 0.369 quantile}.
+
+code \url{source('~/RProjects/centrality/R/transitivity/calculate_correlation_min_transitivity_and_plot.R', echo=TRUE)}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot01_min_degree_transitivity.png}
+    \caption{Plot of minumum degree included in the calculation of Spearmans rank correlation between degree and $\rho$. Although the overall coefficient is positive the correlation for nodes above degree 5 are clearly negative and this becomes more apparent at high degree. This relationship is therefore complex and the typical relationship described in the literature may only hold for the large networks in which this relationship has been studies such as the internet. }
+    \label{fig:Plot of minumum degree included in the calculation of Spearmans rank correlation between degree and rho}
+\end{figure}
+
+The global undirected transitivity of the PSP network is 0.0697. This is similar to the value reported in p305 Newman \cite{newman2018networks} for metabolic networks (0.090) and PPI (0.072)\todo{check both different global formRplotulae in Newman}.\todo{describe method}
 
 The expected value of the global clustering coefficient with a given degree distribution connected randomly \cite{newman2018networks} p332 is:
 \begin{equation}
@@ -509,9 +553,7 @@ Local clustering coefficient tends to be inversely proportional to degree. It is
 
 Mean local transitivity is 0.171. The distribution is right skewed with median of 0.129 and 3rd quartile of 0.23 and first quartile of 0.043. This does not match the arithmetic mean of vertex local clustering below it may be down to how we deal with NA. Above calculated as NA.rm
 
-The global clustering as defined by Watts and Strogatz as the arithmetic mean of the vertex local clustering coefficients is 0.156.\cite{watts1998collective} this is the value if you set NA ie degree 1 to 0 and 0.171 is the value using NA.rm see above section. 
 
-The expected value of local clustering given a random rewiring with fixed degree distribution is 0.07479691 sd (0.00183) removing NA and 0.068 setting NA to 0 (100 iterations) and 0.0682 seeting NA to zero with sd 0.00181 \footnote{Code  \url{source('~/RProjects/centrality/R/transitivity/calculate_local_transitivity_and_simulate_mean.R')} }
 
 \subsection{kcoreness}
 
