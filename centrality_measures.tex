@@ -511,8 +511,8 @@ The global clustering as defined by Watts and Strogatz as the arithmetic mean of
 
 The expected value of local clustering given a random rewiring with fixed degree distribution is 0.07479691 sd (0.00183) removing NA and 0.068 setting NA to 0 (100 iterations) and 0.0682 seeting NA to zero with sd 0.00181 \footnote{Code  \url{source('~/RProjects/centrality/R/transitivity/calculate_local_transitivity_and_simulate_mean.R')} }
 
-Calculations of local transitivity were carried out using the transitivity method in igraph with the argument type being global undirected. Local transitivity was carried out using transitivity with the type being local transitivity is not defined for nodes of degree 0 so as an alternate to NA ther argument isolates="zero" was used. 
-Transitivity is calculated locally and globally. The local tranisitivity has been calculated in igraph for R for a histogram of values see figure~\ref{fig:transitivity}. The local clustering coefficient has been calculated using graph tool. 
+Calculations of local transitivity were carried out using the transitivity method in igraph with the argument type being global undirected. Local transitivity was carried out using transitivity with the type being local transitivity is not defined for nodes of degree 0 so as an alternate to NA the argument isolates="zero" was used. 
+Transitivity is calculated locally and globally. The local transitivity has been calculated in igraph for R for a histogram of values see figure~\ref{fig:transitivity}. The local clustering coefficient has been calculated using graph tool. 
 
 The correlation of the of the degree and local\_clustering (isolates set to 0)  is 
 	Spearman's rank correlation rho
@@ -522,14 +522,19 @@ S = 3670800000, p-value $< 2.2 \times 10^{-16}$
       rho= 
 -0.373025 
 
-Spearmans rho calculated as graph not linear throughout relationship see fig~\ref{fig:transitivity}.
+Spearman's rho calculated as graph not linear throughout relationship see fig~\ref{fig:transitivity}.
 
 \textcolor{red}{The literature records a degrees in the average value of the clustering coefficient with increasing $k$. This has been done mostly for large networks such as the internet \cite{newman2018networks} p 335. If we plot the degree and clustering coefficient there appears to be a negative correlation (figure~\ref{fig:Scatter plot of the relationship between degree and local transitivity for the PSP nodes}). The degree is not normally distributed so we have calculated Spearman's rank correlation. The transitivity with isolates set to NA and NA removed from the correlation is 0.196 p $< 2.2 \times 10^{-16}$. With the option of setting isolates to 0 the correlation is higher with $\rho$=0.375. This is however due to the large number of nodes of degree 1 (hence transitivity 0) and the low transitivity of degree two nodes. For degree greater than or equal to 2 the transitivity is 0.196. Greater or equal to 3 0.056 with p=0.0024 and equal to or greater than 5 rho is -0.085 with p= 3.02 $\times 10^{-15}$. If we plot the minimum degree to calculate the correlation and plot
 this against rho calculated at that degree we can see the pattern clearly (figure~\ref{fig:Plot of minumum degree included in the calculation of Spearmans rank correlation between degree and rho}. The plot is truncated a degree 450 as after this point there are only two data points .
 This relationship between $k$ and the transitivity $C$ therefore probably holds true in large networks (such as the internet where the studies were performed) where the number of nodes of low degree is dominated by the number of high degree (in this case $>=5$ nodes). Median node degree is 8, 5 corresponds to the 0.369 quantile}.
 
-code \url{source('~/RProjects/centrality/R/transitivity/calculate_correlation_min_transitivity_and_plot.R', echo=TRUE)}
+Reviewing the previous literature on the correlation between degree and local clustering Ravasz and Barabasi in a highly cited work \cite{ravasz2002hierarchical} review a generative model of high clustering coefficient and scale free degree distribution and real world networks. The real world networks include the actor network 392340 nodes, the language network based on synonyms in Merriams English dictionary 182853 nodes, the world wide web from mapping out from the \url{www.nd.edu} domain with 325729 nodes, the internet at the router level 260657 nodes and the power grid of the Western United states 4941 nodes 13188 edges.
 
+These networks are all large and in the logarithmic graphs of clustering coefficient and degree the minumum degree starts around 10. It is interesting to note in figure 4 showing the internet at router level and power network there are lower degree nodes but the slope of the line representing the correlation coefficient si dominated by the effect of high degree nodes and the distribution of clustering coefficient in the lower degree domain is quite different. These matters may seem small as for large degree the overall pattern holds but it is a useful practical fact to be aware of if we are testing the association of clustering coefficient with another variable in smaller networks such as the PSP which is not readily apparent from the literature.
+
+
+code \url{source('~/RProjects/centrality/R/transitivity/calculate_correlation_min_transitivity_and_plot.R', echo=TRUE)}
+\c
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{images/Rplot02_degree_and_transitivity-change_alpha.png}
@@ -1365,15 +1370,15 @@ High degree nodes are associated with specific phenotypes and specific gene onto
 
 We use data from the Exac project to further investigate whether high importance nodes were subject to selection pressure such that they proved more intolerant of non synonymous genetic changes. Nodes with high degree are associated with an increased probability of being intolerant to changes. 
 
-Nodes with high betweeness centrality were involved in neurodegenerative disorders including Parkinson's disease see section~\ref{sec:Betweeness centrality}. They were also associated with severe phenotypes in murine models including phenotypes incompatibly with viability. Low betweenness centrality was associated with abnormalities in synaptic transmission in murine models. 
+Nodes with high betweenness centrality were involved in neuro-degenerative disorders including Parkinson's disease see section~\ref{sec:Betweeness centrality}. They were also associated with severe phenotypes in murine models including phenotypes incompatibly with viability. Low betweenness centrality was associated with abnormalities in synaptic transmission in murine models. 
 
 High eigenvector centrality is again associated with severe murine phenotypes and enrichment for RNA and cadherin binding. Disease enrichment is of neoplasms and neurodegenerative disorders. 
 
-Low eigenvector centrality (10\%) were enriched for human phenotypes of seizures and ontology terms of transmitter, mouse phenotype was of abnormal synaptic tramsission. The top five enriched disorders in disGeNET were seizure related. 
+Low eigenvector centrality (10\%) were enriched for human phenotypes of seizures and ontology terms of transmitter, mouse phenotype was of abnormal synaptic transmission. The top five enriched disorders in disGeNET were seizure related. 
 
 Despite this there was no association between node centrality measures and the significance of genetic variants for differences in intelligence and educational attainment.
 
-There is a complex relationship between transitivity and degree for nodes with degree 3 or less the correlation is positive and results in a positive overall correlation despite a plot of the relationship appearing clearly negative. This is due to the large number of low degree nodes. When the correlation is calculated for higher degree the relationship previously commented upon in the literature \cite{newman} p 335 is seen. Caution should therefore be used in determining linear corrleations involving transitivity especially in smaller networks and it may be prudent to plot the correlation against minumum degree.
+There is a complex relationship between transitivity and degree for nodes with degree 3 or less the correlation is positive and results in a positive overall correlation despite a plot of the relationship appearing clearly negative. This is due to the large number of low degree nodes. When the correlation is calculated for higher degree the relationship previously commented upon in the literature \cite{newman} p 335 is seen. Caution should therefore be used in determining linear correlations involving transitivity especially in smaller networks and it may be prudent to plot the correlation against minimum degree.
 
 
  
