@@ -263,7 +263,7 @@ $\mathbf{B}$ is the modularity matrix which is n by n having elements $B_{i,j}$
 \section{Simple example of spectral graph partitioning}
 \label{sec:simple example of spectral graph partitioning}
 
-Using the first eigenvector of the modularity matrix results in a partition with modularity 0.21. The distribution of the first four eigenvectors can be seen in figure~\ref{fig:simple example of spectral clustering}.
+Using the first eigenvector of the modularity matrix results in a partition with modularity 0.21. The distribution of the first four eigenvectors can be seen in figure~\ref{fig:simple example of spectral clustering}.\todo{?remove size for fourth}
 
 Gene ontology analysis shows that the groups are quite different one of 1111 members linked to mRNA processing and biosynthesis see tables~\ref{tab:1111 group generated from sign of first eigenvector of modularity matrix. Biological function} compared with the genome and \ref{tab:1111 group generated from sign of first eigenvector of modularity matrix background PSP. Biological function. Alpha = 5.22520639565263e-06} compared with the rest of the PSP. The other group is of 2346 genes linked to trans-synaptic signalling see tables~\ref{tab:2346 group generated from sign of first eigenvector of modularity matrix. Biological function} and with background of PSP genes ~\ref{tab:2346 group generated from sign of first eigenvector of modularity matrix background PSP. Biological function. Alpha = 5.22520639565263e-06}
 \begin{figure}
@@ -407,6 +407,31 @@ GO:0034641 & cellular nitrogen compound metabolic pro... & 1208 & 621 & 393.5 & 
 \caption{1111 group generated from sign of first eigenvector of modularity matrix background PSP. Biological function. Alpha = 5.22520639565263e-06} 
 \label{tab:1111 group generated from sign of first eigenvector of modularity matrix background PSP. Biological function. Alpha = 5.22520639565263e-06}
 \end{table}
+
+\section{Spin glass clustering notes}
+
+Spin glass clustering works by minimising the energy of a Potts spin glass model where the spin state represents the community detected and the optimisation is the lowest energy state of the Potts model. \cite{reichardt2006statistical}. There exists a parameter for the importance of edges that are present and absent and the number of spins supplied to the algorithm will limit the number of communities detected (communities can only be found in vacant spin states).
+
+The algorithm gives rise to communities showing good gene ontology enrichment and modularity but this thesis is aimed at showing the utility of network analysis in complex traits. The number of tun-able parameters means there is a trade off between optimising clustering and penalties for multiple testing. The algorithm is powerful and can deal with overlapping communities and hierarchical structure and its use in the analysis of biological networks is likely to be a productive area of study however it greatly exedes the scope of this thesis and perhaps is best pursued by one with an intuitive understanding of statistical mechanics. In addition we did not have at that time extensive experience in its implementation within the group which was not the case with other algorithms \todo{rephrase or remove this bit. It is true - if you look at a lot of the stuff on spin glasses they are very theoretic and there are less practical uses of them or discussions of their performance on benchmarks etc - to the best of my knowledge but this is a paper cited > 1500 times. The bit about experience within the group is true too but I don't know if that is the sort of thing you write out}.
+
+However Lancichinetti \cite{lancichinetti2009community} found the best performing the best performing algorithm on the LFT benchmark to be infomap but also felt that Louvain spin glass (RN) as implemented by Ronhovde \cite{ronhovde2009multiresolution} was effective. 
+
+However see p 34
+
+" So, by calculating the similarity S($\gamma$) of partitions found by the method at a given resolution parameter $\gamma$ (for different choices of initial conditions and
+random seeds), stable communities are revealed by peaks
+of S($\gamma$) (Ronhovde and Nussinov, 2009). Since clustering in large graphs can be very noisy, peaks may not be
+well resolved. Noise can be reduced by working with consensus partitions of the individual partitions returned by
+the method for a given $\gamma$ (Section IV.B). These manipulations are computationally costly, though. Besides, multiresolution techniques may miss relevant cluster sizes, as
+it happens for multi-resolution modularity (Lancichinetti
+et al., 2011) (Section IV.F).
+"
+in Fortunato \cite{fortunato2016community} and it does not provide an implmentation of this in the software section although it does point out the igraph spin glass method from riechard and bornholdt \cite{reichardt2006statistical}.
+
+It is interesting to note that neither Barabasi \cite{barabasi2016network} or Newman \cite{newman2018networks} mention spinglass clustering despite the extensive coverage of community detection (and that both authors are physicists).
+
+The extensive recent review by Fortunato \cite{fortunato2016community} mentions its availabilty as part of the igraph package.  \cite{reichardt2006statistical} also use non integer values of gamma in their illustration of finding communities in the Los Alamos publications data set ($\gamma=$2.2)
+
 
 
 \section{Centrality measures}
