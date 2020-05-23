@@ -125,79 +125,7 @@ where $\gamma$ is the degree exponent \cite{barabasi2016network}
 
 Rare \cite{broido2019scale}
 
-\subsubsection{Methods scale free property}
-\todo{define the method of Clauset and Newman}
-\todo{intro to scale free}
-We can calculate the $\gamma$ coefficient for the degree distribution using the \texttt{poweRlaw} package for R. The value of $\gamma$ will vary over the distribution depending on the lower limit of degree used to fit the power law distribution. This is shown graphically in figure \ref{fig:gamma} and table \ref{table:gamma}.
 
-Using the method described by \cite{clauset2009power} and calculating the minimum x value we find the min for $x$ to be 24 and the $\gamma$ coefficient to be 2.51 using the poweRlaw R package \cite{gillespie2015fitting}. The log of the degree distribution is shown in figure \ref{fig:log_degree_distribution} and figure \ref{fig:Degree distribution of post synaptic proteome. Log10 - log10 scale.}
-% see http://127.0.0.1:21133/library/poweRlaw/doc/a_introduction.pdf
-\footnote{code at \url{/home/grant/RProjects/PhD_graphs/}}
-
-% \begin{figure}
-%   \includegraphics[width=\linewidth]{./dependence_of_scale_coefficient_on_min_degree.png}
-%   \caption{The parameter $\gamma$ as a function of the degree at which calculation of the coefficient starts in the degree sequence(e.g. all degree $>5$) from \url{RProjects/PhDGraphs/calculate/gamma}} 
-%   \label{fig:gamma}
-% \end{figure}
-
-% \begin{figure}
-%   \includegraphics[width=\linewidth]{plot_log_degree_distribution.png}
-%   \caption{The plot of log cumulative cdf of degree distribution log 10 scale x and y}
-%   \label{fig:log_degree_distribution}
-% \end{figure}
-
-
-\begin{figure}
-    \centering
-    \begin{subfigure}[t]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{images/dependence_of_scale_coefficient_on_min_degree.png} 
-        \caption{The parameter $\gamma$ as a function of the degree at which calculation of the coefficient starts in the degree sequence(e.g. all degree $>5$) from \url{RProjects/PhDGraphs/calculate/gamma}} \label{fig:gamma}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{images/plot_log_degree_distribution.png} 
-        \caption{The plot of log cumulative cdf of degree distribution log 10 scale x and y} \label{fig:log_degree_distribution}
-    \end{subfigure}
-    \caption{Plots of degree distribution \textcolor{red}{may want to do this in subfigure packages rather than subcaption to line up edges}}
-\end{figure}
-% latex table generated in R 3.4.4 by xtable 1.8-4 package
-% Sat Oct  5 16:31:0\begin{document}
-
-\begin{table}[ht]
-\centering
-\begin{tabular}{lr}
-  \hline
-  from degree $k$ & coefficient $\gamma$ \\ 
-  \hline
-1 & 1.38 \\ 
-  5 & 1.81 \\ 
-  10 & 2.10 \\ 
-  15 & 2.30 \\ 
-  20 & 2.43 \\ 
-  25 & 2.51 \\ 
-   30 & 2.52 \\ 
-  35 & 2.54 \\ 
-   40 & 2.54 \\ 
-   45 & 2.60 \\ 
-  50 & 2.63 \\ 
-   60 & 2.60 \\ 
-   70 & 2.72 \\ 
-   80 & 2.80 \\ 
-   90 & 2.90 \\ 
-   100 & 2.92 \\ 
-  150 & 2.88 \\ 
-   200 & 3.44 \\ 
-   250 & 3.90 \\ 
-  300 & 5.04 \\ 
-   350 & 5.51 \\ 
-   400 & 6.33 \\ 
-   \hline
-\end{tabular}
-\caption{The $\gamma$ as a function of the degree sequence start (e.g. all degree $>5$). from RProjects/PhDGraphs}
-  \label{table:gamma}
-\end{table}
 
 \section{Why be interested in centrality measures}
 \textcolor{red}{Start move}
@@ -213,6 +141,16 @@ An example of a property of an individual node is its degree: the number of conn
 See section~\ref{sec: intro_random_graphs}
 \todo{Comparison of degree to random graph with same p}
 
+\begin{equation}
+    <m> = \binom{n}{2}p
+\end{equation}
+
+
+\begin{equation}
+    c = (n-1)p
+\end{equation}
+where c is the mean degree see newman p 346
+
 Add a histogram here and the expected mean and quartiles.
 
 
@@ -220,20 +158,401 @@ Add a histogram here and the expected mean and quartiles.
 \label{sec:connected component and degree}
 Some structure can develop even in random graphs see~\ref{sec: intro_random_graphs}
 \todo{Change this as below subcritical, supercritical, fully connected} CHANGE this
-Subcritical to supercritical at $<k> >1$
+In a random graph there is a point at which scattered connected nodes combined to form a giant component. Subcritical to supercritical at $<k> >1$
 
 
 Supercritical to fully connected at $E[k] > \ln(N)$
 
 
-Where $N$ is the number of nodes in a network, a giant connected component develops in random graphs when $E[k] > \ln (N)$ \cite{barabasi2016network}. This tends to be the case in real world complex networks. The necessary requirement for a connected component to form is that mean degree is greater than $1/N$. The giant connected component arises in the super-critical' region (see \cite{barabasi2016network} p87). For the PSP $E[k]$ is 17.6 and $\ln(N)=\ln(3457)=8.14$. It is important to note however that the degree distribution for the PSP graph is not that of a random network ($P(k)$ is scale free it would also be unlikely to find many nodes $ 3 \times E[k]$, if it were there would be few nodes with degree 2 and we find some nodes disconnected from the connected component in our empirical model \todo{so what?}. \todo{cross ref to missing nodes I think it is in the paper section so community detection} \todo{Add plot from \url{'~/RProjects/graph_analysis/R/transitiontoconnectederdosrenyi.R'} for transition from sub-critical to super-critical region} see section~\ref{sec: PSP graph connected component and missing} for missing components.
+Where $N$ is the number of nodes in a network, a giant connected component develops in random graphs when $E[k] > \ln (N)$ \cite{barabasi2016network}. This tends to be the case in real world complex networks. The necessary requirement for a connected component to form is that mean degree is greater than $1/N$. The giant connected component arises in the super-critical' region (see \cite{barabasi2016network} p87). For the PSP $E[k]$ is 17.6 and $\ln(N)=\ln(3457)=8.14$. \todo{this does not follow} It is important to note however that the degree distribution for the PSP graph is not that of a random network ($P(k)$ is scale free it would also be unlikely to find many nodes $ 3 \times E[k]$, if it were there would be few nodes with degree 2 and we find some nodes disconnected from the connected component in our empirical model \todo{so what?}. \todo{cross ref to missing nodes I think it is in the paper section so community detection} \todo{Add plot from \url{'~/RProjects/graph_analysis/R/transitiontoconnectederdosrenyi.R'} for transition from sub-critical to super-critical region} see section~\ref{sec: PSP graph connected component and missing} for missing components.
 
 
 \subsection{Degree and intelligence in PSP}
 We will see what the correlation is in population cohorts and what we might expect it to be given the effects of high degree genes in model animals. 
 \todo{This is perhaps the bit to introduce the possible different hypothesise}
 
-\subsection{The characterisation of high degree nodes}
+
+\subsection{Betweenness}
+\label{sec:Betweeness centrality}
+Described by Freeman \cite{freeman1977set} betweenness centrality is a measure of information flow through a node and the importance of a node as a component of paths through the network. 
+
+Betweenness centrality measures the number of shortest (geodesic) paths through a node. Following Newman if $n_{st}^i$ is one if a shortest path between nodes $s$ and $t$ pass through node $i$ and $g_{st}$ is the number of shortest paths between $s$ and $t$ then the betweenness centrality of node $i$ is
+
+\begin{equation}
+    x_i = \sum_{st} \frac{n_{st}^i}{g_{st}}
+\end{equation}
+\label{eq: Betweenness centrality}
+
+from Newman \cite{newman2018networks} p172. 
+ \todo{normalised betweenness centrality}
+ \todo{edge centrality}
+ 
+\subsubsection{Edge betweenness}
+
+
+
+
+
+
+\section{Eigenvector centrality}
+
+Eigenvector centrality proposed by Bonacich \cite{bonacich1972factoring} expands on degree centrality by not considering all of the edges of a vertex equal. If a vertex is linked to a highly important node this link should be given greater importance. Eigenvector centrality therefore incorporates the importance of the neighbours of a vertex.
+
+Here I follow Newman \cite{newman2018networks}. From the above we define a nodes importance as the sum of the importance of its neighbours.
+
+\begin{equation}
+    x_i = K^{-1} \sum_j x_j
+\end{equation}
+
+Where $K$ is a constant of proportionality. This can be written using the adjacency matrix as
+
+\begin{equation}
+    x_i = K^{-1} \sum_j A_{ij} x_j
+\end{equation}
+
+Where $\sum_j x_j$ includes the importance of all nodes but selects only the neighbours of $x_i$ because of the adjacency matrix (otherwise the entry will be 0).
+
+In matrix form:
+\begin{equation}
+    \mathbf{x}=K^{-1}\mathbf{Ax}
+    \end{equation}
+    
+    \begin{equation}
+         k\mathbf{x}=\mathbf{Ax}
+    \end{equation}
+  
+  Replacing $k$ with $\lambda$ shows more clearly this to be an eigenvector problem. The eigenvector will have as its $i$th entry the importance of the $i$th node. As all centralities should be positive the appropriate eigenvector is the one associated with the largest eigenvalue by the Perron-Froebenius theorem. 
+  
+  Eigenvector centrality is implemented in igraph for R by the \texttt{eigen\_centrality} function taking the graph as the argument. The values of the eigenvector centrality are not strict measures and we care only for the order of eigenvector centraliy. They can however be normalised. 
+  
+ \section{Related measures}
+\cite{bonacich1987power}
+Nodes are important if their neighbours are important 
+
+Katz centrality has a parameter (alpha)
+    
+Alpha centrality and bonacich centrality have parameters (bonacich is alpha with alpha preset per bonacich). Bonacich is power\_centrality in igraph. Power centrality with preset is symmetrical around 0.  
+
+\todo{? add pagerank}
+
+\section{Closeness centrality}
+\label{sec:closenesscentrality}
+Alex Bevelas
+Closeness centrality is the inverse of the  average length of shortest path to and from other vertices in the graph \cite{freeman1978centrality}
+
+
+\section{Transitivity}
+
+The transitivity of a network measures the extent to which if two nodes each connected to another node they will be in turn connected. In more colloquial terms if Alice and Bob are both friends with Susan how likely are Alice and Bob to be friends. The clustering coefficient measures the number of these connections called closed triads occurring in a network 
+divided by the possible number that could occur.
+
+Transitivity can be calculated for the network as a whole or for individual nodes. This global transitivity is often called the clustering coefficient. 
+
+A triangle of vertices,  all connected to each other, forming a loop is  a \textit{closed triad} \cite{newman2018networks}. It is also a path of length two (as paths must have distinct edges. The possible triads that could be formed by the addition of an edge are all paths of length two so the transitivity is:
+\begin{equation}
+    C = \frac{\textrm{number of closed paths of length two}}{\textrm{number of paths of length 2}}
+\end{equation}
+
+Since there are six paths that can be present in a closed triad (as we count each direction the path can take in an undirected network eg $ab$ and $ba$ are distinct the transitivity is:
+
+\begin{equation}
+    C = \frac{6 \times \textrm{number of triangles}}{\textrm{number of paths of length 2}}
+\end{equation}
+
+Using connected triple to refer to any connected three vertices (whether they form a loop or not) the transitivity can then be expressed as.
+
+\begin{equation}
+    C = \frac{6 \times \textrm{number of triangles}}{2 \times \textrm{number of connected triples}}
+\end{equation}
+The probability the two neighbours of a node in a network are connected is thus its transitivity.\cite{newman2018networks}. 
+
+\subsubsection{Global clustering coefficient}
+
+The local transitivity defined below (section \ref{sec:local clustering coefficient} is used synonymously with clustering coefficient. The global clustering coefficient however defined by Watts and Strogatz as the arithmetic mean of the vertex local clustering coefficients
+
+\subsection{Local clustering coefficient}
+\label{sec:local clustering coefficient}
+Local transitivity (also known as the local clustering coefficient) is defined as  follows \todo{Citation error}cite(watts1998collective) for a vertex having $k_v$ neighbours 
+
+\begin{equation}
+C = \frac{c_n}{c_{max}}
+\end{equation}
+where $c_n$ is the number of connections between a vertexes neighbours and $c_{max}$ is defined as 
+
+\begin{equation}
+c_{max} = \frac{k_v(1-k_v)}{2}
+\end{equation}
+
+
+
+
+\subsection{kcoreness}
+
+A kcore of a graph is an induced subgraph of the main graph such that each vertex has degree of at least $k$. For a vertex its kcoreness is the maximal k core subgraph it is a member of (alternatively its shell index is $c$ if it belongs to the $c$ core but not the $c+1$ core. \cite{seidman1983network} (original description), \cite{alvarez2006large}. The kcore algorithm is useful in graph analysis as it runs in linear time. 
+
+\subsection{Average path length}
+\label{sec:Centrality intro average path length}
+
+\section{Assortativity and assortativity of measures}
+before editing
+Assortativity is a measure of how likely nodes with similar properties are to be connected. \cite{newman2002assortative} by either scalar or categorical vertex properties. The most commonly studied scalar property is degree association. Assortative networks tend to form communities and are more robust to disruption by node removal  \cite{newman2002assortative} and increased assortativity leads to increased speed of transmission of information through a graph \cite{noldus2015assortativity}. \todo{plot of knng and deg at \url{source('~/RProjects/correlation_gene_scores/R/make_df_graph_stats_correlation_lowdeg_high_bet.R')}} although there seems to be a very weak correlation between knn and z score. 
+\subsection{Degree assortativity}
+\label{sec:degree assortativity}
+\subsubsection{Introduction Degree assortativity}
+The degree assortativity is the Pearson correlation between degree for connected vertices.\cite{noldus2015assortativity} Explain assortativity
+Newman p 208
+Equation assortativity
+
+
+\subsection{Other measures}
+\subsubsection{Shortest paths}
+
+
+\subsubsection{Bridging}
+
+\cite{valente2010bridging}
+
+
+
+\section{Biomedical significance of centrality measures}
+\cite{lee2013network} examined NHGRI complex trait catalog and found that complex trait loci were more likely to be hubs or bottlenecks (although this is 2013). Defining hub and bottleneck as top 20\% of distribution. 
+\cite{liu2017sigmod} described a method of identifying gene modules and combining this with p values but use heterogenous different measures of gene interaction including coexpression. 
+\cite{bayes2011characterization} found strong sequence conservation in PSP hub proteins. So there is some evidence that we might suspect they have an influence on human cognition using the G2C framework but as this is complex what we need is empirical proof indeed one can make a plausible argument from the available evidence for the effect of a specific measure, for an effect of centrality generally or for no effect \todo{? add box}.  
+
+
+\subsection{ Biomedical Review}
+Ghasemi
+\cite{ghasemi2014centrality}
+
+Hahn and Kern\cite{hahn2005comparative} examined protein protein interactions networks in fly, yeast and worm measuring betweennness centrality, degree centrality and closeness centrality. They found that more centrally located proteins in all networks evolved more slowly. 
+
+Ozgur \cite{ozgur2008identifying} developed a curated gene interaction network and used centrality measures to attempt to predict the genes association with prostatic cancer using the prostate gene database (PGDB). They measured degree, eigenvector, betweenness and closeness centrality and found that high scores on the first three measures were increased in increased confidence in rank in the PDGB.
+
+Estrada \cite{estrada2006virtual} used centrality meassures to assess essentialness in the yeast protein interaction network (degree centrlity, eigenvector centrality, information centrality, closeness centrality, betweenness centrality and subgraph centrality. They found that high centrality measures predicted essentialness better than random selection and  the best results were obtained using eigenvector centrality and the poorest using closeness and betweenness centrality. 
+
+Joy found that nodes with high betweenness and low degree centrality were particularly abundant.\cite{joy2005high} (this does not seem to be the case in our data see \url{lm_1 <- lm_1 <- lm(ZSTAT ~  eig*scale_bet*I(1/scale_deg),data=ukbb_int_df2)}
+
+Pandey analysed GWAS results for bipolar disorder using eigenvector centrality \cite{pandey2012epistasis}. They used the WTCCC-BD GWAS (1868 cases and 2938 controls) as a discovery sample and  a NIMH GWAS (1001 cases; n=1033 controls) of individual of european ancestry as replication. Having constructed an epistasis network they used eigenvector centrality to rank the 1000 nodes in the SNP epistasis network and then assessed what pathways were enriched for the ranked SNPs. The analysis is limited by the lack of power provided by the sample size available.
+
+\section{Degree and essentialness Introduction}
+\label{sec:Degree and essentialness}
+Jeong \cite{jeong2001lethality} examined the correlation between a gene being essential and having high degree in the proteome of \textit{Saccharomyces ceresvisiae} having 1870 nodes and 2240 interactions (comparatively sparse compared with the synaptic proteome). They found that elimination of the most connected nodes led to an increase in network diameter and that the likelihood that mutation in a protein would prove fatal was correlated with degree, They found that 21\% of the nodes with degree less than 5 (93\% of the proteome). Although 0.7\% of yeasts with more than 15 links had phenotypic profile 62\% of these were lethal. However later work with more complete networks did not support this \cite{milenkovic2011dominating} \cite{yu2008high}
+
+
+Raman \cite{raman2014organisational} examined multiple centrality metrics in addition to degree (degree, betweenness centrality, closeness centrality and pairwise dis-connectivity index) and their association with gene essentiality for 20 organisms.
+
+ Using the STRING database filtered for high quality interactions they found a disassortative \todo{ this suggests you need to put assortativity in the introduction bit} pattern of connection of essential genes (they did not appear to be connected to each other)  (compare with section~\ref{sec:degree assortativity})  and found higher than average degree and betweenness centrality (greatest for degree centrality). The organisms that they studied (20) were mostly bacteria and yeasts, no most sophisticated I could see was \textit{Caenorhabditis elegans}. They also calculated what fraction of essential nodes had a higher degree than n where n is a centile of the degree distribution).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%    METHODS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%    METHODS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%    METHODS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%    METHODS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%    METHODS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%    METHODS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%    METHODS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Methods}
+
+\subsubsection{Methods scale free property}
+\todo{define the method of Clauset and Newman}
+\todo{intro to scale free}
+We can calculate the $\gamma$ coefficient for the degree distribution using the \texttt{poweRlaw} package for R. The value of $\gamma$ will vary over the distribution depending on the lower limit of degree used to fit the power law distribution. This is shown graphically in figure \ref{fig:gamma} and table \ref{table:gamma}.
+
+
+\section{Gene ontology enrichment}
+Cross ref to bit in next section or bring it here
+
+To understand the properties of nodes of different centralities we performed gene ontology enrichment both with the background of the PSP and against the whole of the genome where the whole of the genome is defined as genes appearing in at least one of the cohort studies \todo{add cross ref}
+
+\subsection{GO Slim}
+Define
+
+\subsection{Methods and results global clustering coefficient}
+Calculations of local transitivity were carried out using the transitivity method in igraph with the argument type being global undirected. Local transitivity was carried out using transitivity with the type being local transitivity is not defined for nodes of degree 0 so as an alternate to NA the argument isolates="zero" was used. 
+
+\subsection{Methods Murine LTP and centrality}
+Identification of murine genes associated with LTP and testing of LTP and cnetrality. For results see section \ref{sec:results centrality and murine models of long term potentiation}.
+
+%%%%%    Methods essentialness %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Database of essential genes Methods}
+ \label{sec:Database of essential genes}
+ 
+ 
+ The database of essential genes is found at \url{www.essentialgene.org}. Downloading essential eukaryote genes yields 34590 entries.
+ 
+ Data is available for 9 clades:  Saccharomyces cerevisiae   ,Caenorhabditis elegans,Arabidopsis thaliana,Danio rerio,Mus musculus,Homo sapiens,
+ Drosophila melanogaster,Aspergillus fumigatus and Schizosaccharomyces pombe 972h-.
+ 
+ Data on 28286 \todo{is this correct this is more than the number of protein coding genes?} human genes are recorded. 8256 unique gene ids are found for human genes. Human genes are identified by HGNC id code \footnote{\url{source('~/RProjects/paper_xls_latex/R/essentail_genes/load_essential_genes.R')}}.
+ 
+ Entrez id were obtained using the module \url{convert_gmx_private}\footnote{ at \url{/home/grant/PycharmProjects/convert_gmx_private}}.
+ 
+ This uses downloaded gene info from entrez gene to find first the symbol and if that is missing to search through synonyms and supply the matching entrez id. It returns a list of items not found. 
+ 
+8284 genes were translated to entrez id. 8 ids could not be identified. 3 of these are recorded as dates in the primary data \footnote{(5,6 Mar, 5 Sep)}
+ 
+ The dataframe of conversions are stored in the supplemental data\footnote{ \url{/home/grant/RProjects/paper_xls_latex/data/essential_genes.tsv}}
+\subsection{Loss of function and evolutionary pressure}
+
+The Exac database is a compendium of data from the exomes of over 60,000 individuals \cite{lek2016analysis}. It permits the calculation of the frequency of mutations in specific genes. In addition there is a background mutation rate that is observed in human genes. If there is a lack of mutations in a specific region then we can conclude that the organism is intolerant to such mutations. The researchers provide a statistic the probability of loss of function intolerance that provides a measure of how much purifying selection a gene is under. The file was downloaded from 
+\url{"https://storage.googleapis.com/gnomad-public/legacy/exac_browser/forweb_cleaned_exac_r03_march16_z_data_pLI_CNV-final.txt.gz"}
+
+\subsubsection{Processing and cleaning Exac data for PSP}
+\todo{query move to supplemental methods}
+The data consists of 18282 rows and 23 columns. A variety of metrics are available to measure the frequency of synonymous mutations, non synonymous mutations and missense mutations. The authors recommend the use of the probability of loss of function mutation metric as this takes into account variations in gene size which some other metrics may be biased by. In addition the rows were identified by Ensembl transcript ID, HUGO gene symbol and contained information on the number of base pairs, chromosome number and location on the chromosome. This data is recorded in supplementary section~
+\ref{sec:supplemental data table for exac}.
+
+
+% raw output for ref
+%[1] "gene"       "chr"        "n_exons"    "tx_start"   "tx_end"    
+% [7] "bp"         "mu_syn"     "mu_mis"     "mu_lof"     "n_syn"      %"n_mis"     
+%[13] "n_lof"      "exp_syn"    "exp_mis"    "exp_lof"    "syn_z"      "mis_z"     
+%[19] "lof_z"      "pLI"        "n_cnv"      "exp_cnv"    "cnv_z"     
+% end
+
+114 duplicated entries with duplicated Ensembl transcript id were identified. Each was duplicated twice with identical transcript id and entrez gene ID (duplicate of 57 entries) see table~\ref{tab:Supplementary table- duplicate exac data}. The duplicates were identical other than different numbers of copy number variations (CNV) recorded. As the analysis was not going to include CNV these were discarded.  \textcolor{red}{this matches the redo}\footnote{code \url{('~/Rprojects/paper_xls_output/R/download_exac.R')}}.
+
+
+Entrez ID were obtained by joining the Exac data to the human gene info 
+
+% The genes were identifiable from both transcript ID ENST, and HGNC gene symbol. (18282 - 57) 18225 distinct transcripts and gene symbols were identified.
+
+% 57 transcript id and gene ID were duplicated and removed  There were 114 duplicated entries (i.e. each was duplicated twice). For all duplicates all statistics were identical of than number of copy number variations, expected number of copy number variations and z score for copy number variations. 
+% \todo{move into separate function}
+
+% As we were not using CNV these were eliminated
+
+To obtain entrez ID we join the Exac data to the human gene info downloaded from entrez. This joined table has 8 duplicates as a result of Exac gene symbols mapping to more than one entrez ID)
+
+One synaptic gene is found in the duplicated list HBD Gene ID 3045 which also has the entrez ID 100187828 
+HBD
+the transcript is ENST00000380299.3 which is haemaglobin delta maps to ENSG00000223609
+
+there is also Hypophosphataemic bone disease which is 100187827 but the one that is present in the synapse is 3045
+
+
+Code for the extraction and processing of the loss of function intolerance data was as follows 
+\url{~/RProjects/paper_xls_output/R/download_exac.R}
+
+3235 genes of the PSP have exac data. The missing 222 have insufficient coverage. The missing ones are shown in supplemental table x.
+Lookup on \url{https://grch37.ensembl.org/Multi/Search/Results?q=ENST00000404774.3;site=ensembl_all}
+
+MEMO1 mediator of cell motility Entrez 7795 (Methylation modifier for class I HLA
+) and 51072(correct)
+
+MMD2 monocyte to macrophage 221938 MMD2 100505381 (Miyoshi Muscular Dystrophy 2 – wrong)
+
+TEC tec Protein tyrosine kinase 7006 not 100124696 (Transient erythroblastopaenia of childhood)
+
+There are 14990 non synaptic genes with exac information and a total of 18225 \textcolor{red}{18070 in redo} genes with exac gene info
+
+
+
+\subsection{METHODS Network statistics from paper}
+\label{sec: network statistics from paper}
+
+To test the hypothesis that measures of gene importance in the network are correlated with cognitive ability and/or educational attainment, we calculated a range of standard network measures: betweenness centrality, degree, clustering coefficient, closeness centrality and eigenvector centrality using igraph for Python 3.6. \cite{csardi2006igraph}  We calculated the correlation between each of these vertex scores and the -log10 transform of the gene level p values derived from MAGMA for each study using Spearman’s rank correlation using the Scipy stats package for Python 3.6. \section{Measures of vertex importance and intelligence:Methods}
+
+\label{sec:Measurs of vertex importance from paper}
+\todo{Move this to importance}
+To test the hypothesis that genes encoding proteins with an important role in the structure of the PSP network were more likely to be associated with genetic variants associated with differences in intelligence or educational attainment (such as hubs), we calculated node degree, and four other measures of vertex importance: eigenvector centrality, betweenness centrality, closeness centrality and transitivity for each graph vertex (gene) using igraph. \cite{csardi2006igraph} \textcolor{red}{we need to say what all of these are before we start talking about them}\footnote{something like we will first of all need to introduce in general terms these measures and how they were calculated. in general also want to move more of this chapter into methods and results}. There was no correlation between any of these measures of vertex importance and their gene association analysis gene level statistics calculated using MAGMA (Spearman’s $\rho$ calculated with R) for genes in the post synaptic proteome graph. The results are presented in table 1\todo{table}. The complete vertex statistics for each PSP gene can be found in the supplementary material. 
+
+\section{Cohorts and samples}
+\label{Centrality:cohorts and samples}
+\todo{do correlation centrality with murine ltp group}
+The population data used to test the association of centrality measures with population studies of educationbal attainment and intelligence were those described in sections~\ref{sec:cohorts from paper section} and \ref{sec:samples from paper section}
+
+\todo{Add introduction}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%    RESULTS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%    RESULTS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%    RESULTS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%    RESULTS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%    RESULTS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%    RESULTS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%    RESULTS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\section{RESULTS}
+? divide into graph level and vertex level
+\todo{? divide into graph level and vertex level}
+
+\section{Summary of centrality measures}
+
+The summary values for the centrality measures are shown in table \ref{Table:Summary of centrality measures}. The transitivity contained 304 NA's.
+\todo{add graph}
+The eigenvector centrality and transitivity are normalised. For some nodes the transitivity cannot be calculated (those of degree 1). There are 304 of these and the summary statistics are calculated excluding these values\footnote{an alternative is to set them to zero}. 
+
+The centrality measures are not normally distributed see table~\ref{Table:Test for normality (Shapiro-Wilk) for centrality measures of PSP}.
+
+
+
+\footnote{\url{source('~/RProjects/paper_xls_latex/R/centrality_summary/centrality_summary_latex.R')}}
+% latex table generated in R 3.6.2 by xtable 1.8-4 package
+% Mon Feb 10 14:17:12 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & Minimum & 1st Quartile & Median & Mean & 3rd Quartile & Maximum \\ 
+  \hline
+Degree & $1 $ & $4 $ & $8 $ & $17.64$  & $19$ & $535$ \\ 
+  Eigenvector & $1.821 \times 10^{-6}$ & $8.829 \times 10^{-3}$ & $2.194 \times 10^{-2}$ & $4.793 \times 10^{-2}$ & $5.322 \times 10^{-2}$ & $1 $ \\ 
+  Betweenness & $0 $ & $43.29 $ & $317 $ & $3421.1$ & $1571.6$& $6.447 \times 10^{5}$ \\ 
+  Transitivity & $0 $ & $4.376 \times 10^{-2}$ & $1.290 \times 10^{-1}$ & $1.714 \times 10^{-1}$ & $2.381 \times 10^{-1}$ & $1 $ \\ 
+  Closeness & $5.702 \times 10^{-5}$ & $9.217 \times 10^{-5}$ & $9.879 \times 10^{-5}$ & $9.845 \times 10^{-5}$ & $1.058 \times 10^{-4}$ & $1.399 \times 10^{-4}$ \\ 
+   \hline
+\end{tabular}
+\caption{Summary of centrality measures} 
+\label{Table:Summary of centrality measures}
+\end{table}
+\todo{Global transitivity and compare}
+\todo{query pull out the global measures eg degree assortativity, transitivity}
+
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c|c|c}
+       Centrality measure  &  W& p\\
+       \hline
+       
+       Degree  & 0.426 & $<2.2 \times 10^{-16}$ \\
+       Eigenvector &0.561  & $<2.2 \times 10^{-16}$ \\
+       Betweenness &0.1228& $<2.2 \times 10^{-16}$ \\
+       Transitivity &0.782 & $<2.2 \times 10^{-16}$\\
+       Closeness &0.9953& $<4.686 \times 10^{-09}$\\ 
+    \end{tabular}
+    \caption{Test for normality (Shapiro-Wilk) for centrality measures of PSP}
+    \label{Table:Test for normality (Shapiro-Wilk) for centrality measures of PSP}
+\end{table}
+
+
+
+\section{ Results Average path length}
+The average path length calculated using the \texttt{mean\_distance} function in igraph is 2.98
+
+
+This is similar to the L of 2.65 and C of 0.28 of C elegans. The random rewiring with a uniform probability leads to a L of 3.11. \todo{add table of path length}
+\todo{add omnigenic bit}%see code source('~/RProjects/graph_transitivity/R/transitivity.R')
+
+If we simulate mean distance using a degree sequence model we get no distance $<$ empirical distance of 2.979 in 1000 simulations.
+\subsection{Results The characterisation of high degree nodes}
+The first question we must ask of high degree nodes what are they. Is there something it is like to be a high degree node so we might expected difference behaviour of the nodes in disorders.
 \todo{Do we therefore do this for all centrality measures or remove it or just degree}
 Are nodes of high degree different to the rest of the PSP in terms of function. 
 
@@ -392,20 +711,12 @@ ubiquitin protein ligase binding&GO:0031625&	34&	7&	.43&	16.37&	+&	6.59E-07&	1.6
 Biological process bit of mixed bag nothing interesting 
 
 \footnote{text files in \url{/home/grant/RProjects/gridsearch_gamma}}
-\subsection{Betweenness}
-\label{sec:Betweeness centrality}
-Described by Freeman \cite{freeman1977set} betweenness centrality is a measure of information flow through a node and the importance of a node as a component of paths through the network. 
 
-Betweenness centrality measures the number of shortest (geodesic) paths through a node. Following Newman if $n_{st}^i$ is one if a shortest path between nodes $s$ and $t$ pass through node $i$ and $g_{st}$ is the number of shortest paths between $s$ and $t$ then the betweenness centrality of node $i$ is
 
-\begin{equation}
-    x_i = \sum_{st} \frac{n_{st}^i}{g_{st}}
-\end{equation}
-\label{eq: Betweenness centrality}
 
-from Newman \cite{newman2018networks} p172. 
- \todo{normalised betweenness centrality}
- \todo{edge centrality}
+
+
+\subsubsection{Results betweenness centrality Statistics and GO enrichment}
 The log transform of betweenness centrality is more nearly normal. The histogram is slightly right skewed.
 Although the qq plot looks relatively straight the Shapiro Wilk test for normality after removing infinite values and NA of the log transform  is 
 W = 0.997 p = $1.1 \times 10^{-5}$
@@ -421,115 +732,29 @@ BP – regulation of mRNA stability
 MF kinase binding and ubiquitin
 CC cell adhesion
 	]
-\subsubsection{Edge betweenness}
-
+\subsubsection{Results Edge betweenness results Statistics and GO enrichment}
 The highest edge betweeness (21221.7 Median 321,4 mean 583.7) is between APP (351) and EGFR 1956.
 
 The second highest is GRB2 (2885) and APP.
 APP is on 12 of the top 20 edges. 
 ELAV1 is on 5 of the top 20 edges.see \url{source('~/RProjects/centrality/R/other_centrality/eccentricity_and_distance.R')} EGFR (1956), 2885 and 7514 appear three times.
 
-
-
-Other notes 
-
-enrichment of genes found in the synapse with orthologs in yeast reveal a large number for exosome and mitochondrial elements
-
-
-\section{Eigenvector centrality}
-
-Eigenvector centrality proposed by Bonacich \cite{bonacich1972factoring} expands on degree centrality by not considering all of the edges of a vertex equal. If a vertex is linked to a highly important node this link should be given greater importance. Eigenvector centrality therefore incorporates the importance of the neighbours of a vertex.
-
-Here I follow Newman \cite{newman2018networks}. From the above we define a nodes importance as the sum of the importance of its neighbours.
-
-\begin{equation}
-    x_i = K^{-1} \sum_j x_j
-\end{equation}
-
-Where $K$ is a constant of proportionality. This can be written using the adjacency matrix as
-
-\begin{equation}
-    x_i = K^{-1} \sum_j A_{ij} x_j
-\end{equation}
-
-Where $\sum_j x_j$ includes the importance of all nodes but selects only the neighbours of $x_i$ because of the adjacency matrix (otherwise the entry will be 0).
-
-In matrix form:
-\begin{equation}
-    \mathbf{x}=K^{-1}\mathbf{Ax}
-    \end{equation}
-    
-    \begin{equation}
-         k\mathbf{x}=\mathbf{Ax}
-    \end{equation}
-  
-  Replacing $k$ with $\lambda$ shows more clearly this to be an eigenvector problem. The eigenvector will have as its $i$th entry the importance of the $i$th node. As all centralities should be positive the appropriate eigenvector is the one associated with the largest eigenvalue by the Perron-Froebenius theorem. 
-  
-  Eigenvector centrality is implemented in igraph for R by the \texttt{eigen\_centrality} function taking the graph as the argument. The values of the eigenvector centrality are not strict measures and we care only for the order of eigenvector centraliy. They can however be normalised. 
-  
- \section{Related measures}
-\cite{bonacich1987power}
-Nodes are important if their neighbours are important 
-
-Katz centrality has a parameter (alpha)
-    
-Alpha centrality and bonacich centrality have parameters (bonacich is alpha with alpha preset per bonacich). Bonacich is power\_centrality in igraph. Power centrality with preset is symmetrical around 0.  
-
-\todo{? add pagerank}
-
-\section{Closeness centrality}
-\label{sec:closenesscentrality}
-Alex Bevelas
-Closeness centrality is the inverse of the  average length of shortest path to and from other vertices in the graph \cite{freeman1978centrality}
+\section{Results:Closeness}
+Closeness centrality \todo{add this} does not follow a power law distribution per p331-332 of Newman as it has a limited distribution as the reciprocal of the shortest path length from a node to all other nodes. 
+\subsection{Results GO enrichment Closeness}
 More normally distributed.
 High closeness RNA binding, severe murine phenotype, cellular component cell adhesion
 Ca and neurodegenerative
 
 Low closeness centrality transporter activity, seizures in human phenotype, receptor activation, disease top five all epilepsies. 
-\section{Transitivity}
 
-The transitivity of a network measures the extent to which if two nodes each connected to another node they will be in turn connected. In more colloquial terms if Alice and Bob are both friends with Susan how likely are Alice and Bob to be friends. The clustering coefficient measures the number of these connections called closed triads occurring in a network 
-divided by the possible number that could occur.
-
-Transitivity can be calculated for the network as a whole or for individual nodes. This global transitivity is often called the clustering coefficient. 
-
-A triangle of vertices,  all connected to each other, forming a loop is  a \textit{closed triad} \cite{newman2018networks}. It is also a path of length two (as paths must have distinct edges. The possible triads that could be formed by the addition of an edge are all paths of length two so the transitivity is:
-\begin{equation}
-    C = \frac{\textrm{number of closed paths of length two}}{\textrm{number of paths of length 2}}
-\end{equation}
-
-Since there are six paths that can be present in a closed triad (as we count each direction the path can take in an undirected network eg $ab$ and $ba$ are distinct the transitivity is:
-
-\begin{equation}
-    C = \frac{6 \times \textrm{number of triangles}}{\textrm{number of paths of length 2}}
-\end{equation}
-
-Using connected triple to refer to any connected three vertices (whether they form a loop or not) the transitivity can then be expressed as.
-
-\begin{equation}
-    C = \frac{6 \times \textrm{number of triangles}}{2 \times \textrm{number of connected triples}}
-\end{equation}
-The probability the two neighbours of a node in a network are connected is thus its transitivity or clustering coefficient.\cite{newman2018networks}. 
-
-\subsection{Local clustering coefficient}
-
-Local transitivity (also known as the local clustering coefficient) is defined as  follows \todo{Citation error}cite(watts1998collective) for a vertex having $k_v$ neighbours 
-
-\begin{equation}
-C = \frac{c_n}{c_{max}}
-\end{equation}
-where $c_n$ is the number of connections between a vertexes neighbours and $c_{max}$ is defined as 
-
-\begin{equation}
-c_{max} = \frac{k_v(1-k_v)}{2}
-\end{equation}
-
+\subsection{Results global clustering coefficient}
+Transitivity is calculated locally and globally. The local transitivity has been calculated in igraph for R for a histogram of values see figure~\ref{fig:transitivity}. The local clustering coefficient has been calculated using graph tool. 
 The global clustering as defined by Watts and Strogatz as the arithmetic mean of the vertex local clustering coefficients is 0.156.\cite{watts1998collective} this is the value if you set NA ie degree 1 to 0 and 0.171 is the value using NA.rm see above section. 
 
 The expected value of local clustering given a random rewiring with fixed degree distribution is 0.07479691 sd (0.00183) removing NA and 0.068 setting NA to 0 (100 iterations) and 0.0682 seeting NA to zero with sd 0.00181 \footnote{Code  \url{source('~/RProjects/centrality/R/transitivity/calculate_local_transitivity_and_simulate_mean.R')} }
 
-Calculations of local transitivity were carried out using the transitivity method in igraph with the argument type being global undirected. Local transitivity was carried out using transitivity with the type being local transitivity is not defined for nodes of degree 0 so as an alternate to NA the argument isolates="zero" was used. 
-Transitivity is calculated locally and globally. The local transitivity has been calculated in igraph for R for a histogram of values see figure~\ref{fig:transitivity}. The local clustering coefficient has been calculated using graph tool. 
+
 
 The correlation of the of the degree and local\_clustering (isolates set to 0)  is 
 	Spearman's rank correlation rho
@@ -577,17 +802,13 @@ The value of this for the PSP is 0.004541763 \footnote{code \url{source('~/RProj
 
 Also motifs (other than number of triangles) newman 334 again
 
-\subsubsection{Local clustering coefficient}
+\subsubsection{Local clustering coefficient Results}
 Local clustering coefficient tends to be inversely proportional to degree. It is undefined for nodes of degree one. See~figure \ref{fig:log_transitivity_degree}. It is suggested that this may also be due to community formation \cite{newman2018networks} p335.
 
 Mean local transitivity is 0.171. The distribution is right skewed with median of 0.129 and 3rd quartile of 0.23 and first quartile of 0.043. This does not match the arithmetic mean of vertex local clustering below it may be down to how we deal with NA. Above calculated as NA.rm
+\subsubsection{GO enrichment local clustering coefficient}
 
-
-
-\subsection{kcoreness}
-
-A kcore of a graph is an induced subgraph of the main graph such that each vertex has degree of at least $k$. For a vertex its kcoreness is the maximal k core subgraph it is a member of (alternatively its shell index is $c$ if it belongs to the $c$ core but not the $c+1$ core. \cite{seidman1983network} (original description), \cite{alvarez2006large}. The kcore algorithm is useful in graph analysis as it runs in linear time. 
-
+\subsection{kcoreness results}
  The minimum shell index is 1, all of the 1 kcore corresponds to the connected component. The range of shell index is 1-24. The median shell index of a vertex is 8 and the mean value 9.15 (although shell indexes take on integer values). The distribution of these values is shown in figure~\ref{fig:Kcore_histogram}\todo{nice ish image of kcore already in core periphery section}
  
  \begin{figure}
@@ -598,83 +819,11 @@ A kcore of a graph is an induced subgraph of the main graph such that each verte
  \end{figure}
  
 
-\section{Biomedical significance of centrality measures}
-\cite{lee2013network} examined NHGRI complex trait catalog and found that complex trait loci were more likely to be hubs or bottlenecks (although this is 2013). Defining hub and bottleneck as top 20\% of distribution. 
-\cite{liu2017sigmod} described a method of identifying gene modules and combining this with p values but use heterogenous different measures of gene interaction including coexpression. 
-\cite{bayes2011characterization} found strong sequence conservation in PSP hub proteins. So there is some evidence that we might suspect they have an influence on human cognition using the G2C framework but as this is complex what we need is empirical proof indeed one can make a plausible argument from the available evidence for the effect of a specific measure, for an effect of centrality generally or for no effect \todo{? add box}.  
-
-
-\subsection{Review}
-Ghasemi
-\cite{ghasemi2014centrality}
-
-Hahn and Kern\cite{hahn2005comparative} examined protein protein interactions networks in fly, yeast and worm measuring betweennness centrality, degree centrality and closeness centrality. They found that more centrally located proteins in all networks evolved more slowly. 
-
-Ozgur \cite{ozgur2008identifying} developed a curated gene interaction network and used centrality measures to attempt to predict the genes association with prostatic cancer using the prostate gene database (PGDB). They measured degree, eigenvector, betweenness and closeness centrality and found that high scores on the first three measures were increased in increased confidence in rank in the PDGB.
-
-Estrada \cite{estrada2006virtual} used centrality meassures to assess essentialness in the yeast protein interaction network (degree centrlity, eigenvector centrality, information centrality, closeness centrality, betweenness centrality and subgraph centrality. They found that high centrality measures predicted essentialness better than random selection and  the best results were obtained using eigenvector centrality and the poorest using closeness and betweenness centrality. 
-
-Joy found that nodes with high betweenness and low degree centrality were particularly abundant.\cite{joy2005high} (this does not seem to be the case in our data see \url{lm_1 <- lm_1 <- lm(ZSTAT ~  eig*scale_bet*I(1/scale_deg),data=ukbb_int_df2)}
-
-Pandey analysed GWAS results for bipolar disorder using eigenvector centrality \cite{pandey2012epistasis}. They used the WTCCC-BD GWAS (1868 cases and 2938 controls) as a discovery sample and  a NIMH GWAS (1001 cases; n=1033 controls) of individual of european ancestry as replication. Having constructed an epistasis network they used eigenvector centrality to rank the 1000 nodes in the SNP epistasis network and then assessed what pathways were enriched for the ranked SNPs. The analysis is limited by the lack of power provided by the sample size available.
-
-
-
-\subsection{Network statistics from paper}
-\label{sec: network statistics from paper}
-
-To test the hypothesis that measures of gene importance in the network are correlated with cognitive ability and/or educational attainment, we calculated a range of standard network measures: betweenness centrality, degree, clustering coefficient, closeness centrality and eigenvector centrality using igraph for Python 3.6. \cite{csardi2006igraph}  We calculated the correlation between each of these vertex scores and the -log10 transform of the gene level p values derived from MAGMA for each study using Spearman’s rank correlation using the Scipy stats package for Python 3.6. 
-\todo{Add introduction}
-\section{Summary of centrality measures}
-
-The summary values for the centrality measures are shown in table \ref{Table:Summary of centrality measures}. The transitivity contained 304 NA's.
-\todo{add graph}
-The eigenvector centrality and transitivity are normalised. For some nodes the transitivity cannot be calculated (those of degree 1). There are 304 of these and the summary statistics are calculated excluding these values\footnote{an alternative is to set them to zero}. 
-
-The centrality measures are not normally distributed see table~\ref{Table:Test for normality (Shapiro-Wilk) for centrality measures of PSP}.
-
-
-\footnote{\url{source('~/RProjects/paper_xls_latex/R/centrality_summary/centrality_summary_latex.R')}}
-% latex table generated in R 3.6.2 by xtable 1.8-4 package
-% Mon Feb 10 14:17:12 2020
-\begin{table}[ht]
-\centering
-\begin{tabular}{rrrrrrr}
-  \hline
- & Minimum & 1st Quartile & Median & Mean & 3rd Quartile & Maximum \\ 
-  \hline
-Degree & $1 $ & $4 $ & $8 $ & $17.64$  & $19$ & $535$ \\ 
-  Eigenvector & $1.821 \times 10^{-6}$ & $8.829 \times 10^{-3}$ & $2.194 \times 10^{-2}$ & $4.793 \times 10^{-2}$ & $5.322 \times 10^{-2}$ & $1 $ \\ 
-  Betweenness & $0 $ & $43.29 $ & $317 $ & $3421.1$ & $1571.6$& $6.447 \times 10^{5}$ \\ 
-  Transitivity & $0 $ & $4.376 \times 10^{-2}$ & $1.290 \times 10^{-1}$ & $1.714 \times 10^{-1}$ & $2.381 \times 10^{-1}$ & $1 $ \\ 
-  Closeness & $5.702 \times 10^{-5}$ & $9.217 \times 10^{-5}$ & $9.879 \times 10^{-5}$ & $9.845 \times 10^{-5}$ & $1.058 \times 10^{-4}$ & $1.399 \times 10^{-4}$ \\ 
-   \hline
-\end{tabular}
-\caption{Summary of centrality measures} 
-\label{Table:Summary of centrality measures}
-\end{table}
-\todo{Global transitivity and compare}
-\todo{query pull out the global measures eg degree assortativity, transitivity}
-
-
-\begin{table}[h]
-    \centering
-    \begin{tabular}{c|c|c}
-       Centrality measure  &  W& p\\
-       \hline
-       
-       Degree  & 0.426 & $<2.2 \times 10^{-16}$ \\
-       Eigenvector &0.561  & $<2.2 \times 10^{-16}$ \\
-       Betweenness &0.1228& $<2.2 \times 10^{-16}$ \\
-       Transitivity &0.782 & $<2.2 \times 10^{-16}$\\
-       Closeness &0.9953& $<4.686 \times 10^{-09}$\\ 
-    \end{tabular}
-    \caption{Test for normality (Shapiro-Wilk) for centrality measures of PSP}
-    \label{Table:Test for normality (Shapiro-Wilk) for centrality measures of PSP}
-\end{table}
-
 \section{Correlation of centrality measures}
-Closeness centrality \todo{add this} does not follow a power law distribution per p331-332 of Newman as it has a limited distribution as the reciprocal of the shortest path length from a node to all other nodes. 
+
+For correlation of centrality measures see table~\ref{tab:Correlation between vertex centrality measures for PSP. Spearman's rho}
+
+
 % latex table generated in R 3.6.2 by xtable 1.8-4 package
 % Fri Feb 14 12:11:44 2020
 \begin{table}[ht]
@@ -706,7 +855,7 @@ All of the centrality measures are correlated with each other other except trans
 
 See \cite{oldham2019consistency} for correlation across networks. See table~\ref{tab:Correlation of centrality valente et al}
 
-\subsubsection{Results of correlation analysis}
+\subsection{Results of correlation analysis FROM PAPER}
 \textcolor{red}{Moved from earlier}
 The vertex measures are correlated with one another apart from transitivity and range from 0.89 (eigenvector centrality and degree) to 0.33 (betweenness centrality and closeness centrality) (\textcolor{red}{see supplementary table 6} \todo{table}).
 There is a weak negative ($\rho \approx 0.2$) correlation between 
@@ -714,26 +863,82 @@ the degree of selection pressure a gene is under and all measures of vertex impo
 Although nodes of high importance or local clustering do have distinct properties, for example nodes with degree $> 50$ are enriched in association for the biological process (GO:1903350)‚ ”intracellular response to dopamine‚” (FDR P= 2.10 $\times 10^{-4}$ fold change 22.37), we find no correlation with these measures and genetic association with educational attainment or intelligence. 
 \textcolor{green}{DRAFT -something like This is not because nodes of high degree or other centrality measure do not share common attributes, for example nodes with degree $>50$ are disproportionately found in BP intracellular dopamine but we find no association between these measures and educational attainment or intelligence}
 
-\section{Cohorts and samples}
-\label{Centrality:cohorts and samples}
-\todo{do correlation centrality with murine ltp group}
-The population data used to test the association of centrality measures with population studies of educationbal attainment and intelligence were those described in sections~\ref{sec:cohorts from paper section} and \ref{sec:samples from paper section}
-
-\section{Assortativity}
-
-Assortativity is a measure of how likely nodes with similar properties are to be connected. \cite{newman2002assortative} by either scalar or categorical vertex properties. The most commonly studied scalar property is degree association. Assortative networks tend to form communities and are more robust to disruption by node removal  \cite{newman2002assortative} and increased assortativity leads to increased speed of transmission of information through a graph \cite{noldus2015assortativity}. \todo{plot of knng and deg at \url{source('~/RProjects/correlation_gene_scores/R/make_df_graph_stats_correlation_lowdeg_high_bet.R')}} although there seems to be a very weak correlation between knn and z score. 
-\subsection{Degree assortativity}
-\label{sec:degree assortativity}
-\subsubsection{Introduction Degree assortativity}
-The degree assortativity is the Pearson correlation between degree for connected vertices.\cite{noldus2015assortativity} Explain assortativity
-Newman p 208
-Equation assortativity
 
 
-\subsubsection{Results and methods degree assortativity}
+\subsection{RESULTS Scale free}
+Using the method described by \cite{clauset2009power} and calculating the minimum x value we find the min for $x$ to be 24 and the $\gamma$ coefficient to be 2.51 using the poweRlaw R package \cite{gillespie2015fitting}. The log of the degree distribution is shown in figure \ref{fig:log_degree_distribution} and figure \ref{fig:Degree distribution of post synaptic proteome. Log10 - log10 scale.}
+% see http://127.0.0.1:21133/library/poweRlaw/doc/a_introduction.pdf
+\footnote{code at \url{/home/grant/RProjects/PhD_graphs/}}
+
+% \begin{figure}
+%   \includegraphics[width=\linewidth]{./dependence_of_scale_coefficient_on_min_degree.png}
+%   \caption{The parameter $\gamma$ as a function of the degree at which calculation of the coefficient starts in the degree sequence(e.g. all degree $>5$) from \url{RProjects/PhDGraphs/calculate/gamma}} 
+%   \label{fig:gamma}
+% \end{figure}
+
+% \begin{figure}
+%   \includegraphics[width=\linewidth]{plot_log_degree_distribution.png}
+%   \caption{The plot of log cumulative cdf of degree distribution log 10 scale x and y}
+%   \label{fig:log_degree_distribution}
+% \end{figure}
+
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/dependence_of_scale_coefficient_on_min_degree.png} 
+        \caption{The parameter $\gamma$ as a function of the degree at which calculation of the coefficient starts in the degree sequence(e.g. all degree $>5$) from \url{RProjects/PhDGraphs/calculate/gamma}} \label{fig:gamma}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/plot_log_degree_distribution.png} 
+        \caption{The plot of log cumulative cdf of degree distribution log 10 scale x and y} \label{fig:log_degree_distribution}
+    \end{subfigure}
+    \caption{Plots of degree distribution \textcolor{red}{may want to do this in subfigure packages rather than subcaption to line up edges}}
+\end{figure}
+% latex table generated in R 3.4.4 by xtable 1.8-4 package
+% Sat Oct  5 16:31:0\begin{document}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{lr}
+  \hline
+  from degree $k$ & coefficient $\gamma$ \\ 
+  \hline
+1 & 1.38 \\ 
+  5 & 1.81 \\ 
+  10 & 2.10 \\ 
+  15 & 2.30 \\ 
+  20 & 2.43 \\ 
+  25 & 2.51 \\ 
+   30 & 2.52 \\ 
+  35 & 2.54 \\ 
+   40 & 2.54 \\ 
+   45 & 2.60 \\ 
+  50 & 2.63 \\ 
+   60 & 2.60 \\ 
+   70 & 2.72 \\ 
+   80 & 2.80 \\ 
+   90 & 2.90 \\ 
+   100 & 2.92 \\ 
+  150 & 2.88 \\ 
+   200 & 3.44 \\ 
+   250 & 3.90 \\ 
+  300 & 5.04 \\ 
+   350 & 5.51 \\ 
+   400 & 6.33 \\ 
+   \hline
+\end{tabular}
+\caption{The $\gamma$ as a function of the degree sequence start (e.g. all degree $>5$). from RProjects/PhDGraphs}
+  \label{table:gamma}
+\end{table}
+
+\subsection{RESULTS Assortativity and methods degree assortativity}
 We can compare the average degree with those found in other publications. We can also look at the assortativity between nodes for degree. The PSP networks shows evidence of some negative degree assortativity (-0.18) using the commands \texttt{assortativity(g,deg,directed=FALSE)} in igraph for R \todo{Assortativity for essential and id}.
 
-The degree association is negative in most real world networks other than social networks \cite{newman2002assortative}. \todo{include the peel multiscale mixing patterns} see table \ref{Table:DegreeAssortativityNewman}\todo{? add positive $r$ to table}. Both the Barabsi Albert model and random model have 0 correlation. The Callaway model of network generation ('grown graph' - newman) has a positive degree correlation consistent with older nodes being connected to each other and hence in turn being more likely to be connected to others. This is at odds with our later finding (see orthologues) that nodes with clearly identified yeast orthologues tend to be of higher degree (this would fit both the Barabasi Albert model and Callaway) \todo{Do i add the pseudo hub bit here this is also probably good for the paper with Keith}. 
+The degree association is negative in most real world networks other than social networks \cite{newman2002assortative}. \todo{include the peel multi-scale mixing patterns} see table \ref{Table:DegreeAssortativityNewman}\todo{? add positive $r$ to table}. Both the Barabsi Albert model and random model have 0 correlation. The Callaway model of network generation ('grown graph' - newman) has a positive degree correlation consistent with older nodes being connected to each other and hence in turn being more likely to be connected to others. This is at odds with our later finding (see orthologues) that nodes with clearly identified yeast orthologues tend to be of higher degree (this would fit both the Barabasi Albert model and Callaway) \todo{Do i add the pseudo hub bit here this is also probably good for the paper with Keith}. 
 
 The assortativity suggests that the Barabasi Albert model is 'incomplete' as a model of the internet \cite{newman2002assortative} and in this network we also find evidence that our synaptic protein protein interaction has similar degree assortativity to that calculated by Newman which is of the yeast interactome (cite Jeong) . The reasons for this are not clear, there are other things in our study that support the Barabasi model and it may be that multiple processes are taking place. \todo{? move this to discussion}
 
@@ -831,36 +1036,12 @@ Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
    
  
 
-\section{Degree and essentialness}
-\label{sec:Degree and essentialness}
-Jeong \cite{jeong2001lethality} examined the correlation between a gene being essential and having high degree in the proteome of \textit{Saccharomyces ceresvisiae} having 1870 nodes and 2240 interactions (comparatively sparse compared with the synaptic proteome). They found that elimination of the most connected nodes led to an increase in network diameter and that the likelihood that mutation in a protein would prove fatal was correlated with degree, They found that 21\% of the nodes with degree less than 5 (93\% of the proteome). Although 0.7\% of yeasts with more than 15 links had phenotypic profile 62\% of these were lethal. However later work with more complete networks did not support this \cite{milenkovic2011dominating} \cite{yu2008high}
 
-
-Raman \cite{raman2014organisational} examined multiple centrality metrics in addition to degree (degree, betweenness centrality, closeness centrality and pairwise dis-connectivity index) and their association with gene essentiality for 20 organisms.
-
- Using the STRING database filtered for high quality interactions they found a disassortative pattern of connection of essential genes (they did not appear to be connected to each other)  (compare with section~\ref{sec:degree assortativity})  and found higher than average degree and betweenness centrality (greatest for degree centrality). The organisms that they studied (20) were mostly bacteria and yeasts, no most sophisticated I could see was \textit{Caenorhabditis elegans}. They also calculated what fraction of essential nodes had a higher degree than n where n is a centile of the degree distribution).
  
  \todo{Assortativity of essential nodes in PSP}
  \todo{difference plI and DEG}
  
- \subsubsection{Database of essential genes}
- \label{sec:Database of essential genes}
- 
- 
- The database of essential genes is found at \url{www.essentialgene.org}. Downloading essential eukaryote genes yields 34590 entries.
- 
- Data is available for 9 clades:  Saccharomyces cerevisiae   ,Caenorhabditis elegans,Arabidopsis thaliana,Danio rerio,Mus musculus,Homo sapiens,
- Drosophila melanogaster,Aspergillus fumigatus and Schizosaccharomyces pombe 972h-.
- 
- Data on 28286 \todo{is this correct this is more than the number of protein coding genes?} human genes are recorded. 8256 unique gene ids are found for human genes. Human genes are identified by HGNC id code \footnote{\url{source('~/RProjects/paper_xls_latex/R/essentail_genes/load_essential_genes.R')}}.
- 
- Entrez id were obtained using the module \url{convert_gmx_private}\footnote{ at \url{/home/grant/PycharmProjects/convert_gmx_private}}.
- 
- This uses downloaded gene info from entrez gene to find first the symbol and if that is missing to search through synonyms and supply the matching entrez id. It returns a list of items not found. 
- 
-8284 genes were translated to entrez id. 8 ids could not be identified. 3 of these are recorded as dates in the primary data \footnote{(5,6 Mar, 5 Sep)}
- 
- The dataframe of conversions are stored in the supplemental data\footnote{ \url{/home/grant/RProjects/paper_xls_latex/data/essential_genes.tsv}}
+ \subsection{Results from database of essetnail genes}
 
 2241 genes in the PSP are essential (64.8\%)
 
@@ -910,59 +1091,7 @@ If the network is generated by the preferential attachment model of Barabasi we 
 
 The probability of loss of function intolerance is associated with measures of vertex centrality in the post synaptic proteome graph. The correlation is greatest for degree ($\rho=0.230$) and lowest for transitivity ($\rho=0.086$). Betweenness and eigenvector centrality have similar correlation to loss of function intolerance as degree (see table \ref{Table:Correlation of pLI with centrality vertex statistic})
 
-\subsection{Loss of function and evolutionary pressure}
 
-The Exac database is a compendium of data from the exomes of over 60,000 individuals \cite{lek2016analysis}. It permits the calculation of the frequency of mutations in specific genes. In addition there is a background mutation rate that is observed in human genes. If there is a lack of mutations in a specific region then we can conclude that the organism is intolerant to such mutations. The researchers provide a statistic the probability of loss of function intolerance that provides a measure of how much purifying selection a gene is under. The file was downloaded from 
-\url{"https://storage.googleapis.com/gnomad-public/legacy/exac_browser/forweb_cleaned_exac_r03_march16_z_data_pLI_CNV-final.txt.gz"}
-
-\subsubsection{Processing and cleaning Exac data for PSP}
-\todo{query move to supplemental methods}
-The data consists of 18282 rows and 23 columns. A variety of metrics are available to measure the frequency of synonymous mutations, non synonymous mutations and missense mutations. The authors recommend the use of the probability of loss of function mutation metric as this takes into account variations in gene size which some other metrics may be biased by. In addition the rows were identified by Ensembl transcript ID, HUGO gene symbol and contained information on the number of base pairs, chromosome number and location on the chromosome. This data is recorded in supplementary section~
-\ref{sec:supplemental data table for exac}.
-
-
-% raw output for ref
-%[1] "gene"       "chr"        "n_exons"    "tx_start"   "tx_end"    
-% [7] "bp"         "mu_syn"     "mu_mis"     "mu_lof"     "n_syn"      %"n_mis"     
-%[13] "n_lof"      "exp_syn"    "exp_mis"    "exp_lof"    "syn_z"      "mis_z"     
-%[19] "lof_z"      "pLI"        "n_cnv"      "exp_cnv"    "cnv_z"     
-% end
-
-114 duplicated entries with duplicated Ensembl transcript id were identified. Each was duplicated twice with identical transcript id and entrez gene ID (duplicate of 57 entries) see table~\ref{tab:Supplementary table- duplicate exac data}. The duplicates were identical other than different numbers of copy number variations (CNV) recorded. As the analysis was not going to include CNV these were discarded.  \textcolor{red}{this matches the redo}\footnote{code \url{('~/Rprojects/paper_xls_output/R/download_exac.R')}}.
-
-
-Entrez ID were obtained by joining the Exac data to the human gene info 
-
-% The genes were identifiable from both transcript ID ENST, and HGNC gene symbol. (18282 - 57) 18225 distinct transcripts and gene symbols were identified.
-
-% 57 transcript id and gene ID were duplicated and removed  There were 114 duplicated entries (i.e. each was duplicated twice). For all duplicates all statistics were identical of than number of copy number variations, expected number of copy number variations and z score for copy number variations. 
-% \todo{move into separate function}
-
-% As we were not using CNV these were eliminated
-
-To obtain entrez ID we join the Exac data to the human gene info downloaded from entrez. This joined table has 8 duplicates as a result of Exac gene symbols mapping to more than one entrez ID)
-
-One synaptic gene is found in the duplicated list HBD Gene ID 3045 which also has the entrez ID 100187828 
-HBD
-the transcript is ENST00000380299.3 which is haemaglobin delta maps to ENSG00000223609
-
-there is also Hypophosphataemic bone disease which is 100187827 but the one that is present in the synapse is 3045
-
-
-Code for the extraction and processing of the loss of function intolerance data was as follows 
-\url{~/RProjects/paper_xls_output/R/download_exac.R}
-
-3235 genes of the PSP have exac data. The missing 222 have insufficient coverage. The missing ones are shown in supplemental table x.
-Lookup on \url{https://grch37.ensembl.org/Multi/Search/Results?q=ENST00000404774.3;site=ensembl_all}
-
-MEMO1 mediator of cell motility Entrez 7795 (Methylation modifier for class I HLA
-) and 51072(correct)
-
-MMD2 monocyte to macrophage 221938 MMD2 100505381 (Miyoshi Muscular Dystrophy 2 – wrong)
-
-TEC tec Protein tyrosine kinase 7006 not 100124696 (Transient erythroblastopaenia of childhood)
-
-There are 14990 non synaptic genes with exac information and a total of 18225 \textcolor{red}{18070 in redo} genes with exac gene info
 
 \subsection{Distribution of pLI and intelligence}
 \todo{Distribution of pLI and intelligence}
@@ -1146,14 +1275,7 @@ human\_genome\_plI &5.4e-91 &3.2e-05&  0.028& 0.30&    0.68  &  1\\
 \end{table}
 
 
-\section{Average path length}
-The average path length calculated using the \texttt{mean\_distance} function in igraph is 2.98
 
-
-This is similar to the L of 2.65 and C of 0.28 of C elegans. The random rewiring with a uniform probability leads to a L of 3.11. \todo{add table of path length}
-\todo{add omnigenic bit}%see code source('~/RProjects/graph_transitivity/R/transitivity.R')
-
-If we simulate mean distance using a degree sequence model we get no distance $<$ empirical distance of 2.979 in 1000 simulations.
     
 \begin{figure}
     \centering
@@ -1193,19 +1315,14 @@ If we simulate mean distance using a degree sequence model we get no distance $<
  %   \label{fig:log_transitivity_degree}
 %\end{figure}
 
-\subsection{Shortest paths}
 
 
-\subsection{Bridging}
 
-\cite{valente2010bridging}
-\section{Measures of vertex importance and intelligence:Methods}
-\label{sec:Measurs of vertex importance from paper}
-\todo{Move this to importance}
-To test the hypothesis that genes encoding proteins with an important role in the structure of the PSP network were more likely to be associated with genetic variants associated with differences in intelligence or educational attainment (such as hubs), we calculated node degree, and four other measures of vertex importance: eigenvector centrality, betweenness centrality, closeness centrality and transitivity for each graph vertex (gene) using igraph. \cite{csardi2006igraph} \textcolor{red}{we need to say what all of these are before we start talking about them}\footnote{something like we will first of all need to introduce in general terms these measures and how they were calculated. in general also want to move more of this chapter into methods and results}. There was no correlation between any of these measures of vertex importance and their gene association analysis gene level statistics calculated using MAGMA (Spearman’s $\rho$ calculated with R) for genes in the post synaptic proteome graph. The results are presented in table 1\todo{table}. The complete vertex statistics for each PSP gene can be found in the supplementary material. 
-\section{Centrality measures and graph statistics}
 
-The correlation between the graph vertex centrality measures eigenvector centrality, betweenness centrality and transitivity are shown in table \ref{Table:Correlation of GWAS gene level statistics with graph vertex measures}
+
+\section{RESULTS: Centrality measures and graph statistics and Intelligence}
+
+The correlation between the graph vertex centrality measures eigenvector centrality, betweenness centrality and transitivity and GWAS gene scores are shown in table \ref{Table:Correlation of GWAS gene level statistics with graph vertex measures}
 
 The correlation between the graph vertex centrality measure statistics and the -log \textsubscript{10} transform of the vertex study p value is shown in table \ref{Table:Correlation of GWAS gene level statistics -log10 transform with graph vertex measures}
 
@@ -1374,11 +1491,10 @@ I also calculate the correlation between p and the coreness value of the vertex 
 
 
 
-\subsection{Articulation points}
-11 of 68 glutamate receptor binding are articulation points however Gene ontology enrichment analysis ofarticulation points with the entire PSP as background yileds no significant over-representation of terms. They appear to be under represented in ID (3 genes of 203.	 	
 
-\subsection{Centrality and murine models of long term potentiation}
 
+\subsection{Results Centrality and murine models of long term potentiation}
+\label{sec:results centrality and murine models of long term potentiation}
     The centrality measures of genes marked as murine models of LTP were considered as model animal models of intelligence. \footnote{\url{source('~/RProjects/centrality/R/model_ltp/model ltp.R')}}.
     256 genes were identified as a
     ssociated with murine LTD from \textcolor{red}{add Mouse ontology}\todo{add mouse ontology}. 141 of these genes were found in the PSP network model (55.1\%).
@@ -1387,7 +1503,11 @@ I also calculate the correlation between p and the coreness value of the vertex 
     
     A logistic regression model of these factors and LTP PSP as outcome showed that eigenvector centrality and degree were significant factors (4.04 $\times 10^{-6}$ and $1.39 \times 10^{-6}$. The effects were very minor however with McFadden's pseudo R2 \cite{mcfadden1973conditional} calculated using the pscl package was  0.031 \cite{jackman2017package}.
 
+\subsubsection{Other notes}
 
+enrichment of genes found in the synapse with orthologs in yeast reveal a large number for exosome and mitochondrial elements
+\textbf{Articulation points}
+11 of 68 glutamate receptor binding are articulation points however Gene ontology enrichment analysis ofarticulation points with the entire PSP as background yileds no significant over-representation of terms. They appear to be under represented in ID (3 genes of 203.	 	
 \section{Summary}
 
 We show that in the PSP nodes of very high centrality are associated with essentialness. The PSP has a high degree of essentialness compared to the rest of the genome. 
