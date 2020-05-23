@@ -4,7 +4,7 @@
 
 
  \begin{displayquote}
- I asked a person of intelligence how many steps he thought it would take, and he said that it would require 100 intermediate persons, or more, to move from Nebraska to Sharon.
+ I asked a person of intelligence how many steps he thought it would take, and he said that it would require 100 intermediate persons, or more, to move from Nebraska to Sharon. \cite{milgram1967small}
  
  Stanley Milgram 1969
 \end{displayquote}
@@ -14,14 +14,14 @@
 
  Networks can be subject to analysis at least three levels: first, the properties of the network as a whole such as the small-world property, secondly the properties of individual vertices and their importance and significance within the network and finally the analysis of the presence of mesoscale structures such as communities.
 
-Some nodes in a network can be more important than others. For example an airport hub in an air transportation network. This chapter examines measures of vertex importance for the postsynaptic proteome network. It describes these centrality measures, their previous use in the biomedical literature, reports their values and significance for the PSP, their implication for the function of the network and association with specific functions and their association finally with molecular cognition first in model organisms and finally with differences in cognitive ability in population GWA studies.   
+Some nodes in a network can be more important than others. For example an airport hub in an air transportation network.\cite{borenstein1989hubs} This chapter examines measures of vertex importance for the postsynaptic proteome network. It describes these centrality measures, their previous use in the biomedical literature, reports their values and significance for the PSP, their implication for the function of the network and association with specific functions and their association finally with molecular cognition first in model organisms and finally with differences in cognitive ability in population GWA studies.   
 
- The importance of central genes in a network has been well reported \cite{jeong2001lethality} including their association with disease \todo{ref}. In animal models of cognition or human differences in intelligence we could hypothesise that central nodes will affect a number of genes and potentially have impact on a pleitropic trait such as intelligence. Or there may be no such effect perhaps because effects on these nodes are deleterious and are either lethal or cause problems with cognitive ability that would absent sufferers from large scale genetic studies of cognitive ability. Hind sight bias is powerful and although network science is new some of its principles are sufficiently well known to be parlour games. In the light of such knowledge most educated persons would be able to answer Milgram's question above. 
+ The importance of central genes in a network has been well reported \cite{jeong2001lethality} including their association with disease \todo{ref}. In animal models of cognition or human differences in intelligence we could hypothesise that central nodes will affect a number of genes and potentially have impact on a pleitropic trait such as intelligence. Or there may be no such effect perhaps because effects on these nodes are deleterious and are either lethal or cause problems with cognitive ability that would absent sufferers from large scale genetic studies of cognitive ability. Hind sight bias is powerful and although network science is new it has been the subject of detailed popular science books \cite{barabasi2002linked} and one of its principles has been the subject of a play \cite{guare1990six} and film and also a parlour game \footnote{Six Degrees of Kevin Bacon}.\cite{collins1998s} In the light of such knowledge most educated persons would be able to answer Milgram's question above. 
  
  
- Similarly given hindsight bias, it would be very easy to decide knowing the association between centrality measures and intelligence or any other complex trait that this was obvious. However the specific effect of proteins position in the synaptic proteome network on synaptic function and complex traits are unknown. Even effects believed to be well established on simple model organisms are more complicated that they fist appeared as will be discussed in section. The approach to assessing the role of central genes and gene products must therefore be empirical. 
+ Similarly given hindsight bias \cite{fischhoff1975hindsight} \cite{fischhoff2007early}, it would be very easy to decide knowing the association between centrality measures and intelligence or any other complex trait that this was obvious. However the specific effect of proteins position in the synaptic proteome network on synaptic function and complex traits are unknown. Even effects believed to be well established on simple model organisms are more complicated that they fist appeared as will be discussed in section. The approach to assessing the role of central genes and gene products must therefore be empirical. 
  
- We should note before starting that in the literature that refers to centrality measures\todo{rephrase} there are differences between many gene networks and this protein-protein interaction network. Many network analyses of gene function are co-expression networks where an edge occurs when the expression of two genes are correlated. The implications of modular structure or centrality can, therefore, be different. A hub node is co-expressed with a variety of different genes and may represent a driver of a biological process such as a transcriptional regulator \cite{parikshak2015systems}\todo{ DONE cite parikshak}. A hub node in a protein-protein interaction network has promiscuous interaction partners but may not drive a process but be essential to several different processes. \todo{cite}
+ We should note before starting that in the literature that refers to centrality measures\todo{rephrase} there are differences between many gene networks and this protein-protein interaction network. Many network analyses of gene function are co-expression networks where an edge occurs when the expression of two genes are correlated.\cite{zhang2005general} The implications of modular structure or centrality can, therefore, be different. A hub node is co-expressed with a variety of different genes and may represent a driver of a biological process such as a transcriptional regulator \cite{parikshak2015systems}\todo{ DONE cite parikshak}. A hub node in a protein-protein interaction network has promiscuous interaction partners but may not drive a process but be essential to several different processes. \todo{cite}
  
 \textcolor{green}{? remove  this bitor move to earlier bit}While the measures of vertex importance are precisely defined how they will map onto animal models or complex traits is not and one can construct several plausible hypotheses of effect, effect of specific measures or no effect (hence the quotation at the start of the chapter\todo{?move this down into a fuller introduction section}.
 \section{General to dos}
@@ -44,7 +44,7 @@ most recent centrality in \url{source('~/RProjects/centrality/R/other_centrality
 
 \section{Properties of empirical networks}
 \label{sec:Properties of empirical networks}
-In addition to community structure which we will examine in chapter~\ref{chap:community detection} empirical networks may contain features such as a power law distribution, large clustering component and giant connected component. These can provide information on how networks form and evolve. They are not all shared by all empirical networks. For example road networks do not show a scale free property although air travel networks do.\textcolor{red}{? remove this or move it into the bit above}\todo{? remove this section or merge with earlier}. We can test for the existence of these properties by determining how a network differs from either a completely random model or a model in which some of its features (such as degree distribution (section \ref{sec:degree distribution}.
+In addition to community structure which we will examine in chapter~\ref{chap:community detection} empirical networks may contain features such as a power law distribution, large clustering component and giant connected component. These can provide information on how networks form and evolve. We have that advantage of knowing several facts about the evolution of the PSP importantly the gene duplication event \cite{grant2016molecular} They are not all shared by all empirical networks. For example road networks do not show a scale free property although air travel networks do.\textcolor{red}{? remove this or move it into the bit above}\todo{? remove this section or merge with earlier}. We can test for the existence of these properties by determining how a network differs from either a completely random model or a model in which some of its features (such as degree distribution (section \ref{sec:degree distribution}.
 \todo{?add global graph measures}
 \subsection{The configuration model}
 \todo{do this}
@@ -65,14 +65,6 @@ Figure~\ref{fig:dolphin} shows vertex betweenness centrality, eigenvector centra
     \label{fig:dolphin}
 \end{figure}
 
-\section{Why be interested in centrality measures}
-\textcolor{red}{Start move}
-An example of a property of an individual node is its degree: the number of connections (edges) it has to other nodes. High degree nodes are called hubs and proteome hub proteins are known to be more commonly essential to life and expressed ubiquitously. \cite{goh2007human}  Unregulated\todo{check unregulated or upregulated} genes in cancer proteomic networks have been found to be of high degree. \cite{wachi2005interactome}  High degree nodes were  involved in more diseases in the Online Mendelian Inheritance in Man (OMIM) compendium of genetic phenotypes. \cite{xu2006discovering}  Goh however found that disease genes were likely to be tissue specific and were not more likely to be hubs. \cite{goh2007human}  
-
-
-\section{Value of tissue specific networks}
-\cite{parikshak2015systems} quotes the example of cardiac PPI to investigaste long QT in \cite{lundby2014annotation}
-
 \section{Other centrality measures}
 Other vertex measures include eigenvector centrality, a measure of the importance of the node that includes the degree of its neighbours. \cite{bonacich1987power}  Some nodes are bottlenecks in the network. If a large number of the shortest (geodesic) paths pass through a node it is a potential bottleneck and its removal can disrupt the integrity of the network. The measure of a nodes propensity to be a bottleneck is the betweenness centrality. \cite{freeman1977set} 
 
@@ -84,6 +76,7 @@ Other vertex measures include eigenvector centrality, a measure of the importanc
 \end{figure}
 
 \textcolor{red}{Stop move}
+
 \section{Degree}
 \label{sec:degree}
 
@@ -98,7 +91,7 @@ k_i = \sum_j \mathbf{A}_{i,j}.
 
  Nodes with high degree may have more influence in a graph and are often referred to as hubs. Note however there are two senses in which the term hubs may be used (see p 168 Newman book\cite{newman2018networks}).  In a social network  individuals with a large number of contacts will have high degree and hence be influential in the network. In a protein protein interaction network high degree proteins will have numerous interactions and one would hypothesise play an important part in the network. 
  
- Disruption of high degree notde leads to disproportionate effects upon a network \cite{jeong2001lethality} \todo{cite Jeong and also cite attack tolerance}
+ Disruption of high degree nodes leads to disproportionate effects upon a network \cite{jeong2001lethality} \cite{albert2000error} 
 \todo{Sort out removed citations because of undefined control}
 \todo{also include evidence against yeast thing from dominating sets paper}
 
@@ -121,6 +114,18 @@ In the limit where $E[k] << N$ the degree is well approximated by a Poisson dist
 
 \subsection{Scale free}
 \todo{define scale free}
+\subsubsection{Description of scale free}
+It has been recognitsed that the degree distribution of nodes in real world networks are commonly scale free \cite{barabasi1999emergence} \cite{barabasi1999mean}. In a scale free network the probability of a vertex having degree $k$ $p(k)$ is:
+\begin{equation}
+    p(k) \sim k^{-\gamma},
+\end{equation}
+\label{eq:scale free}
+
+where $\gamma$ is the degree exponent \cite{barabasi2016network}
+
+Rare \cite{broido2019scale}
+
+\subsubsection{Methods scale free property}
 \todo{define the method of Clauset and Newman}
 \todo{intro to scale free}
 We can calculate the $\gamma$ coefficient for the degree distribution using the \texttt{poweRlaw} package for R. The value of $\gamma$ will vary over the distribution depending on the lower limit of degree used to fit the power law distribution. This is shown graphically in figure \ref{fig:gamma} and table \ref{table:gamma}.
@@ -193,6 +198,16 @@ Using the method described by \cite{clauset2009power} and calculating the minimu
 \caption{The $\gamma$ as a function of the degree sequence start (e.g. all degree $>5$). from RProjects/PhDGraphs}
   \label{table:gamma}
 \end{table}
+
+\section{Why be interested in centrality measures}
+\textcolor{red}{Start move}
+An example of a property of an individual node is its degree: the number of connections (edges) it has to other nodes. High degree nodes are called hubs and proteome hub proteins are known to be more commonly essential to life and expressed ubiquitously. \cite{goh2007human}  Unregulated\todo{check unregulated or upregulated} genes in cancer proteomic networks have been found to be of high degree. \cite{wachi2005interactome}  High degree nodes were  involved in more diseases in the Online Mendelian Inheritance in Man (OMIM) compendium of genetic phenotypes. \cite{xu2006discovering}  Goh however found that disease genes were likely to be tissue specific and were not more likely to be hubs. \cite{goh2007human}  
+
+
+\section{Value of tissue specific networks}
+\cite{parikshak2015systems} quotes the example of cardiac PPI to investigaste long QT in \cite{lundby2014annotation}
+
+
 
 \subsection{Comparison of degree distribution to random erdos graph}
 See section~\ref{sec: intro_random_graphs}
