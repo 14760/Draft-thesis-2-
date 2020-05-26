@@ -12,18 +12,29 @@
 
 
 
- Networks can be subject to analysis at least three levels: first, the properties of the network as a whole such as the small-world property, secondly the properties of individual vertices and their importance and significance within the network and finally the analysis of the presence of mesoscale structures such as communities.
+ Networks can be studied at three levels. First the properties of the network as a whole, such as the small-world property, secondly the properties of individual nodes and their importance  within the network and finally the analysis of the presence of meso-scale structures such as communities.
 
-Some nodes in a network can be more important than others. For example an airport hub in an air transportation network.\cite{borenstein1989hubs} This chapter examines measures of vertex importance for the postsynaptic proteome network. It describes these centrality measures, their previous use in the biomedical literature, reports their values and significance for the PSP, their implication for the function of the network and association with specific functions and their association finally with molecular cognition first in model organisms and finally with differences in cognitive ability in population GWA studies.   
+This chapter examines measures of centrality with reference to the post synaptic proteome network and measures of intelligence. Centrality measures how important nodes are within a network \cite{newman2018networks} and their position within the network \cite{freeman1978centrality}. The concept of centrality comes from the social sciences literature beginning in the last 1940s and its early evolution is reviewed in Freeman \cite{freeman1978centrality}.
 
- The importance of central genes in a network has been well reported \cite{jeong2001lethality} including their association with disease \todo{ref}. In animal models of cognition or human differences in intelligence we could hypothesise that central nodes will affect a number of genes and potentially have impact on a pleitropic trait such as intelligence. Or there may be no such effect perhaps because effects on these nodes are deleterious and are either lethal or cause problems with cognitive ability that would absent sufferers from large scale genetic studies of cognitive ability. Hind sight bias is powerful and although network science is new it has been the subject of detailed popular science books \cite{barabasi2002linked} and one of its principles has been the subject of a play \cite{guare1990six} and film and also a parlour game \footnote{Six Degrees of Kevin Bacon}.\cite{collins1998s} In the light of such knowledge most educated persons would be able to answer Milgram's question above. 
+
+Essentially some nodes in a network can be more important than others such as an airport hub in an air transportation network.\cite{borenstein1989hubs} Centrality statistics provide measures of this importance which can allow nodes to be ranked or their centrality compared with other properties. This chapter describes these centrality measures, their previous use in the biomedical literature, reports their values and significance for the PSP, their implication for the function of the network and association with specific functions and their association finally with molecular cognition first in model organisms and finally with differences in cognitive ability in population GWA studies.   
+
+ The importance of central genes in a network is well recognised \cite{jeong2001lethality} including their association with disease \todo{ref}.
+ 
+ Important nodes in the network might disproportionately affect animal models of cognition or human differences in intelligence. One could hypothesise that central nodes will affect a number of genes and potentially have an impact on a pleitropic trait such as intelligence. \todo{omnigenic model}.  Conversley there may be no such effect perhaps because effects on these nodes are deleterious and are either lethal or cause problems with cognitive ability that would absent sufferers from large scale genetic studies of cognitive ability. 
+ 
+ Although network network science is new discipline it has been the subject of detailed popular science books \cite{barabasi2002linked} and one of its principles has been the subject of a play \cite{guare1990six} and film and also a parlour game \footnote{Six Degrees of Kevin Bacon}.\cite{collins1998s} In the light of such knowledge most educated persons would be able to give a more accurate answer to Milgram's question above. 
+
  
  
- Similarly given hindsight bias \cite{fischhoff1975hindsight} \cite{fischhoff2007early}, it would be very easy to decide knowing the association between centrality measures and intelligence or any other complex trait that this was obvious. However the specific effect of proteins position in the synaptic proteome network on synaptic function and complex traits are unknown. Even effects believed to be well established on simple model organisms are more complicated that they fist appeared as will be discussed in section. The approach to assessing the role of central genes and gene products must therefore be empirical. 
+ Hindsight bias \cite{fischhoff1975hindsight} \cite{fischhoff2007early}, describes the phenomena where the probability of an event or finding seems greater after it has occurred (we know it all along)
  
- We should note before starting that in the literature that refers to centrality measures\todo{rephrase} there are differences between many gene networks and this protein-protein interaction network. Many network analyses of gene function are co-expression networks where an edge occurs when the expression of two genes are correlated.\cite{zhang2005general} The implications of modular structure or centrality can, therefore, be different. A hub node is co-expressed with a variety of different genes and may represent a driver of a biological process such as a transcriptional regulator \cite{parikshak2015systems}\todo{ DONE cite parikshak}. A hub node in a protein-protein interaction network has promiscuous interaction partners but may not drive a process but be essential to several different processes. \todo{cite}
+Knowing the association between centrality measures and intelligence or any other complex trait one could construct a convincing argument that this finding is obvious and to be expected. However the specific effect of proteins position in the synaptic proteome network on synaptic function and complex traits are unknown. Even effects believed to be well established on simple model organisms are more complicated that they fist appeared as will be discussed in section \todo{cross reference}. The approach to assessing the role of central genes and gene products must therefore be empirical. 
  
-\textcolor{green}{? remove  this bitor move to earlier bit}While the measures of vertex importance are precisely defined how they will map onto animal models or complex traits is not and one can construct several plausible hypotheses of effect, effect of specific measures or no effect (hence the quotation at the start of the chapter\todo{?move this down into a fuller introduction section}.
+ The existing literature on centrality measures in molecular biology include both \todo{rephrase} gene networks and this protein-protein interaction network. Network analyses of gene function and regulation are often co-expression networks where an edge occurs when the expression of two genes are correlated.\cite{zhang2005general} The implications of modular structure or centrality can, therefore, be different from a protein protein interaction network. A hub node is co-expressed with a variety of different genes and may represent a driver of a biological process such as a transcriptional regulator \cite{parikshak2015systems}\todo{ DONE cite parikshak}. A hub node in a protein-protein interaction network has promiscuous interaction partners but may not drive a process but be essential to several different processes. \todo{cite}
+ 
+% \textcolor{green}{? remove  this bitor move to earlier bit}While the measures of vertex importance are precisely defined how they will map onto animal models or complex traits is not and one can construct several plausible hypotheses of effect, effect of specific measures or no effect (hence the quotation at the start of the chapter\todo{?move this down into a fuller introduction section}.
+
 \section{General to dos}
 
 Table of diameters \cite{crescenzi2013computing}
@@ -44,19 +55,27 @@ most recent centrality in \url{source('~/RProjects/centrality/R/other_centrality
 
 \section{Properties of empirical networks}
 \label{sec:Properties of empirical networks}
-In addition to community structure which we will examine in chapter~\ref{chap:community detection} empirical networks may contain features such as a power law distribution, large clustering component and giant connected component. These can provide information on how networks form and evolve. We have that advantage of knowing several facts about the evolution of the PSP importantly the gene duplication event \cite{grant2016molecular} They are not all shared by all empirical networks. For example road networks do not show a scale free property although air travel networks do.\textcolor{red}{? remove this or move it into the bit above}\todo{? remove this section or merge with earlier}. We can test for the existence of these properties by determining how a network differs from either a completely random model or a model in which some of its features (such as degree distribution (section \ref{sec:degree distribution}.
+In addition to community structure which we will examine in chapter~\ref{chap:community detection} empirical networks may contain features at a network level such as a power law degree distribution \cite{barabasi1999emergence} \cite{barabasi1999mean} and small world structure \cite{watts1998collective}. These can provide information on how networks form and evolve.\todo{ref} We have that advantage of knowing several facts about the evolution of the PSP importantly the gene duplication event \cite{grant2016molecular} They are not all shared by all empirical networks. For example road networks do not show a scale free property although air travel networks do.\textcolor{red}{? remove this or move it into the bit above}\todo{? remove this section or merge with earlier}. We can test for the existence of these properties by determining how a network differs from either a completely random model or a model in which some of its features (such as degree distribution (section \ref{sec:degree distribution}).
 \todo{?add global graph measures}
 \subsection{The configuration model}
 \todo{do this}
+In considering measures of  a network or a vertex we can study them by seeing how much they differ from their expected value given a random network. Simple random networks such as Erdos Renyi random graphs are discussed in the introduction \todo{cross ref}.
+
+These models however result in a Poisson distribution of node degree (see section~\ref{sec:degree distribution}) \todo{move this to after degree distribution} and many real world networks have more complicated degree structures such as a power law distribution (see section~\ref{sec:scale_free}) . A number of generating models for power law distribution networks have been described. If one is studying a particular network for which one has the degree sequence then the configuration model is a good choice \todo{rephrase}.
+
+The configuration model keeps the degree distribution of the network. Each edge is broken into two stumps and then the stumps are rewired into other stumps with a uniform probability. This can result in self loops and multiedges which do not occur in most real world networks but the number of these are low as the network size increases \cite{newman2018networks}.
 
 
 
 
 \section{Centrality measures}
-Centrality measures show how important as node is within the network and a variety of statistics use different measures of importance (see section~\ref{sec: intro_centrality_measures}). Many are correlated with each other although their correlation varies.\textcolor{red}{move this down}. We will consider degree, eigenvector centrality, betweenness, closeness and transitivity. All measures are derived from the adjacency.
+Centrality measures show how important as node is within the network \todo{said this before} and a variety of statistics use different measures of importance (see section~\ref{sec: intro_centrality_measures}). Many are correlated with each other although their correlation varies.\textcolor{red}{move this down}. We will consider degree, eigenvector centrality, betweenness, closeness and transitivity. All measures are derived from the adjacency matrix.
+
+
+
+Other vertex measures include eigenvector centrality, a measure of the importance of the node that includes the degree of its neighbours. \cite{bonacich1987power}  Some nodes are bottlenecks in the network. If a large number of the shortest (geodesic) paths pass through a node it is a potential bottleneck and its removal can disrupt the integrity of the network. The measure of a nodes propensity to be a bottleneck is the betweenness centrality. \cite{freeman1977set} 
 
 Figure~\ref{fig:dolphin} shows vertex betweenness centrality, eigenvector centrality and local transitivity. High values of these measures are shown in red. The data is from a social network of bottle nose dolphins \footnote{\url{http://www-personal.umich.edu/~mejn/netdata/dolphins.zip}} \cite{lusseau2003bottlenose} \todo{Make vertices bigger in figure}.
-
 
 \begin{figure}
     \centering
@@ -65,19 +84,9 @@ Figure~\ref{fig:dolphin} shows vertex betweenness centrality, eigenvector centra
     \label{fig:dolphin}
 \end{figure}
 
-\section{Other centrality measures}
-Other vertex measures include eigenvector centrality, a measure of the importance of the node that includes the degree of its neighbours. \cite{bonacich1987power}  Some nodes are bottlenecks in the network. If a large number of the shortest (geodesic) paths pass through a node it is a potential bottleneck and its removal can disrupt the integrity of the network. The measure of a nodes propensity to be a bottleneck is the betweenness centrality. \cite{freeman1977set} 
+The simplest centrality measure is degree centrality considered below. 
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{images/Rplot_pairs_plot.png}
-    \caption{Scatter plot of centrality measures. Source \url{source('~/RProjects/correlation_gene_scores/R/make_df_graph_stats_correlation_lowdeg_high_bet.R')}}
-    \label{fig:scatter plot of multiple centrality measures}
-\end{figure}
-
-\textcolor{red}{Stop move}
-
-\section{Degree}
+\section{Degree centrality}
 \label{sec:degree}
 
 Probably the simplest centrality measure is degree. 
@@ -113,6 +122,7 @@ In the limit where $E[k] << N$ the degree is well approximated by a Poisson dist
 
 
 \subsection{Scale free}
+\label{sec:scale_free}
 \todo{define scale free}
 \subsubsection{Description of scale free}
 It has been recognitsed that the degree distribution of nodes in real world networks are commonly scale free \cite{barabasi1999emergence} \cite{barabasi1999mean}. In a scale free network the probability of a vertex having degree $k$ $p(k)$ is:
@@ -357,7 +367,7 @@ Raman \cite{raman2014organisational} examined multiple centrality metrics in add
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%    METHODS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Methods}
+\section{METHODS}
 
 \subsubsection{Methods scale free property}
 \todo{define the method of Clauset and Newman}
@@ -541,7 +551,16 @@ Degree & $1 $ & $4 $ & $8 $ & $17.64$  & $19$ & $535$ \\
     \label{Table:Test for normality (Shapiro-Wilk) for centrality measures of PSP}
 \end{table}
 
+\section{Correlation of centrality measures}
 
+A scatterplot of the relation of centrality measures is shown in figure~\ref{fig:scatter plot of multiple centrality measures}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_pairs_plot.png}
+    \caption{Scatter plot of centrality measures. Source \url{source('~/RProjects/correlation_gene_scores/R/make_df_graph_stats_correlation_lowdeg_high_bet.R')}}
+    \label{fig:scatter plot of multiple centrality measures}
+\end{figure}
 
 \section{ Results Average path length}
 The average path length calculated using the \texttt{mean\_distance} function in igraph is 2.98
