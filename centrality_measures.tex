@@ -21,7 +21,7 @@ Essentially some nodes in a network can be more important than others such as an
 
  The importance of central genes in a network is well recognised \cite{jeong2001lethality} including their association with disease \todo{ref}.
  
- Important nodes in the network might disproportionately affect animal models of cognition or human differences in intelligence. One could hypothesise that central nodes will affect a number of genes and potentially have an impact on a pleitropic trait such as intelligence. \todo{omnigenic model}.  Conversley there may be no such effect perhaps because effects on these nodes are deleterious and are either lethal or cause problems with cognitive ability that would absent sufferers from large scale genetic studies of cognitive ability. 
+ Important nodes in the network might disproportionately affect animal models of cognition or human differences in intelligence. One could hypothesise that central nodes will affect a number of genes and potentially have an impact on a pleitropic trait \todo{ref} such as intelligence. \todo{omnigenic model}.  Conversely there may be no such effect perhaps because effects on these critical nodes are deleterious and are either lethal or cause problems with cognitive ability that would absent sufferers from large scale genetic studies of cognitive ability. 
  
  Although network network science is new discipline it has been the subject of detailed popular science books \cite{barabasi2002linked} and one of its principles has been the subject of a play \cite{guare1990six} and film and also a parlour game \footnote{Six Degrees of Kevin Bacon}.\cite{collins1998s} In the light of such knowledge most educated persons would be able to give a more accurate answer to Milgram's question above. 
 
@@ -94,7 +94,7 @@ Probably the simplest centrality measure is degree.
 The degree of a node is the number of edges connected to it. In the network graph of the PSP it is the number of proteins a particular protein interacts with.
 For the adjacency matrix $A_{i,j}$, where $A_{i,j}=1$  if there is an edge between nodes $i$ and $j$ and 0 otherwise, the degree of node $i$, $k_i$ is\cite{boccaletti2006complex}:
 \begin{equation}
-k_i = \sum_j \mathbf{A}_{i,j}.
+k_i = \sum_{j=1}^n A_{i,j}.
 \label{Equation:Degree_from_adjacency}
 \end{equation}
 
@@ -106,7 +106,13 @@ k_i = \sum_j \mathbf{A}_{i,j}.
 
 \subsection{Degree distribution}
 \label{sec:degree distribution}
-The properties of networks can be discovered by comparing these networks to random models. 
+The degree distribution of a network is the probability that a node chosen at random has a particular degree or the empirical probability density of the network eg
+
+\begin{equation}
+    p(k) = k
+\end{equation}
+
+or can be represented as a degree sequence which is the actual instantiation of node degrees for each vertex in a network eg $1,1,2,3,5,7,\dots,n$. The properties of networks can be discovered by comparing these networks to random models. 
 If a graph were to have a random distribution of edges between vertices we would expect the degree distribution ($P(k)=k)$) to be distributed according to the binomial distribution.  
 
 If there is a constant probability $p$ of an edge between two nodes in a network, the probability of having $k$ links with probability of links between vertices of $p$ is $p^k$ and the remaining $N-1-k$ nodes being absent (-1 as we exclude self loops) is $(1-p)^{N-1-k}$.
@@ -182,9 +188,12 @@ We will see what the correlation is in population cohorts and what we might expe
 \todo{This is perhaps the bit to introduce the possible different hypothesise}
 
 
+%%% CENTRALITY MEASURES %%%
+\section{Other centrality measures}
+
 \subsection{Betweenness}
 \label{sec:Betweeness centrality}
-Described by Freeman \cite{freeman1977set} betweenness centrality is a measure of information flow through a node and the importance of a node as a component of paths through the network. 
+Both betweenness centrality and closeness centrality (section~\ref{sec:closenesscentrality}) depend on the properties of shortest paths between nodes. Betweenness centrality is a vertex level statistic described by Freeman \cite{freeman1977set}. Betweenness centrality is a measure of information flow through a node and the importance a node measured by the number of geodesic (shortest) paths between nodes in the network passing through a particular node. 
 
 Betweenness centrality measures the number of shortest (geodesic) paths through a node. Following Newman if $n_{st}^i$ is one if a shortest path between nodes $s$ and $t$ pass through node $i$ and $g_{st}$ is the number of shortest paths between $s$ and $t$ then the betweenness centrality of node $i$ is
 
@@ -194,13 +203,36 @@ Betweenness centrality measures the number of shortest (geodesic) paths through 
 \label{eq: Betweenness centrality}
 
 from Newman \cite{newman2018networks} p172. 
- \todo{normalised betweenness centrality}
- \todo{edge centrality}
+
+Informally the number of shortest paths passing through a node for all paths between nodes in the network and where more than one shortest path occurs it is weighted by the number of such paths that exist. The betweenness centrality can be normalised by dividing by the number of possible node pairs in the network $n^2$ \cite{newman2018networks} p176
+
+Nodes with high betweenness centrality connect different areas on the network (ie paths between nodes in the network disproportionatley flow through them) they are sites of increased information flow (especially if the information knows the path to take through the network (compare with random walk betweenness centrality) and measures how much other nodes depend on the presence of these nodes.
+
+
+
  
 \subsubsection{Edge betweenness}
+ \todo{edge centrality}
 
 
+\section{Closeness centrality}
+\label{sec:closenesscentrality}
+Alex Bevelas
 
+Closeness centrality measures how centrally ie close to other nodes a node is in the network. Like betweenness centality it depends on shortest walks. Closeness centrality is the inverse of the  average length of shortest path to and from other vertices in the graph \cite{freeman1978centrality}
+
+\begin{equation}
+    l_i = \frac{1}{n} \sum_j d_{ij}
+\end{equation}
+
+$l_i$ is the mean distance between node $i$ and every other node in the network. As a distance measure it is small when nodes are central so we take its inverse to produce closeness centrality
+
+
+\begin{equation}
+    C_i = \frac{1}{l_i}
+\end{equation}
+
+While betweenness centrality measures the dependence of other nodes in the network on a particular node (as a bottleneck for information) the closeness centrality has been interpreted both as proximity and access efficiency and independendce from other nodes \todo{ cite(Bronelles, Brandes and Borgetti)} but these are identical
 
 
 
@@ -245,20 +277,18 @@ Alpha centrality and bonacich centrality have parameters (bonacich is alpha with
 
 \todo{? add pagerank}
 
-\section{Closeness centrality}
-\label{sec:closenesscentrality}
-Alex Bevelas
-Closeness centrality is the inverse of the  average length of shortest path to and from other vertices in the graph \cite{freeman1978centrality}
+
 
 
 \section{Transitivity}
-
+\label{sec:transitivity}
 The transitivity of a network measures the extent to which if two nodes each connected to another node they will be in turn connected. In more colloquial terms if Alice and Bob are both friends with Susan how likely are Alice and Bob to be friends. The clustering coefficient measures the number of these connections called closed triads occurring in a network 
 divided by the possible number that could occur.
 
-Transitivity can be calculated for the network as a whole or for individual nodes. This global transitivity is often called the clustering coefficient. 
+Transitivity can be calculated for the network as a whole or for individual nodes. This global transitivity is often called the clustering coefficient which can be confusing because of the alternate clustering coefficient described below in section~\ref{sec:Global clustering coefficient}. 
 
 A triangle of vertices,  all connected to each other, forming a loop is  a \textit{closed triad} \cite{newman2018networks}. It is also a path of length two (as paths must have distinct edges. The possible triads that could be formed by the addition of an edge are all paths of length two so the transitivity is:
+
 \begin{equation}
     C = \frac{\textrm{number of closed paths of length two}}{\textrm{number of paths of length 2}}
 \end{equation}
@@ -276,9 +306,12 @@ Using connected triple to refer to any connected three vertices (whether they fo
 \end{equation}
 The probability the two neighbours of a node in a network are connected is thus its transitivity.\cite{newman2018networks}. 
 
-\subsubsection{Global clustering coefficient}
+\todo{expected value}
 
-The local transitivity defined below (section \ref{sec:local clustering coefficient} is used synonymously with clustering coefficient. The global clustering coefficient however defined by Watts and Strogatz as the arithmetic mean of the vertex local clustering coefficients
+
+\subsubsection{Global clustering coefficient}
+\label{sec:Global clustering coefficient}
+The local transitivity defined below (section \ref{sec:local clustering coefficient} is used synonymously with clustering coefficient. The global clustering coefficient however defined by Watts and Strogatz as the arithmetic mean of the vertex local clustering coefficients. The global clustering coefficient can become domminated by nodes of low degree \cite{newman2018networks} p188 and nodes with low degree tend to have high values of local clsutering coeffieicnt. 
 
 \subsection{Local clustering coefficient}
 \label{sec:local clustering coefficient}
@@ -292,6 +325,11 @@ where $c_n$ is the number of connections between a vertexes neighbours and $c_{m
 \begin{equation}
 c_{max} = \frac{k_v(1-k_v)}{2}
 \end{equation}
+
+The local clustering coeffiecient can be regarded as a local inverse of the betweenness centrality \todo{check}. Local clustering measures the connectivity of nodes in the neighbourhood of a particular node. If the local clustering is low then there exist disconnections in a nodes neighbours which are referred to as structural holes \todo{cite ?Burt} the node that connects these neighbours has an importance analagous to that measured by betweenness centrality but confined to the immediate neighnourhood of the node. .
+
+\todo{power}
+
 
 
 
