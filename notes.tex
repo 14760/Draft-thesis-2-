@@ -175,6 +175,7 @@ cited by 1044
   publisher={IEEE}
 }
 
+
 \subsection{general notes}
 Wagner and Fell small world
 
@@ -222,6 +223,10 @@ SE = 1 / sqrt( 2 * MAF * ( 1 - MAF ) * ( N + $Zscore^2$ ) )
 \section{Useful papers for methods}
 
 MDD for quoting MAGMA \url{https://www.nature.com/articles/s41467-018-03819-3}
+
+\section{Literature for centrality and other stuff}
+\label{sec:literature centrality and other stuff}
+Shim \cite{shim2017gwab} reports GWAB a method for prioritising GWAS statistics given network structure. It uses a guilt by association method to increase the score of nodes which are neighbours of high scoring GWAS nodes. The gene level score comes from the highest scoring SNP rather than from VEGAS !(this is 2017). The network is taken from HumanNet a previous work by the authors \cite{lee2011prioritizing} (this one is cited by over 500). Human net incorporates "diverse distinct lines of evidence" including PPI, mRNA co-expression, comparative genomics data from yeast, fly and worm to result in a network with 16243 nodes and 476399 'scored functional couplings' which I take to be a weighted edge. Again this paper is GWAS boosting from guilt by association. 21 proteomic and genomic datasets were integrated from the four species (I assume human is the other along with yeast fly and worm). They also talk about markov clustering and GeneMania. In the construction bit they talk about training the network using gene ontology pairs again I am a bit lost with these.  
 
 \section{Community detection}
 
@@ -409,7 +414,7 @@ GO:0034641 & cellular nitrogen compound metabolic pro... & 1208 & 621 & 393.5 & 
 \end{table}
 
 \section{Spin glass clustering notes}
-
+\label{sec:spin glass}
 Spin glass clustering works by minimising the energy of a Potts spin glass model where the spin state represents the community detected and the optimisation is the lowest energy state of the Potts model. \cite{reichardt2006statistical}. There exists a parameter for the importance of edges that are present and absent and the number of spins supplied to the algorithm will limit the number of communities detected (communities can only be found in vacant spin states).
 
 The algorithm gives rise to communities showing good gene ontology enrichment and modularity but this thesis is aimed at showing the utility of network analysis in complex traits. The number of tun-able parameters means there is a trade off between optimising clustering and penalties for multiple testing. The algorithm is powerful and can deal with overlapping communities and hierarchical structure and its use in the analysis of biological networks is likely to be a productive area of study however it greatly exedes the scope of this thesis and perhaps is best pursued by one with an intuitive understanding of statistical mechanics. In addition we did not have at that time extensive experience in its implementation within the group which was not the case with other algorithms \todo{rephrase or remove this bit. It is true - if you look at a lot of the stuff on spin glasses they are very theoretic and there are less practical uses of them or discussions of their performance on benchmarks etc - to the best of my knowledge but this is a paper cited > 1500 times. The bit about experience within the group is true too but I don't know if that is the sort of thing you write out}.
