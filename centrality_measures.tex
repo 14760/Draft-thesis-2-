@@ -881,7 +881,7 @@ The expected value of the global clustering coefficient with a given degree dist
     C=\frac{1}{n}\frac{[<k^2> - <k>]^2}{<k^3>}
 \end{equation}
 
-The value of this for the PSP is 0.004541763 \footnote{code \url{source('~/RProjects/centrality/R/transitivity/Expected_global_transitivity.R')}}. The global clustering coefficient is therefore high. Newman states p334 \cite{newman2018networks} that it is not clear why certain non social networks have higher than expected global clustering (for social networks it is ascribed to social choice). For other networks such as the internet with very right skewed degree distribution the clustering coefficient is less than expected. For biological systems such as foodwebs or the world wide web it is hypothesised that this may due to community formation (newman ref 367)
+The value of this for the PSP is 0.004541763 \footnote{code \url{source('~/RProjects/centrality/R/transitivity/Expected_global_transitivity.R')}}. The global clustering coefficient is therefore high. Newman states p334 \cite{newman2018networks} that it is not clear why certain non social networks have higher than expected global clustering (for social networks it is ascribed to social choice). For other networks such as the internet with very right skewed degree distribution the clustering coefficient is less than expected. For biological systems such as food webs or the world wide web it is hypothesised that this may due to community formation (newman ref 367)
 
 Also motifs (other than number of triangles) newman 334 again
 
@@ -891,7 +891,7 @@ Local clustering coefficient tends to be inversely proportional to degree. It is
 Mean local transitivity is 0.171. The distribution is right skewed with median of 0.129 and 3rd quartile of 0.23 and first quartile of 0.043. This does not match the arithmetic mean of vertex local clustering below it may be down to how we deal with NA. Above calculated as NA.rm
 \subsubsection{GO enrichment local clustering coefficient}
 
-There was little enrichment for local clustering coefficient using GO and 0.05 and 0.95 centile in part because of the large number of 0 values when isolates are treated as 0. However in table~\ref{tab:Number of nodes 935 local transitivity 0.05 centile  local transitivity $<=$ 0 CC background PSP.Alpha=3.33555703802535e-05isolates 0} we can see that low local transitivity ie 0 nodes are enriched for plasma membrane components, the plasma membrane components do not show marked transitivity which is perhaps to be expected as they are at the edge of the PSP and it would not be intuitive for these components to all be interconnected. 
+There was little enrichment for local clustering coefficient using GO and 0.05 and 0.95 centile in part because of the large number of 0 values when isolates are treated as 0. However in table~\ref{tab:Number of nodes 935 local transitivity 0.05 centile  local transitivity $<=$ 0 CC background PSP.Alpha=3.33555703802535e-05isolates 0} we can see that low local transitivity i.e. 0 nodes are enriched for plasma membrane components, the plasma membrane components do not show marked transitivity which is perhaps to be expected as they are at the edge of the PSP and it would not be intuitive for these components to all be interconnected. 
 
 
 \subsection{kcoreness results}
@@ -907,10 +907,11 @@ There was little enrichment for local clustering coefficient using GO and 0.05 a
  
  \subsubsection{K core gene ontology}
  
- Gene ontology enrichment for molecular  a range over the outer core 1-7 is shown in table~\ref{tab:kcore range GO Number of nodes 1724 k core 0 centile  k core1-7 MF background PSP. Alpha=3.33555703802535e-05}. It shows enrichment for transmembrane transporters and G protein coupled receptors. 
+ Gene ontology enrichment for molecular  a range over the outer core 1-7 is shown in table~\ref{tab:kcore range GO Number of nodes 1724 k core 0 centile  k core1-7 MF background PSP. Alpha=3.33555703802535e-05}. It shows enrichment for trans-membrane transporters and G protein coupled receptors. 
  
  The innermost core $k>=23$ shows enrichment for RNA processing as seen in other centrality measures (table~\ref{tab:Number of nodes 201 k core 0.95 centile  k core $>=$ 23 BP background PSP. Alpha = 4.5583006655119e-06})
- 
+
+Code for GO and centrality measures \url{source('~/RProjects/group_sizes/R/plotting/modified_example...'} 
  
  
 
