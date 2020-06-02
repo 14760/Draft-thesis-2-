@@ -53,10 +53,18 @@ Kendal tau rank - concordant pairs ie a comes before b in both samples
 most recent centrality in \url{source('~/RProjects/centrality/R/other_centrality/eccentricity_and_distance.R')}
 
 
+
 \section{Properties of empirical networks}
 \label{sec:Properties of empirical networks}
 In addition to community structure which we will examine in chapter~\ref{chap:community detection} empirical networks may contain features at a network level such as a power law degree distribution \cite{barabasi1999emergence} \cite{barabasi1999mean} and small world structure \cite{watts1998collective}. These can provide information on how networks form and evolve.\todo{ref} We have that advantage of knowing several facts about the evolution of the PSP importantly the gene duplication event \cite{grant2016molecular} They are not all shared by all empirical networks. For example road networks do not show a scale free property although air travel networks do.\textcolor{red}{? remove this or move it into the bit above}\todo{? remove this section or merge with earlier}. We can test for the existence of these properties by determining how a network differs from either a completely random model or a model in which some of its features (such as degree distribution (section \ref{sec:degree distribution}).
 \todo{?add global graph measures}
+
+\section{Small world}
+\textcolor{red}{this is not covered in introduction}
+
+\todo{small world network either do here or put in introduction this goes with results }
+. Results see section~\ref{sec:Results average path length and transitivity}
+
 \subsection{The configuration model}
 \todo{do this}
 In considering measures of  a network or a vertex we can study them by seeing how much they differ from their expected value given a random network. Simple random networks such as Erdos Renyi random graphs are discussed in the introduction \todo{cross ref}.
@@ -145,8 +153,7 @@ Rare \cite{broido2019scale}
 
 \section{Why be interested in centrality measures}
 \textcolor{red}{Start move}
-An example of a property of an individual node is its degree: the number of connections (edges) it has to other nodes. High degree nodes are called hubs and proteome hub proteins are known to be more commonly essential to life and expressed ubiquitously. \cite{goh2007human}  Unregulated\todo{check unregulated or upregulated} genes in cancer proteomic networks have been found to be of high degree. \cite{wachi2005interactome}  High degree nodes were  involved in more diseases in the Online Mendelian Inheritance in Man (OMIM) compendium of genetic phenotypes. \cite{xu2006discovering}  Goh however found that disease genes were likely to be tissue specific and were not more likely to be hubs. \cite{goh2007human}  
-
+An example of a property of an individual node is its degree: the number of connections (edges) it has to other nodes.
 
 \section{Value of tissue specific networks}
 \cite{parikshak2015systems} quotes the example of cardiac PPI to investigaste long QT in \cite{lundby2014annotation}
@@ -363,8 +370,13 @@ Equation assortativity
 
 
 \section{Biomedical significance of centrality measures}
-\cite{lee2013network} examined NHGRI complex trait catalog and found that complex trait loci were more likely to be hubs or bottlenecks (although this is 2013). Defining hub and bottleneck as top 20\% of distribution. 
-\cite{liu2017sigmod} described a method of identifying gene modules and combining this with p values but use heterogenous different measures of gene interaction including coexpression. 
+
+ High degree nodes are called hubs and proteome hub proteins are known to be more commonly essential to life \cite{jeong2001lethality} and expressed ubiquitously. \cite{goh2007human}  Jeong found that high degree nodes in yeast were more likely to be essential to life \cite{jeong2001lethality} although later work has questioned this (see section\todo{cross ref} Unregulated\todo{check unregulated or upregulated} genes in cancer proteomic networks have been found to be of high degree. \cite{wachi2005interactome}  High degree nodes were  involved in more diseases in the Online Mendelian Inheritance in Man (OMIM) compendium of genetic phenotypes. \cite{xu2006discovering}  Goh however found that disease genes were likely to be tissue specific and were not more likely to be hubs. \cite{goh2007human}  
+
+Lee et al. \cite{lee2013network} in 2013 examined National Human Genome Research Institute (NHGRI)  catalogue of complex trait GWAS \footnote{now the NHGRI-EBI GWAS catalogue} and found that complex trait loci were more likely to be found in genes that were hubs or bottlenecks, where hub and bottleneck are defined as the top 20\% of the degree centrality and betweenness centrality distribution.  The network is composed of the genes encoding protein protein interactions in the STRING (14025 nodes and 492087 edges representing protein protein interactions). The GWAS datasets were composed of type 2 diabetes studies (FUSION  Cases n=	1161 Controls n=	1174 
+WTCCC Cases n=	2000 controls n=	3000  and Inflammatory Bowel Disease Genetics Consortium (IBDGC) with European populations without Jewish ancestry and those with Jewish ancestry (IBDGCi case n=	561 control n=	563 IBDGCii case n= 	407 control n=	432).  
+
+Liu \cite{liu2017sigmod} described a method of identifying gene modules and combining this with p values but use heterogenous different measures of gene interaction including coexpression. 
 \cite{bayes2011characterization} found strong sequence conservation in PSP hub proteins. So there is some evidence that we might suspect they have an influence on human cognition using the G2C framework but as this is complex what we need is empirical proof indeed one can make a plausible argument from the available evidence for the effect of a specific measure, for an effect of centrality generally or for no effect \todo{? add box}.  
 
 
@@ -601,10 +613,11 @@ A scatterplot of the relation of centrality measures is shown in figure~\ref{fig
 \end{figure}
 
 \section{ Results Average path length}
+\label{sec:Results average path length and transitivity}
 The average path length calculated using the \texttt{mean\_distance} function in igraph is 2.98
 
 
-This is similar to the L of 2.65 and C of 0.28 of C elegans. The random rewiring with a uniform probability leads to a L of 3.11. \todo{add table of path length}
+This is similar to the L of 2.65 and C of 0.28 of C elegans \todo{reference and what is l and c I think c is clustering coefficient}. The random rewiring with a uniform probability leads to a L of 3.11. \todo{add table of path length}
 \todo{add omnigenic bit}%see code source('~/RProjects/graph_transitivity/R/transitivity.R')
 
 If we simulate mean distance using a degree sequence model we get no distance $<$ empirical distance of 2.979 in 1000 simulations.
