@@ -965,9 +965,30 @@ Although nodes of high importance or local clustering do have distinct propertie
 
 
 \subsection{RESULTS Scale free}
-Using the method described by \cite{clauset2009power} and calculating the minimum x value we find the min for $x$ to be 24 and the $\gamma$ coefficient to be 2.51 using the poweRlaw R package \cite{gillespie2015fitting}. The log of the degree distribution is shown in figure \ref{fig:log_degree_distribution} and figure \ref{fig:Degree distribution of post synaptic proteome. Log10 - log10 scale.}
+Using the method described by \cite{clauset2009power} and calculating the minimum x value we find the min for $x$ to be 24 and the $\gamma$ coefficient to be 2.51 using the poweRlaw R package \cite{gillespie2015fitting}. GOF 0.19. ntail 68 \footnote{\url{source('~/RProjects/group_size_distribution/R/calulate_cdf.R')}} The log of the degree distribution is shown in figure \ref{fig:log_degree_distribution} and figure \ref{fig:Degree distribution of post synaptic proteome. Log10 - log10 scale.}
 % see http://127.0.0.1:21133/library/poweRlaw/doc/a_introduction.pdf
 \footnote{code at \url{/home/grant/RProjects/PhD_graphs/}}
+
+
+The bootstrap p for the power law distribution is 0.583 with goodness of fit 0.19 using the package poweRlaw 0.70.6 using ks distance.\footnote{\url{source('~/RProjects/group_size_distribution/R/calulate_cdf.R')}}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{images/Rplot01_poweRlaw_ggplot.png}
+    \caption{Plot of fit of power law to degree distribution for the PSP. X axis is log 10 degree, Y axis is log 10 inverse cdf. Red line fit of power law distribution $\gamma= 2.51$ and $x_{min}=24$ \url{source('~/RProjects/group_size_distribution/R/calulate_cdf.R')}}
+    \label{fig:poweRlaw plot ggplot2}
+\end{figure}
+
+
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_poisson_plotted_on_degreedistribution.png}
+    \caption{Plot of degree distribution PSP with degree on x axis (log10). Points are degree distribution. Blue dash expected degree distribution given Poisson distribution. Red dash average degree \url{source('~/RProjects/group_size_distribution/R/poissonanddegree.R')}}
+    \label{fig:PSP degree powerlaw poisson}
+\end{figure}
 
 % \begin{figure}
 %   \includegraphics[width=\linewidth]{./dependence_of_scale_coefficient_on_min_degree.png}
