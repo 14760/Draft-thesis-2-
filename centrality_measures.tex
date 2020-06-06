@@ -132,13 +132,16 @@ There are $\binom{N-1}{k}$ ways in which this arrangement of present and missing
    \label{Equation:BinomialDistributionForDegreeProbability}
 \end{equation}
 In the limit where $E[k] << N$ the degree is well approximated by a Poisson distribution \cite{barabasi2016network}. The Posson distribution is parameterised only by $E[k]$.  The probability mass should be centred around the empirical mean and we would not expect to see nodes whose degree were 3 x or more the average degree. This is not what we find the distribution is scale free. \todo{probablility of max degree node} 
-\todo{plot of Poisson and empirical for $E[k]$}
+\todo{plot of Poisson and empirical for $E[k]$} \textcolor{red}{see figure}
 
 
 \subsection{Scale free}
 \label{sec:scale_free}
 \todo{define scale free}
 \subsubsection{Description of scale free}
+
+\textcolor{red}{need to give background on barabasi etc}
+\todo{background scale free}
 It has been recognitsed that the degree distribution of nodes in real world networks are commonly scale free \cite{barabasi1999emergence} \cite{barabasi1999mean}. In a scale free network the probability of a vertex having degree $k$ $p(k)$ is:
 \begin{equation}
     p(k) \sim k^{-\gamma},
@@ -149,16 +152,15 @@ where $\gamma$ is the degree exponent \cite{barabasi2016network}
 
 Rare \cite{broido2019scale}
 
+\textcolor{red}{Why called this scale free}
 
 
-\section{Why be interested in centrality measures}
-\textcolor{red}{Start move}
-An example of a property of an individual node is its degree: the number of connections (edges) it has to other nodes.
+
 
 \section{Value of tissue specific networks}
 \cite{parikshak2015systems} quotes the example of cardiac PPI to investigaste long QT in \cite{lundby2014annotation}
 
-
+Kitsak and Barabasi \cite{kitsak2016tissue}
 
 \subsection{Comparison of degree distribution to random erdos graph}
 See section~\ref{sec: intro_random_graphs}
@@ -187,7 +189,7 @@ In a random graph there is a point at which scattered connected nodes combined t
 Supercritical to fully connected at $E[k] > \ln(N)$
 
 
-Where $N$ is the number of nodes in a network, a giant connected component develops in random graphs when $E[k] > \ln (N)$ \cite{barabasi2016network}. This tends to be the case in real world complex networks. The necessary requirement for a connected component to form is that mean degree is greater than $1/N$. The giant connected component arises in the super-critical' region (see \cite{barabasi2016network} p87). For the PSP $E[k]$ is 17.6 and $\ln(N)=\ln(3457)=8.14$. \todo{this does not follow} It is important to note however that the degree distribution for the PSP graph is not that of a random network ($P(k)$ is scale free it would also be unlikely to find many nodes $ 3 \times E[k]$, if it were there would be few nodes with degree 2 and we find some nodes disconnected from the connected component in our empirical model \todo{so what?}. \todo{cross ref to missing nodes I think it is in the paper section so community detection} \todo{Add plot from \url{'~/RProjects/graph_analysis/R/transitiontoconnectederdosrenyi.R'} for transition from sub-critical to super-critical region} see section~\ref{sec: PSP graph connected component and missing} for missing components.
+Where $N$ is the number of nodes in a network, a giant connected component develops in random graphs when $E[k] > \ln (N)$ \cite{barabasi2016network}. This tends to be the case in real world complex networks. The necessary requirement for a connected component to form is that mean degree is greater than $1/N$. The giant connected component arises in the super-critical' region (see \cite{barabasi2016network} p87). For the PSP $E[k]$ is 17.6 and $\ln(N)=\ln(3457)=8.14$. \todo{this does not follow} It is important to note however that the degree distribution for the PSP graph \textcolor{red}{this does not follow} is not that of a random network ($P(k)$ is scale free it would also be unlikely to find many nodes $ 3 \times E[k]$, if it were there would be few nodes with degree 2 and we find some nodes disconnected from the connected component in our empirical model \todo{so what?}. \todo{cross ref to missing nodes I think it is in the paper section so community detection} \todo{Add plot from \url{'~/RProjects/graph_analysis/R/transitiontoconnectederdosrenyi.R'} for transition from sub-critical to super-critical region} see section~\ref{sec: PSP graph connected component and missing} for missing components.
 
 
 \subsection{Degree and intelligence in PSP}
@@ -216,7 +218,7 @@ Informally the number of shortest paths passing through a node for all paths bet
 Nodes with high betweenness centrality connect different areas on the network (ie paths between nodes in the network disproportionatley flow through them) they are sites of increased information flow (especially if the information knows the path to take through the network (compare with random walk betweenness centrality) and measures how much other nodes depend on the presence of these nodes.
 
 
-
+\textcolor{red}{there is a note betweennness and transitivity and betweeness and biological illegible maybe literature}
  
 \subsubsection{Edge betweenness}
  \todo{edge centrality}
@@ -429,12 +431,12 @@ We can calculate the $\gamma$ coefficient for the degree distribution using the 
 
 
 \section{Gene ontology enrichment}
-Cross ref to bit in next section or bring it here
+\textcolor{red}{Cross ref to bit in next section or bring it here}
 
 To understand the properties of nodes of different centralities we performed gene ontology enrichment both with the background of the PSP and against the whole of the genome where the whole of the genome is defined as genes appearing in at least one of the cohort studies \todo{add cross ref}
 
 \subsection{GO Slim}
-Define
+\textcolor{red}{Define}
 
 \subsection{Methods and results global clustering coefficient}
 Calculations of local transitivity were carried out using the transitivity method in igraph with the argument type being global undirected. Local transitivity was carried out using transitivity with the type being local transitivity is not defined for nodes of degree 0 so as an alternate to NA the argument isolates="zero" was used. 
@@ -628,6 +630,7 @@ If we simulate mean distance using a degree sequence model we get no distance $<
 The first question we must ask of high degree nodes what are they. Is there something it is like to be a high degree node so we might expected difference behaviour of the nodes in disorders.
 \todo{Do we therefore do this for all centrality measures or remove it or just degree}
 Are nodes of high degree different to the rest of the PSP in terms of function. 
+\textcolor{red}{Why are you telling me this that there is something it is like to be a high degree node so we might expect different enrichment in disease. I think it is high degree nodes are different from a random sampling of the PSP however they do not affect this specific phenotype the literature on centralities is contradictory and has to go piece by piece and with best evidence which in this case is tissue specific networks and GWA}
 
 % latex table generated in R 3.6.2 by xtable 1.8-4 package
 % Sat Jan  4 12:23:24 2020
@@ -690,7 +693,7 @@ Name & Ontology ref &ref &	expected &	Fold Enrichment &	+/-	&raw P value&FDR\\
 ubiquitin protein ligase & GO:0031625&  	7 &  	.74 & 	9.48 &  	+ & 	$5.08\times 10^{-05}$ & 	$2.43 \times 10^{-02}$\\
 \end{tabular}
 \end{adjustbox}
-\caption{GO SLIM ontology enrichment Biological Process background PSP}
+\caption{GO SLIM ontology enrichment Biological Process background PSP \textcolor{red}{PUT THESE ALL INTO ONE TABLE}}
 \label{tab:GO SLIM ontology enrichment Biological Process background PSP}
 \end{table}
 
@@ -849,11 +852,11 @@ S = 3670800000, p-value $< 2.2 \times 10^{-16}$
 
 Spearman's rho calculated as graph not linear throughout relationship see fig~\ref{fig:transitivity}.
 
-\textcolor{red}{The literature} records a degrees in the average value of the clustering coefficient with increasing $k$. This has been done mostly for large networks such as the internet \cite{newman2018networks} p 335. If we plot the degree and clustering coefficient there appears to be a negative correlation (figure~\ref{fig:Scatter plot of the relationship between degree and local transitivity for the PSP nodes}). The degree is not normally distributed so we have calculated Spearman's rank correlation. The transitivity with isolates set to NA and NA removed from the correlation is 0.196 p $< 2.2 \times 10^{-16}$. With the option of setting isolates to 0 the correlation is higher with $\rho$=0.375. This is however due to the large number of nodes of degree 1 (hence transitivity 0) and the low transitivity of degree two nodes. For degree greater than or equal to 2 the transitivity is 0.196. Greater or equal to 3 0.056 with p=0.0024 and equal to or greater than 5 rho is -0.085 with p= 3.02 $\times 10^{-15}$. If we plot the minimum degree to calculate the correlation and plot
+\textcolor{red}{The literature MOVE TO DISCUSSION} records a degrees in the average value of the clustering coefficient with increasing $k$. This has been done mostly for large networks such as the internet \cite{newman2018networks} p 335. If we plot the degree and clustering coefficient there appears to be a negative correlation (figure~\ref{fig:Scatter plot of the relationship between degree and local transitivity for the PSP nodes}). The degree is not normally distributed so we have calculated Spearman's rank correlation. The transitivity with isolates set to NA and NA removed from the correlation is 0.196 p $< 2.2 \times 10^{-16}$. With the option of setting isolates to 0 the correlation is higher with $\rho$=0.375. This is however due to the large number of nodes of degree 1 (hence transitivity 0) and the low transitivity of degree two nodes. For degree greater than or equal to 2 the transitivity is 0.196. Greater or equal to 3 0.056 with p=0.0024 and equal to or greater than 5 rho is -0.085 with p= 3.02 $\times 10^{-15}$. If we plot the minimum degree to calculate the correlation and plot
 this against rho calculated at that degree we can see the pattern clearly (figure~\ref{fig:Plot of minumum degree included in the calculation of Spearmans rank correlation between degree and rho}. The plot is truncated a degree 450 as after this point there are only two data points .
 This relationship between $k$ and the transitivity $C$ therefore probably holds true in large networks (such as the internet where the studies were performed) where the number of nodes of low degree is dominated by the number of high degree (in this case $>=5$ nodes). Median node degree is 8, 5 corresponds \textcolor{red}{ to the 0.369 quantile}.
 
-Reviewing the previous literature on the correlation between degree and local clustering Ravasz and Barabasi in a highly cited work \cite{ravasz2002hierarchical} review a generative model of high clustering coefficient and scale free degree distribution and real world networks. The real world networks include the actor network 392340 nodes, the language network based on synonyms in Merriams English dictionary 182853 nodes, the world wide web from mapping out from the \url{www.nd.edu} domain with 325729 nodes, the internet at the router level 260657 nodes and the power grid of the Western United states 4941 nodes 13188 edges.
+Reviewing the previous literature on the correlation between degree and local clustering Ravasz and Barabasi in a highly cited work \cite{ravasz2002hierarchical} review a generative model of high clustering coefficient and scale free degree distribution and real world networks. The real world networks include the actor network 392340 nodes, the language network based on synonyms in Merriams English dictionary 182853 nodes, the world wide web from mapping out from the \url{www.nd.edu} domain with 325729 nodes, the internet at the router level 260657 nodes and the power grid of the Western United states 4941 nodes 13188 edges. \textcolor{red}{end move to discussion}
 
 These networks are all large and in the logarithmic graphs of clustering coefficient and degree the minumum degree starts around 10. It is interesting to note in figure 4 showing the internet at router level and power network there are lower degree nodes but the slope of the line representing the correlation coefficient si dominated by the effect of high degree nodes and the distribution of clustering coefficient in the lower degree domain is quite different. These matters may seem small as for large degree the overall pattern holds but it is a useful practical fact to be aware of if we are testing the association of clustering coefficient with another variable in smaller networks such as the PSP which is not readily apparent from the literature.
 
@@ -1032,7 +1035,7 @@ Using the method described by \cite{clauset2009power} and calculating the minimu
 \end{table}
 
 \subsection{RESULTS Assortativity and methods degree assortativity}
-We can compare the average degree with those found in other publications. We can also look at the assortativity between nodes for degree. The PSP networks shows evidence of some negative degree assortativity (-0.18) using the commands \texttt{assortativity(g,deg,directed=FALSE)} in igraph for R \todo{Assortativity for essential and id}.
+\textcolor{red}{Move to discussionj}We can compare the average degree with those found in other publications. We can also look at the assortativity between nodes for degree. The PSP networks shows evidence of some negative degree assortativity (-0.18) using the commands \texttt{assortativity(g,deg,directed=FALSE)} in igraph for R \todo{Assortativity for essential and id}.
 
 The degree association is negative in most real world networks other than social networks \cite{newman2002assortative}. \todo{include the peel multi-scale mixing patterns} see table \ref{Table:DegreeAssortativityNewman}\todo{? add positive $r$ to table}. Both the Barabsi Albert model and random model have 0 correlation. The Callaway model of network generation ('grown graph' - newman) has a positive degree correlation consistent with older nodes being connected to each other and hence in turn being more likely to be connected to others. This is at odds with our later finding (see orthologues) that nodes with clearly identified yeast orthologues tend to be of higher degree (this would fit both the Barabasi Albert model and Callaway) \todo{Do i add the pseudo hub bit here this is also probably good for the paper with Keith}. 
 
@@ -1043,7 +1046,7 @@ The value of $r$ of -0.18 \todo{three sf} is similar to those cited by Newman \c
 Although we expect the assortativity to be 0 in a random graph of the configuration model (the edges are placed at random so we would not expect there to be any association with edges and the degree of vertices), there will nevertheless be a deviation from 0 due to chance and it is helpful to quantify the assortativity by calculating this. 
 
 The assortativity using a configuration model \todo{explain configuration model} is approximately normal centred on 0.
-
+\textcolor{red}{table}
 For 10,000 samples   
 
 Min.    1st Qu.     Median       Mean    3rd Qu.       Max. 
@@ -1121,7 +1124,7 @@ This suggests that nodes with high or low z scores in the population cohorts are
 \todo{do this with pli too and for a phenotype eg GO glutamate}
 \section{Association between significant vertices}
 Do there tend to be edges between significant vertices? Do the vertices representing genes of genome wide significance form an induced subgraph that is connected?
-The induced subgraph of significant genes for Intelligence\textsubscript{Replication} is 16 vertices no edges. Simulation mean 0.60 sd 0.94 N iterations = 1000. For Education\textsubscript{Replication} it is 25 vertices no edges (simulation mean 1.51 sd 1.69). For Intelligence \textsubscript{Discovery} it is 58 vertices with 4 edges. Simulation mean 8.78 sd 5.13. For Education \textsubscript{Discovery} it is 51 vertices with 2 edges. Simulation mean 6.3 SD 4.1.
+The induced subgraph \todo{define} of significant genes for Intelligence\textsubscript{Replication} is 16 vertices no edges. Simulation mean 0.60 sd 0.94 N iterations = 1000. For Education\textsubscript{Replication} it is 25 vertices no edges (simulation mean 1.51 sd 1.69). For Intelligence \textsubscript{Discovery} it is 58 vertices with 4 edges. Simulation mean 8.78 sd 5.13. For Education \textsubscript{Discovery} it is 51 vertices with 2 edges. Simulation mean 6.3 SD 4.1.
 
 Simulation of joint results out of 1000, 100 trials
 Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
