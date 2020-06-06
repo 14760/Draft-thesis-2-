@@ -972,6 +972,20 @@ Using the method described by \cite{clauset2009power} and calculating the minimu
 
 The bootstrap p for the power law distribution is 0.583 with goodness of fit 0.19 using the package poweRlaw 0.70.6 using ks distance.\footnote{\url{source('~/RProjects/group_size_distribution/R/calulate_cdf.R')}}
 
+To determine the best distribution calculated the log likelihood of the distribution given power law, log normal and poisson distribution. To allow comparison of the log likelihood the likelihood was calculated for the data from the $x_min$ determined for the powerlaw distribution $x_min = 24$. See table~\ref{tab:log likelihood powelaw}
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{cc}
+    Distribution     &  log likelihood \\
+    \hline
+     Power law    & -2943.6\\
+     Log normal & -2947.23 \\
+     Poisson & -205115.8 \\
+    \end{tabular}
+    \caption{Log likelihood of degree distribution using poweRlaw package with $x_{min}=24$ for power law distribution and log normal and poisson.\url{source('~/RProjects/group_size_distribution/R/side_by_side_lognorm_and_pl.R')}}
+    \label{tab:log likelihood powelaw}
+\end{table}
 
 \begin{figure}
     \centering
