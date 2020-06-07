@@ -439,8 +439,9 @@ GSA tests can be divided into self contained tests, which test the hypothesis th
 
 The most commonly used test judging by citations is Gene Set Enrichment Analysis Subtamanian et al (2005b)and was used by Hill et al (2014) to investigate enrichment of synaptic components for human cognitive differences. It is provided by the Broad Institute along with a variety of gene sets. de Leeuw et al (2016) considers GenGen Wang et al (2007) which is similar to GSEA in using a Kolmogorov Smirnov test as a self contained test \footnote{Original footbote: although it is not clear to me why and has the advantage of being non parametric}
 
-\subsection{Komogorov Smirnov test}
-
+\subsection{Kolmogorov Smirnov test}
+\label{sec:Kolmogorov Smirnov}
+\todo{may add take time to explain as also comes into measuring power law distribution}
 The gene set enrichment analysis technique described by Subramanian et al (2005a) is based upon the rank ordering of sets of genes expressed in a phenotype and thos not of the phenotype, for example genes expressed in tissue that has been injured and those in tissues that have not been injured. An excess of expression of a set of genes, shown by a higher rank order of genes in the gene \footnote{sic}, is sought within the phenotype with the null hypothesis being that there is no difference between the two groups. The technique as described by Subramanian et al (2005a) uses the Kolmogorov Smirnov test to distinguish between the two groups. 
 
 The Kolmogorov Smirnov test is a statistical test that compare the 'goodness of fit' of two probability distributions. The intuition behind the use of the test can be seen if we consider a random walk along one dimension. As the size of the walk steps tend towards zero and the number of steps increased towards infinity this becomes a continuous walk in time, a (end p 39)
@@ -488,7 +489,7 @@ Using the algorithm to detect communities in the synaptic proteome failed to gen
 The greedy implementation of a modularity maximisation procedure that is said by Kolacyzk and Csardi (2014) to approximate Newman and Girvan (2004) in igraph (Csardi and Nepusz, 2006) was rejected for identical reasons. A review of the performance of igraph algorithms is presented by De Souza and Zhoa (2014). (end p 33) \footnote{to do try to find the multilayer louvain implementation}
 
 \subsection{Spin glass}
-
+\label{sec:spinglass from introduction}
 I graph implements a spin glass algorithm where the communities are represented as a Potts spin glass model, a generalisation of the Ising two state model where the spins are communities. Community detection corresponds to minimising the Hamiltonian of the Pott's model (Eaton and Mansbach, 2012). I have used this model to produce communities of constrained size. I have not yet tested these communities in the replication cohort (CHARGE) and they are not presented in this review (see further work section 18.8) \footnote{spin glass other gamma and Coin has not used max spins which limits community size}.
 
 \subsection{Problem of singletons}
