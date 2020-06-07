@@ -56,7 +56,16 @@ most recent centrality in \url{source('~/RProjects/centrality/R/other_centrality
 
 \section{Properties of empirical networks}
 \label{sec:Properties of empirical networks}
-In addition to community structure which we will examine in chapter~\ref{chap:community detection} empirical networks may contain features at a network level such as a power law degree distribution \cite{barabasi1999emergence} \cite{barabasi1999mean} and small world structure \cite{watts1998collective}. These can provide information on how networks form and evolve.\todo{ref} We have that advantage of knowing several facts about the evolution of the PSP importantly the gene duplication event \cite{grant2016molecular} They are not all shared by all empirical networks. For example road networks do not show a scale free property although air travel networks do.\textcolor{red}{? remove this or move it into the bit above}\todo{? remove this section or merge with earlier}. We can test for the existence of these properties by determining how a network differs from either a completely random model or a model in which some of its features (such as degree distribution (section \ref{sec:degree distribution}).
+Leaving aside community structure which we will examine in chapter~\ref{chap:community detection} empirical networks may contain features at a network level such as a power law degree distribution \cite{barabasi1999emergence} \cite{barabasi1999mean} and small world structure \cite{watts1998collective} or at the individual vertex (centrality measures section~\ref{sec:centrality measures}). This chapter will be concerned with network and vertex measures. 
+
+Network level statistics reflect how networks form and evolve, their patterns of information flow and how resistant they are to disruption.
+\todo{ref}
+\todo{note trying to say network level statistics tell us things like }.
+Not all naturally occurring networks share network level properties for example road networks do not show a scale free property although air travel networks do.
+\textcolor{red}{? remove this or move it into the bit above}
+\todo{? remove this section or merge with earlier}.
+We can test for the existence of these properties by determining how a network differs from either a completely random model or a model in which some of its features (such as degree distribution (section \ref{sec:degree distribution}). \textcolor{red}{? remove following} We have that advantage of knowing several facts about the evolution of the PSP importantly the gene duplication event \cite{grant2016molecular} 
+
 \todo{?add global graph measures}
 
 \section{Small world}
@@ -85,7 +94,8 @@ The configuration model generates a new random network that retains the degree d
 
 
 \section{Centrality measures}
-Centrality measures show how important as node is within the network \todo{said this before} and a variety of statistics use different measures of importance (see section~\ref{sec: intro_centrality_measures}). Many are correlated with each other although their correlation varies.\textcolor{red}{move this down}. We will consider degree, eigenvector centrality, betweenness, closeness and transitivity. All measures are derived from the adjacency matrix.
+\label{sec:centrality measures}
+Centrality measures measures which vertices are most important and central in a network \cite{newman2018networks}(p159). This can also be interpreted as a measure of how information flows through a network \cite{borgatti2005centrality} and a variety of measures of importance have been described (see section~\ref{sec: intro_centrality_measures}). These are measures of individual vertices and can therefore be used to rank, group or identify key nodes. Centrality measures are frequently correlated with each other \cite{valente2008correlated} although their correlation varies.\textcolor{red}{move this down}. . All measures are derived from the adjacency matrix.
 
 
 
@@ -100,21 +110,22 @@ Figure~\ref{fig:dolphin} shows vertex betweenness centrality, eigenvector centra
     \label{fig:dolphin}
 \end{figure}
 
-The simplest centrality measure is degree centrality considered below. 
+This chapter will consider degree centrality, eigenvector centrality, betweenness, closeness and transitivity in the PSP and their association with animal models of learning and human cognitive ability. \todo{find ref on what are the key centrality measures}. The simplest centrality measure is degree centrality \cite{newman2018networks} considered below. 
 
 \section{Degree centrality}
-\label{sec:degree}
+\label{sec:degree centrality}
 
-Probably the simplest centrality measure is degree. 
 %from \url{/home/grant/Dropbox/PhD_latex_master}
-The degree of a node is the number of edges connected to it. In the network graph of the PSP it is the number of proteins a particular protein interacts with.
+The degree of a node is the number of edges connected to it. In the network graph of the PSP it is the number of proteins a protein (represented by its encoding gene) directly interact with.
+
+
 For the adjacency matrix $A_{i,j}$, where $A_{i,j}=1$  if there is an edge between nodes $i$ and $j$ and 0 otherwise, the degree of node $i$, $k_i$ is\cite{boccaletti2006complex}:
 \begin{equation}
 k_i = \sum_{j=1}^n A_{i,j}.
 \label{Equation:Degree_from_adjacency}
 \end{equation}
 
- Nodes with high degree may have more influence in a graph and are often referred to as hubs. Note however there are two senses in which the term hubs may be used (see p 168 Newman book\cite{newman2018networks}).  In a social network  individuals with a large number of contacts will have high degree and hence be influential in the network. In a protein protein interaction network high degree proteins will have numerous interactions and one would hypothesise play an important part in the network. 
+ Nodes with high degree may have more influence in a graph and are often referred to as hubs. In a directed network hubs may refer to nodes that point to authorities nodes with important information. As the post synaptic proteome network is undirected hubs will be used in the first sense in this thesis. \cite{kleinberg1999authoritative} \footnote{\cite{newman2018networks} p168} Note however there are two senses in which the term hubs may be used (see p 168 Newman book\cite{newman2018networks}).  In a social network  individuals with a large number of contacts will have high degree and hence be influential in the network. In a protein protein interaction network high degree proteins will have numerous interactions and one would hypothesise play an important part in the network. 
  
  Disruption of high degree nodes leads to disproportionate effects upon a network \cite{jeong2001lethality} \cite{albert2000error} 
 \todo{Sort out removed citations because of undefined control}
@@ -122,24 +133,33 @@ k_i = \sum_{j=1}^n A_{i,j}.
 
 \subsection{Degree distribution}
 \label{sec:degree distribution}
-The degree distribution of a network is the probability that a node chosen at random has a particular degree or the empirical probability density of the network eg
+The degree distribution of a network is the probability that a particular node has degree $k$. It is a probability distribution and so
 
 \begin{equation}
-    p(k) = k
-\end{equation}
+    \sum_k p(k)=1
+\end{equation}.
 
-or can be represented as a degree sequence which is the actual instantiation of node degrees for each vertex in a network eg $1,1,2,3,5,7,\dots,n$. The properties of networks can be discovered by comparing these networks to random models. 
-If a graph were to have a random distribution of edges between vertices we would expect the degree distribution ($P(k)=k)$) to be distributed according to the binomial distribution.  
+For an empirical network $P(k) = \frac{deg=k}{n}$
 
-If there is a constant probability $p$ of an edge between two nodes in a network, the probability of having $k$ links with probability of links between vertices of $p$ is $p^k$ and the remaining $N-1-k$ nodes being absent (-1 as we exclude self loops) is $(1-p)^{N-1-k}$.
+An alternative representation for an emprical network is the degree sequence which is  node degree for each vertex in a network eg $1,1,2,3,5,7,\dots,n$. The properties of networks can be discovered by comparing these networks to random models (section~\ref{sec:configuration model}. It seemed reasonable that networks would have degree distributions similar to those found in Erdos Renyi graphs. It was only with the availability of information on large networks such as the internet and world wide web and computerised databases such as the IMDB that the fact that many natural networks have a power law distribution of node degree (section ~\ref{sec:scale_free}. Barabasi, Albert and Jeong found that the internet had a scale free distribution. A narrative of this discovery is provided in Network Science by Barabasi \cite{barabasi2016network}. 
 
-There are $\binom{N-1}{k}$ ways in which this arrangement of present and missing edges can be arranged so the probability follows the binomial distribution.
+
+If a graph were to have a  edges distributed between vertices with a uniform probability $p$ we would expect the degree distribution ($P(k)=k)$) to be distributed according to the binomial distribution.  
+
+ The probability of a node having $k$ links is $p^k$, the probability of there being no links to the remaining $N-1-k$ nodes (-1 as we exclude self loops) is $(1-p)^{N-1-k}$ and there are $\binom{N-1}{k}$ ways in which this arrangement of present and missing edges can be arranged. The degree distribution therefore follows the binomial distribution.\cite{barabasi2016network}
 
 \begin{equation}
    \binom{N-1}{k}        p^k (1-p)^{N-1-k}
    \label{Equation:BinomialDistributionForDegreeProbability}
 \end{equation}
-In the limit where $E[k] << N$ the degree is well approximated by a Poisson distribution \cite{barabasi2016network}. The Posson distribution is parameterised only by $E[k]$.  The probability mass should be centred around the empirical mean and we would not expect to see nodes whose degree were 3 x or more the average degree. This is not what we find the distribution is scale free. \todo{probablility of max degree node} 
+
+In the limit where the mean degree is much less than the number of nodes in the network the degree distribution is well approximated by a Poisson distribution \cite{barabasi2016network}. The Poisson distribution
+
+\begin{equation}
+    p(k) = \frac{\lambda^k e ^-\lambda}{!k}
+\end{equation}
+
+is parameterised for an empirical network only by only by $E[k]$ which is $\lambda$.  The probability mass should be centred around the empirical mean  (17 in the case of the PSP). The variance of a Poisson distribution is $\lambda^{1/2}$ which is approximately 4.12. The top 20 post synaptic proteome genes (table~\ref{Table:The 20 post synaptic proteome genes with highest degree in their cognate proteins} have degree of 221 or greater.  This is not likely under a Poisson model.  \todo{probablility of max degree node} 
 \todo{plot of Poisson and empirical for $E[k]$} \textcolor{red}{see figure}
 
 
