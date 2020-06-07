@@ -46,7 +46,7 @@ Table of diameters \cite{crescenzi2013computing}
 \todo{centrality measures for significant genes}
 \todo{centralisation 1:09 in zhukov - centrality is how central most central node is compared to other nodes in graph, max with star network}
 \todo{Metrics comparison zhukov at 1:15}
-Scatter plot of centralities multiplot eg plot(bet,deg)
+%Scatter plot of centralities multiplot eg plot(bet,deg) DONE
 
 Kendal tau rank - concordant pairs ie a comes before b in both samples 
 
@@ -60,12 +60,20 @@ In addition to community structure which we will examine in chapter~\ref{chap:co
 \todo{?add global graph measures}
 
 \section{Small world}
+\label{sec:Small world}
 \textcolor{red}{this is not covered in introduction}
+Described by Milgram \cite{milgram1967small} where he attempted to see the number of steps that it would take for a letter to reach a reciepient unknown to the first letter holder if they could only mail it to people known personally to themselves. The average number of links was 7. This has been made into a popular play by John Guare. Watts and Strogatz \cite{watts1998collective} described small world properties in naturally occuring networks (nerves of c elegans, power network and film actor network) which differed from a random model. These properties are a short average path length with high clustering coefficient. 
+
+Watts and Strogatz \cite{watts1998collective} suggest a generative model for this phenomenon with a circular lattice network in which interconnections are rewired to span the circle. A comparatively small number of rewirings allows a short path length and preserves the high clustering coefficient. The small number needed has been cited as one of the reasons it is common in nature. 
+
+The small world property would allow for rapid information transfer within networks. It has recently been posited as a model for wide spread genetic effects on traits (the omnigenic model) \cite{boyle2017expanded} although there are criticisms of this some of which I will make later \todo{reword}.\textcolor{green}{what i mean so say is there are some cirticisms of the omnigenic model saying that things are more complex eg \cite{wray2018common} \cite{boyle2017omnigenic_response}  but the criticism I am making is from a network standpoint} 
+
 
 \todo{small world network either do here or put in introduction this goes with results }
 . Results see section~\ref{sec:Results average path length and transitivity}
 
 \subsection{The configuration model}
+\label{sec:configuration model}
 \todo{do this}
 In considering measures of  a network or a vertex we can study them by seeing how much they differ from their expected value given a random network. Simple random networks such as Erdos Renyi random graphs are discussed in the introduction \todo{cross ref}.
 
@@ -374,6 +382,8 @@ Equation assortativity
 \section{Biomedical significance of centrality measures}
 
  High degree nodes are called hubs and proteome hub proteins are known to be more commonly essential to life \cite{jeong2001lethality} and expressed ubiquitously. \cite{goh2007human}  Jeong found that high degree nodes in yeast were more likely to be essential to life \cite{jeong2001lethality} although later work has questioned this (see section\todo{cross ref} Unregulated\todo{check unregulated or upregulated} genes in cancer proteomic networks have been found to be of high degree. \cite{wachi2005interactome}  High degree nodes were  involved in more diseases in the Online Mendelian Inheritance in Man (OMIM) compendium of genetic phenotypes. \cite{xu2006discovering}  Goh however found that disease genes were likely to be tissue specific and were not more likely to be hubs. \cite{goh2007human}  
+ 
+High degree hub genes are more likely to be essential rather than disease genes \cite{barabasi2011network}. 
 
 Lee et al. \cite{lee2013network} in 2013 examined National Human Genome Research Institute (NHGRI)  catalogue of complex trait GWAS \footnote{now the NHGRI-EBI GWAS catalogue} and found that complex trait loci were more likely to be found in genes that were hubs or bottlenecks, where hub and bottleneck are defined as the top 20\% of the degree centrality and betweenness centrality distribution.  The network is composed of the genes encoding protein protein interactions in the STRING (14025 nodes and 492087 edges representing protein protein interactions). The GWAS datasets were composed of type 2 diabetes studies (FUSION  Cases n=	1161 Controls n=	1174 
 WTCCC Cases n=	2000 controls n=	3000  and Inflammatory Bowel Disease Genetics Consortium (IBDGC) with European populations without Jewish ancestry and those with Jewish ancestry (IBDGCi case n=	561 control n=	563 IBDGCii case n= 	407 control n=	432).  
