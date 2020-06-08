@@ -176,7 +176,7 @@ The distribution of log transformed median expression for cerebral cortex for PS
 group & n & Min. & 1st Qu. & Median & Mean & 3rd Qu. & Max. \\ 
   \hline
 PSP & 3392 & 0 & 8.43 & 21.85 & 100.07 & 55.87 & 62949.60 \\ 
-  non PSP genes & 138980 & 0 & 0.38 & 3.61 & 11.82 & 12.10 & 1288.95 \\ 
+  non PSP genes & \textcolor{red}{138980} & 0 & 0.38 & 3.61 & 11.82 & 12.10 & 1288.95 \\ 
    \hline
 \end{tabular}
 \caption{Summary statistics for gene expression for PSP and non PSP genes calculated from GTEx project data. Expression is median normalised by TPM.}
@@ -186,7 +186,7 @@ PSP & 3392 & 0 & 8.43 & 21.85 & 100.07 & 55.87 & 62949.60 \\
 
     See figure~\ref{fig:all_gtex_panels} for a graphical comparison of expression of PSP and non PSP genes in the cortex. \footnote{code \url{source('~/RProjects/gtex/R/graph_gtex/histogram_boxplot.R')} } \footnote{code using only genes in study and removing synaptic and rest of genome duplicates \url{source('~/RProjects/gtex/R/graph_gtex/graphs_study_genes.R')} }. Table~\ref{tab:Summary statistics for gene expression for PSP and non PSP genes} shows gene expression for PSPS and non PSP genes \footnote{\url{source('~/RProjects/gtex/R/graph_gtex/graphs_study_genes.R')}}
     
-    
+   \todo{the non PSP genes number cant be right in table \ref{tab:Summary statistics for gene expression for PSP and non PSP genes}}
     
 \begin{figure}
     \centering
@@ -225,7 +225,7 @@ Two further samples became available after the completion of the primary analysi
 Intelligence and education were the two cognitive phenotypes used to examine the effect of network structure and network communities \todo{rephrase this section}. The discovery sample for intelligence was formed using the ‘fluid’ cognitive test from UK Biobank; we shall refer to it as verbal-numerical reasoning (VNR). The VNR test contains 13 multiple choice items, six of which are verbal with the remaining seven being numerical in nature. Each individual’s VNR score was the sum of correct responses attained within a two-minute time period. This test has a large genetic correlation with intelligence scores derived from psycho-metrically validated cognitive tests. A total of 120 934 participants (mean $\chi^2$=1.52) were available for analysis who did not contribute data to the Sniekers et al data set. A full description of how data from these participants was analysed can be found in Hill et al. \cite{hill2019combined} 
 UK Biobank was also used as the discovery sample for education. Summary statistics were taken from Hill et al on 273 274 participants (mean  $\chi^2$= 1.67). \cite{hill2019combined}  Education was defined as a binary choice of whether or not the individual had a University/College degree. A full description of how these data were analysed can be found in Hill et al. \cite{hill2019combined}  
 To attempt to replicate any findings of enrichment for post synaptic communities, an intelligence replication dataset was formed using summary statistics obtained from the Sneikers et al. GWAS meta-analysis of intelligence (n = 78 308, mean $\chi^2$= 1.30).  \cite{sniekers2017genome}  An education replication data set was formed using summary data set from the GWAS meta-analysis by Okbay et al (n = 217 569, mean $\chi^2$= 1.43) with UK Biobank participants excluded. \cite{okbay2016genome}  (See supplemental tables 1a and 1b.)
-\textcolor{red}{end from paper section}
+\textcolor{red}{end from paper section} \todo{add the calculation of chi sq for these studies was performed by Dr Hill in the course of preparationj of a manuscript based on the community detection results}
 
  
 \subsection{MAGMA Gene level statistics validation from other studies}
