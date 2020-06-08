@@ -5,6 +5,12 @@
 \todo{We should move some of the introduction here as methods esp the bit about gene-level tests}
 This thesis will address how network studies inform two of the approaches to the understanding of differences in intelligence and their association with models of the synapse.
 
+
+
+\todo{perhaps change this to cohort generation and network graph and add the network level statistics from the next chapter to this or split into two chapters the network grapha nd network level statistics and cohort generation and gene level results}
+\todo{you could also add the Hill revisited GSA and the gsa from the MAGMA site gene set synaptic into this section}
+
+
 ``Pathway" based approaches study for genetic variants the genes that are associated with cognition in model organisms \cite{deary2009genetic} (the ``genes to cognition" project being an example). These have therefore primarily addressed the consequence of molecular perturbation primarily of synaptic proteins. 
 
 The other, population genomic approach examines large numbers of individuals in Genome Wide Association Studies and determines how the specific genetic differences they have influence differences in educational attainment and intelligence. These require large studies to develop sufficient power as the individual effect of these genetic differences is small \cite{plomin2015genetics}. In the course of completing this thesis the number of individuals included in the samples  available to me has increased dramatically (see fig) \todo{add figure}. Before seeing how these studies are correlated with the structure of the synaptic network we must first generate the network. 
@@ -14,6 +20,9 @@ The other, population genomic approach examines large numbers of individuals in 
 \label{sec:network graph generation}
 
 An undirected, unweighted interaction network graph was generated to represent the protein-protein interactions of the post synaptic density (PSD) and its essential interaction partners. This graph allows use to see in the interaction logic of the post synaptic density and closely associated proteins. The nodes (vertices) in the graph are the cognate genes for proteins found in the post synaptic density or in proteomic analysis of the density. An edge occurs between genes if there is directed experimental evidence that their protein products interact. 
+
+
+
 
 The generation of the network from the literature was carried out by OS,CMcL,JDA,IS,KH etc\todo{get list from JDA} and I was not involved in this process.
 
@@ -41,6 +50,7 @@ Gene ontology over-representation analysis was carried out using PANTHER version
 
 
 \subsubsection{Analysis of Genes not in largest connected component}
+\label{sec:analysis of genes not in largest component}
 16 genes were not in the giant connected component.The genes are listed in table~\ref{table:notinLCC}. The final column indicates the number of genes in the component. The only two gene component was composed of oligodendrocyte myelin glyocprotein (OMG) and reticulon 4 receptor (RTN4R). 
 
 Gene ontology analysis was carried out to test for differential representation of Gene Ontology terms in the 16 genes not in the giant connected component. PANTHER 13.1.\cite{mi2013large} was used to carry out testing for each of the three Gene Ontology clades (cellular component, biological process or molecular function) using Fishers exact test. The Benjamini-Hochberg procedure \cite{benjamini1995controlling} was used to calculate the False Discovery Rate (FDR) to account for multiple comparisons.
@@ -87,6 +97,7 @@ Entrez Gene ID & Gene Symbol & Gene Name & n in component \\
 
 
 \subsection{Gtex profile of PSP genes}
+\label{gtex profile of PSP genes}
 \subsubsection{Introduction to gtex}
 The gene tissue expression project (GTEx) is a repository of gene expression in over 1000 individuals from 54 tissue areas. I have used this to determine if the PSP genes are predominantly expressed in the brain, if there are significant regional differences in expression that might affect the analysis and that the expression of PSP genes is as expected significantly greater than of those not in the PSP, which will of course include a number of genes significantly involed in processes in the brain. 
 

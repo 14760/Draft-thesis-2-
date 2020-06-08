@@ -494,14 +494,14 @@ We can calculate the $\gamma$ coefficient for the degree distribution using the 
 
 A power law distribution may not hold throughout a distribution it is typically present at the tail (high degree) of the degree distribution. There is therefore a minimum value of degree from which the power law distribution holds (there is also frequently dispersion at the end (high) of the distribution. The characteristic feature of a power law degree distribution is a straight line in a log-log plot of $ P(k)$ and $k$.
 
-The minumum degree is calculated such that it minimises the difference between the empirical distribution and a fitted distribution with the goodness of fit measured by a Kolmogorov Smirnov test in the method described by Clauset and Newman \cite{clauset2009power}. The method is implemented in the poweRlaw package for R \cite{gillespie2015fitting}.
+The minimum degree is calculated such that it minimises the difference between the empirical distribution and a fitted distribution with the goodness of fit measured by a Kolmogorov Smirnov test in the method described by Clauset and Newman \cite{clauset2009power}. The method is implemented in the poweRlaw package for R \cite{gillespie2015fitting}.
 
 Recent research has suggested that power law distributions may be rare in empirical networks and a log normal distribution may be a better fit. The log normal is still a significant deviation from the Poisson distribution that would be seen in a random graph generated with uniform probability of connection. I have calculated the log likelihood of the log normal, power law and Poisson distribution. As we log likelihood is affected by the number of data points I report the fit of the log normal and Poisson over the same degree range as the power law fit. The log likelihood calculations were carried out using the poweRlaw package for R \cite{gillespie2015fitting} using the \texttt{ll} \textcolor{red}{lookup} \todo{lookup} command.
 
 \section{Gene ontology enrichment}
-\textcolor{red}{Cross ref to bit in next section or bring it here}
+\textcolor{red}{Cross ref to bit in next section or bring it here 4.16.5}  
 
-To understand the properties of nodes of different centralities we performed gene ontology enrichment both with the background of the PSP and against the whole of the genome where the whole of the genome is defined as genes appearing in at least one of the cohort studies \todo{add cross ref}
+To understand the properties of nodes of different centrality's we performed gene ontology enrichment both with the background of the PSP and against the whole of the genome where the whole of the genome is defined as genes appearing in at least one of the cohort studies \todo{add cross ref}
 
 \subsection{GO Slim}
 \textcolor{red}{Define}
