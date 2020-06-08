@@ -390,14 +390,31 @@ A kcore of a graph is an induced subgraph of the main graph such that each verte
 \label{sec:Centrality intro average path length}
 
 \section{Assortativity and assortativity of measures}
-before editing
-Assortativity is a measure of how likely nodes with similar properties are to be connected. \cite{newman2002assortative} by either scalar or categorical vertex properties. The most commonly studied scalar property is degree association. Assortative networks tend to form communities and are more robust to disruption by node removal  \cite{newman2002assortative} and increased assortativity leads to increased speed of transmission of information through a graph \cite{noldus2015assortativity}. \todo{plot of knng and deg at \url{source('~/RProjects/correlation_gene_scores/R/make_df_graph_stats_correlation_lowdeg_high_bet.R')}} although there seems to be a very weak correlation between knn and z score. 
+
+Newman described assortativity a network level measure of how likely nodes with similar properties are to be connected. \cite{newman2002assortative} This can be calculated by either scalar or categorical vertex properties.
+
+For a categorical vertex property the calculation is that of the number of edges between vertices that share the property compared with the expected number. This measure is the modularity which we will see again in chapter~\ref{chap:community detection} where the groups are communities. Networks where nodes sharing properties tend to be linked are assortative and those where they are not linked are disassortative
+
+Modularity usually denoted Q is:
+
+\begin{equation}
+    Q = \frac{1}{2m}\sum_{ij}(A_{ij}-\frac{k_ik_j}{2m})\delta_{g_ig_j}
+\end{equation}
+
+where $m$ is the number of edges in the network, $A$ is the adjacency matrix $k_i$ is the degree of node $i$, $g_i$ is the group or category to which node $i$ belongs and $\delta$ is the Kroneker delta. 
+
+The modularity is less than 1 and takes on a negative value for a disassortative network structure.
+
+The calculation of assortativity for scalar quantities of vertices uses the relationship between the value of the quantity at either end of a connecting edge for all pairs of nodes. This is essentially the covariance and the measure the assortativity coefficient is the covariance normalised by the maximal value of the covariance or variance of the measures for each node \todo{review}
+
 \subsection{Degree assortativity}
 \label{sec:degree assortativity}
-\subsubsection{Introduction Degree assortativity}
-The degree assortativity is the Pearson correlation between degree for connected vertices.\cite{noldus2015assortativity} Explain assortativity
-Newman p 208
-Equation assortativity
+
+The most commonly studied scalar property is degree association \cite{newman2018networks}p210. The degree assortativity is the Pearson correlation between degree for connected vertices.\cite{noldus2015assortativity}. Assortative networks tend to form communities and are more robust to disruption by node removal  \cite{newman2002assortative} and increased assortativity leads to increased speed of transmission of information through a graph \cite{noldus2015assortativity}.
+
+Social networks tend to be assortative with a core structure of highly connected hubs. \cite{newman2018networks}
+\todo{plot of knng and deg at\url{source('~/RProjects/correlation_gene_scores/R/make_df_graph_stats_correlation_lowdeg_high_bet.R')}} although there seems to be a very weak correlation between knn and z score. 
+
 
 
 \subsection{Other measures}
@@ -408,7 +425,7 @@ Equation assortativity
 
 \cite{valente2010bridging}
 
-
+%%%%%%%%%%%%%%%%%%%%   CENTRALIY IN BIOLOGY AND MEDICINE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Biomedical significance of centrality measures}
 
