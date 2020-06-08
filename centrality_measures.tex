@@ -390,7 +390,10 @@ A kcore of a graph is an induced subgraph of the main graph such that each verte
 \label{sec:Centrality intro average path length}
 
 \section{Assortativity and assortativity of measures}
+\label{sec:assortativity}
+\textcolor{red}{? move this to the other network level statistics}
 
+\todo{? move along with other network level statistics like small world property, average path length}
 Newman described assortativity a network level measure of how likely nodes with similar properties are to be connected. \cite{newman2002assortative} This can be calculated by either scalar or categorical vertex properties.
 
 For a categorical vertex property the calculation is that of the number of edges between vertices that share the property compared with the expected number. This measure is the modularity which we will see again in chapter~\ref{chap:community detection} where the groups are communities. Networks where nodes sharing properties tend to be linked are assortative and those where they are not linked are disassortative
@@ -482,11 +485,18 @@ Raman \cite{raman2014organisational} examined multiple centrality metrics in add
 
 \section{METHODS}
 
-\subsubsection{Methods scale free property}
+\subsubsection{Methods Fitting the degree distribution - scale free property}
 \todo{define the method of Clauset and Newman}
 \todo{intro to scale free}
+
+
 We can calculate the $\gamma$ coefficient for the degree distribution using the \texttt{poweRlaw} package for R. The value of $\gamma$ will vary over the distribution depending on the lower limit of degree used to fit the power law distribution. This is shown graphically in figure \ref{fig:gamma} and table \ref{table:gamma}.
 
+A power law distribution may not hold throughout a distribution it is typically present at the tail (high degree) of the degree distribution. There is therefore a minimum value of degree from which the power law distribution holds (there is also frequently dispersion at the end (high) of the distribution. 
+
+The minumum degree is calculated such that it minimises the difference between the empirical distribution and a fitted distribution with the goodness of fit measured by a Kolmogorov Smirnov test in the method described by Clauset and Newman \cite{clauset2009power}. The method is implemented in the poweRlaw package for R \cite{gillespie2015fitting}.
+
+Recent research has suggested that power law distributions may be rare in empirical networks and a log normal distribution may be a better fit. The log normal is still a significant deviation from the Poisson distribution that would be seen in a random graph generated with uniform probability of connection. I have calculated the log likelihood of the log normal, power law and Poisson distribution. As we log likelihood is affected by the number of data points I report the fit of the log normal and Poisson over the same degree range as the power law fit. The log likelihood calculations were carried out using the poweRlaw package for R \cite{gillespie2015fitting} using the \texttt{ll} \textcolor{red}{lookup} \todo{lookup} command.
 
 \section{Gene ontology enrichment}
 \textcolor{red}{Cross ref to bit in next section or bring it here}
@@ -1023,7 +1033,7 @@ Although nodes of high importance or local clustering do have distinct propertie
 
 
 \subsection{RESULTS Scale free}
-Using the method described by \cite{clauset2009power} and calculating the minimum x value we find the min for $x$ to be 24 and the $\gamma$ coefficient to be 2.51 using the poweRlaw R package \cite{gillespie2015fitting}. GOF 0.19. ntail 68 \footnote{\url{source('~/RProjects/group_size_distribution/R/calulate_cdf.R')}} The log of the degree distribution is shown in figure \ref{fig:log_degree_distribution} and figure \ref{fig:Degree distribution of post synaptic proteome. Log10 - log10 scale.}
+Using the method described by Clauset and Newman \cite{clauset2009power} and calculating the minimum x value we find the min for $x$ to be 24 and the $\gamma$ coefficient to be 2.51 using the poweRlaw R package \cite{gillespie2015fitting}. GOF 0.19. ntail 68 \footnote{\url{source('~/RProjects/group_size_distribution/R/calulate_cdf.R')}} The log of the degree distribution is shown in figure \ref{fig:log_degree_distribution} and figure \ref{fig:Degree distribution of post synaptic proteome. Log10 - log10 scale.}
 % see http://127.0.0.1:21133/library/poweRlaw/doc/a_introduction.pdf
 \footnote{code at \url{/home/grant/RProjects/PhD_graphs/}}
 
