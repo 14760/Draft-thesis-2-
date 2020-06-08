@@ -110,7 +110,7 @@ Figure~\ref{fig:dolphin} shows vertex betweenness centrality, eigenvector centra
     \label{fig:dolphin}
 \end{figure}
 
-This chapter will consider degree centrality, eigenvector centrality, betweenness, closeness and transitivity in the PSP and their association with animal models of learning and human cognitive ability. \todo{find ref on what are the key centrality measures}. The simplest centrality measure is degree centrality \cite{newman2018networks} considered below. 
+This chapter will consider degree centrality, eigenvector centrality, betweenness, closeness and transitivity in the PSP and their association with animal models of learning and human cognitive ability. \todo{find ref on what are the key centrality measures ?consistency and differences between centrality measures acrossdistinct classes of network}. The simplest centrality measure is degree centrality \cite{newman2018networks} considered below. 
 
 \section{Degree centrality}
 \label{sec:degree centrality}
@@ -170,6 +170,17 @@ is parameterised for an empirical network only by only by $E[k]$ which is $\lamb
 
 \textcolor{red}{need to give background on barabasi etc}
 \todo{background scale free}
+
+Albert, Jeong and Barabasi \cite{albert1999diameter} built a robot to map out the \url{nd.edu} domain of the world wide web. They found 325729 documents and 1469680 links. In accordance with the nature of the world wide web they constructed a directed graph. They found that the network representing the world wide web displayed a power law distribution with $\gamma_{out}=2.45$ and $\gamma_{in}$=2.1. At that time (1998) there was "no trace in the literature of a network with a power-law distribution". \cite{barabasi2016network}\footnote{p10}
+
+Barabsi went on to develop with Albert a model that generates a power law distribution requiring growth and preferential attachment. Preferential attachment means that new nodes added to the network as it grows tend to be attached to nodes already of high degree.
+
+The description of power law distributions remains an eacitve area of research in statistics. Many networks display the power law distribution only in the tails and some conform to log normal distributions. Regardless of this the essential fact is that many real world networks are right skewed with heavy tails and deviate markedly from a Poisson distribution. 
+
+Price networks however had been described as a generative model for power law networks in the 1960s. Power law distributions are called scale free because increasing the value of the degree changes the probability of the degree distribution by a common muiltiplicative factor. This results in a straight line graph on a log-log plot of degree versus degree distribution. The straight log-log plot has been referred to as the signature of the scale free distribution. 
+
+Many other things in nature follow a scale free distribution (eg size of craters on moon, frequency of words and size of cities) and subsequent research showed that many othe networks (the first being the wiring diagram of an IBM chip, the map of the power grid and the Hollywood actor database) are all scale free.\cite{barabasi2016network} p11.
+
 It has been recognitsed that the degree distribution of nodes in real world networks are commonly scale free \cite{barabasi1999emergence} \cite{barabasi1999mean}. In a scale free network the probability of a vertex having degree $k$ $p(k)$ is:
 \begin{equation}
     p(k) \sim k^{-\gamma},
@@ -180,7 +191,7 @@ where $\gamma$ is the degree exponent \cite{barabasi2016network}
 
 Rare \cite{broido2019scale}
 
-\textcolor{red}{Why called this scale free}
+
 
 
 
