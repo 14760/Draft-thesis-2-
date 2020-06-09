@@ -485,51 +485,71 @@ Raman \cite{raman2014organisational} examined multiple centrality metrics in add
 
 \section{METHODS}
 
-\subsubsection{Methods Fitting the degree distribution - scale free property}
-\todo{define the method of Clauset and Newman}
-\todo{intro to scale free}
-
+\subsection{Methods Fitting the degree distribution - scale free property}
 
 We can calculate the $\gamma$ coefficient for the degree distribution using the \texttt{poweRlaw} package for R. The value of $\gamma$ will vary over the distribution depending on the lower limit of degree used to fit the power law distribution. This is shown graphically in figure \ref{fig:gamma} and table \ref{table:gamma}.
 
 A power law distribution may not hold throughout a distribution it is typically present at the tail (high degree) of the degree distribution. There is therefore a minimum value of degree from which the power law distribution holds (there is also frequently dispersion at the end (high) of the distribution. The characteristic feature of a power law degree distribution is a straight line in a log-log plot of $ P(k)$ and $k$.
 
-The minimum degree is calculated such that it minimises the difference between the empirical distribution and a fitted distribution with the goodness of fit measured by a Kolmogorov Smirnov test in the method described by Clauset and Newman \cite{clauset2009power}. The method is implemented in the poweRlaw package for R \cite{gillespie2015fitting}.
+The minimum degree in which the power law distribution is found is calculated such that it minimises the difference between the network degree distribution and the best fitted power law distribution. The distance between the distributions is measured by a Kolmogorov-Smirnov statistic in the method described by Clauset, Shalizi and Newman \cite{clauset2009power} section 3.3 p 11-12  following earlier work by the first author \cite{clauset2007frequency} \footnote{interestingly in the frequency of terrorism incidents}. 
 
-Recent research has suggested that power law distributions may be rare in empirical networks and a log normal distribution may be a better fit. The log normal is still a significant deviation from the Poisson distribution that would be seen in a random graph generated with uniform probability of connection. I have calculated the log likelihood of the log normal, power law and Poisson distribution. As we log likelihood is affected by the number of data points I report the fit of the log normal and Poisson over the same degree range as the power law fit. The log likelihood calculations were carried out using the poweRlaw package for R \cite{gillespie2015fitting} using the \texttt{ll} \textcolor{red}{lookup} \todo{lookup} command.
+The method is implemented in the \texttt{poweRlaw} package for R \cite{gillespie2015fitting}\footnote{see page 7 in \url{https://cran.r-project.org/web/packages/poweRlaw/vignettes/a_introduction.pdf} for a clear description of the implementation}.
 
-\section{Gene ontology enrichment}
+Recent research has suggested that power law distributions may be rare in empirical networks and a log normal distribution may be a better fit. The log normal is still a significant deviation from the Poisson distribution that would be seen in a random graph generated with uniform probability of connection. I have calculated the log likelihood of the log normal, power law and Poisson distribution. As we log likelihood is affected by the number of data points I report the fit of the log-normal \footnote{note to self clauset and newman use log-normal} and Poisson over the same degree range as the power law\footnote{note to self Newman uses power law not power-law remove any different} fit. The log likelihood calculations were carried out using the \texttt{poweRlaw} package for R \cite{gillespie2015fitting} using the \texttt{dist\_ll} method for distribution objects fitted to the data using the above distributions (for example \texttt{power\_law\_object = displ\$new(data)} for a power law distribution to the data for which the minimum degree and exponent would then be it) \todo{p21 of Clauset-Newman suggests using method of Vuong}
+
+\footnote{p 17 rule out powerlaw on bootstrap p if $p<=0.1$ p large when good fit}
+
+
+\section{Methods Gene ontology enrichment}
+\label{sec:Methods gene ontology centrality}
 \textcolor{red}{Cross ref to bit in next section or bring it here 4.16.5}  
 
+See section~\ref{sec: gene ontology analysis}.
 To understand the properties of nodes of different centrality's we performed gene ontology enrichment both with the background of the PSP and against the whole of the genome where the whole of the genome is defined as genes appearing in at least one of the cohort studies \todo{add cross ref}
 
-\subsection{GO Slim}
+\todo{Panther}
+\todo{background}
+\todo{Fishers test}
+\todo{topgo}
+
+
+\subsection{Methods GO Slim}
 \textcolor{red}{Define}
 
 \subsection{Methods and results global clustering coefficient}
-Calculations of local transitivity were carried out using the transitivity method in igraph with the argument type being global undirected. Local transitivity was carried out using transitivity with the type being local transitivity is not defined for nodes of degree 0 so as an alternate to NA the argument isolates="zero" was used. 
+Calculations of local transitivity were carried out using the transitivity method in \texttt{igraph} for R with the argument type being global undirected. Local transitivity was carried out using transitivity with the type being local transitivity is not defined for nodes of degree 0 so as an alternate to NA the argument isolates="zero" was used. 
 
 \subsection{Methods Murine LTP and centrality}
-Identification of murine genes associated with LTP and testing of LTP and cnetrality. For results see section \ref{sec:results centrality and murine models of long term potentiation}.
+Identification of murine genes associated with LTP and testing of LTP and centrality. For results see section \ref{sec:results centrality and murine models of long term potentiation}.
 
 %%%%%    Methods essentialness %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Database of essential genes Methods}
  \label{sec:Database of essential genes}
  
+ To obtain a list of essential human genes we used the database of essential genes (DEG).\cite{luo2014deg}. The database of essential genes (DEG) is found at \url{www.essentialgene.org}.The most up to date database was still under preparation on 09th June 2020 but the previous version is available at \cite{ http://tubic.org/deg_bak/}. We used the most up to date version available DEG 15.2 (Dec 18, 2017). Data on essential genes is available for bacteria, archaea, eukaryotes and non-coding.
  
- The database of essential genes is found at \url{www.essentialgene.org}. Downloading essential eukaryote genes yields 34590 entries.
- 
- Data is available for 9 clades:  Saccharomyces cerevisiae   ,Caenorhabditis elegans,Arabidopsis thaliana,Danio rerio,Mus musculus,Homo sapiens,
+  Downloading essential eukaryote genes (\url{http://tubic.org/deg_bak/download/deg-e-15.2.zip}) yields 34590 entries. Columns are DEG Accession and  accession number, Gene symbol, gene ref (Gen Bank GI number see \url{https://www.ncbi.nlm.nih.gov/genbank/sequenceids/}, COG (all blank), Functional Class (14 including undefined), Function, Organism, Refseq and Condition. Gen Bank GI number is not recorded for humans.
+  
+  For humans EMBLENSG is avialable, Chromosome location (V9), V11 ENSG and symbol V13 Protein ID, V14 HGNC number
+%  [1] "-"                                        "Ergosterol biosynthesis"                  "Protein transport"                       
+%  [4] "Amino acid biosynthesis"                  "Component of 90S preribosomal particles"  "Cellular metabolism"                     
+%  [7] "Protein translation"                      "Ribosome biogenesis"                      "Cytoskeleton organization and biogenesis"
+% [10] "Cell wall organization and biogenesis"    "RNA splicing"                             "Cell redox homeostasis"                  
+% [13] "DNA replication"                          "Protein modification"                    
+ Data is available for 9 organisms:  Saccharomyces cerevisiae   ,Caenorhabditis elegans,Arabidopsis thaliana,Danio rerio,Mus musculus,Homo sapiens,
  Drosophila melanogaster,Aspergillus fumigatus and Schizosaccharomyces pombe 972h-.
  
- Data on 28286 \todo{is this correct this is more than the number of protein coding genes?} human genes are recorded. 8256 unique gene ids are found for human genes. Human genes are identified by HGNC id code \footnote{\url{source('~/RProjects/paper_xls_latex/R/essentail_genes/load_essential_genes.R')}}.
+ Data on 34590 genes are recorded. 
+ Data on 28286 \todo{is this correct this is more than the number of protein coding genes?} human genes are recorded. 8256 unique gene symbols are found for human genes. 8214 unique hgnc id numbers  , ENSG 12947 Human genes, 8168 unique proteins  are identified by UniProtKB  \footnote{\url{source('~/RProjects/paper_xls_latex/R/essentail_genes/load_essential_genes.R')}}.
+ 
+ The pattern of duplicated data was complex for example 118 HGNC id were unrecorded (recorded as "-", the next commonest was one with 15 duplicates). Most of the 
  
  Entrez id were obtained using the module \url{convert_gmx_private}\footnote{ at \url{/home/grant/PycharmProjects/convert_gmx_private}}.
  
  This uses downloaded gene info from entrez gene to find first the symbol and if that is missing to search through synonyms and supply the matching entrez id. It returns a list of items not found. 
  
-8284 genes were translated to entrez id. 8 ids could not be identified. 3 of these are recorded as dates in the primary data \footnote{(5,6 Mar, 5 Sep)}
+8284 genes were translated to entrez id. 8236 of these were unique (from 8256) 8 ids could not be identified. 3 of these are recorded as dates in the primary data \footnote{(5,6 Mar, 5 Sep)}
  
  The dataframe of conversions are stored in the supplemental data\footnote{ \url{/home/grant/RProjects/paper_xls_latex/data/essential_genes.tsv}}
 \subsection{Loss of function and evolutionary pressure}
@@ -1243,16 +1263,50 @@ Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
  \todo{Assortativity of essential nodes in PSP}
  \todo{difference plI and DEG}
  
- \subsection{Results from database of essetnail genes}
+ \subsection{Results from database of essential genes}
 
-2241 genes in the PSP are essential (64.8\%)
+2238 genes in the PSP are essential (64.7\%)
 
 This compares with 37.\% of the genome as a whole (assuming 20000 genes \todo{get non essential number from database}. 36.5\% (6043/20000) non PSP genes are essential. 
 
-\subsubsection{Essential gene conclusion}
-PSP genes are more likely to be essential
+\subsubsection{Degree and essential genes}
 
-\todo{Degree etc for essential genes}
+The summary statistics for the degree of essential PSP genes and non essential PSP genes are shown in table~\ref{tab:degree distribution essential and non essential genes PSP}. The mean degree is higher in essential (21.29) vs non essential genes (10.94) $p<2.2 \time 10^{-16}   W=1777916$ Wilcoxon rank sum test with continuity correction in R.
+
+The boxplot of log degree for essential and non essential genes in the PSP is shown in figure~\ref{fig:boxplot_log degree essential genes}
+\footnote{code \url{source('~/RProjects/paper_xls_latex/R/essentail_genes/lbxplot_and_latex_essential_genes.R')}}.
+
+The assortativity of essential nodes in the PSP is 0.0438 (ie very mild assortative although they tend to have high degree and PSP degree is disassortative).
+
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrrrrrrr}
+  \hline
+ & name & n & Min. & 1st Qu. & Median & Mean & 3rd Qu. & Max. \\ 
+  \hline
+1 & Essential & 2238 & 1.00 & 5.00 & 11.00 & 21.29 & 23.00 & 474.00 \\ 
+  2 & Non essential & 1219 & 1.00 & 2.50 & 5.00 & 10.94 & 12.00 & 535.00 \\ 
+  3 & All & 3457 & 1.00 & 4.00 & 8.00 & 17.64 & 19.00 & 535.00 \\ 
+   \hline
+\end{tabular}
+\caption{Degree distribution of essential and non essential genes in PSP}
+\label{tab:degree distribution essential and non essential genes PSP}
+\end{table}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_essential_non_essential_gene_degree.png}
+    \caption{Degree distribution for essential and non essential PSP genes using DEG 15.2. 2238 Essential genes, 1219 Non essential}
+    \label{fig:boxplot_log degree essential genes}
+\end{figure}
+
+
+
+\subsubsection{Essential gene conclusion}
+PSP genes are more likely to be essential. Essential genes are of higher degree than non essential genes. There is a very weak assortativity for essential genes. 
+
+\todo{DONE Degree etc for essential genes}
 \todo{Essential genes enrichment vs non essential PSP add to community detection section}
 \todo{Essential gene count for significant genes vs psp genes}
 
