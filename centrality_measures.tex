@@ -1158,20 +1158,21 @@ To determine the best distribution calculated the log likelihood of the distribu
 \end{table}
 
 \subsection{Relationship of C(k) to k}
-
+\todo{add an introduction to this result and significance}
 Albert \cite{albert2005scale} says that the relationship C(k) where C(k) is the average transitivity for degree k follows
 \begin{equation}
-    C(k = \frac{B}/k^{\beta}
+            C(k) = \frac{B}{k^{\beta}}
 \end{equation}
+\label{eq:C(k) function average transitivity and degree}
 
-citing \cite{yook2004functional}.
+citing \cite{yook2004functional} where $\beta$ is between 1 and 2 \cite{albert2005scale}.
 
-With degree 1 all transitivity is 0 so this has been removed as an outlier and artefact.
+When a node has degree 1 the transitivity is  either 0 or undefined so this point has been removed from the plot. 
 
 The graph of degree with log10 scaling and mean transitivity is shown in figure~\ref{fig:C(k)_remove0}
 
 \todo{need to do fit}
-
+\todo{significance of result}
 Code \url{source('~/RProjects/graph2community/R/transitivity_degree/Cluster_nodes.R')}
 ? fit with no intercept
 
