@@ -1157,6 +1157,37 @@ To determine the best distribution calculated the log likelihood of the distribu
   \label{table:gamma}
 \end{table}
 
+\subsection{Relationship of C(k) to k}
+
+Albert \cite{albert2005scale} says that the relationship C(k) where C(k) is the average transitivity for degree k follows
+\begin{equation}
+    C(k = \frac{B}/k^{\beta}
+\end{equation}
+
+citing \cite{yook2004functional}.
+
+With degree 1 all transitivity is 0 so this has been removed as an outlier and artefact.
+
+The graph of degree with log10 scaling and mean transitivity is shown in figure~\ref{fig:C(k)_remove0}
+
+\todo{need to do fit}
+
+Code \url{source('~/RProjects/graph2community/R/transitivity_degree/Cluster_nodes.R')}
+? fit with no intercept
+
+Fitting a linear model omitting degree 1 and with log10 degree has Adjusted R-squared 0.61 compared to 0.4594 for the non logarithmic model.
+
+\textcolor{red}{Actually the first three points have high leverage for this perhaps should try the powerlaw x min but is not a distribution}
+
+R sq 0.65 going from degree 5 so not too much different
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_k(c)_remove0.png}
+    \caption{Plot of degree $k$ log 10 scale with $C(k)$ where $C(k)$ is the mean local undirected transitivity at degree $k$. The point of degree 1 has been removed from the plot and the linear fit as by definition C(k) is 0 as all nodes of degree 1 have local tranisitivity 0 or it is not defined (ie they are isolates)}
+    \label{fig:C(k)_remove0}
+\end{figure}
+
 \subsection{RESULTS Assortativity and methods degree assortativity}
 \textcolor{red}{Move to discussionj}We can compare the average degree with those found in other publications. We can also look at the assortativity between nodes for degree. The PSP networks shows evidence of some negative degree assortativity (-0.18) using the commands \texttt{assortativity(g,deg,directed=FALSE)} in igraph for R \todo{Assortativity for essential and id}.
 
