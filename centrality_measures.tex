@@ -1574,7 +1574,28 @@ human\_genome\_plI &5.4e-91 &3.2e-05&  0.028& 0.30&    0.68  &  1\\
 \subsection{Results of disease enrichment for centrality measures}
 
 Using the package disgennet2r disease enrichment was performed using the curated disgennet database using fishers exact test with FDR correction for multiple comparisons. 9703 genes were used as the background being those genes with annotated disease associations (not specifically synaptic)
+\subsubsection{Degree}
 
+Low degree (bottom 10\%) ataxia and seizures cut off 0.05
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_low_deg_0.05cutoff_0.1cent_disgen.png}
+    \caption{Low degree disease enrichment}
+    \label{fig:low degree disease enrichment cut off 0.05}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_high_deg_0.9_0.05cutoff_disgen.png}
+    \caption{High degree disease enrichment}
+    \label{fig:High degree disease enrichment cut off 0.05}
+\end{figure}
+Low degree includes a number of epilepsies (figure~\ref{fig:low degree disease enrichment cut off 0.05}). High degree (greater than 0.9 centile) enriches for neurological conditions ALS and Parkinsons disease (figure~\ref{fig:low degree disease enrichment cut off 0.05}).
+
+
+Code \url{source('~/RProjects/graph2community/R/disgen3_degree_hi.R')}
 \subsubsection{betweennness}
 
 Diseases associated with high betweeness centrality were predominantly neoplasms showing those above the 90th centile for betweenness 0.0001121076, those in the bottom 10\% ($8.3 \times 10^{-5}$) were predominantly neurological disorders.
@@ -1602,6 +1623,14 @@ This suggests that highly central nodes are either not compatible with viabiliti
 \subsubsection{Closeness centrality}
 
 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_high_closeness.png}
+    \caption{High closeness disease enrichment}
+    \label{fig:high closeness disease enrichment}
+\end{figure}
+
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{images/Rplot_low_closeness.png}
@@ -1609,6 +1638,38 @@ This suggests that highly central nodes are either not compatible with viabiliti
     \label{fig:low closeness disease enrichment}
 \end{figure}
 
+
+
+Note that the neurological conditions that are present with high closeness centrality are parkinsonism and some neurodegeneration
+
+
+\subsubsection{Eigenvector centrality}
+
+Parkinsons disease is again the highest ranking neurological disease in high eirgenvector centrality enrichment
+
+40 low eigenvector annotated (greater than 0.9 centile)
+
+261 high eigenvector centrality annotated (less than 0.1)
+
+
+DisGeNet Low eigenvector centrality (figure~\ref{fig:low eigenvector disease enrichment cut off 0.05}.
+
+Gene Ratio is number of terms from gene set in annotation over size of annotation
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_low_eigenctror_centrality.png}
+    \caption{Low eigenvector disease enrichment}
+    \label{fig:low eigenvector disease enrichment cut off 0.05}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_high_eigenvector_centrality_disggen0.9].png}
+    \caption{High eigenvector disease enrichment}
+    \label{fig:high eigenvector disease enrichment cut off 0.05}
+\end{figure}
 
 
 \section{RESULTS: Centrality measures and graph statistics and Intelligence}
