@@ -1571,8 +1571,43 @@ human\_genome\_plI &5.4e-91 &3.2e-05&  0.028& 0.30&    0.68  &  1\\
  %   \label{fig:log_transitivity_degree}
 %\end{figure}
 
+\subsection{Results of disease enrichment for centrality measures}
+
+Using the package disgennet2r disease enrichment was performed using the curated disgennet database using fishers exact test with FDR correction for multiple comparisons. 9703 genes were used as the background being those genes with annotated disease associations (not specifically synaptic)
+
+\subsubsection{betweennness}
+
+Diseases associated with high betweeness centrality were predominantly neoplasms showing those above the 90th centile for betweenness 0.0001121076, those in the bottom 10\% ($8.3 \times 10^{-5}$) were predominantly neurological disorders.
+
+This suggests that highly central nodes are either not compatible with viabilitiy or are only affected in severely disordered pathology affecting essential cell functions such as tumours. 
 
 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_high_bet_disgen.png}
+    \caption{High betweenness nodes disease enrichment}
+    \label{fig:high betweenness disease enrichment}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_bet_low0.1.png}
+    \caption{Low betweenness disease enrichment}
+    \label{fig:low betweenness disease enrichment}
+\end{figure}
+
+
+
+\subsubsection{Closeness centrality}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_low_closeness.png}
+    \caption{Low closeness disease enrichment}
+    \label{fig:low closeness disease enrichment}
+\end{figure}
 
 
 
