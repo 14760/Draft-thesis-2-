@@ -86,7 +86,7 @@ The small world property would allow for rapid information transfer within netwo
 \todo{do this}
 In considering measures of  a network or a vertex we can study them by seeing how much they differ from their expected value given a random network. Simple random networks such as Erdos Renyi random graphs are discussed in the introduction \todo{cross ref}.
 
-These models however generate networks with a vertex degree distribution that is approximated by  a Poisson distribution (see section~\ref{sec:degree distribution}) \todo{move this to after degree distribution}. Many real world networks have more complicated degree structures such as a power law distribution (see section~\ref{sec:scale_free}) . A number of generating models for power law distribution networks have been described \todo{ref barabasi albert, price}. If one is studying a particular network for which one has the degree sequence then the configuration model is a good choice \todo{rephrase}. \cite{newman2018networks}
+These models however generate networks with a vertex degree distribution that is approximated by  a Poisson distribution (see section~\ref{sec:degree distribution}) \todo{move this to after degree distribution}. Many real world networks have more complicated degree structures such as a power law distribution (see section~\ref{sec:scale_free}) . A number of generating models for power law distribution networks have been described \todo{ref barabasi albert, price}. If one is studying a particular network for which one has the degree sequence then the configuration model is a good choice argues Newman \todo{rephrase}. \cite{newman2018networks}
 
 The configuration model generates a new random network that retains the degree distribution of the original network. Network properties can therefore be compared between the real network and instantiations of the configuration model for that degree distribution. The process for generating the configuration model is a follows: each edge is broken into two stumps and then each of the stumps are rewired in turn into another stump with a uniform probability. This can result in self loops and multiedges\todo{check how multiedges is written in newman}, which do not occur in most real world networks, but the number of these are low as the network size increases \cite{newman2018networks}.
 
@@ -116,7 +116,7 @@ This chapter will consider degree centrality, eigenvector centrality, betweennes
 \label{sec:degree centrality}
 
 %from \url{/home/grant/Dropbox/PhD_latex_master}
-The degree of a node is the number of edges connected to it. In the network graph of the PSP it is the number of proteins a protein (represented by its encoding gene) directly interact with.
+A node that is connected to a large number of other nodes in a network may be considered central. In a protein interaction network changes in this protein may give rise to a variety of different phenotypes or if the protein is sufficiently essential give rise to severe disease. The degree of a node is the number of edges connected to it. In the network graph of the PSP it is the number of proteins a protein (represented by its encoding gene) directly interact with.
 
 
 For the adjacency matrix $A_{i,j}$, where $A_{i,j}=1$  if there is an edge between nodes $i$ and $j$ and 0 otherwise, the degree of node $i$, $k_i$ is\cite{boccaletti2006complex}:
@@ -171,7 +171,7 @@ is parameterised for an empirical network only by only by $E[k]$ which is $\lamb
 \textcolor{red}{need to give background on barabasi etc}
 \todo{background scale free}
 
-Albert, Jeong and Barabasi \cite{albert1999diameter} built a robot to map out the \url{nd.edu} domain of the world wide web. They found 325729 documents and 1469680 links. In accordance with the nature of the world wide web they constructed a directed graph. They found that the network representing the world wide web displayed a power law distribution with $\gamma_{out}=2.45$ and $\gamma_{in}$=2.1. At that time (1998) there was "no trace in the literature of a network with a power-law distribution". \cite{barabasi2016network}\footnote{p10}
+Albert, Jeong and Barabasi \cite{albert1999diameter} built a robot \todo{explain} to map out the \url{nd.edu} domain of the world wide web. They found 325729 documents and 1469680 links. In accordance with the nature of the world wide web they constructed a directed graph. They found that the network representing the world wide web displayed a power law distribution with $\gamma_{out}=2.45$ and $\gamma_{in}$=2.1. At that time (1998) there was "no trace in the literature of a network with a power-law distribution". \cite{barabasi2016network}\footnote{p10}
 
 Barabsi went on to develop with Albert a model that generates a power law distribution requiring growth and preferential attachment. Preferential attachment means that new nodes added to the network as it grows tend to be attached to nodes already of high degree.
 
@@ -231,9 +231,7 @@ Supercritical to fully connected at $E[k] > \ln(N)$
 Where $N$ is the number of nodes in a network, a giant connected component develops in random graphs when $E[k] > \ln (N)$ \cite{barabasi2016network}. This tends to be the case in real world complex networks. The necessary requirement for a connected component to form is that mean degree is greater than $1/N$. The giant connected component arises in the super-critical' region (see \cite{barabasi2016network} p87). For the PSP $E[k]$ is 17.6 and $\ln(N)=\ln(3457)=8.14$. \todo{this does not follow} It is important to note however that the degree distribution for the PSP graph \textcolor{red}{this does not follow} is not that of a random network ($P(k)$ is scale free it would also be unlikely to find many nodes $ 3 \times E[k]$, if it were there would be few nodes with degree 2 and we find some nodes disconnected from the connected component in our empirical model \todo{so what?}. \todo{cross ref to missing nodes I think it is in the paper section so community detection} \todo{Add plot from \url{'~/RProjects/graph_analysis/R/transitiontoconnectederdosrenyi.R'} for transition from sub-critical to super-critical region} see section~\ref{sec: PSP graph connected component and missing} for missing components.
 
 
-\subsection{Degree and intelligence in PSP}
-We will see what the correlation is in population cohorts and what we might expect it to be given the effects of high degree genes in model animals. 
-\todo{This is perhaps the bit to introduce the possible different hypothesise}
+
 
 
 %%% CENTRALITY MEASURES %%%
@@ -241,33 +239,33 @@ We will see what the correlation is in population cohorts and what we might expe
 
 \subsection{Betweenness}
 \label{sec:Betweeness centrality}
-Both betweenness centrality and closeness centrality (section~\ref{sec:closenesscentrality}) depend on the properties of shortest paths between nodes. Betweenness centrality is a vertex level statistic described by Freeman \cite{freeman1977set}. Betweenness centrality is a measure of information flow through a node and the importance a node measured by the number of geodesic (shortest) paths between nodes in the network passing through a particular node. 
+Both betweenness centrality and closeness centrality (section~\ref{sec:closenesscentrality}) depend on the properties of shortest paths between nodes. Betweenness centrality is a vertex level statistic described by Freeman \cite{freeman1977set}. Betweenness centrality is a measure of information flow through a node and the importance a node measured by the number of geodesic (shortest) paths between nodes in the network passing through a particular node. \textcolor{red}{define shortest path}
 
-Betweenness centrality measures the number of shortest (geodesic) paths through a node. Following Newman if $n_{st}^i$ is one if a shortest path between nodes $s$ and $t$ pass through node $i$ and $g_{st}$ is the number of shortest paths between $s$ and $t$ then the betweenness centrality of node $i$ is
+ Following Newman if $n_{st}^i$ is one if a shortest path between nodes $s$ and $t$ pass through node $i$, $g_{st}$ is the number of shortest paths between $s$ and $t$ (as there may be more than one shortest path) then the betweenness centrality of node $i$ is
 
 \begin{equation}
     x_i = \sum_{st} \frac{n_{st}^i}{g_{st}}
 \end{equation}
 \label{eq: Betweenness centrality}
 
-from Newman \cite{newman2018networks} p172. 
+from Newman \cite{newman2018networks} p172. Shortest paths are counted in either direction eg from $s$ to $t$ and $t$ to $s$ in an undirected network. This does not alter the rank of the nodes ordered by betweenness centrality and allows for easier application to directed networks \cite{newman2018networks}. The betweenness centrality can be normalised by dividing by the number of possible node pairs in the network $n^2$ \cite{newman2018networks} p176
 
-Informally the number of shortest paths passing through a node for all paths between nodes in the network and where more than one shortest path occurs it is weighted by the number of such paths that exist. The betweenness centrality can be normalised by dividing by the number of possible node pairs in the network $n^2$ \cite{newman2018networks} p176
-
-Nodes with high betweenness centrality connect different areas on the network (ie paths between nodes in the network disproportionatley flow through them) they are sites of increased information flow (especially if the information knows the path to take through the network (compare with random walk betweenness centrality) and measures how much other nodes depend on the presence of these nodes.
+Nodes with high betweenness centrality connect different areas on the network \todo{ref} (ie paths between nodes in the network disproportionately flow through them) they are sites of increased information flow \todo{ref}(especially if the information knows the path to take through the network (compare with random walk betweenness centrality) and measures how much other nodes depend on the presence of these nodes.
 
 
-\textcolor{red}{there is a note betweennness and transitivity and betweeness and biological illegible maybe literature}
- 
+
 \subsubsection{Edge betweenness}
  \todo{edge centrality}
 
+\subsection{Random walk betweenness}
+\label{sec: random walk betweenness}
+Betweenness centrality assumes that information take the shortest path through the network. This assumption may not be true. Random walk betweenness makes the betweenness metric dependent on the property of random walks in the network. The results are often similar and where they differ it is not apparent what significant should be given to this difference \cite{newman2018networks}
 
 \section{Closeness centrality}
 \label{sec:closenesscentrality}
-Alex Bevelas
+Closeness centrality was described by Alex Bevelas in studies of information flows through social networks. 
 
-Closeness centrality measures how centrally ie close to other nodes a node is in the network. Like betweenness centality it depends on shortest walks. Closeness centrality is the inverse of the  average length of shortest path to and from other vertices in the graph \cite{freeman1978centrality}
+Closeness centrality measures how centrally ie close to other nodes a node is in the network. Like betweenness centrality it depends on shortest paths\todo{defined above ass cross ref}. Closeness centrality is the inverse of the  average length of shortest path to and from other vertices in the graph \cite{freeman1978centrality}
 
 \begin{equation}
     l_i = \frac{1}{n} \sum_j d_{ij}
@@ -277,30 +275,31 @@ $l_i$ is the mean distance between node $i$ and every other node in the network.
 
 
 \begin{equation}
-    C_i = \frac{1}{l_i}
+    C_i = \frac{1}{l_i}. 
 \end{equation}
-
-While betweenness centrality measures the dependence of other nodes in the network on a particular node (as a bottleneck for information) the closeness centrality has been interpreted both as proximity and access efficiency and independendce from other nodes \todo{ cite(Bronelles, Brandes and Borgetti)} but these are identical
+\cite{newman2018networks}
+While betweenness centrality measures the dependence of other nodes in the network on a particular node (as a bottleneck for information), the closeness centrality has been interpreted both as proximity and access efficiency and independence from other nodes \todo{ cite(Bronelles, Brandes and Borgetti)}. Although the meaning given to the measure is different these interpretations are mathematically identical.
 
 
 
 \section{Eigenvector centrality}
+Degree centrality makes each node that a node is connected to of equal importance. This is often not the case a connection to one very important node may render a neighbouring node of low degree more important than the single increase in degree would suggest. 
 
 Eigenvector centrality proposed by Bonacich \cite{bonacich1972factoring} expands on degree centrality by not considering all of the edges of a vertex equal. If a vertex is linked to a highly important node this link should be given greater importance. Eigenvector centrality therefore incorporates the importance of the neighbours of a vertex.
 
-Here I follow Newman \cite{newman2018networks}. From the above we define a nodes importance as the sum of the importance of its neighbours.
+Here I follow Newman \cite{newman2018networks}. From the above we define a nodes importance as the sum of the importance of its neighbours where $x_i$ is the importance of node $i$
 
 \begin{equation}
     x_i = K^{-1} \sum_j x_j
 \end{equation}
 
-Where $K$ is a constant of proportionality. This can be written using the adjacency matrix as
+Where $K$ is a constant of proportionality and $j$ are all of the neighbours of node $i$ This can be written using the adjacency matrix as
 
 \begin{equation}
     x_i = K^{-1} \sum_j A_{ij} x_j
 \end{equation}
 
-Where $\sum_j x_j$ includes the importance of all nodes but selects only the neighbours of $x_i$ because of the adjacency matrix (otherwise the entry will be 0).
+avoiding the use of $j$ as the neighbours of $x_i$ because with the adjacency matrix nodes that are not neighbours will have a value of 0.
 
 In matrix form:
 \begin{equation}
@@ -313,7 +312,7 @@ In matrix form:
   
   Replacing $k$ with $\lambda$ shows more clearly this to be an eigenvector problem. The eigenvector will have as its $i$th entry the importance of the $i$th node. As all centralities should be positive the appropriate eigenvector is the one associated with the largest eigenvalue by the Perron-Froebenius theorem. 
   
-  Eigenvector centrality is implemented in igraph for R by the \texttt{eigen\_centrality} function taking the graph as the argument. The values of the eigenvector centrality are not strict measures and we care only for the order of eigenvector centraliy. They can however be normalised. 
+  Eigenvector centrality is implemented in igraph for R by the \texttt{eigen\_centrality} function taking the graph as the argument. The values of the eigenvector centrality are not strict measures and we care only for the order of eigenvector centrality. They can however be normalised. 
   
  \section{Related measures}
 \cite{bonacich1987power}
@@ -330,6 +329,7 @@ Alpha centrality and bonacich centrality have parameters (bonacich is alpha with
 
 \section{Transitivity}
 \label{sec:transitivity}
+Transitivity is a measure of how connected the neighbours of nodes are. 
 The transitivity of a network measures the extent to which if two nodes each connected to another node they will be in turn connected. In more colloquial terms if Alice and Bob are both friends with Susan how likely are Alice and Bob to be friends. The clustering coefficient measures the number of these connections called closed triads occurring in a network 
 divided by the possible number that could occur.
 
@@ -359,7 +359,7 @@ The probability the two neighbours of a node in a network are connected is thus 
 
 \subsubsection{Global clustering coefficient}
 \label{sec:Global clustering coefficient}
-The local transitivity defined below (section \ref{sec:local clustering coefficient} is used synonymously with clustering coefficient. The global clustering coefficient however defined by Watts and Strogatz as the arithmetic mean of the vertex local clustering coefficients. The global clustering coefficient can become domminated by nodes of low degree \cite{newman2018networks} p188 and nodes with low degree tend to have high values of local clsutering coeffieicnt. 
+The local transitivity defined below (section \ref{sec:local clustering coefficient} is used synonymous with clustering coefficient. The global clustering coefficient however defined by Watts and Strogatz as the arithmetic mean of the vertex local clustering coefficients. The global clustering coefficient can become domminated by nodes of low degree \cite{newman2018networks} p188 and nodes with low degree tend to have high values of local clsutering coeffieicnt. 
 
 \subsection{Local clustering coefficient}
 \label{sec:local clustering coefficient}
@@ -469,6 +469,11 @@ Raman \cite{raman2014organisational} examined multiple centrality metrics in add
 
  Using the STRING database filtered for high quality interactions they found a disassortative \todo{ this suggests you need to put assortativity in the introduction bit} pattern of connection of essential genes (they did not appear to be connected to each other)  (compare with section~\ref{sec:degree assortativity})  and found higher than average degree and betweenness centrality (greatest for degree centrality). The organisms that they studied (20) were mostly bacteria and yeasts, no most sophisticated I could see was \textit{Caenorhabditis elegans}. They also calculated what fraction of essential nodes had a higher degree than n where n is a centile of the degree distribution).
 
+
+\textcolor{red}{there is\subsection{Centrality and intelligence in PSP}
+We will see what the correlation is in population cohorts and what we might expect it to be given the effects of high degree genes in model animals. Essentially nobody knows \todo{rephrase}
+\todo{This is perhaps the bit to introduce the possible different hypothesise} a note betweennness and transitivity and betweeness and biological illegible maybe literature}
+ 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%    METHODS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%    METHODS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
