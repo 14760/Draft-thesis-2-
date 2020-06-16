@@ -318,7 +318,9 @@ In matrix form:
 \cite{bonacich1987power}
 Nodes are important if their neighbours are important 
 
-Katz centrality has a parameter (alpha)
+Katz centrality is a solution to a problem in directed networks. If a vertex is not in a strongly connected component it will lack and eigenvector centrality. The Katz centality includes a constant term $\beta$ which is added to the eigenvector centrality and a term $\alpha$ that determines the balance between the eigenvector centrality and the constant term. It is not widely used in undirected networks. 
+
+Page rank is a variant of Katz centrality but where the benefit of an important neighour is scaled by their out degree.(divided). Intuitively if I am linked to a very important neighbour  but they also link to millions of people that connection is of less value to my importance and centrality than being this important neighours only connection. A review is provided in Gkeik[205]. There are also constant terms $\alpha$ and $\beta$ analagous with katz centrality. 
     
 Alpha centrality and bonacich centrality have parameters (bonacich is alpha with alpha preset per bonacich). Bonacich is power\_centrality in igraph. Power centrality with preset is symmetrical around 0.  
 
@@ -456,18 +458,19 @@ Ozgur \cite{ozgur2008identifying} developed a curated gene interaction network a
 
 Estrada \cite{estrada2006virtual} used centrality meassures to assess essentialness in the yeast protein interaction network (degree centrlity, eigenvector centrality, information centrality, closeness centrality, betweenness centrality and subgraph centrality. They found that high centrality measures predicted essentialness better than random selection and  the best results were obtained using eigenvector centrality and the poorest using closeness and betweenness centrality. 
 
-Joy found that nodes with high betweenness and low degree centrality were particularly abundant.\cite{joy2005high} (this does not seem to be the case in our data see \url{lm_1 <- lm_1 <- lm(ZSTAT ~  eig*scale_bet*I(1/scale_deg),data=ukbb_int_df2)}
+Joy found that nodes with high betweenness and low degree centrality were particularly abundant.\cite{joy2005high} in Yeast protein protein interactin (this does not seem to be the case in our data see \url{lm_1 <- lm_1 <- lm(ZSTAT ~  eig*scale_bet*I(1/scale_deg),data=ukbb_int_df2)}
 
-Pandey analysed GWAS results for bipolar disorder using eigenvector centrality \cite{pandey2012epistasis}. They used the WTCCC-BD GWAS (1868 cases and 2938 controls) as a discovery sample and  a NIMH GWAS (1001 cases; n=1033 controls) of individual of european ancestry as replication. Having constructed an epistasis network they used eigenvector centrality to rank the 1000 nodes in the SNP epistasis network and then assessed what pathways were enriched for the ranked SNPs. The analysis is limited by the lack of power provided by the sample size available.
+Pandey analysed GWAS results for bipolar disorder using eigenvector centrality \cite{pandey2012epistasis}. They used the WTCCC-BD GWAS (1868 cases and 2938 controls) as a discovery sample and  a NIMH GWAS (1001 cases; n=1033 controls) of individual of european ancestry as replication. Having constructed an epistasis network they used eigenvector centrality to rank the 1000 nodes in the SNP epistasis network and then assessed what pathways were enriched for the ranked SNPs. The network was a statistical network described as reGAIN (regression based genetic assocation network) where edges are statistical interactions \todo{i presume}\footnote{they have a previous method based on information gain The analysis is limited by the lack of power provided by the sample size available.}
 
 \section{Degree and essentialness Introduction}
 \label{sec:Degree and essentialness}
-Jeong \cite{jeong2001lethality} examined the correlation between a gene being essential and having high degree in the proteome of \textit{Saccharomyces ceresvisiae} having 1870 nodes and 2240 interactions (comparatively sparse compared with the synaptic proteome). They found that elimination of the most connected nodes led to an increase in network diameter and that the likelihood that mutation in a protein would prove fatal was correlated with degree, They found that 21\% of the nodes with degree less than 5 (93\% of the proteome). Although 0.7\% of yeasts with more than 15 links had phenotypic profile 62\% of these were lethal. However later work with more complete networks did not support this \cite{milenkovic2011dominating} \cite{yu2008high}
+Jeong \cite{jeong2001lethality} examined the correlation between a gene being essential and having high degree in the proteome of \textit{Saccharomyces ceresvisiae} having 1870 nodes and 2240 interactions (comparatively sparse compared with the synaptic proteome). They found that elimination of the most connected nodes led to an increase in network diameter and that the likelihood that mutation in a protein would prove fatal was correlated with degree, They found that 21\% of the nodes with degree less than 5 (93\% of the proteome) had lethal effects from mutation. Although 0.7\% of yeasts had more than 15 links  62\% of these had lethal phenotypes. However later work with more complete networks did not support this \cite{milenkovic2011dominating} \cite{yu2008high}
 
 
+p53 
 Raman \cite{raman2014organisational} examined multiple centrality metrics in addition to degree (degree, betweenness centrality, closeness centrality and pairwise dis-connectivity index) and their association with gene essentiality for 20 organisms.
 
- Using the STRING database filtered for high quality interactions they found a disassortative \todo{ this suggests you need to put assortativity in the introduction bit} pattern of connection of essential genes (they did not appear to be connected to each other)  (compare with section~\ref{sec:degree assortativity})  and found higher than average degree and betweenness centrality (greatest for degree centrality). The organisms that they studied (20) were mostly bacteria and yeasts, no most sophisticated I could see was \textit{Caenorhabditis elegans}. They also calculated what fraction of essential nodes had a higher degree than n where n is a centile of the degree distribution).
+ Using the STRING database filtered for high quality interactions they found a disassortative \todo{ this suggests you need to put assortativity in the introduction bit} pattern of connection of essential genes (they did not appear to be connected to each other)  (compare with section~\ref{sec:degree assortativity})  and found higher than average degree and betweenness centrality (greatest for degree centrality). The organisms that they studied (20) were mostly bacteria and yeasts, no most sophisticated I could see was \textit{Caenorhabditis elegans}.\todo{rephrase} They also calculated what fraction of essential nodes had a higher degree than n where n is a centile of the degree distribution).
 
 
 \textcolor{red}{there is\subsection{Centrality and intelligence in PSP}
@@ -525,9 +528,12 @@ To understand the properties of nodes of different centrality's we performed gen
 Calculations of local transitivity were carried out using the transitivity method in \texttt{igraph} for R with the argument type being global undirected. Local transitivity was carried out using transitivity with the type being local transitivity is not defined for nodes of degree 0 so as an alternate to NA the argument isolates="zero" was used. 
 
 \subsection{Methods Murine LTP and centrality}
-Identification of murine genes associated with LTP and testing of LTP and centrality. For results see section \ref{sec:results centrality and murine models of long term potentiation}.
+Identification of murine genes associated with LTP and testing of LTP and centrality. For results see section \ref{sec:results centrality and murine models of long term potentiation}.\todo{murine ltp}
 
 %%%%%    Methods essentialness %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Centrality and essentialness}
+To test the centrality lethality hypothesis for human population in the PSP and to investigate whether genes associatioed with differences in intelligence were under purifying selection (see chapter \todo{add cross ref to communities chapter} we used the database of eessential genes and the Exac database. 
 
 \subsection{Database of essential genes Methods}
  \label{sec:Database of essential genes}
@@ -559,8 +565,10 @@ Identification of murine genes associated with LTP and testing of LTP and centra
  The dataframe of conversions are stored in the supplemental data\footnote{ \url{/home/grant/RProjects/paper_xls_latex/data/essential_genes.tsv}}
 \subsection{Loss of function and evolutionary pressure}
 
-The Exac database is a compendium of data from the exomes of over 60,000 individuals \cite{lek2016analysis}. It permits the calculation of the frequency of mutations in specific genes. In addition there is a background mutation rate that is observed in human genes. If there is a lack of mutations in a specific region then we can conclude that the organism is intolerant to such mutations. The researchers provide a statistic the probability of loss of function intolerance that provides a measure of how much purifying selection a gene is under. The file was downloaded from 
-\url{"https://storage.googleapis.com/gnomad-public/legacy/exac_browser/forweb_cleaned_exac_r03_march16_z_data_pLI_CNV-final.txt.gz"}
+The Exac database is a compendium of data from the exomes of over 60,000 individuals \cite{lek2016analysis}. It allows the calculation of the tolerance to mutation of in specific genes. By comparing the number of loss of function mutations to those expected given the number of synonymous mutations we can identify if there is a lack of mutations in the population in a specific region and can conclude that the organism is intolerant to such mutations. The researchers provide a statistic the probability of loss of function intolerance that provides a measure of how much purifying selection a gene is under. 
+
+The file was downloaded from 
+\url{"https://storage.googleapis.com/gnomad-public/legacy/exac_browser/forweb_cleaned_exac_r03_march16_z_data_pLI_CNV-final.txt.gz"} (valid on 16.06)
 
 \subsubsection{Processing and cleaning Exac data for PSP}
 \todo{query move to supplemental methods}
@@ -574,11 +582,15 @@ The data consists of 18282 rows and 23 columns. A variety of metrics are availab
 %[13] "n_lof"      "exp_syn"    "exp_mis"    "exp_lof"    "syn_z"      "mis_z"     
 %[19] "lof_z"      "pLI"        "n_cnv"      "exp_cnv"    "cnv_z"     
 % end
+114 entries were found to have duplicated Ensembl transcript id. These were entries with differing cnv count. Each duplicate was duplicated twice (57 unique ensembl ids).see table~\ref{tab:Supplementary table- duplicate exac data}. Code to download the database and check these items only differ in cnv count is at \url{source('~/RProjects/paper_xls_output/R/exac_check_for_duplicates_mod.R')} and
+\url{source('~/RProjects/paper_xls_output/R/download_exac.R')}As the data differed only in cnv number and cnv number was not part of the analysis one copy was discarded resulting in n=18225 entries. 
 
-114 duplicated entries with duplicated Ensembl transcript id were identified. Each was duplicated twice with identical transcript id and entrez gene ID (duplicate of 57 entries) see table~\ref{tab:Supplementary table- duplicate exac data}. The duplicates were identical other than different numbers of copy number variations (CNV) recorded. As the analysis was not going to include CNV these were discarded.  \textcolor{red}{this matches the redo}\footnote{code \url{('~/Rprojects/paper_xls_output/R/download_exac.R')}}.
+%  \textcolor{red}{this matches the redo}\footnote{code \url{('~/Rprojects/paper_xls_output/R/download_exac.R')}}.
+
+Human entrez id was downloaded from
+\url{"ftp://ftp.ncbi.nih.gov/gene/DATA/GENE_INFO/Mammalia/Homo_sapiens.gene_info.gz"} and processed using an Rscript \url{source('~/RProjects/paper_xls_output/R/download_to_dataframe_geneinfo.R')} to remove \# symbols denoting comments. 
 
 
-Entrez ID were obtained by joining the Exac data to the human gene info 
 
 % The genes were identifiable from both transcript ID ENST, and HGNC gene symbol. (18282 - 57) 18225 distinct transcripts and gene symbols were identified.
 
@@ -586,39 +598,94 @@ Entrez ID were obtained by joining the Exac data to the human gene info
 % \todo{move into separate function}
 
 % As we were not using CNV these were eliminated
+Entrez ID were obtained for the Exac data by mapping the  HUGO gene symbol provided using Entrez gene info. This joined table has 8 duplicates as a result of Exac gene symbols mapping to more than one entrez ID)
+\url{source('~/RProjects/paper_xls_output/R/download_and_cleanexac/exac_check_for_duplicates_mod.R')}
+\footnote{variable is
+\texttt{joined\_duplicatez}}
+\todo{this as a table}
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Tue Jun 16 17:18:02 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlllrrl}
+  \hline
+ & transcript & gene & chr & pLI & GeneID & description \\ 
+  \hline
+6707 & ENST00000380299.3 & HBD & 11 & 0.00 & 3045 & hemoglobin subunit delta \\ 
+  6708 & ENST00000380299.3 & HBD & 11 & 0.00 & 100187828 & hypophosphatemic bone disease \\ 
+  9176 & ENST00000295065.5 & MEMO1 & 2 & 0.88 & 7795 & Methylation modifier for class I HLA \\ 
+  9177 & ENST00000295065.5 & MEMO1 & 2 & 0.88 & 51072 & mediator of cell motility 1 \\ 
+  9365 & ENST00000404774.3 & MMD2 & 7 & 0.00 & 221938 & monocyte to macrophage differentiation associated 2 \\ 
+  9366 & ENST00000404774.3 & MMD2 & 7 & 0.00 & 100505381 & Miyoshi muscular dystrophy 2 \\ 
+  15629 & ENST00000381501.3 & TEC & 4 & 0.00 & 7006 & tec protein tyrosine kinase \\ 
+  15630 & ENST00000381501.3 & TEC & 4 & 0.00 & 100124696 & transient erythroblastopenia of childhood \\ 
+   \hline
+\end{tabular}
+\caption{Supplemental Duplicated Gene symbol to gene id mapping for Exac}
+\label{tab:supp duplicated gene symbol for exac entrez}
+\end{table}
 
-To obtain entrez ID we join the Exac data to the human gene info downloaded from entrez. This joined table has 8 duplicates as a result of Exac gene symbols mapping to more than one entrez ID)
-
-One synaptic gene is found in the duplicated list HBD Gene ID 3045 which also has the entrez ID 100187828 
-HBD
-the transcript is ENST00000380299.3 which is haemaglobin delta maps to ENSG00000223609
-
-there is also Hypophosphataemic bone disease which is 100187827 but the one that is present in the synapse is 3045
 
 
 Code for the extraction and processing of the loss of function intolerance data was as follows 
 \url{~/RProjects/paper_xls_output/R/download_exac.R}
 
-3235 genes of the PSP have exac data. The missing 222 have insufficient coverage. The missing ones are shown in supplemental table x.
+For 17084 genes an entrez id could be matched with the supplied HUGO symbol but for 1141 genes an entrez id could not be identified. 
+
+There are 17928 entrez id in all gene studies
+15989 of these represented in the Exac data with an entrez id
+89.2\%. 16277 entrez id are found in the list of entrez id occurring in any study 18390 88.2\%. 3235 genes of the PSP have exac data (93.6\%). The missing 222 have insufficient coverage by searching the Exac browser. The missing ones are shown in supplemental table x\todo{do this table}. The availability of Exac data matched to an entrez id is shown in table~\ref{tab:exac_coverage}
+
 Lookup on \url{https://grch37.ensembl.org/Multi/Search/Results?q=ENST00000404774.3;site=ensembl_all}
 
-MEMO1 mediator of cell motility Entrez 7795 (Methylation modifier for class I HLA
-) and 51072(correct)
+\begin{table}[]
+    \centering
+    \begin{tabular}{llll}
+    \toprule
+      Description   & Exac data with entrez id & N genes & Percentage coverage  \\
+      \midrule
+      All non duplicated exac data  & 17084 & 18225 & 93.7\\
+       Genes present in all samples  & 15989 & 17928 & 89.2\\
+       Genes present in at least one sample & 16277 & 18390 & 88.2\\
+       Post synaptic proteome genes & 3235 & PSP size & 93.6\\
+       \bottomrule
+    \end{tabular}
+    \caption{Availability of Exac data with identifiable entrez id. Coverage of GWAS studies (Education and Intelligence) discovery and replication and of Post synaptic proteome. The difference between the number in all non duplicated exac data and genes present in GWAS samples is that some genes do not appear in the exac database having insufficient coverage}
+    \label{tab:exac_coverage}
+\end{table}
 
-MMD2 monocyte to macrophage 221938 MMD2 100505381 (Miyoshi Muscular Dystrophy 2 – wrong)
-
-TEC tec Protein tyrosine kinase 7006 not 100124696 (Transient erythroblastopaenia of childhood)
-
-There are 14990 non synaptic genes with exac information and a total of 18225 \textcolor{red}{18070 in redo} genes with exac gene info
+(for missing id please see section below)
 
 
- 
+
+\todo{at this point commented out duplicates as text}
+
+% MEMO1 mediator of cell motility Entrez 7795 (Methylation modifier for class I HLA
+% ) and 51072(correct)
+
+% MMD2 monocyte to macrophage 221938 MMD2 100505381 (Miyoshi Muscular Dystrophy 2 – wrong)
+
+% TEC tec Protein tyrosine kinase 7006 not 100124696 (Transient erythroblastopaenia of childhood)
+
+% One synaptic gene is found in the duplicated list HBD Gene ID 3045 which also has the entrez ID 100187828 
+% HBD
+% the transcript is ENST00000380299.3 which is haemaglobin delta maps to ENSG00000223609
+
+% there is also Hypophosphataemic bone disease which is 100187827 but the one that is present in the synapse is 3045
+% There are 14990 non synaptic genes with exac information and a total of 18225 \textcolor{red}{18070 in redo} genes with exac gene info
 
 
-\label{sec:Measurs of vertex importance from paper}
-\todo{Move this to importance}
-To test the hypothesis that genes encoding proteins with an important role in the structure of the PSP network were more likely to be associated with genetic variants associated with differences in intelligence or educational attainment (such as hubs), we calculated node degree, and four other measures of vertex importance: eigenvector centrality, betweenness centrality, closeness centrality and transitivity for each graph vertex (gene) using igraph. \cite{csardi2006igraph} \textcolor{red}{we need to say what all of these are before we start talking about them}\footnote{something like we will first of all need to introduce in general terms these measures and how they were calculated. in general also want to move more of this chapter into methods and results}. There was no correlation between any of these measures of vertex importance and their gene association analysis gene level statistics calculated using MAGMA (Spearman’s $\rho$ calculated with R) for genes in the post synaptic proteome graph. The results are presented in table 1\todo{table}. The complete vertex statistics for each PSP gene can be found in the supplementary material. 
+ \todo{should look like}
+ \textcolor{red}{ Genes reomved. N synaptic. N other. N duplicated. N missing. Flowchart and table for duplicates (then move table to supplemental)}
 
+\subsubsection{Use of Exac data}
+
+We calculated the Spearman's rank correlation between loss of function intolerance and centrality scores and with GWA scores. Calculations for correlation coefficient were carried out in R. The distribution of centrality measures and pLI deviated from a normal distribution. 
+
+\todo{cross ref non normality of centrality measures and do shapiro wilk for pli}
+
+Code for calculating correlation of gene score with pLI at \url{source('~/RProjects/paper_xls_output/R/make_pLI_correlation.R')}
+\todo{Modify to add closeness}
 \section{Cohorts and samples}
 \label{Centrality:cohorts and samples}
 \todo{do correlation centrality with murine ltp group}
@@ -706,7 +773,142 @@ A scatterplot of the relation of centrality measures is shown in figure~\ref{fig
     \caption{Scatter plot of centrality measures. Source \url{source('~/RProjects/correlation_gene_scores/R/make_df_graph_stats_correlation_lowdeg_high_bet.R')}}
     \label{fig:scatter plot of multiple centrality measures}
 \end{figure}
+\subsection{RESULTS Scale free}
+Using the method described by Clauset and Newman \cite{clauset2009power} and calculating the minimum x value we find the min for $x$ to be 24 and the $\gamma$ coefficient to be 2.51 using the poweRlaw R package \cite{gillespie2015fitting}. GOF 0.19. ntail 68 \footnote{\url{source('~/RProjects/group_size_distribution/R/calulate_cdf.R')}} The log of the degree distribution is shown in figure \ref{fig:log_degree_distribution} and figure \ref{fig:Degree distribution of post synaptic proteome. Log10 - log10 scale.}
+% see http://127.0.0.1:21133/library/poweRlaw/doc/a_introduction.pdf
+\footnote{code at \url{/home/grant/RProjects/PhD_graphs/}}
 
+
+The bootstrap p for the power law distribution is 0.583 with goodness of fit 0.19 using the package poweRlaw 0.70.6 using ks distance.\footnote{\url{source('~/RProjects/group_size_distribution/R/calulate_cdf.R')}}
+
+To determine the best distribution calculated the log likelihood of the distribution given power law, log normal and poisson distribution. To allow comparison of the log likelihood the likelihood was calculated for the data from the $x_min$ determined for the powerlaw distribution $x_min = 24$. See table~\ref{tab:log likelihood powelaw}
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{cc}
+    Distribution     &  log likelihood \\
+    \hline
+     Power law    & -2943.6\\
+     Log normal & -2947.23 \\
+     Poisson & -205115.8 \\
+    \end{tabular}
+    \caption{Log likelihood of degree distribution using poweRlaw package with $x_{min}=24$ for power law distribution and log normal and poisson.\url{source('~/RProjects/group_size_distribution/R/side_by_side_lognorm_and_pl.R')}}
+    \label{tab:log likelihood powelaw}
+\end{table}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{images/Rplot01_poweRlaw_ggplot.png}
+    \caption{Plot of fit of power law to degree distribution for the PSP. X axis is log 10 degree, Y axis is log 10 inverse cdf. Red line fit of power law distribution $\gamma= 2.51$ and $x_{min}=24$ \url{source('~/RProjects/group_size_distribution/R/calulate_cdf.R')}}
+    \label{fig:poweRlaw plot ggplot2}
+\end{figure}
+
+
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_poisson_plotted_on_degreedistribution.png}
+    \caption{Plot of degree distribution PSP with degree on x axis (log10). Points are degree distribution. Blue dash expected degree distribution given Poisson distribution. Red dash average degree \url{source('~/RProjects/group_size_distribution/R/poissonanddegree.R')}}
+    \label{fig:PSP degree powerlaw poisson}
+\end{figure}
+
+% \begin{figure}
+%   \includegraphics[width=\linewidth]{./dependence_of_scale_coefficient_on_min_degree.png}
+%   \caption{The parameter $\gamma$ as a function of the degree at which calculation of the coefficient starts in the degree sequence(e.g. all degree $>5$) from \url{RProjects/PhDGraphs/calculate/gamma}} 
+%   \label{fig:gamma}
+% \end{figure}
+
+% \begin{figure}
+%   \includegraphics[width=\linewidth]{plot_log_degree_distribution.png}
+%   \caption{The plot of log cumulative cdf of degree distribution log 10 scale x and y}
+%   \label{fig:log_degree_distribution}
+% \end{figure}
+
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/dependence_of_scale_coefficient_on_min_degree.png} 
+        \caption{The parameter $\gamma$ as a function of the degree at which calculation of the coefficient starts in the degree sequence(e.g. all degree $>5$) from \url{RProjects/PhDGraphs/calculate/gamma}} \label{fig:gamma}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/plot_log_degree_distribution.png} 
+        \caption{The plot of log cumulative cdf of degree distribution log 10 scale x and y} \label{fig:log_degree_distribution}
+    \end{subfigure}
+    \caption{Plots of degree distribution \textcolor{red}{may want to do this in subfigure packages rather than subcaption to line up edges}}
+\end{figure}
+% latex table generated in R 3.4.4 by xtable 1.8-4 package
+% Sat Oct  5 16:31:0\begin{document}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{lr}
+  \hline
+  from degree $k$ & coefficient $\gamma$ \\ 
+  \hline
+1 & 1.38 \\ 
+  5 & 1.81 \\ 
+  10 & 2.10 \\ 
+  15 & 2.30 \\ 
+  20 & 2.43 \\ 
+  25 & 2.51 \\ 
+   30 & 2.52 \\ 
+  35 & 2.54 \\ 
+   40 & 2.54 \\ 
+   45 & 2.60 \\ 
+  50 & 2.63 \\ 
+   60 & 2.60 \\ 
+   70 & 2.72 \\ 
+   80 & 2.80 \\ 
+   90 & 2.90 \\ 
+   100 & 2.92 \\ 
+  150 & 2.88 \\ 
+   200 & 3.44 \\ 
+   250 & 3.90 \\ 
+  300 & 5.04 \\ 
+   350 & 5.51 \\ 
+   400 & 6.33 \\ 
+   \hline
+\end{tabular}
+\caption{The $\gamma$ as a function of the degree sequence start (e.g. all degree $>5$). from RProjects/PhDGraphs}
+  \label{table:gamma}
+\end{table}
+
+\subsection{Relationship of C(k) to k}
+\todo{add an introduction to this result and significance}
+Albert \cite{albert2005scale} says that the relationship C(k) where C(k) is the average transitivity for degree k follows
+\begin{equation}
+            C(k) = \frac{B}{k^{\beta}}
+\end{equation}
+\label{eq:C(k) function average transitivity and degree}
+
+citing \cite{yook2004functional} where $\beta$ is between 1 and 2 \cite{albert2005scale}.
+
+When a node has degree 1 the transitivity is  either 0 or undefined so this point has been removed from the plot. 
+
+The graph of degree with log10 scaling and mean transitivity is shown in figure~\ref{fig:C(k)_remove0}
+
+\todo{need to do fit}
+\todo{significance of result}
+Code \url{source('~/RProjects/graph2community/R/transitivity_degree/Cluster_nodes.R')}
+? fit with no intercept
+
+Fitting a linear model omitting degree 1 and with log10 degree has Adjusted R-squared 0.61 compared to 0.4594 for the non logarithmic model.
+
+\textcolor{red}{Actually the first three points have high leverage for this perhaps should try the powerlaw x min but is not a distribution}
+
+R sq 0.65 going from degree 5 so not too much different
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_k(c)_remove0.png}
+    \caption{Plot of degree $k$ log 10 scale with $C(k)$ where $C(k)$ is the mean local undirected transitivity at degree $k$. The point of degree 1 has been removed from the plot and the linear fit as by definition C(k) is 0 as all nodes of degree 1 have local tranisitivity 0 or it is not defined (ie they are isolates)}
+    \label{fig:C(k)_remove0}
+\end{figure}
 \section{ Results Average path length}
 \label{sec:Results average path length and transitivity}
 The average path length calculated using the \texttt{mean\_distance} function in igraph is 2.98
@@ -1760,147 +1962,12 @@ Although nodes of high importance or local clustering do have distinct propertie
 
 
 
-\subsection{RESULTS Scale free}
-Using the method described by Clauset and Newman \cite{clauset2009power} and calculating the minimum x value we find the min for $x$ to be 24 and the $\gamma$ coefficient to be 2.51 using the poweRlaw R package \cite{gillespie2015fitting}. GOF 0.19. ntail 68 \footnote{\url{source('~/RProjects/group_size_distribution/R/calulate_cdf.R')}} The log of the degree distribution is shown in figure \ref{fig:log_degree_distribution} and figure \ref{fig:Degree distribution of post synaptic proteome. Log10 - log10 scale.}
-% see http://127.0.0.1:21133/library/poweRlaw/doc/a_introduction.pdf
-\footnote{code at \url{/home/grant/RProjects/PhD_graphs/}}
 
-
-The bootstrap p for the power law distribution is 0.583 with goodness of fit 0.19 using the package poweRlaw 0.70.6 using ks distance.\footnote{\url{source('~/RProjects/group_size_distribution/R/calulate_cdf.R')}}
-
-To determine the best distribution calculated the log likelihood of the distribution given power law, log normal and poisson distribution. To allow comparison of the log likelihood the likelihood was calculated for the data from the $x_min$ determined for the powerlaw distribution $x_min = 24$. See table~\ref{tab:log likelihood powelaw}
-
-\begin{table}[]
-    \centering
-    \begin{tabular}{cc}
-    Distribution     &  log likelihood \\
-    \hline
-     Power law    & -2943.6\\
-     Log normal & -2947.23 \\
-     Poisson & -205115.8 \\
-    \end{tabular}
-    \caption{Log likelihood of degree distribution using poweRlaw package with $x_{min}=24$ for power law distribution and log normal and poisson.\url{source('~/RProjects/group_size_distribution/R/side_by_side_lognorm_and_pl.R')}}
-    \label{tab:log likelihood powelaw}
-\end{table}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{images/Rplot01_poweRlaw_ggplot.png}
-    \caption{Plot of fit of power law to degree distribution for the PSP. X axis is log 10 degree, Y axis is log 10 inverse cdf. Red line fit of power law distribution $\gamma= 2.51$ and $x_{min}=24$ \url{source('~/RProjects/group_size_distribution/R/calulate_cdf.R')}}
-    \label{fig:poweRlaw plot ggplot2}
-\end{figure}
-
-
-
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{images/Rplot_poisson_plotted_on_degreedistribution.png}
-    \caption{Plot of degree distribution PSP with degree on x axis (log10). Points are degree distribution. Blue dash expected degree distribution given Poisson distribution. Red dash average degree \url{source('~/RProjects/group_size_distribution/R/poissonanddegree.R')}}
-    \label{fig:PSP degree powerlaw poisson}
-\end{figure}
-
-% \begin{figure}
-%   \includegraphics[width=\linewidth]{./dependence_of_scale_coefficient_on_min_degree.png}
-%   \caption{The parameter $\gamma$ as a function of the degree at which calculation of the coefficient starts in the degree sequence(e.g. all degree $>5$) from \url{RProjects/PhDGraphs/calculate/gamma}} 
-%   \label{fig:gamma}
-% \end{figure}
-
-% \begin{figure}
-%   \includegraphics[width=\linewidth]{plot_log_degree_distribution.png}
-%   \caption{The plot of log cumulative cdf of degree distribution log 10 scale x and y}
-%   \label{fig:log_degree_distribution}
-% \end{figure}
-
-
-\begin{figure}
-    \centering
-    \begin{subfigure}[t]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{images/dependence_of_scale_coefficient_on_min_degree.png} 
-        \caption{The parameter $\gamma$ as a function of the degree at which calculation of the coefficient starts in the degree sequence(e.g. all degree $>5$) from \url{RProjects/PhDGraphs/calculate/gamma}} \label{fig:gamma}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{images/plot_log_degree_distribution.png} 
-        \caption{The plot of log cumulative cdf of degree distribution log 10 scale x and y} \label{fig:log_degree_distribution}
-    \end{subfigure}
-    \caption{Plots of degree distribution \textcolor{red}{may want to do this in subfigure packages rather than subcaption to line up edges}}
-\end{figure}
-% latex table generated in R 3.4.4 by xtable 1.8-4 package
-% Sat Oct  5 16:31:0\begin{document}
-
-\begin{table}[ht]
-\centering
-\begin{tabular}{lr}
-  \hline
-  from degree $k$ & coefficient $\gamma$ \\ 
-  \hline
-1 & 1.38 \\ 
-  5 & 1.81 \\ 
-  10 & 2.10 \\ 
-  15 & 2.30 \\ 
-  20 & 2.43 \\ 
-  25 & 2.51 \\ 
-   30 & 2.52 \\ 
-  35 & 2.54 \\ 
-   40 & 2.54 \\ 
-   45 & 2.60 \\ 
-  50 & 2.63 \\ 
-   60 & 2.60 \\ 
-   70 & 2.72 \\ 
-   80 & 2.80 \\ 
-   90 & 2.90 \\ 
-   100 & 2.92 \\ 
-  150 & 2.88 \\ 
-   200 & 3.44 \\ 
-   250 & 3.90 \\ 
-  300 & 5.04 \\ 
-   350 & 5.51 \\ 
-   400 & 6.33 \\ 
-   \hline
-\end{tabular}
-\caption{The $\gamma$ as a function of the degree sequence start (e.g. all degree $>5$). from RProjects/PhDGraphs}
-  \label{table:gamma}
-\end{table}
-
-\subsection{Relationship of C(k) to k}
-\todo{add an introduction to this result and significance}
-Albert \cite{albert2005scale} says that the relationship C(k) where C(k) is the average transitivity for degree k follows
-\begin{equation}
-            C(k) = \frac{B}{k^{\beta}}
-\end{equation}
-\label{eq:C(k) function average transitivity and degree}
-
-citing \cite{yook2004functional} where $\beta$ is between 1 and 2 \cite{albert2005scale}.
-
-When a node has degree 1 the transitivity is  either 0 or undefined so this point has been removed from the plot. 
-
-The graph of degree with log10 scaling and mean transitivity is shown in figure~\ref{fig:C(k)_remove0}
-
-\todo{need to do fit}
-\todo{significance of result}
-Code \url{source('~/RProjects/graph2community/R/transitivity_degree/Cluster_nodes.R')}
-? fit with no intercept
-
-Fitting a linear model omitting degree 1 and with log10 degree has Adjusted R-squared 0.61 compared to 0.4594 for the non logarithmic model.
-
-\textcolor{red}{Actually the first three points have high leverage for this perhaps should try the powerlaw x min but is not a distribution}
-
-R sq 0.65 going from degree 5 so not too much different
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{images/Rplot_k(c)_remove0.png}
-    \caption{Plot of degree $k$ log 10 scale with $C(k)$ where $C(k)$ is the mean local undirected transitivity at degree $k$. The point of degree 1 has been removed from the plot and the linear fit as by definition C(k) is 0 as all nodes of degree 1 have local tranisitivity 0 or it is not defined (ie they are isolates)}
-    \label{fig:C(k)_remove0}
-\end{figure}
 
 \subsection{RESULTS Assortativity and methods degree assortativity}
 \textcolor{red}{Move to discussionj}We can compare the average degree with those found in other publications. We can also look at the assortativity between nodes for degree. The PSP networks shows evidence of some negative degree assortativity (-0.18) using the commands \texttt{assortativity(g,deg,directed=FALSE)} in igraph for R \todo{Assortativity for essential and id}.
 
-The degree association is negative in most real world networks other than social networks \cite{newman2002assortative}. \todo{include the peel multi-scale mixing patterns} see table \ref{Table:DegreeAssortativityNewman}\todo{? add positive $r$ to table}. Both the Barabsi Albert model and random model have 0 correlation. The Callaway model of network generation ('grown graph' - newman) has a positive degree correlation consistent with older nodes being connected to each other and hence in turn being more likely to be connected to others. This is at odds with our later finding (see orthologues) that nodes with clearly identified yeast orthologues tend to be of higher degree (this would fit both the Barabasi Albert model and Callaway) \todo{Do i add the pseudo hub bit here this is also probably good for the paper with Keith}. 
+The degree association is negative in most real world networks other than social networks \cite{newman2002assortative}. \todo{include the peel multi-scale mixing patterns} see table \ref{Table:DegreeAssortativityNewman}\todo{? add positive $r$ to table}. Both the Barabsi Albert model and random model have 0 correlation. The Callaway model of network generation ('grown graph' - newman) has a positive degree correlation consistent with older nodes being connected to each other and hence in turn being more likely to be connected to others. This is at odds with our later finding (see orthologues) that nodes with clearly identified yeast orthologues tend to be of higher degree (this would fit both the Barabasi Albert model and Callaway) \todo{this is the bit where the pseudohub bit would fit}. 
 
 The assortativity suggests that the Barabasi Albert model is 'incomplete' as a model of the internet \cite{newman2002assortative} and in this network we also find evidence that our synaptic protein protein interaction has similar degree assortativity to that calculated by Newman which is of the yeast interactome (cite Jeong) . The reasons for this are not clear, there are other things in our study that support the Barabasi model and it may be that multiple processes are taking place. \todo{? move this to discussion}
 
@@ -2422,6 +2489,8 @@ The Spearman rank correlation for -log\textsubscript{10} is shown in table \ref{
 
 The vertex statistics are not normally distributed \todo{test this} and so we prefer the Spearman's rho. the -log\textsubscript{10} has the same value as $-\rho$ for p (signs switch).
 
+\subsubsection{From paper moved here}
+To test the hypothesis that genes encoding proteins with an important role in the structure of the PSP network were more likely to be associated with genetic variants associated with differences in intelligence or educational attainment (such as hubs), we calculated node degree, and four other measures of vertex importance: eigenvector centrality, betweenness centrality, closeness centrality and transitivity for each graph vertex (gene) using igraph. \cite{csardi2006igraph} \textcolor{red}{we need to say what all of these are before we start talking about them}\footnote{something like we will first of all need to introduce in general terms these measures and how they were calculated. in general also want to move more of this chapter into methods and results}. There was no correlation between any of these measures of vertex importance and their gene association analysis gene level statistics calculated using MAGMA (Spearman’s $\rho$ calculated with R) for genes in the post synaptic proteome graph. The results are presented in table 1\todo{table}. The complete vertex statistics for each PSP gene can be found in the supplementary material. 
 \todo{Add multiple testing correction}
 
 
