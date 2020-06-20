@@ -77,6 +77,14 @@ Watts and Strogatz \cite{watts1998collective} suggest a generative model for thi
 
 The small world property would allow for rapid information transfer within networks. It has recently been posited as a model for wide spread genetic effects on traits (the omnigenic model) \cite{boyle2017expanded} although there are criticisms of this some of which I will make later \todo{reword}.\textcolor{green}{what i mean so say is there are some cirticisms of the omnigenic model saying that things are more complex eg \cite{wray2018common} \cite{boyle2017omnigenic_response}  but the criticism I am making is from a network standpoint} 
 
+Figure~\ref{fig:small_world} shows the generation of a small world graph from a circular lattice with increasing rewiring probability.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_corrected_small_world.png}
+    \caption{Small world lattice n=20. p of rewiring = 0,0.1,0.3. Code at \url{source('~/RProjects/graph_sw/R/plot_small_world/plot_small_world.R')}}
+    \label{fig:small_world}
+\end{figure}
 
 \todo{small world network either do here or put in introduction this goes with results }
 . Results see section~\ref{sec:Results average path length and transitivity}
@@ -387,6 +395,8 @@ The local clustering coeffiecient can be regarded as a local inverse of the betw
 \subsection{kcoreness}
 
 A kcore of a graph is an induced subgraph of the main graph such that each vertex has degree of at least $k$. For a vertex its kcoreness is the maximal k core subgraph it is a member of (alternatively its shell index is $c$ if it belongs to the $c$ core but not the $c+1$ core. \cite{seidman1983network} (original description), \cite{alvarez2006large}. The kcore algorithm is useful in graph analysis as it runs in linear time. 
+
+Humberto used K coreness was used to study the heirarchy of biological networks in plants \cite{humberto2018hierarchical} finding high core metabolic nodes represented core pathways. 
 
 \subsection{Average path length}
 \label{sec:Centrality intro average path length}
@@ -911,10 +921,93 @@ R sq 0.65 going from degree 5 so not too much different
 \end{figure}
 \section{ Results Average path length}
 \label{sec:Results average path length and transitivity}
-The average path length calculated using the \texttt{mean\_distance} function in igraph is 2.98
+The average path length calculated using the \texttt{mean\_distance} function in igraph is 2.98. Global (not WS) transitivity 0.0697.
+
+Average path length for an Erdos Renyi graph on 1000 iterations (type gnm) 3.118 sd 0.00048
+
+Mean global transitivity PSP Watts and Strogatz, isolates to 0 = 0.156. If setting isolates to NA and removing NA = 0.1713.
+
+ER Mean global transititivity (Watts and Strogatz, isolates to 0) 0.0051
+
+ER mean global transitivity (Watts and strogatz, isolates NA and remove 0.0051 (not identical isolates to 0 0.005098806, na 0.005116117)
+
+ER mean global transitivity (triangles 0.005100209 \todo{change to correct sf but keep for now for check not using equal values}) sd 0.0001625842
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat Jun 20 16:17:24 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrrr}
+  \hline
+ & variable & mean & sd & PSP \\ 
+  \hline
+1 & mean\_dist & 3.1182075093 & 0.0004731233 & 2.9797920751 \\ 
+  2 & global\_transitivity & 0.0051154572 & 0.0001546763 & 0.0697271768 \\ 
+  3 & global\_transitivity\_ws & 0.0051243477 & 0.0001684787 & 0.1562997932 \\ 
+  4 & global\_transitivity\_wsNA & 0.0051243477 & 0.0001684787 & 0.1713696115 \\ 
+   \hline
+\end{tabular}
+\caption{Supplemental 10 sf to show that the values are not identical Erdos renyi n3457 m 30498 graph}
+\label{tab:transitivity_erdos_renyi 10sf}
+\end{table}
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat Jun 20 16:07:46 2020
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat Jun 20 16:19:29 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrrr}
+  \hline
+ & variable & mean & sd & PSP \\ 
+  \hline
+1 & mean\_dist & 3.1182 & 0.0005 & 2.9798 \\ 
+  2 & global\_transitivity & 0.0051 & 0.0002 & 0.0697 \\ 
+  3 & global\_transitivity\_ws & 0.0051 & 0.0002 & 0.1563 \\ 
+  4 & global\_transitivity\_wsNA & 0.0051 & 0.0002 & 0.1714 \\ 
+   \hline
+\end{tabular}
+\caption{Erdos renyi n3457 m 30498 graph}
+\label{tab:transitivity_erdos_renyi}
+\end{table}
+
+See table~\ref{tab:transitivity_erdos_renyi}
+Code \url{source('~/RProjects/graph_sw/R/small_world_random/er_random_ws.R')}
+
+For the degree corrected configuration model see table~\ref{tab:cmtransitivity_configuration_model}. The average path length is shorter than in the Erdos Renyi model likely due to the presence of hub nodes. Code \url{source('~/RProjects/graph_sw/R/small_world_random/degree_corrected_config_random_ws.R')}
+
+% Sat Jun 20 16:38:56 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrrr}
+  \hline
+ & variable & mean & sd & PSP \\ 
+  \hline
+1 & mean\_dist & 3.0069 & 0.0053 & 2.9798 \\ 
+  2 & global\_transitivity & 0.0584 & 0.0008 & 0.0697 \\ 
+  3 & global\_transitivity\_ws & 0.0683 & 0.0019 & 0.1563 \\ 
+  4 & global\_transitivity\_wsNA & 0.0748 & 0.0020 & 0.1714 \\ 
+   \hline
+\end{tabular}
+\caption{Degree corrected configuration model transitivity and average path length. The average path length is smaller than in the Erdos Renyi model likely due to the increased number of hubs}
+\label{tab:cmtransitivity_configuration_model}
+\end{table}
+This is similar to the L of 2.65 and C of 0.28 of C elegans \todo{reference and what is l and c I think c is clustering coefficient}. The random rewiring with a uniform probability leads to a L of 3.11. \todo{add table of path length} See table~\ref{tab:clustering and path length Watts and Strogatz}
 
 
-This is similar to the L of 2.65 and C of 0.28 of C elegans \todo{reference and what is l and c I think c is clustering coefficient}. The random rewiring with a uniform probability leads to a L of 3.11. \todo{add table of path length}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lllll}
+    Network      & L\textsubscript{actual} & L\textsubscript{random} & C\textsubscript{actual} & C\textsubscript{random} \\
+    \hline
+     Film actors    & 3.65 & 2.99 & 0.79 & 0.00027\\
+     Power grid & 18.7 & 12.4 & 0.080 & 0.005 \\
+     \textit{C elegans} & 2.65 & 2.25 & 0.28 & 0.05 \\
+    \end{tabular}
+    \caption{Clustering coefficient and average path length from Watts and Strogatz}
+    \label{tab:clustering and path length Watts and Strogatz}
+\end{table}
+
 \todo{add omnigenic bit}%see code source('~/RProjects/graph_transitivity/R/transitivity.R')
 
 If we simulate mean distance using a degree sequence model we get no distance $<$ empirical distance of 2.979 in 1000 simulations.
