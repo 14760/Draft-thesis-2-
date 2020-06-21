@@ -12,51 +12,38 @@
 
 
 
- Networks can be studied at three levels. First the properties of the network as a whole, such as the small-world property, secondly the properties of individual nodes and their importance  within the network and finally the analysis of the presence of meso-scale structures such as communities.
+ Networks can be studied at three levels. First the properties of the network as a whole, such as the small-world property (section~\ref{sec:Small world}), secondly the properties of individual nodes and their importance  within the network and finally the analysis of the presence of meso-scale structures such as communities (chapter~\ref{chap:community detection}). A variety of statistics can be calculated to give a quantitative measure of these properties.
 
-This chapter examines measures of centrality with reference to the post synaptic proteome network and measures of intelligence. Centrality measures how important nodes are within a network \cite{newman2018networks} and their position within the network \cite{freeman1978centrality}. The concept of centrality comes from the social sciences literature beginning in the last 1940s and its early evolution is reviewed in Freeman \cite{freeman1978centrality}.
+This chapter examines both network properties and vertex properties. The principle vertex properties being measures of centrality. These will be examined with reference to the post synaptic proteome network and measures of intelligence.
+
+ The concept of centrality comes from the social sciences literature beginning in the last 1940s and its early evolution is reviewed in Freeman \cite{freeman1978centrality}. Centrality measures how important nodes are within a network \cite{newman2018networks} and their position within the network \cite{freeman1978centrality}.
 
 
-Essentially some nodes in a network can be more important than others such as an airport hub in an air transportation network.\cite{borenstein1989hubs} Centrality statistics provide measures of this importance which can allow nodes to be ranked or their centrality compared with other properties. This chapter describes these centrality measures, their previous use in the biomedical literature, reports their values and significance for the PSP, their implication for the function of the network and association with specific functions and their association finally with molecular cognition first in model organisms and finally with differences in cognitive ability in population GWA studies.   
+Networks contain some nodes that are central to their function such as an airport hub in an air transportation network.\cite{borenstein1989hubs} Centrality measures quantify this importance allowing nodes to be ordered by importance and any association between their centrality and other properties determined. In this chapter I will describe these centrality measures, review their use in the biomedical literature and reports their values and significance for the PSP. I will discuss the implication for the function of the network of these results  and investigate their association with specific function, with animal models of molecular cognition and finally with the genetic architecture of cognitive ability in population GWA studies.   
 
- The importance of central genes in a network is well recognised \cite{jeong2001lethality} including their association with disease \todo{ref}.
+ The biological importance of central genes in a network is well recognised \cite{jeong2001lethality} including their association with disease \cite{vogelstein2000surfing}, \cite{albert2005scale} \cite{xu2006discovering}\todo{ref usually p53 maybe need to say something about the type of diseases associated with hub genes}.
  
- Important nodes in the network might disproportionately affect animal models of cognition or human differences in intelligence. One could hypothesise that central nodes will affect a number of genes and potentially have an impact on a pleitropic trait \todo{ref} such as intelligence. \todo{omnigenic model}.  Conversely there may be no such effect perhaps because effects on these critical nodes are deleterious and are either lethal or cause problems with cognitive ability that would absent sufferers from large scale genetic studies of cognitive ability. 
+ Important nodes in the network might disproportionately affect animal models of cognition or human differences in intelligence. There is evidence that central nodes will affect a number of genes and potentially have an impact on a pleiotropic traits \cite{chavali2010network} such as intelligence.\cite{plomin2015genetics} \cite{visscher2016plethora} \todo{omnigenic model}  Conversely there may be no such effect perhaps because effects on these critical nodes are deleterious and are either lethal or cause problems with cognitive ability that would absent sufferers from large scale genetic studies of cognitive ability. Central genes have been found frequently to be essential rather than associated with diseases.\cite{barabasi2011network}\footnote{This is asserted by Barabasi but I can find no citation}
  
- Although network network science is new discipline it has been the subject of detailed popular science books \cite{barabasi2002linked} and one of its principles has been the subject of a play \cite{guare1990six} and film and also a parlour game \footnote{Six Degrees of Kevin Bacon}.\cite{collins1998s} In the light of such knowledge most educated persons would be able to give a more accurate answer to Milgram's question above. 
+ Although network network science is new discipline it has been the subject of detailed popular science books \cite{barabasi2002linked} and one of its principles \footnote{the small world property} has been the subject of a play \cite{guare1990six} and film and also a parlour game \footnote{Six Degrees of Kevin Bacon}.\cite{collins1998s} In the light of such knowledge most educated persons would be able to give a more accurate answer to Milgram's question above. 
 
  
  
- Hindsight bias \cite{fischhoff1975hindsight} \cite{fischhoff2007early}, describes the phenomena where the probability of an event or finding seems greater after it has occurred (we know it all along)
+ Hindsight bias \cite{fischhoff1975hindsight} \cite{fischhoff2007early}, is the phenomena where the probability of an event or finding seems greater after it has occurred.
  
-Knowing the association between centrality measures and intelligence or any other complex trait one could construct a convincing argument that this finding is obvious and to be expected. However the specific effect of proteins position in the synaptic proteome network on synaptic function and complex traits are unknown. Even effects believed to be well established on simple model organisms are more complicated that they fist appeared as will be discussed in section \todo{cross reference}. The approach to assessing the role of central genes and gene products must therefore be empirical. 
+Knowing the association between centrality measures and intelligence or any other complex trait one could construct a convincing argument that this finding is obvious and to be expected. However the specific effect of proteins position in the synaptic proteome network on synaptic function and complex traits are unknown. Even effects believed to be well established on simple model organisms are more complicated that they fist appeared as will be discussed in section~\ref{sec:Degree and essentialness}. The approach to assessing the role of central genes and gene products must therefore be empirical. 
  
- The existing literature on centrality measures in molecular biology include both \todo{rephrase} gene networks and this protein-protein interaction network. Network analyses of gene function and regulation are often co-expression networks where an edge occurs when the expression of two genes are correlated.\cite{zhang2005general} The implications of modular structure or centrality can, therefore, be different from a protein protein interaction network. A hub node is co-expressed with a variety of different genes and may represent a driver of a biological process such as a transcriptional regulator \cite{parikshak2015systems}\todo{ DONE cite parikshak}. A hub node in a protein-protein interaction network has promiscuous interaction partners but may not drive a process but be essential to several different processes. \todo{cite}
+ The existing literature on centrality measures in molecular biology include both \todo{rephrase} gene networks and this protein-protein interaction network. Network analyses of gene function and regulation are often co-expression networks where an edge occurs when the expression of two genes are correlated.\cite{zhang2005general} The implications of modular structure or centrality can, therefore, be different from a protein protein interaction network. A hub node is co-expressed with a variety of different genes and may represent a driver of a biological process such as a transcriptional regulator \cite{parikshak2015systems}.
+%  \todo{ DONE cite parikshak}
+ A hub node in a protein-protein interaction network has promiscuous interaction partners but may not drive a process but be essential to several different processes. \todo{cite}
  
 % \textcolor{green}{? remove  this bitor move to earlier bit}While the measures of vertex importance are precisely defined how they will map onto animal models or complex traits is not and one can construct several plausible hypotheses of effect, effect of specific measures or no effect (hence the quotation at the start of the chapter\todo{?move this down into a fuller introduction section}.
-
-\section{General to dos}
-
-Table of diameters \cite{crescenzi2013computing}
- table 4 
- \todo{enrichment of high/low scoring groups of genes}
- \todo{add intellectual disability graph measures or indeed other disorders from toppgene}
- \todo{define configuration model}
- \todo{plot of distribution of other centrality measures}
-\todo{centrality measures for significant genes}
-\todo{centralisation 1:09 in zhukov - centrality is how central most central node is compared to other nodes in graph, max with star network}
-\todo{Metrics comparison zhukov at 1:15}
-%Scatter plot of centralities multiplot eg plot(bet,deg) DONE
-
-Kendal tau rank - concordant pairs ie a comes before b in both samples 
-
-most recent centrality in \url{source('~/RProjects/centrality/R/other_centrality/eccentricity_and_distance.R')}
 
 
 
 \section{Properties of empirical networks}
 \label{sec:Properties of empirical networks}
-Leaving aside community structure which we will examine in chapter~\ref{chap:community detection} empirical networks may contain features at a network level such as a power law degree distribution \cite{barabasi1999emergence} \cite{barabasi1999mean} and small world structure \cite{watts1998collective} or at the individual vertex (centrality measures section~\ref{sec:centrality measures}). This chapter will be concerned with network and vertex measures. 
+Empirical networks may contain features at a network level such as a power law degree distribution \cite{barabasi1999emergence} \cite{barabasi1999mean} and small world structure \cite{watts1998collective} or at the individual vertex (centrality measures section~\ref{sec:centrality measures}). Chapter~\ref{chap:community detection}  will examine meso-scale structures and community detection. 
 
 Network level statistics reflect how networks form and evolve, their patterns of information flow and how resistant they are to disruption.
 \todo{ref}
@@ -70,12 +57,14 @@ We can test for the existence of these properties by determining how a network d
 
 \section{Small world}
 \label{sec:Small world}
-\textcolor{red}{this is not covered in introduction}
-Described by Milgram \cite{milgram1967small} where he attempted to see the number of steps that it would take for a letter to reach a reciepient unknown to the first letter holder if they could only mail it to people known personally to themselves. The average number of links was 7. This has been made into a popular play by John Guare. Watts and Strogatz \cite{watts1998collective} described small world properties in naturally occuring networks (nerves of c elegans, power network and film actor network) which differed from a random model. These properties are a short average path length with high clustering coefficient. 
+% \textcolor{red}{this is not covered in introduction}
+The small world property means that any node in the network can be reached by a short number of hops along edges from another node. 
 
-Watts and Strogatz \cite{watts1998collective} suggest a generative model for this phenomenon with a circular lattice network in which interconnections are rewired to span the circle. A comparatively small number of rewirings allows a short path length and preserves the high clustering coefficient. The small number needed has been cited as one of the reasons it is common in nature. 
+The phenomena was described by Milgram \cite{milgram1967small} where he attempted to see the number of steps that it would take for a letter to reach a recipient unknown to the first letter holder if they could only mail it to people known personally to themselves. The average number of links was 7. This has been made into a popular play by John Guare. Watts and Strogatz \cite{watts1998collective} described small world properties in naturally occurring networks (the neural network of the nematode \textit{Canenorhabditis elegans}, the power network of the western United States and the collaboration graph of film actors generated from the IMDB network) which differed from a random model. These properties are a short average path length with high clustering coefficient. 
 
-The small world property would allow for rapid information transfer within networks. It has recently been posited as a model for wide spread genetic effects on traits (the omnigenic model) \cite{boyle2017expanded} although there are criticisms of this some of which I will make later \todo{reword}.\textcolor{green}{what i mean so say is there are some cirticisms of the omnigenic model saying that things are more complex eg \cite{wray2018common} \cite{boyle2017omnigenic_response}  but the criticism I am making is from a network standpoint} 
+Watts and Strogatz \cite{watts1998collective} suggest a generative model for this phenomenon with a circular lattice network in which interconnections are rewired to span the circle. A comparatively small amount of rewiring allows a short path length and preserves the high clustering coefficient. The small number needed has been cited as one of the reasons it is common in nature. 
+
+The small world property would allow for rapid information transfer within networks. It has recently been posited as a model for wide spread genetic effects on traits (the omnigenic model) \cite{boyle2017expanded} although there are criticisms of this some of which I will make later \todo{reword}.\textcolor{green}{what i mean so say is there are some criticisms of the omnigenic model saying that things are more complex eg \cite{wray2018common} \cite{boyle2017omnigenic_response}  but the criticism I am making is from a network standpoint} 
 
 Figure~\ref{fig:small_world} shows the generation of a small world graph from a circular lattice with increasing rewiring probability.
 
@@ -474,8 +463,9 @@ Pandey analysed GWAS results for bipolar disorder using eigenvector centrality \
 
 \section{Degree and essentialness Introduction}
 \label{sec:Degree and essentialness}
-Jeong \cite{jeong2001lethality} examined the correlation between a gene being essential and having high degree in the proteome of \textit{Saccharomyces ceresvisiae} having 1870 nodes and 2240 interactions (comparatively sparse compared with the synaptic proteome). They found that elimination of the most connected nodes led to an increase in network diameter and that the likelihood that mutation in a protein would prove fatal was correlated with degree, They found that 21\% of the nodes with degree less than 5 (93\% of the proteome) had lethal effects from mutation. Although 0.7\% of yeasts had more than 15 links  62\% of these had lethal phenotypes. However later work with more complete networks did not support this \cite{milenkovic2011dominating} \cite{yu2008high}
+Jeong \cite{jeong2001lethality} examined the correlation between a gene being essential and having high degree in the proteome of \textit{Saccharomyces ceresvisiae} having 1870 nodes and 2240 interactions (comparatively sparse compared with the synaptic proteome). They found that elimination of the most connected nodes led to an increase in network diameter and that the likelihood that mutation in a protein would prove fatal was correlated with degree, They found that 21\% of the nodes with degree less than 5 (93\% of the proteome) had lethal effects from mutation. Although 0.7\% of yeasts had more than 15 links  62\% of these had lethal phenotypes. However later work with more complete networks did not support this \cite{milenkovic2011dominating} \cite{yu2008high} \cite{ratmann2009evidence}
 
+More recent high quality yeast interactomes however have not shown evidence of this effect \cite{milenkovic2011dominating}, \cite{yu2008high}, 
 
 p53 
 Raman \cite{raman2014organisational} examined multiple centrality metrics in addition to degree (degree, betweenness centrality, closeness centrality and pairwise dis-connectivity index) and their association with gene essentiality for 20 organisms.
@@ -2782,6 +2772,23 @@ There is a complex relationship between transitivity and degree for nodes with d
 
 
  
+\section{General to dos}
+
+Table of diameters \cite{crescenzi2013computing}
+ table 4 
+ \todo{enrichment of high/low scoring groups of genes}
+ \todo{add intellectual disability graph measures or indeed other disorders from toppgene}
+ \todo{define configuration model}
+ \todo{plot of distribution of other centrality measures}
+\todo{centrality measures for significant genes}
+\todo{centralisation 1:09 in zhukov - centrality is how central most central node is compared to other nodes in graph, max with star network}
+\todo{Metrics comparison zhukov at 1:15}
+%Scatter plot of centralities multiplot eg plot(bet,deg) DONE
+
+Kendal tau rank - concordant pairs ie a comes before b in both samples 
+
+most recent centrality in \url{source('~/RProjects/centrality/R/other_centrality/eccentricity_and_distance.R')}
+
 
 
 
