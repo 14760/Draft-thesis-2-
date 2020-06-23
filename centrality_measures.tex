@@ -877,8 +877,9 @@ See \cite{oldham2019consistency} for correlation across networks. See table~\ref
 \subsection{Normality of correlation measures}
 % latex table generated in R 3.6.3 by xtable 1.8-4 package
 % Sat Jun 13 15:54:02 2020
-All of the centrality measures appear to vary from a normal distribution using the Shaprio-Wilk test in R and in accordance with their plots. Spearmans test of correlation will therefore be used for correlation with centrality measures (table~\ref{tab:Shapiro-Wilk test for normality of centrality measures}
+All of the centrality measures appear to vary from a normal distribution using the Shaprio-Wilk test in R and in accordance with their plots. Spearmans test of correlation will therefore be used for correlation with centrality measures (table~\ref{Table:Test for normality (Shapiro-Wilk) for centrality measures of PSP}
 
+% (table~\ref{tab:Shapiro-Wilk test for normality of centrality measures}
 \begin{table}[ht]
 \centering
 \begin{tabular}{lrr}
@@ -955,6 +956,8 @@ To determine the best distribution calculated the log likelihood of the distribu
     \label{fig:PSP degree powerlaw poisson}
 \end{figure}
 
+A bivariate plot of $x min$ and $\gamma$ is shown in figure~\ref{fig:Plots of degree distribution}. A table of the values of $\gamma$ for different values of $x_{min}$ can be found in supplementary table~\ref{table:gamma}.
+
 % \begin{figure}
 %   \includegraphics[width=\linewidth]{./dependence_of_scale_coefficient_on_min_degree.png}
 %   \caption{The parameter $\gamma$ as a function of the degree at which calculation of the coefficient starts in the degree sequence(e.g. all degree $>5$) from \url{RProjects/PhDGraphs/calculate/gamma}} 
@@ -982,43 +985,12 @@ To determine the best distribution calculated the log likelihood of the distribu
         \caption{The plot of log cumulative cdf of degree distribution log 10 scale x and y} \label{fig:log_degree_distribution}
     \end{subfigure}
     \caption{Plots of degree distribution \textcolor{red}{may want to do this in subfigure packages rather than subcaption to line up edges}}
+    \label{fig:Plots of degree distribution}
 \end{figure}
 % latex table generated in R 3.4.4 by xtable 1.8-4 package
 % Sat Oct  5 16:31:0\begin{document}
 
-\begin{table}[ht]
-\centering
-\begin{tabular}{lr}
-  \hline
-  from degree $k$ & coefficient $\gamma$ \\ 
-  \hline
-1 & 1.38 \\ 
-  5 & 1.81 \\ 
-  10 & 2.10 \\ 
-  15 & 2.30 \\ 
-  20 & 2.43 \\ 
-  25 & 2.51 \\ 
-   30 & 2.52 \\ 
-  35 & 2.54 \\ 
-   40 & 2.54 \\ 
-   45 & 2.60 \\ 
-  50 & 2.63 \\ 
-   60 & 2.60 \\ 
-   70 & 2.72 \\ 
-   80 & 2.80 \\ 
-   90 & 2.90 \\ 
-   100 & 2.92 \\ 
-  150 & 2.88 \\ 
-   200 & 3.44 \\ 
-   250 & 3.90 \\ 
-  300 & 5.04 \\ 
-   350 & 5.51 \\ 
-   400 & 6.33 \\ 
-   \hline
-\end{tabular}
-\caption{The $\gamma$ as a function of the degree sequence start (e.g. all degree $>5$). from RProjects/PhDGraphs}
-  \label{table:gamma}
-\end{table}
+
 
 \subsection{Relationship of C(k) to k}
 \todo{add an introduction to this result and significance}
