@@ -372,12 +372,14 @@ Local transitivity (also known as the local clustering coefficient) is defined a
 \begin{equation}
 C = \frac{c_n}{c_{max}}
 \end{equation}
+\label{eq:local_transitvity}
 where $c_n$ is the number of connections between a vertexes neighbours and $c_{max}$ is defined as 
 
 \begin{equation}
-c_{max} = \frac{k_v(1-k_v)}{2}
+c_{max} = \frac{k_v(k_v)-1}{2}
 \end{equation}
-
+\label{eq:local_transitivity_denominator}
+% Corrected above from erroneous
 The local clustering coefficient can be regarded as a local inverse of the betweenness centrality \todo{check}. Local clustering measures the connectivity of nodes in the neighbourhood of a particular node. If the local clustering is low then there exist disconnections in a nodes neighbours which are referred to as structural holes \todo{cite ?Burt} the node that connects these neighbours has an importance analogous to that measured by betweenness centrality but confined to the immediate neighbourhood of the node.
 
 \todo{power}
@@ -728,38 +730,59 @@ Eigenvector centrality is implemented in igraph for R by the \texttt{eigen\_cent
 \todo{? divide into graph level and vertex level}
 
 \section{Summary of centrality measures}
+The mean degree for the PSP network was 17.64 and its median 8.
+The summary values for the centrality measures are shown in table \ref{Table:Summary of centrality measures}. The local transitivity is reported first with the default method in igraph where nodes of degree 1 have an undefined transitivity, these are removed and the summary statistics calculated \footnote{because for a node with degree=1 the denominator $\frac{k_v(k_v)-1}{2}$ in equation~\ref{eq:local_transitvity}  would be 0)}. Below this is reported the alternate method also implemented in igraph (isolates="zero") of setting nodes with degree 1 to have a local transitivity of 0. There were 304 nodes of degree 1. Where not explicitly stated in subsequent results I am using the default method (remove degree 0 nodes from the calculations).
 
-The summary values for the centrality measures are shown in table \ref{Table:Summary of centrality measures}. The transitivity contained 304 NA's.
 \todo{add graph}
-The eigenvector centrality and transitivity are normalised. For some nodes the transitivity cannot be calculated (those of degree 1). There are 304 of these and the summary statistics are calculated excluding these values\footnote{an alternative is to set them to zero}. 
+The eigenvector centrality and transitivity are normalised. 
 
-The centrality measures are not normally distributed see table~\ref{Table:Test for normality (Shapiro-Wilk) for centrality measures of PSP}.
+The normality of the distributions can be seen in figure~\ref{fig:multiplot centralities}. The plots look far from normality other than closeness centrality. K core has a relatively uniform distribution and the others except closeness have a long right tail. There is a marked peak at 0 for transitivity.
 
-
-
-\footnote{\url{source('~/RProjects/paper_xls_latex/R/centrality_summary/centrality_summary_latex.R')}}
+To confirm this and determine the most appropriate method of testing correlation of gene scores and measures of mutation intolerance with centrality scores a Shapiro-Wilk test was performed using R. This confirms that the distributions of the centralities are not normally distributed and a non parametric test of correlation (Spearmans rho) is reported see table~\ref{Table:Test for normality (Shapiro-Wilk) for centrality measures of PSP}\footnote{\url{source('~/RProjects/paper_xls_latex/R/centrality_summary/centrality_summary_latex.R')}}.
 % latex table generated in R 3.6.2 by xtable 1.8-4 package
 % Mon Feb 10 14:17:12 2020
+% \begin{table}[ht]
+% \centering
+% \begin{tabular}{rrrrrrr}
+%   \hline
+%  & Minimum & 1st Quartile & Median & Mean & 3rd Quartile & Maximum \\ 
+%   \hline
+% Degree & $1 $ & $4 $ & $8 $ & $17.64$  & $19$ & $535$ \\ 
+%   Eigenvector & $1.821 \times 10^{-6}$ & $8.829 \times 10^{-3}$ & $2.194 \times 10^{-2}$ & $4.793 \times 10^{-2}$ & $5.322 \times 10^{-2}$ & $1 $ \\ 
+%   Betweenness & $0 $ & $43.29 $ & $317 $ & $3421.1$ & $1571.6$& $6.447 \times 10^{5}$ \\ 
+%   Transitivity & $0 $ & $4.376 \times 10^{-2}$ & $1.290 \times 10^{-1}$ & $1.714 \times 10^{-1}$ & $2.381 \times 10^{-1}$ & $1 $ \\ 
+%   Closeness & $5.702 \times 10^{-5}$ & $9.217 \times 10^{-5}$ & $9.879 \times 10^{-5}$ & $9.845 \times 10^{-5}$ & $1.058 \times 10^{-4}$ & $1.399 \times 10^{-4}$ \\ 
+%   \hline
+% \end{tabular}
+% \caption{Summary of centrality measures} 
+% \label{Table:Summary of centrality measures}
+% \end{table}
+
 \begin{table}[ht]
 \centering
-\begin{tabular}{rrrrrrr}
-  \hline
- & Minimum & 1st Quartile & Median & Mean & 3rd Quartile & Maximum \\ 
-  \hline
+
+\begin{tabular}{lllllll}
+  \toprule
+ Centrality measure & Minimum & 1st Quartile & Median & Mean & 3rd Quartile & Maximum \\ 
+ \midrule
 Degree & $1 $ & $4 $ & $8 $ & $17.64$  & $19$ & $535$ \\ 
-  Eigenvector & $1.821 \times 10^{-6}$ & $8.829 \times 10^{-3}$ & $2.194 \times 10^{-2}$ & $4.793 \times 10^{-2}$ & $5.322 \times 10^{-2}$ & $1 $ \\ 
-  Betweenness & $0 $ & $43.29 $ & $317 $ & $3421.1$ & $1571.6$& $6.447 \times 10^{5}$ \\ 
-  Transitivity & $0 $ & $4.376 \times 10^{-2}$ & $1.290 \times 10^{-1}$ & $1.714 \times 10^{-1}$ & $2.381 \times 10^{-1}$ & $1 $ \\ 
+  Eigenvector & $1.821 \times 10^{-6}$ & $8.829 \times 10^{-3}$ & $2.194 \times 10^{-2}$ & $4.793 \times 10^{-2}$ & $5.322 \times 10^{-2}$ & 1 \\ 
+   Betweenness & $0 $ & $43.29 $ & $317 $ & $3421.1$ & $1571.6$& $6.447 \times 10^{5}$ \\ 
+  Transitivity NA & 0  & 0.043 & 0.129 & 0.171 & 0.238 & $1 $ \\ 
+  Transitivitiy 0 & 0  & 0 & 0.108  & 0.156  & 0.223  & $1$ \\ 
   Closeness & $5.702 \times 10^{-5}$ & $9.217 \times 10^{-5}$ & $9.879 \times 10^{-5}$ & $9.845 \times 10^{-5}$ & $1.058 \times 10^{-4}$ & $1.399 \times 10^{-4}$ \\ 
-   \hline
+  k-core & 1 & 3 & 8 & 9.15 & 13& 24 \\ 
+   \bottomrule
 \end{tabular}
-\caption{Summary of centrality measures} 
+\caption{Summary of results of centrality measures. Transitivity NA records isolates (nodes with degree 1) as having an undefined transitivity and they are removed before calculating the summary statistics. Transitivity 0 uses the alternate method of assigning isolates a transitivity of 0} 
 \label{Table:Summary of centrality measures}
 \end{table}
+
+
 \todo{Global transitivity and compare}
 \todo{query pull out the global measures eg degree assortativity, transitivity}
 
-
+% Shapiro Wilk table
 \begin{table}[h]
     \centering
     \begin{tabular}{c|c|c}
@@ -786,10 +809,116 @@ A scatterplot of the relation of centrality measures is shown in figure~\ref{fig
     \caption{Scatter plot of centrality measures. Source \url{source('~/RProjects/correlation_gene_scores/R/make_df_graph_stats_correlation_lowdeg_high_bet.R')}}
     \label{fig:scatter plot of multiple centrality measures}
 \end{figure}
-\subsection{RESULTS Scale free}
-Using the method described by Clauset and Newman \cite{clauset2009power} and calculating the minimum x value we find the min for $x$ to be 24 and the $\gamma$ coefficient to be 2.51 using the poweRlaw R package \cite{gillespie2015fitting}. GOF 0.19. ntail 68 \footnote{\url{source('~/RProjects/group_size_distribution/R/calulate_cdf.R')}} The log of the degree distribution is shown in figure \ref{fig:log_degree_distribution} and figure \ref{fig:Degree distribution of post synaptic proteome. Log10 - log10 scale.}
+
+\section{Correlation of centrality measures}
+
+For correlation of centrality measures see table~\ref{tab:Correlation between vertex centrality measures for PSP. Spearman's rho}
+
+%%%% REMOVED MISSING EIGENVECTOR CENTRALITY
+
+% % latex table generated in R 3.6.2 by xtable 1.8-4 package
+% % Fri Feb 14 12:11:44 2020
+% \begin{table}[ht]
+% \centering
+% \begin{tabular}{rrrrrr}
+%   \hline
+%  & degree & betweenness & transitivity & closeness & kcoreness \\ 
+%   \hline
+% degree & 1.000 & 0.902 & 0.196 & 0.851 & 0.986 \\ 
+%   betweenness & 0.902 & 1.000 & $-0.002^*$ & 0.782 & 0.854 \\ 
+%   transitivity & 0.196 & $-0.002^*$ & 1.000 & 0.292 & 0.265 \\ 
+%   closeness & 0.851 & 0.782 & 0.292 & 1.000 & 0.872 \\  
+ 
+
+%   kcoreness & 0.986 & 0.854 & 0.265 & 0.872 & 1.000 \\ 
+%   \hline
+% \end{tabular}
+% \caption{Correlation between vertex centrality measures for the post synaptic proteome network. Spearman's rho. All $p < 2.2 x 10^{-16}$ other than * $p=0.90$} 
+% \label{tab:Correlation between vertex centrality measures for PSP. Spearman's rho}
+% \end{table}
+
+
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat Jun 13 15:27:48 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & Degree & Eigenvector & Closeness & Betweenness & Transitivity & Kcore \\ 
+  \hline
+Degree & 1.00 & 0.88 & 0.85 & 0.90 & 0.38 & 0.99 \\ 
+  Eigenvector & 0.88 & 1.00 & 0.97 & 0.76 & 0.46 & 0.91 \\ 
+  Closeness & 0.85 & 0.97 & 1.00 & 0.78 & 0.43 & 0.87 \\ 
+  Betweenness & 0.90 & 0.76 & 0.78 & 1.00 & 0.21 & 0.85 \\ 
+  Transitivity & 0.38 & 0.46 & 0.43 & 0.21 & 1.00 & 0.43 \\ 
+  Kcore & 0.99 & 0.91 & 0.87 & 0.85 & 0.43 & 1.00 \\ 
+   \hline
+\end{tabular}
+\caption{Correlation matrix method spearman for centrality scoresAll $p < 2.2 x 10^{-16}$. Code at \url{source('~/RProjects/centrality/R/correlation_centrality_measures/correlation_centrality_measures.R')}}
+\label{tab:Correlation between vertex centrality measures for PSP. Spearman's rho}
+\end{table}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{Rplot_corr_spearman_using_package_performance_analytics.png}
+    \caption{Correlation plot of centrality measures using package Performance Analytics. Deg = degree, eig= eigenvector centrality, clo = closeness centrality, bet = betweenness centrality, tra = local transitivity, kcore = kcoreness}
+    \label{fig:Correlation plot centrality performance analytics}
+\end{figure}
+
+
+
+All of the centrality measures are correlated with each other other except transitivity and betweenness centrality  (table~\ref{tab:Correlation between vertex centrality measures for PSP. Spearman's rho}). Transitivity is most weakly correlated with other measures. Code \footnote{\url{source('~/RProjects/paper_xls_output/R/make_df_correlation_between_centrality_measures.R')}}
+\todo{move comparison here}
+
+
+
+See \cite{oldham2019consistency} for correlation across networks. See table~\ref{tab:Correlation of centrality valente et al}
+
+\subsection{Normality of correlation measures}
+% latex table generated in R 3.6.3 by xtable 1.8-4 package
+% Sat Jun 13 15:54:02 2020
+All of the centrality measures appear to vary from a normal distribution using the Shaprio-Wilk test in R and in accordance with their plots. Spearmans test of correlation will therefore be used for correlation with centrality measures (table~\ref{tab:Shapiro-Wilk test for normality of centrality measures}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{lrr}
+  \hline
+Centrality measure & W & p value \\ 
+  \hline
+Degree & 0.425 & $2.517 \times 10^{-74}$ \\ 
+  Eigenvector\_centrality & 0.561 & $6.553 \times 10^{-69}$ \\ 
+  Closeness & 0.995 & $4.686 \times 10^{-9}$ \\ 
+  Betweenness & 0.123 & $2.764 \times 10^{-83}$ \\ 
+  Local transitivity & 0.775 & $2.653 \times 10^{-56}$ \\ 
+  kcore & 0.911 & $4.321 \times 10^{-41}$ \\ 
+   \hline
+\end{tabular}
+\caption{Shapiro-Wilk test for normality of centrality measures. Code at \url{source('~/RProjects/centrality/R/correlation_centrality_measures/shapiro-wilk.R')}} 
+\label{Table:Test for normality (Shapiro-Wilk) for centrality measures of PSP}
+\end{table}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Rplot_histogram_centralities.png}
+    \caption{Multiplot of histogram of centrality measures. Dashed line is median}
+    \label{fig:multiplot centralities}
+\end{figure}
+
+\subsection{RESULTS Degree distribution}
+
+The mean degree is 17.6 and the maximum is 535. Inspecting a log-log graph of Degree and degree frequency (figure~\ref{fig:Degree distribution of post synaptic proteome. Log10 - log10 scale.} the distribution appears to follow a relatively straight line after bending downward after approximately degree 10 and there wide dispersion of nodes where the degree occurs only once.
+
+\begin{figure}
+    \includegraphics[width=12cm]{Rplot_DegreeDistribution}
+    \caption{Degree distribution of post synaptic proteome. Log10 - log10 scale. Code at \url{source('~/RProjects/gridsearch_gamma/R/plot_log_degreedist.R') }}
+    \label{fig:Degree distribution of post synaptic proteome. Log10 - log10 scale.}
+\end{figure}
+By contrast the empirical degree distribution is shown with the probability density plot for a Poisson distribution centred on the mean degree distribution (figure~\ref{fig:PSP degree powerlaw poisson}. This shows that almost no probability mass at degree values where there are several nodes in the PSP.
 % see http://127.0.0.1:21133/library/poweRlaw/doc/a_introduction.pdf
 \footnote{code at \url{/home/grant/RProjects/PhD_graphs/}}
+
+Using the method described by Clauset and Newman \cite{clauset2009power} and calculating the minimum x value we find the min for $x$ to be 24 and the $\gamma$ coefficient to be 2.51 using the poweRlaw R package \cite{gillespie2015fitting}. GOF 0.19. ntail 68 \footnote{\url{source('~/RProjects/group_size_distribution/R/calulate_cdf.R')}} The log of the degree distribution is shown in figure \ref{fig:log_degree_distribution} and the fit in figure~\ref{fig:poweRlaw plot ggplot2} with the fit marked as a red line. 
+
 
 
 The bootstrap p for the power law distribution is 0.583 with goodness of fit 0.19 using the package poweRlaw 0.70.6 using ks distance.\footnote{\url{source('~/RProjects/group_size_distribution/R/calulate_cdf.R')}}
@@ -922,7 +1051,7 @@ R sq 0.65 going from degree 5 so not too much different
     \caption{Plot of degree $k$ log 10 scale with $C(k)$ where $C(k)$ is the mean local undirected transitivity at degree $k$. The point of degree 1 has been removed from the plot and the linear fit as by definition C(k) is 0 as all nodes of degree 1 have local tranisitivity 0 or it is not defined (ie they are isolates)}
     \label{fig:C(k)_remove0}
 \end{figure}
-\section{ Results Average path length}
+\section{ Results Average path length and transitivity}
 \label{sec:Results average path length and transitivity}
 The average path length calculated using the \texttt{mean\_distance} function in igraph is 2.98. Global (not WS) transitivity 0.0697.
 
@@ -1058,11 +1187,6 @@ Entrez & Degree & Symbol & Description \\
 Table \ref{Table:The 20 post synaptic proteome genes with highest degree in their cognate proteins.} shows the 20 post synaptic proteome genes with highest degree and their associated degree. 7 of these genes are part of the ubiquitin protein binding process. \todo{Add class analysis panther}
 
 
-\begin{figure}
-    \includegraphics[width=12cm]{Rplot_DegreeDistribution}
-    \caption{Degree distribution of post synaptic proteome. Log10 - log10 scale. Code at \url{source('~/RProjects/gridsearch_gamma/R/plot_log_degreedist.R') }}
-    \label{fig:Degree distribution of post synaptic proteome. Log10 - log10 scale.}
-\end{figure}
 
 \subsection{Degree and Gene Ontology enrichment}
 
@@ -1961,92 +2085,7 @@ Code for GO and centrality measures \url{source('~/RProjects/group_sizes/R/plott
  
  
 
-\section{Correlation of centrality measures}
 
-For correlation of centrality measures see table~\ref{tab:Correlation between vertex centrality measures for PSP. Spearman's rho}
-
-%%%% REMOVED MISSING EIGENVECTOR CENTRALITY
-
-% % latex table generated in R 3.6.2 by xtable 1.8-4 package
-% % Fri Feb 14 12:11:44 2020
-% \begin{table}[ht]
-% \centering
-% \begin{tabular}{rrrrrr}
-%   \hline
-%  & degree & betweenness & transitivity & closeness & kcoreness \\ 
-%   \hline
-% degree & 1.000 & 0.902 & 0.196 & 0.851 & 0.986 \\ 
-%   betweenness & 0.902 & 1.000 & $-0.002^*$ & 0.782 & 0.854 \\ 
-%   transitivity & 0.196 & $-0.002^*$ & 1.000 & 0.292 & 0.265 \\ 
-%   closeness & 0.851 & 0.782 & 0.292 & 1.000 & 0.872 \\  
- 
-
-%   kcoreness & 0.986 & 0.854 & 0.265 & 0.872 & 1.000 \\ 
-%   \hline
-% \end{tabular}
-% \caption{Correlation between vertex centrality measures for the post synaptic proteome network. Spearman's rho. All $p < 2.2 x 10^{-16}$ other than * $p=0.90$} 
-% \label{tab:Correlation between vertex centrality measures for PSP. Spearman's rho}
-% \end{table}
-
-
-% latex table generated in R 3.6.3 by xtable 1.8-4 package
-% Sat Jun 13 15:27:48 2020
-\begin{table}[ht]
-\centering
-\begin{tabular}{rrrrrrr}
-  \hline
- & Degree & Eigenvector & Closeness & Betweenness & Transitivity & Kcore \\ 
-  \hline
-Degree & 1.00 & 0.88 & 0.85 & 0.90 & 0.38 & 0.99 \\ 
-  Eigenvector & 0.88 & 1.00 & 0.97 & 0.76 & 0.46 & 0.91 \\ 
-  Closeness & 0.85 & 0.97 & 1.00 & 0.78 & 0.43 & 0.87 \\ 
-  Betweenness & 0.90 & 0.76 & 0.78 & 1.00 & 0.21 & 0.85 \\ 
-  Transitivity & 0.38 & 0.46 & 0.43 & 0.21 & 1.00 & 0.43 \\ 
-  Kcore & 0.99 & 0.91 & 0.87 & 0.85 & 0.43 & 1.00 \\ 
-   \hline
-\end{tabular}
-\caption{Correlation matrix method spearman for centrality scoresAll $p < 2.2 x 10^{-16}$. Code at \url{source('~/RProjects/centrality/R/correlation_centrality_measures/correlation_centrality_measures.R')}}
-\label{tab:Correlation between vertex centrality measures for PSP. Spearman's rho}
-\end{table}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{Rplot_corr_spearman_using_package_performance_analytics.png}
-    \caption{Correlation plot of centrality measures using package Performance Analytics. Deg = degree, eig= eigenvector centrality, clo = closeness centrality, bet = betweenness centrality, tra = local transitivity, kcore = kcoreness}
-    \label{fig:Correlation plot centrality performance analytics}
-\end{figure}
-
-
-
-All of the centrality measures are correlated with each other other except transitivity and betweenness centrality  (table~\ref{tab:Correlation between vertex centrality measures for PSP. Spearman's rho}). Transitivity is most weakly correlated with other measures. Code \footnote{\url{source('~/RProjects/paper_xls_output/R/make_df_correlation_between_centrality_measures.R')}}
-\todo{move comparison here}
-
-
-
-See \cite{oldham2019consistency} for correlation across networks. See table~\ref{tab:Correlation of centrality valente et al}
-
-\subsection{Normality of correlation measures}
-% latex table generated in R 3.6.3 by xtable 1.8-4 package
-% Sat Jun 13 15:54:02 2020
-All of the centrality measures appear to vary from a normal distribution using the Shaprio-Wilk test in R and in accordance with their plots. Spearmans test of correlation will therefore be used for correlation with centrality measures (table~\ref{tab:Shapiro-Wilk test for normality of centrality measures}
-
-\begin{table}[ht]
-\centering
-\begin{tabular}{lrr}
-  \hline
-Centrality measure & W & p value \\ 
-  \hline
-Degree & 0.425 & $2.517 \times 10^{-74}$ \\ 
-  Eigenvector\_centrality & 0.561 & $6.553 \times 10^{-69}$ \\ 
-  Closeness & 0.995 & $4.686 \times 10^{-9}$ \\ 
-  Betweenness & 0.123 & $2.764 \times 10^{-83}$ \\ 
-  Local transitivity & 0.775 & $2.653 \times 10^{-56}$ \\ 
-  kcore & 0.911 & $4.321 \times 10^{-41}$ \\ 
-   \hline
-\end{tabular}
-\caption{Shapiro-Wilk test for normality of centrality measures. Code at \url{source('~/RProjects/centrality/R/correlation_centrality_measures/shapiro-wilk.R')}} 
-\label{Table:Test for normality (Shapiro-Wilk) for centrality measures of PSP}
-\end{table}
 
 \subsection{Results of correlation analysis FROM PAPER}
 \textcolor{red}{Moved from earlier}
