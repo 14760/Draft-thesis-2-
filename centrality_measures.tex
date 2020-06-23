@@ -388,9 +388,13 @@ The local clustering coefficient can be regarded as a local inverse of the betwe
 
 \subsection{kcoreness}
 
-A kcore of a graph is an induced subgraph of the main graph such that each vertex has degree of at least $k$. For a vertex its kcoreness is the maximal k core subgraph it is a member of (alternatively its shell index is $c$ if it belongs to the $c$ core but not the $c+1$ core. \cite{seidman1983network} (original description), \cite{alvarez2006large}. The kcore algorithm is useful in graph analysis as it runs in linear time. 
+A kcore of a graph is an induced subgraph of the main graph such that each vertex has degree of at least $k$. For a vertex its kcoreness is the maximal k core subgraph it is a member of (alternatively its shell index is $c$ if it belongs to the $c$ core but not the $c+1$ core. \cite{seidman1983network} (original description), \cite{alvarez2006large}. The kcore algorithm is useful in graph analysis as it runs in linear time. It has been used as a measure of core periphery structure in graphs \cite{newman2018networks}\footnote{remove: note to self/JDA its probably one of the easiest one the whole topic of core-periphery is quite complicated and there are several different definitions. The advantage of k-core compared to say the message passing algorithm described by Newman recently for probabilistic core is that it runs in linear time and I could not get the code for Newman to run on anything over 100 nodes}
 
 Humberto used K coreness was used to study the heirarchy of biological networks in plants \cite{humberto2018hierarchical} finding high core metabolic nodes represented core pathways. 
+
+Wuchty examined k core dissection of the protein interactome of Saccharomyces cerevisiae to address the inconsistancies found in the association between lethality and degree . They found a kcore of 9 and that kcore was higher for essential proteins and in those with a eukaryote ortholog \cite{wuchty2005peeling}.
+
+Newman reports that the sociological literature find high k core actors to be important but that the evidence for this is limited.\cite{newman2018networks}
 
 \subsection{Average path length}
 \label{sec:Centrality intro average path length}
